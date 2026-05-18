@@ -329,14 +329,24 @@ macro(setup_target target)
       MACOSX_BUNDLE_INFO_PLIST ${SELF_BUILD_SUPPORT_DIR}/${platform}/${SELF_OSX_INFO_PLIST}.plist)
   endif()
 
-  # visionOS/iOS/tvOS require a bundle identifier on every executable target,
-  # even plain (non-bundle) tools. Code signing is also mandatory at install
-  # time but we disable it for plain-build testing. -- claude & dmu May 2026
+  # visionOS/iOS/tvOS require a bundle identifier on every executable target.
+  # Code signing depends on target:
+  #   - Simulator: unsigned is fine. Configure with -DSELF_CODE_SIGN=OFF (default).
+  #   - Device:    must be signed. Pass -DSELF_CODE_SIGN=AUTO -DSELF_DEVELOPMENT_TEAM=XXXXXXXXXX
+  #                (your 10-char Team ID from developer.apple.com).
+  # -- claude & dmu May 2026
   if(IS_APPLE_EMBEDDED)
     set_target_properties(${target} PROPERTIES
-      XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "org.selflanguage.${target}"
-      XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED "NO"
-      XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "")
+      XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "org.selflanguage.${target}")
+    if(SELF_CODE_SIGN STREQUAL "AUTO")
+      set_target_properties(${target} PROPERTIES
+        XCODE_ATTRIBUTE_CODE_SIGN_STYLE "Automatic"
+        XCODE_ATTRIBUTE_DEVELOPMENT_TEAM "${SELF_DEVELOPMENT_TEAM}")
+    else()
+      set_target_properties(${target} PROPERTIES
+        XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED "NO"
+        XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "")
+    endif()
   endif()
 endmacro()
 
