@@ -11,7 +11,19 @@
 // The .mm file does not get the precompiled header (it's C++ only, not ObjC++).
 // Include AppKit FIRST so system types are defined, then include Self headers.
 // quartzWindow.hh will detect already-defined system types and skip its versions.
+//
+// Workaround: Xcode does inject the PCH for .mm files via -include, so util.hh's
+// `const int32 K = 1024;` is already in scope. macOS SDK 26.5's NSDictionary.h
+// declares a generic `<K, V>` whose unqualified `K` then becomes ambiguous with
+// the global. Rename the SDK's `K` lexically via a macro just for these imports.
+//
+// This did not arise before the AVP port because the macOS build used
+// quartzWindow.cpp (Carbon, pure C++); no translation unit pulled both util.hh
+// and Foundation. The port introduced this .mm (Cocoa, ObjC++) for ARM64, and
+// SDK 26.5 added the `<K, V>` generic that triggers the ambiguity.
+#define K _Self_NSDict_K
 #import <AppKit/AppKit.h>
+#undef K
 #import <CoreText/CoreText.h>
 #import <QuartzCore/QuartzCore.h>
 #import <IOSurface/IOSurface.h>
