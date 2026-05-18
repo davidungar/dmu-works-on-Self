@@ -18,7 +18,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 
-# if TARGET_OS_VERSION == MACOSX_VERSION
+# if TARGET_OS_VERSION == MACOSX_VERSION && !defined(TARGET_IS_EMBEDDED)
 #   include <mach/mach.h>
 #   include <mach/mach_vm.h>
 #   include <sys/sysctl.h>
@@ -66,7 +66,15 @@ static const char* ill_code_name(int code) {
 
 
 static void print_platform_info() {
-# if TARGET_OS_VERSION == MACOSX_VERSION
+# if TARGET_OS_VERSION != MACOSX_VERSION || defined(TARGET_IS_EMBEDDED)
+  struct utsname uts;
+  if (uname(&uts) == 0) {
+    lprintf("Platform: %s %s, %s, page size %d\n",
+            uts.sysname, uts.release, uts.machine,
+            OS::get_page_size());
+  }
+  
+# else
   char version[64] = "unknown";
   size_t len = sizeof(version);
   sysctlbyname("kern.osproductversion", version, &len, NULL, 0);
@@ -91,14 +99,6 @@ static void print_platform_info() {
           version, model,
           (unsigned long long)(memsize / (1024 * 1024)),
           OS::get_page_size());
-
-# else  // Linux, Solaris, etc.
-  struct utsname uts;
-  if (uname(&uts) == 0) {
-    lprintf("Platform: %s %s, %s, page size %d\n",
-            uts.sysname, uts.release, uts.machine,
-            OS::get_page_size());
-  }
 # endif
 }
 
@@ -127,7 +127,11 @@ static void print_signal_info(int sig, int32 code) {
   else if (sig == SIGTRAP) code_desc = trap_code_name(code);
   else if (sig == SIGILL)  code_desc = ill_code_name(code);
 
-# if TARGET_OS_VERSION == MACOSX_VERSION
+# if TARGET_OS_VERSION != MACOSX_VERSION || defined(TARGET_IS_EMBEDDED)
+  const char* sig_desc = strsignal(sig);
+  if (!sig_desc) sig_desc = "unknown";
+  lprintf("Signal: %s (signal %d, code %d = %s)\n", sig_desc, sig, (int)code, code_desc);
+# else
   char sig_name[16] = "unknown";
   if (sig >= 0 && sig < NSIG) {
     const char* s = sys_signame[sig];
@@ -137,10 +141,6 @@ static void print_signal_info(int sig, int32 code) {
     sig_name[i] = '\0';
   }
   lprintf("Signal: SIG%s (code %d = %s)\n", sig_name, (int)code, code_desc);
-# else
-  const char* sig_desc = strsignal(sig);
-  if (!sig_desc) sig_desc = "unknown";
-  lprintf("Signal: %s (signal %d, code %d = %s)\n", sig_desc, sig, (int)code, code_desc);
 # endif
 }
 
@@ -170,7 +170,7 @@ static void print_address_info(char* addr) {
     lprintf("not in VM heap (external)\n");
   }
 
-# if TARGET_OS_VERSION == MACOSX_VERSION
+# if TARGET_OS_VERSION == MACOSX_VERSION && !defined(TARGET_IS_EMBEDDED)
   mach_vm_address_t region_addr = (mach_vm_address_t)addr;
   mach_vm_size_t region_size;
   vm_region_basic_info_data_64_t info;
