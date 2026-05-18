@@ -21,6 +21,11 @@ cmake --build build -j$(nproc)
 
 It should build on MacOS (arm64) and Linux (amd64 and arm64).
 
+To generate an Xcode project, use `vm64/cmake-xcode.sh` (or
+`vm64/cmake-xcode-visionos.sh` for visionOS) rather than `cmake -G Xcode`
+directly: the wrappers run `fix-xcode-paths.py` afterwards so Xcode's atomic
+saves don't clobber the `vm64/src` → `vm/src` symlink mirror.
+
 
 AI Disclosure Statement
 =======================
