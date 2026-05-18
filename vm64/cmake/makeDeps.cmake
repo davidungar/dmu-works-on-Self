@@ -11,9 +11,37 @@ set(_incldb ${CMAKE_CURRENT_BINARY_DIR}/includeDB)
 
 set(SRC_makeDeps ${SELF_BUILD_SUPPORT_DIR}/makeDeps.cpp)
 
-add_executable(${makeDeps} ${SRC_makeDeps})
-setup_target(${makeDeps})
-set_target_properties(${makeDeps} PROPERTIES FOLDER "${SELF_HELPER_FOLDER}")
+if(CMAKE_CROSSCOMPILING)
+  # visionOS/iOS/tvOS: makeDeps must run on the build host, not the target.
+  # Build it via a separate ExternalProject configured for the host toolchain.
+  # -- claude & dmu May 2026
+  include(ExternalProject)
+  # Force the macOS SDK explicitly: when xcodebuild drives a cross-compile it
+  # leaks SDKROOT=<xrOS> into sub-process env vars, which would otherwise make
+  # the host tool link against the wrong libc++.  -- claude & dmu May 2026
+  execute_process(COMMAND xcrun --sdk macosx --show-sdk-path
+    OUTPUT_VARIABLE _host_macos_sdk OUTPUT_STRIP_TRAILING_WHITESPACE)
+  ExternalProject_Add(makeDeps_host
+    SOURCE_DIR  ${SELF_BUILD_SUPPORT_DIR}/host_tools
+    CMAKE_ARGS  -DCMAKE_BUILD_TYPE=Release
+                -DCMAKE_OSX_SYSROOT=${_host_macos_sdk}
+                -DCMAKE_OSX_ARCHITECTURES=${CMAKE_HOST_SYSTEM_PROCESSOR}
+                -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
+                -UCMAKE_SYSTEM_NAME
+                -UCMAKE_TOOLCHAIN_FILE
+    CMAKE_GENERATOR "Unix Makefiles"
+    INSTALL_COMMAND ""
+    BUILD_BYPRODUCTS <BINARY_DIR>/makeDeps
+  )
+  ExternalProject_Get_Property(makeDeps_host BINARY_DIR)
+  set(makeDeps ${BINARY_DIR}/makeDeps)
+  set(_makeDeps_dep makeDeps_host)
+else()
+  add_executable(${makeDeps} ${SRC_makeDeps})
+  setup_target(${makeDeps})
+  set_target_properties(${makeDeps} PROPERTIES FOLDER "${SELF_HELPER_FOLDER}")
+  set(_makeDeps_dep ${makeDeps})
+endif()
 
 
 
@@ -56,7 +84,7 @@ add_custom_command(
   OUTPUT ${SELF_PREFIX_HEADER}
   COMMAND mkdir -p ${_incl_dest_dir}
   COMMAND ${makeDeps} ${_incl_threshold} ${_incldb}
-  DEPENDS ${_incldb}
+  DEPENDS ${_incldb} ${_makeDeps_dep}
   WORKING_DIRECTORY ${_incl_parent_dir}
 )
 
