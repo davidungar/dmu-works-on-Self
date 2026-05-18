@@ -38,7 +38,25 @@ oop get_default_space_sizes_prim(oop);
 #if TARGET_IS_64BIT
 // On 64-bit, use a much larger heap address space.
 // The 512MB boundary was a SPARCstation constraint that doesn't apply here.
-#if defined(__APPLE__) && defined(__aarch64__)
+#if defined(__APPLE__) && defined(__aarch64__) && defined(TARGET_IS_EMBEDDED)
+// visionOS/iOS ARM64: app processes get a much smaller usable virtual address
+// space than macOS (no entitlement for high-address allocations), so the 32GB
+// heap / 64GB code-zone layout used on macOS fails MAP_FIXED. We place heap
+// at 8GB (above the dyld shared cache which extends to ~6GB on visionOS) and
+// code zones at 10GB, giving 2GB MaxHeapSize — ample for embedded use.
+// These numbers may need tuning per-OS-version; if MAP_FIXED still fails,
+// inspect /proc/self/maps equivalent (vmmap) on the device and raise/lower.
+// -- claude & dmu May 2026
+const caddr_t HeapStart=        (caddr_t)( 8LL * 1024 * 1024 * 1024);              //    8 GB
+const caddr_t NMethodStart=     (caddr_t)(10LL * 1024 * 1024 * 1024);              //   10 GB
+const caddr_t StubsStart=       (caddr_t)(10LL * 1024 * 1024 * 1024 +  58 * 1024 * 1024LL);
+const caddr_t DepsStart=        (caddr_t)(10LL * 1024 * 1024 * 1024 +  74 * 1024 * 1024LL);
+const caddr_t ScopesStart=      (caddr_t)(10LL * 1024 * 1024 * 1024 +  90 * 1024 * 1024LL);
+const caddr_t ZoneIDStart=      (caddr_t)(10LL * 1024 * 1024 * 1024 + 106 * 1024 * 1024LL);
+const caddr_t CountStubIDStart= (caddr_t)(10LL * 1024 * 1024 * 1024 + 108 * 1024 * 1024LL);
+const caddr_t UseCountStart=    (caddr_t)(10LL * 1024 * 1024 * 1024 + 110 * 1024 * 1024LL);
+const caddr_t AddrSpaceEnd=     (caddr_t)(10LL * 1024 * 1024 * 1024 + 112 * 1024 * 1024LL);
+#elif defined(__APPLE__) && defined(__aarch64__)
 // ARM64 macOS: heap at 32GB (above system libraries at ~8GB),
 // code zones at 64GB (above heap, giving 32GB MaxHeapSize).
 // No JIT on ARM64 so code zones are minimal, but addresses must be valid.
