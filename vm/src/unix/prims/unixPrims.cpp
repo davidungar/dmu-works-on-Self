@@ -476,12 +476,21 @@ int select_read_wrap(objVectorOop vec, int howMany, void *FH) {
 
 
 int system_wrap(char *cmd) {
+# ifdef TARGET_IS_EMBEDDED
+  // system(3) is unavailable in Apple-embedded sandboxes (visionOS/iOS/tvOS:
+  // no shell).  Keep the primitive linkable but report failure to Self-side
+  // callers.  -- claude & dmu May 2026
+  (void)cmd;
+  errno = ENOSYS;
+  return -1;
+# else
   if (!IntervalTimer::use_real_instead_of_cpu_timer)  IntervalTimer::CPU_timer()->disable(false);
   IntervalTimer::Real_timer()->disable(false);
   int result = system(cmd);
   if (!IntervalTimer::use_real_instead_of_cpu_timer)  IntervalTimer::CPU_timer()->enable();
   IntervalTimer::Real_timer()->enable();
   return result;
+# endif
 }
 
 

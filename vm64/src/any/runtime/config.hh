@@ -55,7 +55,15 @@
 # define        SOLARIS_VERSION 2
 # define MACOS_SYSTEM_7_VERSION 3 // No longer supported
 # define   MACOS_CARBON_VERSION 4 // Carbon 9/10 version
-# define         MACOSX_VERSION 5 // MacOSX native version
+// Darwin is the shared kernel name for all Apple OSes (macOS, visionOS,
+// iOS, tvOS).  Self originally called this MACOSX_VERSION when macOS was
+// the only Apple target; that name is now a misnomer but kept as an alias
+// so the existing `TARGET_OS_VERSION == MACOSX_VERSION` checks across the
+// tree continue to compile unchanged.  New code should prefer
+// DARWIN_VERSION; embedded-only behavior (visionOS/iOS/tvOS) is gated on
+// TARGET_IS_EMBEDDED.  -- claude & dmu May 2026
+# define         DARWIN_VERSION 5
+# define         MACOSX_VERSION DARWIN_VERSION
 # define          LINUX_VERSION 6 // Ubuntu
 # define         NETBSD_VERSION 7
 # define        FREEBSD_VERSION 8
@@ -74,8 +82,14 @@
 
 
 # ifdef __APPLE__
+# ifndef TARGET_OS_FAMILY
 # define TARGET_OS_FAMILY UNIX_FAMILY
+# endif
+# ifndef TARGET_OS_VERSION
+// Default to macOS when cmake hasn't passed -DTARGET_OS_VERSION (visionOS/
+// iOS/tvOS builds override this from platform.cmake). -- claude & dmu May 2026
 # define TARGET_OS_VERSION MACOSX_VERSION
+# endif
 # endif
 
 # if TARGET_OS_VERSION == MACOSX_VERSION

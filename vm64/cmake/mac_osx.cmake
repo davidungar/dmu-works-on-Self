@@ -196,6 +196,13 @@ list(APPEND _defines
   GLUE_CHECKSUM=0
 )
 
+# Embedded Apple platforms (visionOS/iOS/tvOS) share DARWIN_VERSION with
+# macOS but lack a shell, fork/exec, AppKit windowing, etc.  Source-level
+# guards for those gaps use TARGET_IS_EMBEDDED.  -- claude & dmu May 2026
+if(IS_APPLE_EMBEDDED)
+  list(APPEND _defines TARGET_IS_EMBEDDED=1)
+endif()
+
 set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -arch ${_osx_arch}")
 
 

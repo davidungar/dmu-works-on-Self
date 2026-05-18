@@ -89,6 +89,8 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "visionOS|xrOS|iOS|tvOS")
   set(platform_name "${CMAKE_SYSTEM_NAME}")
   set(platform "mac_osx")
   set(IS_APPLE_EMBEDDED TRUE)
+  set(TARGET_OS_FAMILY  "UNIX_FAMILY")
+  set(TARGET_OS_VERSION "DARWIN_VERSION")
 
 elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
   
