@@ -27,12 +27,35 @@ set(SELF_PREFIX_PREFIX_THRESHOLD_INIT
 )
 
 
-set(GUI_TYPE MACOSX_BUNDLE)
+if(IS_APPLE_EMBEDDED)
+  # visionOS/iOS/tvOS: don't build a Mac app bundle; produce a plain executable.
+  # -- claude & dmu May 2026
+  set(GUI_TYPE "")
+elseif(IS_MACOS)
+  set(GUI_TYPE MACOSX_BUNDLE)
+else()
+  message(FATAL_ERROR
+    "mac_osx.cmake reached with unexpected CMAKE_SYSTEM_NAME='${CMAKE_SYSTEM_NAME}': "
+    "expected Darwin (macOS) or one of visionOS/xrOS/iOS/tvOS (embedded).")
+endif()
 
 #
 # Things we only check once.
 #
+# Local readable alias for the project-wide first-configure sentinel set in
+# vm/cmake/common.cmake and tools/CMakeLists.txt — the macOS branch below
+# initializes CMAKE_OSX_SYSROOT / _ARCHITECTURES / _DEPLOYMENT_TARGET exactly
+# once (FORCE-written into the cache). -- claude & dmu May 2026
 if(NOT CONFIG_HAS_BEEN_RUN_BEFORE)
+  set(CMAKE_OSX_VARS_NEED_INITIALIZATION TRUE)
+endif()
+
+if(IS_APPLE_EMBEDDED)
+  # visionOS/iOS/tvOS: trust the SDK / arch / deployment target the caller
+  # already passed on the cmake command line; don't run the macOS xcrun probe.
+  # -- claude & dmu May 2026
+  set(_osx_arch "${CMAKE_OSX_ARCHITECTURES}")
+elseif(CMAKE_OSX_VARS_NEED_INITIALIZATION)
   # Map platform_processor to Apple architecture name
   if(${platform_processor} STREQUAL "aarch64")
     set(_osx_arch "arm64")
@@ -103,6 +126,7 @@ endif()
 
 year(YEAR)
 
+if(IS_MACOS)
 set(MACOSX_BUNDLE_GUI_IDENTIFIER
   "org.selflanguage.${PROJECT_NAME}")
 set(MACOSX_BUNDLE_BUNDLE_NAME
@@ -127,6 +151,7 @@ set(OSX_ICON_FILES ${SELF_BUILD_SUPPORT_DIR}/${platform}/${MACOSX_BUNDLE_ICON_FI
 set_source_files_properties(${OSX_ICON_FILES} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
 # include the icns files in the target
 list(APPEND SRC ${OSX_ICON_FILES})
+endif() # IS_MACOS — bundle/Info.plist setup is macOS-only -- claude & dmu May 2026
 
 
 
@@ -136,10 +161,13 @@ macro(add_framework_to_list listVar framework)
   mark_as_advanced(${framework}_LIBRARY)
 endmacro()
 
-# the frameworks we need
+# the frameworks we need (ApplicationServices / CoreServices are macOS-only;
+# skip on visionOS/iOS/tvOS). -- claude & dmu May 2026
 set(frameworks)
-add_framework_to_list(frameworks ApplicationServices)
-add_framework_to_list(frameworks CoreServices)
+if(IS_MACOS)
+  add_framework_to_list(frameworks ApplicationServices)
+  add_framework_to_list(frameworks CoreServices)
+endif()
 
 if(SELF_OSX_COCOA)
   add_framework_to_list(frameworks Cocoa)
@@ -285,9 +313,12 @@ macro(setup_target target)
     set_target_properties(${target} PROPERTIES XCODE_ATTRIBUTE_WARNING_CFLAGS "")
   endif()
 
-  # configure CMake to use a custom Info.plist
-  set_target_properties(${target} PROPERTIES
-    MACOSX_BUNDLE_INFO_PLIST ${SELF_BUILD_SUPPORT_DIR}/${platform}/${SELF_OSX_INFO_PLIST}.plist)
+  # configure CMake to use a custom Info.plist (macOS-only)
+  # -- claude & dmu May 2026
+  if(IS_MACOS)
+    set_target_properties(${target} PROPERTIES
+      MACOSX_BUNDLE_INFO_PLIST ${SELF_BUILD_SUPPORT_DIR}/${platform}/${SELF_OSX_INFO_PLIST}.plist)
+  endif()
 endmacro()
 
 # API

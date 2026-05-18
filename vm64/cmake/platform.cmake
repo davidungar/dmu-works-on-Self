@@ -4,6 +4,14 @@
 
 option(SELF_FORCE_I386 "Force 32-bit i386 build on an x86_64 host" OFF)
 
+# Apple cross-compile (visionOS/iOS/tvOS) leaves CMAKE_SYSTEM_PROCESSOR empty;
+# fall back to the first entry of CMAKE_OSX_ARCHITECTURES (which is a list —
+# may contain multiple archs for a fat binary) so the CPU branches below match.
+# -- claude & dmu May 2026
+if(NOT CMAKE_SYSTEM_PROCESSOR AND CMAKE_OSX_ARCHITECTURES)
+  list(GET CMAKE_OSX_ARCHITECTURES 0 CMAKE_SYSTEM_PROCESSOR)
+endif()
+
 if(SELF_FORCE_I386)
 
   set(platform_processor "i386")
@@ -54,6 +62,12 @@ endif()
 
 
 # OS detection
+#
+# Apple OS naming in CMAKE_SYSTEM_NAME is asymmetric: macOS is reported as
+# the kernel name "Darwin" (what `uname -s` returns), while the embedded
+# Apple platforms use product names (visionOS/xrOS, iOS, tvOS) supplied via
+# -DCMAKE_SYSTEM_NAME=… on the cmake command line.  All four are Darwin
+# under the hood.
 
 if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
   
@@ -63,9 +77,19 @@ if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
   
   set(platform_name "Mac OS X")
   set(platform "mac_osx")
+  set(IS_MACOS TRUE)
 # implicit
 # set(TARGET_OS_VERSION "MACOSX_VERSION")
-  
+
+elseif(CMAKE_SYSTEM_NAME MATCHES "visionOS|xrOS|iOS|tvOS")
+  # Apple non-macOS platforms (visionOS/xrOS/iOS/tvOS): route through
+  # mac_osx.cmake but flag the bundle/AppKit bits off via IS_APPLE_EMBEDDED.
+  # -- claude & dmu May 2026
+  set(platform_kind "unix")
+  set(platform_name "${CMAKE_SYSTEM_NAME}")
+  set(platform "mac_osx")
+  set(IS_APPLE_EMBEDDED TRUE)
+
 elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
   
   set(platform_kind "unix")
