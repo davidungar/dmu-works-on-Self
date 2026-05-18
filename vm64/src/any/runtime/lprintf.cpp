@@ -39,7 +39,7 @@ void vlprintf(const char* msg, va_list ap) {
   if (LogVMMessages && !logFile) {
     logFile = fopen(OS::log_file_name(), "w");
   }
-  if (LogVMMessages) {
+  if (LogVMMessages && logFile) {
     fputs(buf, logFile);
     fflush(logFile);
   }

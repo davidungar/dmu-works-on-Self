@@ -402,8 +402,17 @@ void OS::set_log_buf(FILE* f, char* buf, int bs) {
 
 
 const char* OS::log_file_name() {
-  static char fname[100];
-  sprintf(fname, "/tmp/Self.vmlog.%ld", long(getpid()));
+  static char fname[256];
+# if defined(TARGET_IS_EMBEDDED)
+  // visionOS/iOS sandbox: /tmp is not writable. $HOME points to the app
+  // container (e.g. .../Application/<UUID>/), which has a writable tmp/.
+  // -- claude & dmu May 2026
+  const char* home = getenv("HOME");
+  snprintf(fname, sizeof(fname), "%s/tmp/Self.vmlog.%ld",
+           home ? home : ".", long(getpid()));
+# else
+  snprintf(fname, sizeof(fname), "/tmp/Self.vmlog.%ld", long(getpid()));
+# endif
   assert(strlen(fname) < sizeof(fname), "");
   return fname;
 }
