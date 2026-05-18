@@ -27,11 +27,10 @@ set(SELF_PREFIX_PREFIX_THRESHOLD_INIT
 )
 
 
-if(IS_APPLE_EMBEDDED)
-  # visionOS/iOS/tvOS: don't build a Mac app bundle; produce a plain executable.
-  # -- claude & dmu May 2026
-  set(GUI_TYPE "")
-elseif(IS_MACOS)
+if(IS_MACOS OR IS_APPLE_EMBEDDED)
+  # Both macOS and visionOS/iOS/tvOS need a .app bundle: simulators refuse to
+  # install a plain executable (no CFBundleIdentifier). CMake's MACOSX_BUNDLE
+  # keyword works on all Apple platforms.  -- claude & dmu May 2026
   set(GUI_TYPE MACOSX_BUNDLE)
 else()
   message(FATAL_ERROR
@@ -126,7 +125,9 @@ endif()
 
 year(YEAR)
 
-if(IS_MACOS)
+# Bundle metadata: shared between macOS and embedded so CMake's auto-generated
+# Info.plist contains CFBundleIdentifier (required by simulators to install).
+# -- claude & dmu May 2026
 set(MACOSX_BUNDLE_GUI_IDENTIFIER
   "org.selflanguage.${PROJECT_NAME}")
 set(MACOSX_BUNDLE_BUNDLE_NAME
@@ -141,17 +142,18 @@ set(MACOSX_BUNDLE_COPYRIGHT
   "© ${YEAR} Self Authors.")
 set(MACOSX_BUNDLE_INFO_STRING
   "${PROJECT_NAME} ${SELF_VERSION_MAJOR}.${SELF_VERSION_MINOR}.${SELF_VERSION_SNAPSHOT}, ${MACOSX_BUNDLE_COPYRIGHT}")
-set(MACOSX_BUNDLE_ICON_FILE
-  SelfIcon.icns)
 set(MACOSX_DEPLOYMENT_TARGET # to be configured by Xcode
   "\${MACOSX_DEPLOYMENT_TARGET}")
 
-set(OSX_ICON_FILES ${SELF_BUILD_SUPPORT_DIR}/${platform}/${MACOSX_BUNDLE_ICON_FILE})
-# set where in the bundle to put the icns files
-set_source_files_properties(${OSX_ICON_FILES} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-# include the icns files in the target
-list(APPEND SRC ${OSX_ICON_FILES})
-endif() # IS_MACOS — bundle/Info.plist setup is macOS-only -- claude & dmu May 2026
+# Icon resource is macOS-only (.icns is not a visionOS/iOS asset format).
+# -- claude & dmu May 2026
+if(IS_MACOS)
+  set(MACOSX_BUNDLE_ICON_FILE
+    SelfIcon.icns)
+  set(OSX_ICON_FILES ${SELF_BUILD_SUPPORT_DIR}/${platform}/${MACOSX_BUNDLE_ICON_FILE})
+  set_source_files_properties(${OSX_ICON_FILES} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+  list(APPEND SRC ${OSX_ICON_FILES})
+endif()
 
 
 
