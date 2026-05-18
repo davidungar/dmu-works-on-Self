@@ -26,6 +26,24 @@ To generate an Xcode project, use `vm64/cmake-xcode.sh` (or
 directly: the wrappers run `fix-xcode-paths.py` afterwards so Xcode's atomic
 saves don't clobber the `vm64/src` → `vm/src` symlink mirror.
 
+Building for Apple Vision Pro (visionOS)
+----------------------------------------
+
+The visionOS build is a headless VM (no Quartz/AppKit, no X11). Generate its
+Xcode project with `vm64/cmake-xcode-visionos.sh`, which lands in
+`cmake-build-visionos-xcode/` — deliberately separate from the macOS Xcode
+project in `cmake-build-xcode/`.
+
+Use a separate build directory for each target (macOS, visionOS, command-line
+Release, etc.). CMake caches the toolchain, sysroot, and architecture from the
+first configure, so re-targeting a single build directory between macOS and
+visionOS produces stale headers, mismatched SDK paths, or link failures. Always
+configure each platform/generator pair into its own directory.
+
+Cross-compiling for visionOS uses a host-tool sub-project to build the
+code-generation tools that run on the Mac during the build; this is handled
+automatically by the wrapper.
+
 
 AI Disclosure Statement
 =======================
