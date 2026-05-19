@@ -286,6 +286,19 @@ void run_the_VM() {
 extern "C" void __main() {}     // so we can link with the standard linker
 # endif
 
+#ifdef SELF_AS_LIBRARY
+// Public C entry point for hosting the VM inside a Swift/Cocoa app.
+// SpatialSelf (Apple Vision Pro host) calls this to dup2 its terminal-window
+// pipes onto STDIN/STDOUT/STDERR before invoking self_vm_main().
+// Pass -1 for any fd you don't want to redirect.
+#include <unistd.h>
+extern "C" void self_vm_set_io_fds(int in_fd, int out_fd, int err_fd) {
+  if (in_fd  >= 0) (void)dup2(in_fd,  0);
+  if (out_fd >= 0) (void)dup2(out_fd, 1);
+  if (err_fd >= 0) (void)dup2(err_fd, 2);
+}
+#endif
+
 
 # if COCOA_EXP
 #   define main old_main  // the "real" main is in main.m
@@ -296,7 +309,11 @@ extern "C" void __main() {}     // so we can link with the standard linker
 	|| TARGET_OS_VERSION == FREEBSD_VERSION)
 __attribute__((force_align_arg_pointer))
 #endif
+#ifdef SELF_AS_LIBRARY
+extern "C" int self_vm_main(int argc, char *argv[]) {
+#else
 int main(int argc, char *argv[]) {
+#endif
   // On Mac, the first printf does an InstallConsole which sets AE handlers
   // so init os first to clear SIOUXSettings.standalone to fix this
   OS::init();

@@ -74,7 +74,7 @@ void SignalInterface::initialize_platform(bool ctrlC) {
   }
   install_signal(SIGSEGV,        signal_handler);
   install_signal(SIGNonLifo,     signal_handler);
-    
+
   // catch all fatal errors
   install_signal(SIGILL,         signal_handler);
   install_signal(SIGABRT,        signal_handler);
@@ -87,7 +87,7 @@ void SignalInterface::initialize_platform(bool ctrlC) {
   // ^Z handling
   install_signal(SIGTSTP,        Signal_Handler_t(ctrl_z_handler));
   install_signal(SIGCONT,        Signal_Handler_t(ctrl_z_handler));
-  
+
   // Self-level signals
   if (ctrlC) {
     install_signal(SIGQUIT,      signal_handler);

@@ -95,9 +95,25 @@ if(NOT CMAKE_GENERATOR MATCHES Xcode)
   add_pch_rule(${SELF_PREFIX_HEADER} SRC)
 endif()
 
-## setup the acutal executable.
+# SELF_AS_LIBRARY: build the VM as a static library (libSelfVM.a) with
+# `self_vm_main` as the entry point, rather than as a standalone executable.
+# Defaults ON for embedded Apple platforms (visionOS/iOS/tvOS), where the
+# binary is hosted by a SwiftUI app (see SpatialSelf in
+# ~/code/separatingForInlining), and OFF elsewhere.
+if(CMAKE_SYSTEM_NAME MATCHES "visionOS|xrOS|iOS|tvOS")
+  option(SELF_AS_LIBRARY "Build Self VM as a static library, not an executable" ON)
+else()
+  option(SELF_AS_LIBRARY "Build Self VM as a static library, not an executable" OFF)
+endif()
+
+## setup the acutal executable (or library).
 #
-add_executable(${PROJECT_NAME} ${GUI_TYPE} ${SRC})
+if(SELF_AS_LIBRARY)
+  add_library(${PROJECT_NAME} STATIC ${SRC})
+  target_compile_definitions(${PROJECT_NAME} PRIVATE SELF_AS_LIBRARY=1)
+else()
+  add_executable(${PROJECT_NAME} ${GUI_TYPE} ${SRC})
+endif()
 add_dependencies(${PROJECT_NAME} create_vmDate_${PROJECT_NAME})
 
 

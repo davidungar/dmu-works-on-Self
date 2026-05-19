@@ -17,11 +17,21 @@ class InterruptedContext AbortContext;
 
 void InterruptedContext::fatal_menu() {
   // this really belongs in lprint_fatal but the declarations are a mess
-  lprintf("\nVM Version: %d.%d.%d, %s\n", 
-          Memory ? (void*)Memory->major_version     : 0, 
+  lprintf("\nVM Version: %d.%d.%d, %s\n",
+          Memory ? (void*)Memory->major_version     : 0,
           Memory ? (void*)Memory->minor_version     : 0,
           Memory ? (void*)Memory->snapshot_version  : 0,
           vmDate);
+#ifdef SELF_AS_LIBRARY
+  // Embedded (SpatialSelf): no terminal, so the interactive menu would
+  // fgets() on a pipe and hang forever — and worse, the signal often
+  // arrived on a non-Self thread (UIKit/Metal), wedging the host app.
+  // Print a stack and abort so failures are visible instead of silent.
+  lprintf("\nSelf VM fatal (embedded, no interactive menu) — aborting.\n");
+  print_stack();
+  OS::core_dump();
+  OS::terminate(1);
+#endif
   // block all interrupts (e.g. timers)
   continuePC = NULL;
   SignalBlocker* sb = new SignalBlocker(SignalBlocker::block_signals_self_uses);

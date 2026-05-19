@@ -29,10 +29,24 @@ saves don't clobber the `vm64/src` → `vm/src` symlink mirror.
 Building for Apple Vision Pro (visionOS)
 ----------------------------------------
 
-The visionOS build is a headless VM (no Quartz/AppKit, no X11). Generate its
-Xcode project with `vm64/cmake-xcode-visionos.sh`, which lands in
-`cmake-build-visionos-xcode/` — deliberately separate from the macOS Xcode
-project in `cmake-build-xcode/`.
+The visionOS build is a headless VM (no Quartz/AppKit, no X11) that produces
+a static library `libSelf.a` instead of an executable: visionOS has no
+terminal, so the VM is hosted by a SwiftUI app (**SpatialSelf**, in
+`~/code/separatingForInlining/`) that owns a `TerminalView` window and pipes
+stdin/stdout/stderr into the library through the C entry point in
+`vm64/build_support/embed/self_vm.h`.
+
+Generate the Xcode project with `vm64/cmake-xcode-visionos.sh`, which lands
+in `cmake-build-visionos-xcode/` — deliberately separate from the macOS
+Xcode project in `cmake-build-xcode/`.
+
+To produce the device+simulator xcframework that SpatialSelf consumes, run
+`vm64/cmake-xcframework.sh`. The output lands in
+`cmake-build-xcframework/Self.xcframework`.
+
+To run on Apple Vision Pro, open
+`~/code/separatingForInlining/Enchilada.xcworkspace` and run the
+**SpatialSelf** scheme.
 
 Use a separate build directory for each target (macOS, visionOS, command-line
 Release, etc.). CMake caches the toolchain, sysroot, and architecture from the
