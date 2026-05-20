@@ -98,8 +98,8 @@ endif()
 # SELF_AS_LIBRARY: build the VM as a static library (libSelfVM.a) with
 # `self_vm_main` as the entry point, rather than as a standalone executable.
 # Defaults ON for embedded Apple platforms (visionOS/iOS/tvOS), where the
-# binary is hosted by a SwiftUI app (see SpatialSelf in
-# ~/code/separatingForInlining), and OFF elsewhere.
+# binary is link-time hosted by a SwiftUI app (SpatialSelf in
+# ~/code/separatingForInlining).
 if(CMAKE_SYSTEM_NAME MATCHES "visionOS|xrOS|iOS|tvOS")
   option(SELF_AS_LIBRARY "Build Self VM as a static library, not an executable" ON)
 else()
@@ -110,6 +110,9 @@ endif()
 #
 if(SELF_AS_LIBRARY)
   add_library(${PROJECT_NAME} STATIC ${SRC})
+  # Library artifact is libSelfVM.a (matches the self_vm_* symbol prefix);
+  # the CMake target stays `Self` so existing tooling continues to work.
+  set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME SelfVM)
   target_compile_definitions(${PROJECT_NAME} PRIVATE SELF_AS_LIBRARY=1)
 else()
   add_executable(${PROJECT_NAME} ${GUI_TYPE} ${SRC})

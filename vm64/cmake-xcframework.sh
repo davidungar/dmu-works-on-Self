@@ -1,6 +1,6 @@
 #!/bin/sh
-# Build libSelf.a for visionOS device + simulator and bundle into an
-# xcframework that SpatialSelf (in ~/code/separatingForInlining) can link.
+# Build libSelfVM.a for visionOS device + simulator and bundle into
+# SelfVM.xcframework that SpatialSelf links.
 # -- claude & dmu May 2026
 
 set -e
@@ -21,8 +21,7 @@ build_slice() {
     -DCMAKE_OSX_DEPLOYMENT_TARGET=1.0 \
     -DSELF_AS_LIBRARY=ON \
     -DSELF_QUARTZ=OFF \
-    -DSELF_X11=OFF \
-    "$@"
+    -DSELF_X11=OFF
   "$HERE/fix-xcode-paths.py" "$build_dir" "$SRC_DIR"
   xcodebuild -project "$build_dir/Self.xcodeproj" -target Self -configuration "$CONFIG" -sdk "$sdk"
 }
@@ -30,11 +29,12 @@ build_slice() {
 build_slice xros           "$DEVICE_DIR"
 build_slice xrsimulator    "$SIM_DIR"
 
-DEVICE_LIB="$DEVICE_DIR/$CONFIG-xros/libSelf.a"
-SIM_LIB="$SIM_DIR/$CONFIG-xrsimulator/libSelf.a"
-# Static libraries carry DWARF inside their .o members under RelWithDebInfo;
-# there is no separate .dSYM (those are only produced for executables/dylibs).
-XCFRAMEWORK="$OUT_DIR/Self.xcframework"
+DEVICE_LIB="$DEVICE_DIR/$CONFIG-xros/libSelfVM.a"
+SIM_LIB="$SIM_DIR/$CONFIG-xrsimulator/libSelfVM.a"
+XCFRAMEWORK="$OUT_DIR/SelfVM.xcframework"
+
+[ -f "$DEVICE_LIB" ] || { echo "missing $DEVICE_LIB"; exit 1; }
+[ -f "$SIM_LIB" ]    || { echo "missing $SIM_LIB";    exit 1; }
 
 rm -rf "$XCFRAMEWORK"
 xcodebuild -create-xcframework \
