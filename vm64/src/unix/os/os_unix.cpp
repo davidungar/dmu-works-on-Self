@@ -29,21 +29,58 @@
 # include "_os_unix.cpp.incl"
 
 
-# if TARGET_OS_VERSION != MACOSX_VERSION 
+// Catch the silent-overwrite footgun: MAP_FIXED happily replaces an
+// existing mapping (e.g. an ASLR-placed system framework's __DATA_CONST),
+// and the corruption surfaces much later as a PAC failure or class-init
+// crash that's hours to diagnose.  Probe the target range first via a
+// hint-mmap and abort with a clear diagnostic if it isn't free.
+// See project memory `avp-heap-must-stay-above-aslr` for the original bug.
+// -- claude & dmu May 2026
+//
+// Note: on ARM64 Darwin the kernel can ignore mmap hints at very high
+// addresses (32GB+); for the address ranges this VM actually uses (24GB on
+// embedded, 32GB on macOS) we've observed hints to be honored in practice.
+// If the probe ever starts giving false positives, replace with vm_region_64
+// — but mach_vm.h is unavailable on visionOS so embedded would still need
+// a fallback.
+static bool range_is_free(caddr_t addr, size_t size) {
+  void* p = mmap(addr, size, PROT_NONE,
+                 MAP_PRIVATE | MAP_ANON, -1, 0);
+  if (p == MAP_FAILED) return false;
+  bool ok = (p == addr);
+  munmap(p, size);
+  return ok;
+}
+
+static void check_fixed_range_is_free(caddr_t addr, size_t size, const char* name) {
+  if (range_is_free(addr, size)) return;
+  fatal3("Self VM cannot place '%s' at 0x%lx (size 0x%lx): address range "
+         "already mapped (likely a system framework via ASLR). Raise "
+         "HeapBase/CodeBase in vm64/src/any/memory/spaceSize.hh and rerun. "
+         "See project memory `avp-heap-must-stay-above-aslr`.",
+         (void*)name,
+         (void*)(uintptr_t)addr,
+         (void*)(uintptr_t)size);
+}
+
+
+# if TARGET_OS_VERSION != MACOSX_VERSION
 
   bool OS::is_directed_allocation_supported() { return true; } // should return desiredAddress
 
   char* OS::allocate_heap_aligned(caddr_t desiredAddress,
                                   smi size, smi align, const char* name,
                                   bool mustAllocate) {
-      if ( desiredAddress != NULL
-      &&   desiredAddress ==
-                 mmap(desiredAddress,
-                      size + align,
-                      PROT_READ|PROT_WRITE|PROT_EXEC,
-                      MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS,
-                      -1, 0))
-        return desiredAddress;
+      if (desiredAddress != NULL) {
+        check_fixed_range_is_free(desiredAddress, size + align, name);
+        if (desiredAddress ==
+                   mmap(desiredAddress,
+                        size + align,
+                        PROT_READ|PROT_WRITE|PROT_EXEC,
+                        MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS,
+                        -1, 0))
+          return desiredAddress;
+      }
 
 #if TARGET_OS_VERSION == NETBSD_VERSION || TARGET_OS_VERSION == FREEBSD_VERSION
       char *b = NULL;
@@ -65,13 +102,11 @@
   char* OS::allocate_heap_aligned(caddr_t desiredAddress,
                                   smi size, smi align, const char* name,
                                   bool mustAllocate) {
-    if ( desiredAddress != NULL) {
-      // Use MAP_FIXED to guarantee allocation at the desired address.
-      // On ARM64 macOS the kernel ignores mmap hints at high addresses
-      // (32+ GB), making hint-based allocation unreliable for heap
-      // expansion.  MAP_FIXED is safe here because the VM's address
-      // layout places heap at 32 GB and code zones at 64 GB, well
-      // above system libraries.  The Linux path already uses MAP_FIXED.
+    if (desiredAddress != NULL) {
+      // MAP_FIXED silently overwrites existing mappings — probe first via
+      // mach_vm_region so collisions abort with a clear message instead of
+      // corrupting an ASLR-placed system framework.
+      check_fixed_range_is_free(desiredAddress, size, name);
       char* p = (char*)mmap(desiredAddress,
                             size,
                             PROT_READ|PROT_WRITE,
