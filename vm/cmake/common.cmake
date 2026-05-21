@@ -23,15 +23,13 @@ option(SELF_PROFILE     "Select whether to do a profiled build"         OFF)
 option(SELF_COVERAGE    "Select whether to do a coverage build"         OFF)
 option(SELF_FAST_FLOATS "Select whether to do a build with fast floats" OFF)
 
-# do not use X11 on OSX by default.
+# Default to X11 platform windows everywhere; headless visionOS builds
+# override with -DSELF_X11=OFF in their configure scripts.
 if(APPLE)
   option(SELF_QUARTZ    "Select whether to build Self with Quartz Platform windows" ON)
-  set(SELF_X11_INIT OFF)
-  set(SELF_XFT_INIT OFF)
-else()
-  set(SELF_X11_INIT ON)
-  set(SELF_XFT_INIT OFF)
 endif()
+set(SELF_X11_INIT ON)
+set(SELF_XFT_INIT OFF)
 
 option(SELF_X11 "Select whether to build Self with X11 Platform windows" ${SELF_X11_INIT})
 cmake_dependent_option(SELF_XFT
