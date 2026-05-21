@@ -6,6 +6,22 @@
 # pragma implementation "itimer_unix.hh"
 # include "_itimer_unix.cpp.incl"
 
+# include <pthread.h>
+
+// --- timer signals must be processed on the VM thread ---------------------
+// setitimer is process-directed: the kernel delivers SIGALRM/SIGVTALRM to an
+// arbitrary thread that isn't blocking the signal.  When the VM is hosted by a
+// GUI process (e.g. SpatialSelf on visionOS), that thread is often *not* the
+// thread running Self, and IntervalTimerTick would then capture an unrelated
+// thread's context as a preemptible Self process -- corrupting/jamming the
+// host.  IntervalTimer::enable() records the arming thread as the VM thread,
+// and IntervalTimerTick redirects any stray tick to it via pthread_kill
+// (async-signal-safe).  This replaces the old "-t" workaround
+// (IntervalTimer::dont_use_any_timer), which disabled preemption entirely.
+pthread_t        self_vm_timer_thread;
+volatile bool    self_vm_timer_thread_known = false;
+volatile int32   itt_vm_ticks    = 0;  // ticks handled on the VM thread
+volatile int32   itt_nonvm_ticks = 0;  // ticks redirected from another thread
 
 extern "C" { void IntervalTimerTick(int sig, self_code_info_t *info, self_sig_context_t *scp); }
 
@@ -86,7 +102,13 @@ void IntervalTimer::enable() {
   if (dont_use_any_timer) return;                     // no timers wanted
   if (dont_use_real_timer && sig == SIGALRM) return;  // don't install real timer
   if (!check_and_pre_enable()) return;
-  
+
+  // setitimer signals must be serviced on the thread that runs Self.  That is
+  // the thread arming the timer right here; record it so IntervalTimerTick can
+  // redirect any tick the kernel delivers to another thread back to it.
+  self_vm_timer_thread = pthread_self();
+  self_vm_timer_thread_known = true;
+
   static struct itimerval dt;          // value for activating timer
 
   dt.it_value.tv_sec  = dt.it_interval.tv_sec  = 0;
@@ -187,6 +209,18 @@ void IntervalTimer::move_entry(TimerEntry* from, TimerEntry* to) { *to = *from; 
 __attribute__((force_align_arg_pointer))
 #endif
 void IntervalTimerTick(int sig, self_code_info_t *info, self_sig_context_t *scp) {
+  // Make sure this tick is processed on the VM thread (see file header).  A
+  // tick delivered to any other thread is redirected there; the real handler
+  // below only ever runs on the VM thread, where `scp` is a Self context.
+  if (!self_vm_timer_thread_known)
+    return;                              // armed before VM thread was recorded
+  if (!pthread_equal(pthread_self(), self_vm_timer_thread)) {
+    ++itt_nonvm_ticks;
+    pthread_kill(self_vm_timer_thread, sig);   // async-signal-safe
+    return;
+  }
+  ++itt_vm_ticks;
+
   // A Mac OS X application, ApplicationEnhancer, causes the VM to receive nested
   // SIGALRM/SIGVTALRM signals.
   // We don't know why this is happening, since our call to sigaction (where
