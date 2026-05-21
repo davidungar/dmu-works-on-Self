@@ -58,10 +58,17 @@ constexpr long long HeapBase  = 24 * GB;
 constexpr long long HeapMaxGB =  2;
 constexpr long long CodeBase  = HeapBase + HeapMaxGB * GB;
 #elif defined(__APPLE__) && defined(__aarch64__)
-// ARM64 macOS: heap at 32GB (above system libraries at ~8GB), 32GB heap
-// budget, code zones at 64GB. No JIT on ARM64 so code zones are minimal,
-// but addresses must be valid.
-constexpr long long HeapBase  = 32 * GB;
+// ARM64 macOS: heap at 512GB, 32GB heap budget, code zones just above.
+// We used to sit at 32GB, but ASLR scatters the libsystem_malloc nano/large
+// zones across the ~20-34GB band, so MAP_FIXED for new space at ~32GB now
+// intermittently lands on top of a malloc zone (range_is_free aborts).
+// Worse, on this kernel MAP_FIXED is *rejected* across 64-256GB (a reserved
+// hole) but accepted again from 512GB up, so the next free slot clear of the
+// malloc band is 512GB. Code lands at 544GB, still well below the 4TB ceiling
+// we probed as usable. Tag_Size only claims the low 2 bits, so a 40-bit base
+// is fine for mem-oop encoding, and rSet/card indexing is HeapBase-relative.
+// -- claude & dmu May 2026
+constexpr long long HeapBase  = 512 * GB;
 constexpr long long HeapMaxGB = 32;
 constexpr long long CodeBase  = HeapBase + HeapMaxGB * GB;
 #else
