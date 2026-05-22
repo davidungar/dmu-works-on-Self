@@ -443,8 +443,16 @@ oop oopClass::unwind_protect_prim(oop doBlock, oop protectBlock) {
     NLRSupport::reset_have_NLR_through_C();    // forget the old NLR, for now
 
     bool original_aborting = res->is_mark();
-    assert( res == badOop  ||  res == 0  ||  OriginalNLRHomeFromC != 0,
-           "if not aborting, must have a how frame");
+#   if GENERATE_DEBUGGING_AIDS
+    // Same gating as assert() (compiled out in non-debug builds, honors the
+    // CheckAssertions flag); fatal3 lets us report the offending values.
+    if (CheckAssertions  &&  res != badOop  &&  res != 0  &&  OriginalNLRHomeFromC == 0)
+      fatal3("assertion failed:  if not aborting, must have a how frame; "
+             "res=%#lx is_mark=%d homeID=%d",
+             (unsigned long)res,
+             res->is_mark(),
+             OriginalNLRHomeIDFromC);
+#   endif
     
     // lookup nmethod for 2nd value: message send
     makeALookup( Ltwo, protectBlock, VMString[VALUE_] );

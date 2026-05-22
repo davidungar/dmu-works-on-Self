@@ -297,7 +297,26 @@ oop interpret( oop rcv,
       preemptCause = cFinishedActivation;
   }
 
+#if !TARGET_IS_64BIT
+  // 32-bit unwinds an NLR/abort via ContinueNLRFromC, which leaves badOop on
+  // the expression-stack top, so the top is the NLR payload here.
   oop result = interp.top();
+#else
+  // The 64-bit interpreter-only build instead unwinds via longjmp to the
+  // innermost setjmp, then propagates up through ordinary C++ returns (see
+  // interpreter_longjmp_for_NLR / continue_NLR_into_interpreted_Self).  An
+  // intermediate interpret() frame's expression-stack top is therefore NOT
+  // guaranteed to hold the NLR payload -- it may be a stale real result this
+  // frame computed before the abort longjmp'd in from below.  Substitute the
+  // actual NLR result, exactly as send_prim() and
+  // handle_return_trap_after_send_if_needed() already do.  Without this an
+  // abort (badOop) reaching unwind_protect_prim arrives as a stale real oop
+  // and trips the "if not aborting, must have a how frame" invariant.
+  // -- claude & dmu  5/26
+  oop result = NLRSupport::have_NLR_through_C()
+             ? NLRSupport::NLR_result_from_C()
+             : interp.top();
+#endif
 
   return result;
 }
