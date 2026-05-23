@@ -327,6 +327,17 @@ macro(setup_target target)
   if(IS_MACOS)
     set_target_properties(${target} PROPERTIES
       MACOSX_BUNDLE_INFO_PLIST ${SELF_BUILD_SUPPORT_DIR}/${platform}/${SELF_OSX_INFO_PLIST}.plist)
+
+    # Bake OS_ACTIVITY_MODE=disable into the generated Run scheme so os_log
+    # chatter from frameworks we don't use (App Intents / linkd autoShortcut
+    # donation, etc.) stays out of the console under Xcode Run / xcodebuild.
+    # CMake regenerates the scheme on every cmake-xcode.sh run, so this
+    # survives regen with no manual scheme editing. (The open(1)/LaunchServices
+    # path is covered separately via LSEnvironment in the Info.plist template.)
+    # -- claude & dmu 5/26
+    set_target_properties(${target} PROPERTIES
+      XCODE_GENERATE_SCHEME ON
+      XCODE_SCHEME_ENVIRONMENT "OS_ACTIVITY_MODE=disable")
   endif()
 
   # visionOS/iOS/tvOS require a bundle identifier on every executable target.

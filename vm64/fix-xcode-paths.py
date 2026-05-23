@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """
-Rewrite a CMake-generated Xcode project's source-file references to use
-absolute, symlink-resolved paths.
+Post-process a CMake-generated Xcode project. Two fixups:
 
-Why: vm64/src/ contains symlinks into vm/src/. Xcode's atomic save replaces
-symlinks with regular files, breaking the mirror. Pointing the project at
-realpath()-resolved locations sends writes directly to the real files.
+1. Rewrite source-file references to use absolute, symlink-resolved paths.
+   Why: vm64/src/ contains symlinks into vm/src/. Xcode's atomic save replaces
+   symlinks with regular files, breaking the mirror. Pointing the project at
+   realpath()-resolved locations sends writes directly to the real files.
+
+2. Set the Run scheme's Console to "Xcode (with Standard Input)" so the Self
+   REPL can read stdin when launched from Xcode. CMake has no XCODE_SCHEME_*
+   property for this (consoleMode), so it must be patched in after generation.
+   -- claude & dmu 5/26
 
 Usage: fix-xcode-paths.py <build-dir> <source-dir>
   e.g. fix-xcode-paths.py cmake-build-amd64-xcode vm64
@@ -33,3 +38,30 @@ if new != s:
     with open(pbx, 'w') as f:
         f.write(new)
 print('fix-xcode-paths: rewrote %d file references in %s' % (n, pbx))
+
+
+# Console = "Xcode (with Standard Input)" so the REPL can read stdin from the
+# Xcode console. Empirically that option is the pair of LaunchAction attributes
+# below: structuredConsoleMode="2" is the differentiator (plain "Xcode" omits
+# it); consoleMode="0" matches what Xcode writes. CMake regenerates the scheme
+# without them, so inject them here each run. Idempotent.  -- claude & dmu 5/26
+scheme = os.path.join(build_dir, 'Self.xcodeproj', 'xcshareddata',
+                      'xcschemes', 'Self.xcscheme')
+if os.path.exists(scheme):
+    with open(scheme) as f:
+        sc = f.read()
+    if 'structuredConsoleMode' in sc:
+        print('fix-xcode-paths: console-with-stdin already present in %s' % scheme)
+    else:
+        sc2 = sc.replace(
+            '<LaunchAction\n',
+            '<LaunchAction\n      consoleMode = "0"\n'
+            '      structuredConsoleMode = "2"\n', 1)
+        if sc2 != sc:
+            with open(scheme, 'w') as f:
+                f.write(sc2)
+            print('fix-xcode-paths: set console = "Xcode (with Standard Input)" '
+                  'in %s' % scheme)
+        else:
+            print('fix-xcode-paths: WARNING no <LaunchAction to patch in %s'
+                  % scheme)
