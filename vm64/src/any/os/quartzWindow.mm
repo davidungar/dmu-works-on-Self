@@ -585,6 +585,25 @@ static void blitIOSurfaceToView(SelfContentView* view, IOSurfaceRef surface) {
 
 
 // ======================================================================
+// SelfAppDelegate - minimal NSApplicationDelegate
+// Exists only to declare our state-restoration secure-coding policy, which
+// silences AppKit's "implement applicationSupportsSecureRestorableState:"
+// warning. We never restore window state, so YES is safe and asserts nothing
+// we don't honor.
+// -- claude & dmu 5/26
+// ======================================================================
+
+@interface SelfAppDelegate : NSObject <NSApplicationDelegate>
+@end
+
+@implementation SelfAppDelegate
+- (BOOL)applicationSupportsSecureRestorableState:(NSApplication *)app {
+    return YES;
+}
+@end
+
+
+// ======================================================================
 // NSApplication initialization (must be called before any Cocoa use)
 // ======================================================================
 
@@ -600,6 +619,19 @@ static void ensure_cocoa_initialized() {
 
   @autoreleasepool {
     [NSApplication sharedApplication];
+    // Install a minimal delegate before finishLaunching so AppKit can read our
+    // secure-coding policy for state restoration. -- claude & dmu 5/26
+    static SelfAppDelegate* appDelegate = [[SelfAppDelegate alloc] init];
+    [NSApp setDelegate:appDelegate];
+
+    // We don't restore window state; tell AppKit not to save/restore it so it
+    // stops attempting restoration (the "restoreWindowWithIdentifier ...
+    // className=(null)" log line). registerDefaults sets a volatile default,
+    // so this never persists into the user's real preferences.
+    // -- claude & dmu 5/26
+    [[NSUserDefaults standardUserDefaults]
+        registerDefaults:@{@"NSQuitAlwaysKeepsWindows": @NO}];
+
     [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
     // Set an empty main menu before finishLaunching to prevent AppKit from
     // building the default menu, which triggers lazy loading of Writing Tools
