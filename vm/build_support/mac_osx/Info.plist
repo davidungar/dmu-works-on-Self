@@ -65,5 +65,16 @@
 	<string>${MACOSX_BUNDLE_COPYRIGHT}</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
+	<!-- Silence os_log chatter from frameworks we don't use (App Intents /
+	     linkd autoShortcut donation, etc.) when launched via LaunchServices
+	     (open Self.app). Xcode/terminal launches bypass LSEnvironment; for
+	     those the OS_ACTIVITY_MODE env var is set on the generated scheme
+	     (see XCODE_SCHEME_ENVIRONMENT in cmake/mac_osx.cmake).
+	     -- claude & dmu 5/26 -->
+	<key>LSEnvironment</key>
+	<dict>
+		<key>OS_ACTIVITY_MODE</key>
+		<string>disable</string>
+	</dict>
 </dict>
 </plist>

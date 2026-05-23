@@ -314,6 +314,9 @@ extern "C" int self_vm_main(int argc, char *argv[]) {
 #else
 int main(int argc, char *argv[]) {
 #endif
+  // Must run before anything else: may re-exec the process. (macOS only.)
+  OS::quiet_macos_log_chatter(argv);
+
   // On Mac, the first printf does an InstallConsole which sets AE handlers
   // so init os first to clear SIOUXSettings.standalone to fix this
   OS::init();

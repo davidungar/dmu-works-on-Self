@@ -198,6 +198,78 @@ time_t OS::combine_time(smi day, smi msec) {
 }
 
 
+# if defined(__APPLE__)
+#   include <mach-o/dyld.h>   // _NSGetExecutablePath
+#   include <sys/sysctl.h>    // sysctl, P_TRACED, struct kinfo_proc
+
+// True if a debugger (e.g. lldb) is attached. Apple Technical Q&A QA1361.
+static bool self_is_being_debugged() {
+  int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, getpid() };
+  struct kinfo_proc info;
+  info.kp_proc.p_flag = 0;
+  size_t size = sizeof(info);
+  if (sysctl(mib, 4, &info, &size, NULL, 0) != 0) return false;
+  return (info.kp_proc.p_flag & P_TRACED) != 0;
+}
+# endif // __APPLE__
+
+// At launch, macOS frameworks we don't use (App Intents / linkd autoShortcut
+// donation, NSXPC handshakes, etc.) spray os_log noise to stderr -- the
+// "connection to service named com.apple.linkd.autoShortcut ... Code=4097"
+// lines and friends. The only lever that quiets them is OS_ACTIVITY_MODE=
+// disable, but libsystem_trace reads that once at process start, before main()
+// runs -- so a plain setenv() here would be too late.
+//
+// Launches via the Xcode scheme (XCODE_SCHEME_ENVIRONMENT) and via open(1)/
+// LaunchServices (LSEnvironment in Info.plist) already set OS_ACTIVITY_MODE for
+// us. The one remaining case is running the bare Mach-O directly from a shell,
+// where neither applies AND stderr is the terminal -- the one place the noise
+// is actually seen. Handle it by setting the var and re-exec'ing ourselves once
+// so a fresh process picks it up. A sentinel env var prevents an infinite
+// re-exec loop. No-op off macOS.  -- claude & dmu 5/26
+void OS::quiet_macos_log_chatter(char* argv[]) {
+# if defined(__APPLE__)
+  if (getenv("OS_ACTIVITY_MODE"))        return;  // Xcode scheme / LSEnvironment handled it
+  if (getenv("SELF_OS_ACTIVITY_REEXEC")) return;  // we already re-exec'd once
+
+  // Re-exec'ing under a debugger would detach/confuse it, so don't. Warn
+  // instead so the chatter that follows isn't mistaken for a real problem.
+  if (self_is_being_debugged()) {
+    fprintf(stderr,
+      "Self: debugger attached -- NOT re-exec'ing with OS_ACTIVITY_MODE=disable.\n"
+      "      Harmless macOS framework os_log chatter (linkd autoShortcut,\n"
+      "      App Intents donation, NSXPC Code=4097, etc.) will appear below.\n");
+    return;
+  }
+
+  char path[4096];
+  uint32_t sz = sizeof(path);
+  if (_NSGetExecutablePath(path, &sz) != 0) return;  // path too long; skip silently
+
+  setenv("OS_ACTIVITY_MODE", "disable", 1);
+  setenv("SELF_OS_ACTIVITY_REEXEC", "1", 1);
+
+  // WARN FUTURE READERS: this VM re-exec's itself exactly once at startup.
+  fprintf(stderr,
+    "Self: re-exec'ing once with OS_ACTIVITY_MODE=disable to silence harmless\n"
+    "      macOS framework os_log chatter (linkd autoShortcut / App Intents\n"
+    "      donation, NSXPC Code=4097, etc.). NOTE: this also silences ALL\n"
+    "      os_log/NSLog output for this run -- fprintf(stderr) is unaffected.\n"
+    "      Set OS_ACTIVITY_MODE yourself (any value) to suppress the re-exec\n"
+    "      and keep unified-logging output. See OS::quiet_macos_log_chatter()\n"
+    "      in os_unix.cpp.\n");
+  fflush(stderr);
+
+  execv(path, argv);
+  // execv only returns on failure: carry on un-silenced rather than aborting.
+  fprintf(stderr, "Self: OS_ACTIVITY_MODE re-exec failed (%s); continuing.\n",
+          strerror(errno));
+# else
+  (void)argv;_Quit
+# endif // __APPLE__
+}
+
+
 void OS::init() {
 
   SignalInterface::initialize(false);           // everything except ^C

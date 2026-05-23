@@ -37,6 +37,11 @@ class OS {
  
   // Starting and stopping the VM:
   static void init();
+  // macOS only (no-op elsewhere): silence framework os_log chatter by
+  // re-exec'ing once with OS_ACTIVITY_MODE=disable when it isn't already set.
+  // Must be called before anything else in main() -- it may replace the
+  // process. argv is the original argv, needed to re-exec. -- claude & dmu 5/26
+  static void quiet_macos_log_chatter(char* argv[]);
   static void terminate(int); // do not call this exit to avoid bugs
   static void handle_suspend_and_resume(bool stopping);
 
