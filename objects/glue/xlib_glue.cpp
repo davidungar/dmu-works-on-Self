@@ -180,6 +180,34 @@ private:
 };
 
 
+// Synthesize middle/right buttons from a modifier + Button1 click, matching the
+// Quartz mapping (option->middle, command->right, control->middle). X gives us
+// only the physical button + modifier state, so we rewrite the event here before
+// the image sees it. We decide from the modifiers present in THIS event and keep
+// no cross-event state, so independent pointers (two people, two mice) can never
+// alias one another.  -- claude & dmu 5/2026
+static int modifierClickButton(unsigned int state) {
+  return (state & Mod1Mask)              ? Button2   // option/alt   -> middle
+       : (state & (Mod3Mask | Mod4Mask)) ? Button3   // command/meta -> right
+       : (state & ControlMask)           ? Button2   // control      -> middle
+       :                                   0;         // left, unchanged
+}
+
+static void remapModifierClick(XEvent *evt) {
+  if (evt->type != ButtonPress  &&  evt->type != ButtonRelease)  return;
+  if (evt->xbutton.button != Button1)                            return;
+  int t = modifierClickButton(evt->xbutton.state);
+  if (t == 0)                                                    return;
+  evt->xbutton.button = t;
+  // On release the physical Button1Mask is set in state; rewrite it to the
+  // synthesized button's bit so the image's normal middle/right up-handling
+  // clears it and the drag terminates.
+  if (evt->type == ButtonRelease)
+    evt->xbutton.state = (evt->xbutton.state & ~Button1Mask)
+                       | (t == Button3 ? Button3Mask : Button2Mask);
+}
+
+
 oop XNextEvent_wrap(Display *display, bool peek,
                     objVectorOop eventProtos, void *FH) {
   XEvent *evt = new XEvent();
@@ -187,6 +215,7 @@ oop XNextEvent_wrap(Display *display, bool peek,
     XPeekEvent(display, evt);
   else
     XNextEvent(display, evt);
+  remapModifierClick(evt);
   int type = evt->type;
   if (type < 0 || type >= eventProtos->length()) {
     char err[50];
