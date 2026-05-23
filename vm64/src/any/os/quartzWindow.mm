@@ -93,6 +93,95 @@ static _Atomic(uint32_t) sleep_generation = 0;
 @property (nonatomic, assign) QuartzWindow* quartzWindow;
 @end
 
+// ======================================================================
+// Cross-window drag support
+// ----------------------------------------------------------------------
+// Cocoa delivers mouseDragged:/mouseUp: only to the window where the drag
+// began, but the Self ui2 world was written for X11, which routes pointer
+// motion to the window UNDER the cursor and emits Enter/LeaveNotify when the
+// pointer crosses a window boundary.  To make a morph drag hand off between
+// windows the way it does on X11, we (a) route a held-button drag to the Self
+// window under the cursor and (b) synthesize windowLeave/windowEnter on each
+// transition.  windowLeave is a mouse event whose part code is inDesk (the
+// Self quartz event mapper turns that into 'windowLeave'); windowEnter reuses
+// the window handleActivate kind (which the mapper turns into 'windowEnter').
+//
+// -- claude & dmu, 5/26
+// ======================================================================
+
+// Map a Cocoa window number to the QuartzWindow that owns it, or NULL if it is
+// not one of our Self content windows (e.g. another app, or the desktop).
+static QuartzWindow* selfWindowForNumber(NSInteger n) {
+    if (n <= 0) return NULL;
+    NSWindow* w = [NSApp windowWithWindowNumber:n];
+    if (!w) return NULL;
+    NSView* v = [w contentView];
+    if (![v isKindOfClass:[SelfContentView class]]) return NULL;
+    return [(SelfContentView*)v quartzWindow];
+}
+
+// Fill in the location/window params shared by both synthetic crossing events.
+static void setCrossingLocation(OpaqueEventRef* e, NSWindow* nsWin, QuartzWindow* qw,
+                                NSPoint screenPt, double globalX, double globalY) {
+    e->setParam_point(kEventParamMouseLocation, globalX, globalY);
+    NSPoint loc = [nsWin convertPointFromScreen:screenPt];
+    NSRect  b   = [[nsWin contentView] bounds];
+    e->setParam_point(kEventParamWindowMouseLocation,
+                      qw->inset_left() + loc.x,
+                      qw->inset_top()  + (b.size.height - loc.y));
+    e->setParam_ptr(kEventParamWindowRef, typeWindowRef, qw->my_window());
+}
+
+// windowLeave: a mouse-moved event tagged with part code inDesk.
+static void postWindowLeave(NSInteger num, NSPoint screenPt, double gX, double gY, double t) {
+    NSWindow*     nsWin = [NSApp windowWithWindowNumber:num];
+    QuartzWindow* qw    = selfWindowForNumber(num);
+    if (!nsWin || !qw) return;
+    OpaqueEventRef* e = new OpaqueEventRef();
+    e->eventClass = kEventClassMouse;
+    e->eventKind  = kEventMouseMoved;
+    e->eventTime  = t;
+    setCrossingLocation(e, nsWin, qw, screenPt, gX, gY);
+    e->setParam_uint32(kEventParamMouseChord,    typeUInt32, 0);
+    e->setParam_uint32(kEventParamWindowDefPart, typeUInt32, kPartInDesk);
+    qw->put_event(e);
+    e->release();
+}
+
+// windowEnter: a window handleActivate event.
+static void postWindowEnter(NSInteger num, NSPoint screenPt, double gX, double gY, double t) {
+    NSWindow*     nsWin = [NSApp windowWithWindowNumber:num];
+    QuartzWindow* qw    = selfWindowForNumber(num);
+    if (!nsWin || !qw) return;
+    OpaqueEventRef* e = new OpaqueEventRef();
+    e->eventClass = kEventClassWindow;
+    e->eventKind  = kEventWindowHandleActivate;
+    e->eventTime  = t;
+    setCrossingLocation(e, nsWin, qw, screenPt, gX, gY);
+    qw->put_event(e);
+    e->release();
+}
+
+// Route a held-button drag to the Self window currently under the cursor (X11
+// delivers motion to the window under the pointer; Cocoa keeps it on the
+// mouse-down window).  Emits windowLeave/windowEnter as the cursor crosses
+// between Self windows, updates currentWindowNumberForDrag (the window the drag is routed to now),
+// and leaves destNS/destQW unchanged unless the cursor is over a Self window.
+// -- claude & dmu 5/26
+static NSInteger destinationSelfWindow(
+        NSInteger originWindowNumber, NSPoint screenPt, double globalX, double globalY, double t,
+        NSInteger currentWindowNumberForDrag) {
+    NSInteger     underNum = [NSWindow windowNumberAtPoint:screenPt belowWindowWithWindowNumber:0];
+    QuartzWindow* overQW   = selfWindowForNumber(underNum);
+    // Over a non-Self window (other app / desktop) → stay with the origin.
+    NSInteger     destSelfWindow   = (overQW && underNum != originWindowNumber) ? underNum : originWindowNumber;
+    if (destSelfWindow == currentWindowNumberForDrag)
+      return currentWindowNumberForDrag;
+  postWindowLeave(currentWindowNumberForDrag, screenPt, globalX, globalY, t);
+  postWindowEnter(destSelfWindow, screenPt, globalX, globalY, t);
+  return destSelfWindow;
+}
+
 @implementation SelfContentView
 
 - (BOOL)isFlipped {
@@ -201,15 +290,11 @@ static _Atomic(uint32_t) sleep_generation = 0;
     double globalY = screenH - locOnScreen.y;
     evt->setParam_point(kEventParamMouseLocation, globalX, globalY);
 
-    // Window-local coordinates (structure-relative, top-left origin)
-    // Carbon's kEventParamWindowMouseLocation is relative to the window's
-    // structure region (including title bar), not the content area.
-    NSRect contentBounds = [self bounds];
-    int insetLeft = _quartzWindow->inset_left();
-    int insetTop  = _quartzWindow->inset_top();
-    double localX = insetLeft + locInWindow.x;
-    double localY = insetTop + (contentBounds.size.height - locInWindow.y);
-    evt->setParam_point(kEventParamWindowMouseLocation, localX, localY);
+    // Window-local coordinates (kEventParamWindowMouseLocation) and the window
+    // reference are set below, after the destination window is determined: a
+    // cross-window drag re-targets the event to the window under the cursor, so
+    // those must be computed relative to THAT window.
+    // claude & dmu, 5/26
 
     // Button number: Carbon uses 1=left, 2=right, 3=middle
     uint16 button = 1;
@@ -256,13 +341,40 @@ static _Atomic(uint32_t) sleep_generation = 0;
     if (mods & NSEventModifierFlagCapsLock) carbonMods |= (1 << 10); // capsLock
     evt->setParam_uint32(kEventParamKeyModifiers, typeUInt32, carbonMods);
 
-    // Window reference
-    evt->setParam_ptr(kEventParamWindowRef, typeWindowRef, _quartzWindow->my_window());
+    // ---- Cross-window drag routing (mirror X11) --------------------------
+    // While a button is held (and on the terminating mouseUp), deliver the
+    // event to the Self window under the cursor rather than the window that
+    // began the drag, and emit windowLeave/windowEnter as the cursor crosses
+    // between Self windows so the carried morph is handed off.
+    // claude & dmu, 5/26
+    NSInteger originWindowNumber = [[self window] windowNumber];
+    BOOL      dragging  = (chord != 0) || (kind == kEventMouseUp);
 
-    // Window part code: inContent = 3 (Carbon HIToolbox part code)
+    static NSInteger dragsDestinationSelfWindow = 0;   // Self window the drag is routed to now
+    if (kind == kEventMouseDown) dragsDestinationSelfWindow = originWindowNumber;
+
+    NSWindow*     destNS = [self window];
+    QuartzWindow* destQW = _quartzWindow;
+
+  if (dragging) {
+    dragsDestinationSelfWindow = destinationSelfWindow(originWindowNumber, locOnScreen, globalX, globalY,
+                                    [event timestamp], dragsDestinationSelfWindow);
+    NSWindow*     rNS = [NSApp windowWithWindowNumber:dragsDestinationSelfWindow];
+    QuartzWindow* rQW = selfWindowForNumber(dragsDestinationSelfWindow);
+    if (rNS && rQW) { destNS = rNS; destQW = rQW; }
+  }
+
+    // Window-local coordinates and window reference, relative to the destination.
+    // claude & dmu, 5/26
+    NSPoint destLoc    = [destNS convertPointFromScreen:locOnScreen];
+    NSRect  destBounds = [[destNS contentView] bounds];
+    evt->setParam_point(kEventParamWindowMouseLocation,
+                        destQW->inset_left() + destLoc.x,
+                        destQW->inset_top()  + (destBounds.size.height - destLoc.y));
+    evt->setParam_ptr(kEventParamWindowRef, typeWindowRef, destQW->my_window());
     evt->setParam_uint32(kEventParamWindowDefPart, typeUInt32, kPartInContent);
 
-    _quartzWindow->put_event(evt);
+    destQW->put_event(evt);
     evt->release(); // put_event retains
 }
 
