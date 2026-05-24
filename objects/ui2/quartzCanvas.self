@@ -212,9 +212,22 @@ SlotsToOmit: clip parent platformWindow.
          'Category: accessing quartz objects\x7fModuleInfo: Module: quartzCanvas InitialContents: FollowSlot\x7fVisibility: public'
         
          displayName = ( |
-            | 
+            |
             display ifNil: 'quartz' IfNotNil: [ display name]).
-        } | ) 
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartzWindowCanvas' -> () From: ( | {
+         'Category: accessing quartz objects\x7fModuleInfo: Module: quartzCanvas InitialContents: FollowSlot\x7fVisibility: public'
+
+         reincarnationDisplayName = ( |
+            |
+            "Backend-stable name for reopening after a snapshot: a Quartz window
+             always reincarnates as Quartz, regardless of which screen it was on
+             or whether its window proxy survived the snapshot.  (displayName
+             returns the window proxy's title, so it can't be used here.)
+             -- claude & dmu 5/2026"
+            'quartz').
+        } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartzWindowCanvas' -> () From: ( | {
          'Category: portable accessing\x7fModuleInfo: Module: quartzCanvas InitialContents: FollowSlot\x7fVisibility: public'

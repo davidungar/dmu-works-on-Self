@@ -1868,8 +1868,16 @@ oldGlobalBounds. \x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot'
         
          platformSpecificNameFor: displayName = ( |
             | 
-            host osName == 'macOSX' ifTrue: [^'quartz'].
-            displayName == 'quartz' ifTrue: [^ ''].
+            "Map a snapshot window's display name onto one this host can honor,
+             preserving its original backend now that macOS can run X11 too.
+             A Quartz window stays Quartz on macOS, but on an X-only host it
+             must fall back to the default X display. -- claude & dmu 5/2026"
+            displayName = 'quartz' ifTrue: [
+               host osName == 'macOSX' ifTrue: [^ 'quartz'].
+               ^ ''].
+            " An X window: --resetXDisplays sends it to the local $DISPLAY "
+            (snapshotAction commandLine includes: '--resetXDisplays')
+              ifTrue: [^ os environmentAt: 'DISPLAY' IfFail: ''].
             displayName).
         } | ) 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
@@ -2121,7 +2129,7 @@ on the default display.\x7fModuleInfo: Module: worldMorph InitialContents: Follo
                 oldBounds: (3@24 max: wc position) ## wc size.
                 oldOffset: wc offset.
                 releaseParts.
-                addWindowOnDisplay: (platformSpecificNameFor: wc displayName) Bounds: oldBounds.
+                addWindowOnDisplay: (platformSpecificNameFor: wc reincarnationDisplayName) Bounds: oldBounds.
                 winCanvases first offset: oldOffset.  "set scroll offset of new canvas"
 
                 morphsDo: [| :m |
@@ -2617,14 +2625,34 @@ IfAbsent: argument if none.\x7fModuleInfo: Module: worldMorph InitialContents: F
          'Category: window management\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
         
          windowCanvasPrototypeForDisplay: dispName = ( |
-            | 
-            (
-              case
-                if: [dispName isEmpty  &&  [host osName == 'macOSX']]  Then: [self ]
-                If: [dispName = quartzGlobals windowCanvas displayName] Then: [quartzGlobals]
-                Else: [x11Globals ]
-            ) windowCanvas).
-        } | ) 
+            |
+            "Pick the backend from the (already host-adjusted) display name:
+             'quartz', or an empty name on macOS, -> Quartz; anything else -> X11.
+             On macOS, if the chosen X display can't be opened (e.g. no XQuartz
+             running), fall back to Quartz. -- claude & dmu 5/2026"
+            dispName = 'quartz' ifTrue: [^ quartzGlobals windowCanvas].
+            (dispName isEmpty && [host osName == 'macOSX'])
+              ifTrue: [^ quartzGlobals windowCanvas].
+            ((host osName == 'macOSX') && [(canOpenXDisplay: dispName) not]) ifTrue: [
+               'No X11/XQuartz display available, falling back to Quartz.' printLine.
+               ^ quartzGlobals windowCanvas].
+            x11Globals windowCanvas).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
+         'Category: window management\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
+
+         canOpenXDisplay: dispName = ( |
+             d.
+            |
+            "True if an X11 (XQuartz) display connection can be opened; lets
+             windowCanvasPrototypeForDisplay: fall back to Quartz on macOS when
+             no X server is reachable.  Non-interactive, unlike openDisplayNamed:.
+             -- claude & dmu 5/2026"
+            d: xlib display open: dispName IfFail: [| :e | ^ false].
+            d close.
+            true).
+        } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
          'Category: window management\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
