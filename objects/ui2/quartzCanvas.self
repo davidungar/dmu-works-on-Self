@@ -1,9 +1,8 @@
  '$Revision: 30.1 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -67,7 +66,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartzGlobals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Canvas\x7fModuleInfo: Module: quartzCanvas InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Canvas\x7fModuleInfo: Module: quartzCanvas InitialContents: FollowSlot\x7fVisibility: public'
         
          bufferCanvas = bootstrap define: bootstrap stub -> 'globals' -> 'quartzGlobals' -> 'bufferCanvas' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'clip' From:
@@ -117,7 +116,7 @@ SlotsToOmit: clip parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartzGlobals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Canvas\x7fModuleInfo: Module: quartzCanvas InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Canvas\x7fModuleInfo: Module: quartzCanvas InitialContents: FollowSlot\x7fVisibility: public'
         
          windowCanvas = bootstrap define: bootstrap stub -> 'globals' -> 'quartzGlobals' -> 'windowCanvas' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'clip' From:
@@ -159,7 +158,7 @@ SlotsToOmit: clip parent platformWindow.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Canvas\x7fModuleInfo: Module: quartzCanvas InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Canvas\x7fModuleInfo: Module: quartzCanvas InitialContents: FollowSlot\x7fVisibility: public'
         
          quartzWindowCanvas = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'quartzWindowCanvas' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits quartzWindowCanvas.
@@ -298,7 +297,6 @@ SlotsToOmit: clip parent platformWindow.
              disp.
              insetDispBounds.
             | 
-            wld doubleBuffering: true.
             bb: pt ## (w@h).
             disp: quartz directDisplay bestDisplayForBounds: bb.
             insetDispBounds: disp bounds indent: 30. "menu bar hack"

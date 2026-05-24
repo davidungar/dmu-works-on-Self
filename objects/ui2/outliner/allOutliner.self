@@ -1,18 +1,11 @@
- '30.9.0'
+ 'Sun-$Revision: 30.8 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'about' -> () From: ( | {
-         'Category: versions\x7fModuleInfo: Module: allOutliner InitialContents: InitializeToExpression: (nil)'
-        
-         outliner.
-        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
          'ModuleInfo: Module: allOutliner InitialContents: FollowSlot'
@@ -55,19 +48,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allOutliner' -> () From: ( | {
-         'ModuleInfo: Module: allOutliner InitialContents: FollowSlot'
+         'ModuleInfo: Module: allOutliner InitialContents: FollowSlot\x7fVisibility: public'
         
-         postFileIn = ( |
-            | 
-            resend.postFileIn.
-            about outliner: about systemVersion readFrom: 'outliner.version'.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allOutliner' -> () From: ( | {
-         'ModuleInfo: Module: allOutliner InitialContents: InitializeToExpression: (\'30.9.0\')\x7fVisibility: public'
-        
-         revision <- '30.9.0'.
+         revision <- 'Sun-$Revision: 30.8 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allOutliner' -> () From: ( | {

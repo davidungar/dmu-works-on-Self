@@ -1,9 +1,8 @@
- '30.14.1'
+ '$Revision: 30.14 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -55,9 +54,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'sliceGroupOutliner' -> () From: ( | {
-         'ModuleInfo: Module: sliceGroupOutliner InitialContents: InitializeToExpression: (\'30.14.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: sliceGroupOutliner InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.14.1'.
+         revision <- '$Revision: 30.14 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'sliceGroupOutliner' -> () From: ( | {
@@ -75,7 +74,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: Slice Outliner & helpers\x7fModuleInfo: Module: sliceGroupOutliner InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: Slice Outliner & helpers\x7fModuleInfo: Module: sliceGroupOutliner InitialContents: FollowSlot\x7fVisibility: public'
         
          sliceGroupOutliner = bootstrap define: bootstrap stub -> 'globals' -> 'sliceGroupOutliner' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'model' From:
@@ -135,6 +134,7 @@ Profile slices do not. -- 11/04 dmu\x7fModuleInfo: Module: sliceGroupOutliner In
             header addMorphLast: alignmentSpacer.
             addContentsOutlinersToHeader.
             header addAllMorphs: buildHeaderButtons.
+            header colorAll: color.
             updateExpander. "rm if need be"
 
             self).
@@ -152,7 +152,7 @@ Profile slices do not. -- 11/04 dmu\x7fModuleInfo: Module: sliceGroupOutliner In
                  Then: [header addMorphLast: contentsOutliners first]
 
                  Else: [|cm|
-                         cm: columnMorph copyTransparent.
+                         cm: columnMorph copy.
                          cm borderWidth: 0.
                          cm addAllMorphs: contentsOutliners.
                          header addMorphLast: cm.
@@ -401,7 +401,7 @@ does no remapping.\x7fModuleInfo: Module: sliceGroupOutliner InitialContents: Fo
          removeExpander = ( |
             | 
             resend.removeExpander.
-            header addMorphFirst: rigidSpacer copyH: expander expandedSize x.
+            header addMorphFirst: rigidSpacer copyH: expander expandedSize x Color: color.
             self).
         } | ) 
 
@@ -461,13 +461,14 @@ does no remapping.\x7fModuleInfo: Module: sliceGroupOutliner InitialContents: Fo
             "put new morph set in header in ms"
             header morphsDo: [|:m|
               m = titleEditor ifTrue: [
-                (ms isEmpty not) && [ms last morphTypeName = transparentSpacerMorph morphTypeName]
+                (ms isEmpty not) && [ms last morphTypeName = spacerMorph morphTypeName]
                   ifTrue: [s: ms last]
-                   False: [s: transparentSpacerMorph copy. ms addLast: s].
+                   False: [s: spacerMorph copy. ms addLast: s].
               ].
               ms addLast: m.
-            ]. 
+            ].
             s beRigidHorizontally beFlexibleVertically.
+            s color: color.
             s setWidth: to - titleOffset.
             safelyDo: [header removeAllMorphs addAllMorphs: ms].
             self).

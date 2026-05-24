@@ -1,9 +1,8 @@
  'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2026 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -331,7 +330,7 @@ and printStringSize:.
 
 Children of the lobby may implement just the message printString and
 inherit reasonable behavior for the other three messages.
-(Or may implement statePrintString, or namePrintString.)
+(Or may implement printStringState, or printStringName.)
 
 To get the UI to print an object, its prototype (not traits) should
 be annotated with isComplete = true.
@@ -467,19 +466,6 @@ arguments when only the first argument is of interest.\x7fModuleInfo: Module: de
         
          value: a With: b With: c With: d With: e With: f = ( |
             | value: a With: b With: c With: d With: e).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'defaultBehavior' -> () From: ( | {
-         'Category: evaluating\x7fComment: 
-Convenient behavior for key/value and value* messages. By default, an
-object is its own key and value. The default value:{With:} messages
-strip off the trailing argument and retry. For example, this behavior
-allows a block taking one argument to be substituted for one taking two
-arguments when only the first argument is of interest.\x7fModuleInfo: Module: defaultBehavior InitialContents: FollowSlot\x7fVisibility: public'
-        
-         value: a With: b With: c With: d With: e With: f With: g = ( |
-            | 
-            value: a With: b With: c With: d With: e With: f).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {

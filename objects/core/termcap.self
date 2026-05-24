@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -67,7 +67,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: platform\x7fCategory: host and filesystem\x7fModuleInfo: Module: termcap InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: OS and filesystem interface\x7fModuleInfo: Module: termcap InitialContents: FollowSlot\x7fVisibility: public'
         
          termcap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'termcap' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals termcap.
@@ -434,7 +434,7 @@ SlotsToOmit: ident.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: platform\x7fCategory: host and filesystem\x7fModuleInfo: Module: termcap InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: OS and filesystem interface\x7fModuleInfo: Module: termcap InitialContents: FollowSlot\x7fVisibility: public'
         
          termcap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'termcap' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits termcap.

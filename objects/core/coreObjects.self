@@ -1,7 +1,7 @@
- '30.13.0'
+ 'Sun-$Revision: 30.11 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
 
 
@@ -48,9 +48,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'coreObjects' -> () From: ( | {
-         'ModuleInfo: Module: coreObjects InitialContents: InitializeToExpression: (\'30.13.0\')\x7fVisibility: public'
+         'ModuleInfo: Module: coreObjects InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.13.0'.
+         revision <- 'Sun-$Revision: 30.11 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'coreObjects' -> () From: ( | {
@@ -108,7 +108,6 @@ activationText
 fakeSlot
 fakeSlotsIterator
 absBCInterpreter
-streams
 '.
         } | ) 
 
@@ -168,7 +167,6 @@ streams
  bootstrap read: 'fakeSlot' From: 'core'
  bootstrap read: 'fakeSlotsIterator' From: 'core'
  bootstrap read: 'absBCInterpreter' From: 'core'
- bootstrap read: 'streams' From: 'core'
 
 
 

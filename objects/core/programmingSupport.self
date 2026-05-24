@@ -1,9 +1,8 @@
- '30.9.0'
+ 'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -48,9 +47,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'programmingSupport' -> () From: ( | {
-         'ModuleInfo: Module: programmingSupport InitialContents: InitializeToExpression: (\'30.9.0\')\x7fVisibility: public'
+         'ModuleInfo: Module: programmingSupport InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.9.0'.
+         revision <- 'Sun-$Revision: 30.7 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'programmingSupport' -> () From: ( | {

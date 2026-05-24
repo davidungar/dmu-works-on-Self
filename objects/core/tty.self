@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -70,7 +70,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: platform\x7fCategory: host and filesystem\x7fModuleInfo: Module: tty InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: OS and filesystem interface\x7fModuleInfo: Module: tty InitialContents: FollowSlot\x7fVisibility: public'
         
          tty = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'tty' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals tty.
@@ -79,7 +79,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: platform\x7fCategory: host and filesystem\x7fModuleInfo: Module: tty InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: OS and filesystem interface\x7fModuleInfo: Module: tty InitialContents: FollowSlot\x7fVisibility: public'
         
          tty = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'tty' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits tty.

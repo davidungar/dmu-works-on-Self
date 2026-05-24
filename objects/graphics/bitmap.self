@@ -1,15 +1,14 @@
- '30.10.1'
+ 'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
         
          bitmap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'bitmap' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals bitmap.
@@ -18,7 +17,7 @@ See the legal/LICENSE file for license information and legal/AUTHORS for authors
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
         
          nullImage = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'nullImage' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals nullImage.
@@ -33,7 +32,7 @@ See the legal/LICENSE file for license information and legal/AUTHORS for authors
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
         
          bitmap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'bitmap' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits bitmap.
@@ -52,6 +51,14 @@ See the legal/LICENSE file for license information and legal/AUTHORS for authors
         
          statePrintString = ( |
             | size printString).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> () From: ( | {
+         'Category: graphics (ui1)\x7fModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
+        
+         platformPixmap = ( |
+            | 
+            0  macToolbox pixMap).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
@@ -95,9 +102,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'bitmap' -> () From: ( | {
-         'ModuleInfo: Module: bitmap InitialContents: InitializeToExpression: (\'30.10.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.10.1'.
+         revision <- 'Sun-$Revision: 30.10 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'bitmap' -> () From: ( | {
@@ -120,7 +127,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
         
          windowBitmap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'windowBitmap' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals windowBitmap.
@@ -129,7 +136,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
         
          windowBitmap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'windowBitmap' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits windowBitmap.

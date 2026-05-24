@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: platform\x7fCategory: host and filesystem\x7fModuleInfo: Module: fileStream InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: OS and filesystem interface\x7fModuleInfo: Module: fileStream InitialContents: FollowSlot\x7fVisibility: public'
         
          fileStream = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'fileStream' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals fileStream.

@@ -1,9 +1,8 @@
- '30.8.1'
+ 'Sun-$Revision: 30.8 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -49,9 +48,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'crypto' -> () From: ( | {
-         'ModuleInfo: Module: crypto InitialContents: InitializeToExpression: (\'30.8.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: crypto InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.8.1'.
+         revision <- 'Sun-$Revision: 30.8 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'crypto' -> () From: ( | {
@@ -61,7 +60,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: applications\x7fCategory: cryptography\x7fModuleInfo: Module: crypto InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fModuleInfo: Module: crypto InitialContents: FollowSlot\x7fVisibility: public'
         
          rsa = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'rsa' -> () From: ( |
              {} = 'Comment: This is the substance in an RSA object.\x7fModuleInfo: Creator: globals rsa.
@@ -88,7 +87,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: applications\x7fModuleInfo: Module: crypto InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fModuleInfo: Module: crypto InitialContents: FollowSlot\x7fVisibility: public'
         
          rsa = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'rsa' -> () From: ( |
              {} = 'Comment: This is a concrete subtype of traits cryptomachine. It implements the
@@ -130,86 +129,8 @@ bigger than modulus.\x7fModuleInfo: Module: crypto InitialContents: InitializeTo
          rand <- randomLC copy.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'number' -> () From: ( | {
-         'ModuleInfo: Module: crypto InitialContents: FollowSlot\x7fVisibility: public'
-        
-         test_rsa = ( | {
-                 'ModuleInfo: Module: numberTests InitialContents: FollowSlot'
-                
-                 a <- ''.
-                }  {
-                 'ModuleInfo: Module: numberTests InitialContents: FollowSlot'
-                
-                 b <- ''.
-                }  {
-                 'ModuleInfo: Module: numberTests InitialContents: FollowSlot'
-                
-                 c <- ''.
-                }  {
-                 'ModuleInfo: Module: numberTests InitialContents: InitializeToExpression: (rsa copy)'
-                
-                 cryp <- rsa copy.
-                }  {
-                 'ModuleInfo: Module: numberTests InitialContents: FollowSlot'
-                
-                 k <- 47.
-                }  {
-                 'ModuleInfo: Module: numberTests InitialContents: FollowSlot'
-                
-                 modulusSize = 20.
-                }  {
-                 'ModuleInfo: Module: numberTests InitialContents: FollowSlot'
-                
-                 testStringLen = 10.
-                } 
-            | 
-            "Set seed so that all is determined by the one seed originally chosen."
-            cryp randomGenerator seed: (rand integer: maxSmallInt).
-            'RSA: choosing  modulus etc...' printLine.
-            cryp chooseModulus: 10 Bits: modulusSize.
-            cryp modulus < cryp phi ifTrue: [ ^ 'Wrong!' ].
-            noisy ifTrue: [
-                '   Primes:       ' print. cryp primes     printLine.
-                '   Modulus:      ' print. cryp modulus    printLine.
-                '   Phi(Modulus): ' print. cryp phi        printLine.
-                '   Private key:  ' print. cryp privateKey printLine.
-                '   Public  key:  ' print. cryp publicKey  printLine.
-            ].
-            ' Encrypting/decrypting: ' print.
-
-            '1' print.
-            a: rand string: testStringLen.      "Encrypt/decrypt random string"
-            b: cryp encrypt: a.        "and see if original string comes back."
-            c: cryp decrypt: b.
-            a != c ifTrue: [^ 'rsa encryption failed.'].
-
-            [k: (rand integer: cryp phi - 1) + 1. (k gcd: cryp phi) > 1] whileTrue.
-
-            '2' print.
-            cryp publicKey: k.                "Try this number as public key."
-            a: rand string: testStringLen.    "Encrypt/decrypt random string"
-            b: cryp encrypt: a.      "and see if original string comes back."
-            c: cryp decrypt: b.
-            a != c ifTrue: [^ 'rsa encryption failed.'].
-
-            '3' print.
-            cryp privateKey: k.               "And now as private."
-            a: rand string: testStringLen.    "Encrypt/decrypt random string"
-            b: cryp encrypt: a.      "and see if original string comes back."
-            c: cryp decrypt: b.
-            a != c ifTrue: [^ 'rsa encryption failed.'].
-
-            "Make sure we try all methods."
-            a: cryp randomGenerator.      
-            cryp randomGenerator: a copy.
-            cryp chooseKeys.
-
-            '' printLine.
-            ^ 'ok').
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: applications\x7fModuleInfo: Module: crypto InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fModuleInfo: Module: crypto InitialContents: FollowSlot\x7fVisibility: public'
         
          cryptomachine = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'cryptomachine' -> () From: ( |
              {} = 'Comment: An abstract encryption/decryption machine.

@@ -1,6 +1,6 @@
  '$Revision: 30.1 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -66,7 +66,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: platform\x7fCategory: graphical interface\x7fModuleInfo: Module: quartzHosts InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: platform dependencies\x7fCategory: graphics\x7fModuleInfo: Module: quartzHosts InitialContents: FollowSlot\x7fVisibility: public'
         
          quartzGlobals = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartzGlobals' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals quartzGlobals.

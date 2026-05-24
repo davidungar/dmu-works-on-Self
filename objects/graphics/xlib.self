@@ -1,9 +1,8 @@
- '30.17.0'
+ '$Revision: 30.16 $'
  '
-Copyright 1992-2026 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -55,7 +54,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
              reference manual.\"
 
 
-            \"IMPORTANT: more slots are added to these objects in xlib_wrappers.self'.
+            \"IMPORTANT: more slots are added to these objects in xlib.wrappers.self'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'xlib' -> () From: ( | {
@@ -69,22 +68,29 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'xlib' -> () From: ( | {
-         'ModuleInfo: Module: xlib InitialContents: InitializeToExpression: (\'30.17.0\')\x7fVisibility: public'
+         'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.17.0'.
+         revision <- '$Revision: 30.16 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'xlib' -> () From: ( | {
          'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
-         subpartNames <- 'xDrawable
+         subpartNames <- bootstrap setObjectAnnotationOf: ( 'xDrawable
 xlib_wrappers
-xft
-'.
+' copyMutable) From: ( |
+             {} = 'ModuleInfo: Creator: globals modules xlib subpartNames.
+
+CopyDowns:
+globals byteVector. copy 
+SlotsToOmit: parent.
+
+\x7fIsComplete: '.
+            | ) .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: platform\x7fCategory: graphical interface\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
          xlib = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'xlib' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals xlib.
@@ -1336,8 +1342,8 @@ SlotsToOmit: parent.
             at: 83  Put: traits xlib events xInputEvent controlMask "control")
             at: 127 Put: traits xlib events xInputEvent mod1Mask    "meta_left")
             at: 129 Put: traits xlib events xInputEvent mod1Mask    "meta_right")
-            at: 20  Put: traits xlib events xInputEvent mod2Mask    "num_lock")
-            at: 105 Put: traits xlib events xInputEvent mod3Mask    "command_mask")
+            at: 20  Put: traits xlib events xInputEvent mod2Mask    "alt_graph")
+            at: 105 Put: traits xlib events xInputEvent mod3Mask    "num_lock")
             at: 26  Put: traits xlib events xInputEvent mod4Mask    "alt").
         } | ) 
 
@@ -1346,17 +1352,6 @@ SlotsToOmit: parent.
      munged slightly for fileOuts\x7fModuleInfo: Module: xlib InitialContents: InitializeToExpression: (dictionary copyRemoveAll)\x7fVisibility: private'
         
          kbdModifierMasks = dictionary copyRemoveAll.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
-         'Category: lookup\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
-        
-         lookupKeySym = ( |
-             v.
-            | 
-            v: vector copySize: 1.
-            lookupStringKeySymVector: v.
-            v first).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
@@ -1415,33 +1410,9 @@ evaluate \'ksBlk\' on the keysym.\x7fModuleInfo: Module: xlib InitialContents: F
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
-         'Category: kb constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
-        
-         xk_Alt_L = 65513.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
-         'Category: kb constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
-        
-         xk_Alt_R = 65514.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
          'Category: kb constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
          xk_BackSpace = 65288.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
-         'Category: kb constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
-        
-         xk_Control_L = 65507.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
-         'Category: kb constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
-        
-         xk_Control_R = 65508.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
@@ -1649,21 +1620,9 @@ evaluate \'ksBlk\' on the keysym.\x7fModuleInfo: Module: xlib InitialContents: F
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
-         'Category: kb constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
-        
-         xk_KP_Down = 65433.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
          'Category: kb constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
          xk_KP_Enter = 65421.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
-         'Category: kb constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
-        
-         xk_KP_Left = 65430.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
@@ -1673,21 +1632,9 @@ evaluate \'ksBlk\' on the keysym.\x7fModuleInfo: Module: xlib InitialContents: F
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
-         'Category: kb constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
-        
-         xk_KP_Right = 65432.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
          'Category: kb constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
          xk_KP_Subtract = 65453.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
-         'Category: kb constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
-        
-         xk_KP_Up = 65431.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
@@ -1730,30 +1677,6 @@ evaluate \'ksBlk\' on the keysym.\x7fModuleInfo: Module: xlib InitialContents: F
          'Category: kb constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
          xk_Right = 65363.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
-         'Category: kb constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
-        
-         xk_Shift_L = 65505.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
-         'Category: kb constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
-        
-         xk_Shift_R = 65506.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
-         'Category: kb constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
-        
-         xk_Super_L = 65515.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
-         'Category: kb constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
-        
-         xk_Super_R = 65516.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xKeyEvent' -> () From: ( | {
@@ -3041,7 +2964,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
          xlib = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'xlib' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits xlib.
@@ -3360,11 +3283,7 @@ to empty.
              nm.
              screen.
             | 
-            "If we use the DISPLAY variable, assume it knows what its doing - rca 7/18"
-            d isEmpty ifTrue: [|dv|
-              dv: os environmentAt: 'DISPLAY' IfFail: ''.
-              dv isEmpty ifFalse: [^ dv]].
-            nm:         d isEmpty ifTrue: [os environmentAt: 'DISPLAY' IfFail: ''] False: d.
+            nm:        d isEmpty ifTrue: [os environmentAt: 'DISPLAY' IfFail: ''] False: d.
             colon:     nm keyOf: ':' IfAbsent: [^nm]. "this isn't a valid name in any case"
             hostname:  nm copyFrom: nm firstKey UpTo: colon.
             (hostname = 'unix') || [hostname = 'local'] || [hostname = ''] ifTrue: [
@@ -3412,15 +3331,18 @@ to empty.
          'Category: clipboard\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          fetchFromClipboard = ( |
-            | xFetchBytes).
+            |
+            "use the native Mac pasteboard; X cut buffers (xFetchBytes) aren't bridged by XQuartz -- claude & dmu 5/2026"
+            quartz window fetchFromClipboard).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
          'Category: clipboard\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          fetchFromClipboardIfFail: fb = ( |
-            | 
-            xFetchBytesIfFail: fb).
+            |
+            "see fetchFromClipboard -- claude & dmu 5/2026"
+            quartz window fetchFromClipboardIfFail: fb).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
@@ -3479,7 +3401,7 @@ to empty.
             gc: xlib graphicsContext defaultGCFor: self.
             originalName: dispName.
             name: canonicalDisplayNameOf: dispName.
-            file: os_file copyBlockingFd: connectionNumber Name: name.
+            file: os_file copyX11Fd: connectionNumber Name: name.
             xlib areXErrorsReportedImmediately ifTrue: [
               synchronize: true.
             ].
@@ -3663,7 +3585,7 @@ to empty.
             c: name keyOf: ':' IfAbsent: [^ os nodename].
             name
               copyFrom: name firstKey
-                  UpTo: c + ((name copyFrom: c) keyOf: '.' IfAbsent: name size)).
+                  UpTo: c + ((name copyFrom: c) keyOf: '.')).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
@@ -3682,15 +3604,18 @@ to empty.
          'Category: clipboard\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          storeToClipboard: aString = ( |
-            | xStoreBytes: aString).
+            |
+            "use the native Mac pasteboard; X cut buffers (xStoreBytes) aren't bridged by XQuartz -- claude & dmu 5/2026"
+            quartz window storeToClipboard: aString).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
          'Category: clipboard\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          storeToClipboard: aString IfFail: fb = ( |
-            | 
-            xStoreBytes: aString IfFail: fb).
+            |
+            "see storeToClipboard: -- claude & dmu 5/2026"
+            quartz window storeToClipboard: aString IfFail: fb).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
@@ -5188,7 +5113,7 @@ an object with these slots:
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
-         'Category: constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: constants\x7fCategory: window classes\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          copyFromParent = 0.
         } | ) 
@@ -5198,7 +5123,7 @@ an object with these slots:
         
          createChildWindowAt: pos Size: size Depth: d Visual: vis Attributes: attrs = ( |
             | 
-            createChildWindowAt: pos Size: size Depth: d 
+            xCreateChildWindowAt: pos Size: size Depth: d 
               Visual: vis Attributes: attrs IfFail: raiseError).
         } | ) 
 
@@ -5262,7 +5187,7 @@ an object with these slots:
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
-         'Category: constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: constants\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: private'
         
          currentTime = 0.
         } | ) 
@@ -5320,13 +5245,13 @@ an object with these slots:
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
-         'Category: constants\x7fCategory: grabModes\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: constants\x7fCategory: grabModes\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: private'
         
          grabModeAsync = 1.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
-         'Category: constants\x7fCategory: grabModes\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: constants\x7fCategory: grabModes\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: private'
         
          grabModeSync = 0.
         } | ) 
@@ -5410,13 +5335,13 @@ an object with these slots:
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
-         'Category: constants\x7fCategory: window classes\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: constants\x7fCategory: window classes\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          inputOnly = 2.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
-         'Category: constants\x7fCategory: window classes\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: constants\x7fCategory: window classes\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          inputOutput = 1.
         } | ) 
@@ -6068,7 +5993,6 @@ an object with these slots:
 
  bootstrap read: 'xDrawable' From: 'graphics'
  bootstrap read: 'xlib_wrappers' From: 'glue'
- bootstrap read: 'xft' From: 'graphics'
 
 
 

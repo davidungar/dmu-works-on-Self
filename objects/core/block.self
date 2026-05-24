@@ -1,9 +1,8 @@
- '30.17.0'
+ 'Sun-$Revision: 30.16 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -49,16 +48,15 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'block' -> () From: ( | {
-         'ModuleInfo: Module: block InitialContents: InitializeToExpression: (\'30.17.0\')\x7fVisibility: public'
+         'ModuleInfo: Module: block InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.17.0'.
+         revision <- 'Sun-$Revision: 30.16 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'block' -> () From: ( | {
          'ModuleInfo: Module: block InitialContents: FollowSlot\x7fVisibility: private'
         
-         subpartNames <- 'blockTests
-'.
+         subpartNames <- ''.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
@@ -202,7 +200,6 @@ _GenerateCountCode: true\x7fModuleInfo: Module: block InitialContents: FollowSlo
          'Category: timing\x7fModuleInfo: Module: block InitialContents: FollowSlot\x7fVisibility: public'
         
          flatProfile = ( |
-             p.
             | 
             p: getProfile.
             p printFlat.
@@ -357,9 +354,8 @@ for the sake of compatibility. -- Ausch\x7fModuleInfo: Module: block InitialCont
          onReturn: cleanUpBlock IfFail: fb = ( |
              r.
             | 
-            r: onNonLocalReturn: [|:v| cleanUpBlock value: v. v] 
-                         IfFail: [|:e| ^ fb value: e].
-            cleanUpBlock value: r.
+            r: onNonLocalReturn: [ | :v | cleanUpBlock value. v ] IfFail: [|:e| ^ fb value: e].
+            cleanUpBlock value.
             r).
         } | ) 
 
@@ -604,6 +600,27 @@ for the sake of compatibility. -- Ausch\x7fModuleInfo: Module: block InitialCont
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'block' -> () From: ( | {
          'Category: testing VM\x7fModuleInfo: Module: block InitialContents: FollowSlot\x7fVisibility: public'
         
+         withAndWithoutInlining = ( |
+             i.
+            | 
+            _Interpret ifTrue: [^self].
+
+            (_Compilers size = 1)  &&  [_Compilers first = 'nic']
+              ifTrue: [^ value].
+
+            i: _Inline.
+
+            _Inline: false. _Flush. value.
+            _Inline: true.  _Flush. value.
+
+            _Inline: i. _Flush.
+
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'block' -> () From: ( | {
+         'Category: testing VM\x7fModuleInfo: Module: block InitialContents: FollowSlot\x7fVisibility: public'
+        
          withCompiler: compiler = ( |
              c.
              l.
@@ -662,12 +679,6 @@ for the sake of compatibility. -- Ausch\x7fModuleInfo: Module: block InitialCont
             _PrintGC: f1.
             r).
         } | ) 
-
-
-
- '-- Sub parts'
-
- bootstrap read: 'blockTests' From: 'core'
 
 
 

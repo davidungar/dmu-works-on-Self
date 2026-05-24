@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.8 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -59,7 +59,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: windowing\x7fModuleInfo: Module: eventHandler InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: windowing\x7fModuleInfo: Module: eventHandler InitialContents: FollowSlot\x7fVisibility: public'
         
          queueingEventHandler = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'queueingEventHandler' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals queueingEventHandler.
@@ -74,7 +74,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: windowing\x7fModuleInfo: Module: eventHandler InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: windowing\x7fModuleInfo: Module: eventHandler InitialContents: FollowSlot\x7fVisibility: public'
         
          queueingEventHandler = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'queueingEventHandler' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits queueingEventHandler.

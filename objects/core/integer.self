@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.12 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -61,7 +61,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: numbers\x7fModuleInfo: Module: integer InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: numbers\x7fModuleInfo: Module: integer InitialContents: FollowSlot\x7fVisibility: public'
         
          integer = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'integer' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits integer.

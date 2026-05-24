@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.13 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -88,6 +88,27 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'ModuleInfo: Module: methodText InitialContents: FollowSlot\x7fVisibility: private'
         
          subpartNames <- ''.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractMethodText' -> () From: ( | {
+         'Category: conversions\x7fModuleInfo: Module: methodText InitialContents: FollowSlot\x7fVisibility: public'
+        
+         asCode = ( |
+            | copy formatCode).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractMethodText' -> () From: ( | {
+         'Category: conversions\x7fModuleInfo: Module: methodText InitialContents: FollowSlot\x7fVisibility: public'
+        
+         asMethod = ( |
+            | copy formatMethod).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractMethodText' -> () From: ( | {
+         'Category: conversions\x7fModuleInfo: Module: methodText InitialContents: FollowSlot\x7fVisibility: public'
+        
+         asSlotContents = ( |
+            | copy formatSlotContents).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractMethodText' -> () From: ( | {

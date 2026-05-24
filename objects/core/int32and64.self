@@ -1,6 +1,6 @@
  '$Revision: 30.40 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: numbers\x7fComment: 32 bit integer. Operations are
+         'Category: system\x7fCategory: numbers\x7fComment: 32 bit integer. Operations are
 modulo 2^32.\x7fModuleInfo: Module: int32and64 InitialContents: FollowSlot\x7fVisibility: public'
         
          int32 = bootstrap define: bootstrap stub -> 'globals' -> 'int32' -> () ToBe: bootstrap addSlotsTo: (
@@ -37,7 +37,7 @@ SlotsToOmit: parent.
      0)
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: numbers\x7fModuleInfo: Module: int32and64 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: numbers\x7fModuleInfo: Module: int32and64 InitialContents: FollowSlot\x7fVisibility: public'
         
          int32 = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'int32' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits int32.
@@ -59,7 +59,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: numbers\x7fComment: 64 bit integer. Operations are
+         'Category: system\x7fCategory: numbers\x7fComment: 64 bit integer. Operations are
 modulo 2^64.\x7fModuleInfo: Module: int32and64 InitialContents: FollowSlot\x7fVisibility: public'
         
          int64 = bootstrap define: bootstrap stub -> 'globals' -> 'int64' -> () ToBe: bootstrap addSlotsTo: (
@@ -100,7 +100,7 @@ SlotsToOmit: parent.
      0)
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: numbers\x7fModuleInfo: Module: int32and64 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: numbers\x7fModuleInfo: Module: int32and64 InitialContents: FollowSlot\x7fVisibility: public'
         
          int64 = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'int64' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits int64.
@@ -573,7 +573,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: numbers\x7fComment: Common parent for int32 and int64\x7fModuleInfo: Module: int32and64 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: numbers\x7fComment: Common parent for int32 and int64\x7fModuleInfo: Module: int32and64 InitialContents: FollowSlot\x7fVisibility: public'
         
          int32or64 = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'int32or64' -> () From: ( |
              {} = 'Comment: This code was originially written
@@ -908,7 +908,7 @@ instead of +.
         
          bitAt: n In: x = ( |
             | 
-            and: (maskForBitAt: n) With: x).
+            (and: (maskForBitAt: n) With: x) != 0).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'int32or64' -> () From: ( | {
@@ -1124,7 +1124,6 @@ bv starting at index idx.\x7fModuleInfo: Module: int32and64 InitialContents: Fol
              r <- ''.
              s.
             | 
-            [aaa]. "Why is this method not just calling bytesDo:? -- Adam, Mar. 2009"
             size pred downTo: 0 Do: [|:i|
               s: (and: 255 With: (ushr: self With: i * typeSizes bitsPerByte)) hexPrintString.
               s: ('00' copySize: 2 - s size), s.
@@ -1323,47 +1322,6 @@ bv starting at index idx.\x7fModuleInfo: Module: int32and64 InitialContents: Fol
          reverseLessThanSmallInteger: i = ( |
             | 
             lt: i With: self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'int32or64' -> () From: ( | {
-         'Category: bit-wise operations\x7fModuleInfo: Module: int32and64 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         rotate: i LeftBy: numberOfBits = ( |
-             leftBits.
-             mask.
-             n.
-             rightBits.
-            | 
-            n: numberOfBits % bitSize.
-            n < 0 ifTrue: [n: n + bitSize].
-            mask: (1 << (bitSize - n)) pred.
-            rightBits:  and: i With: mask.
-             leftBits: ushr: i With: bitSize - n.
-            or: leftBits With: shl: rightBits With: n).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'int32or64' -> () From: ( | {
-         'Category: bit-wise operations\x7fModuleInfo: Module: int32and64 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         rotate: i RightBy: numberOfBits = ( |
-            | 
-            rotate: i LeftBy: numberOfBits negate).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'int32or64' -> () From: ( | {
-         'Category: bit-wise operations\x7fModuleInfo: Module: int32and64 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         rotateLeftBy: numberOfBits = ( |
-            | 
-            rotate: self LeftBy: numberOfBits).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'int32or64' -> () From: ( | {
-         'Category: bit-wise operations\x7fModuleInfo: Module: int32and64 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         rotateRightBy: numberOfBits = ( |
-            | 
-            rotate: self RightBy: numberOfBits).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'int32or64' -> () From: ( | {

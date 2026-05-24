@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.9 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -362,21 +362,12 @@ See the LICENSE file for license information.
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'fakeSlotsIterator' -> 'fakeVectorSlots' -> () From: ( | {
          'ModuleInfo: Module: fakeSlotsIterator InitialContents: FollowSlot\x7fVisibility: private'
         
-         ifMirror: m HasMethodPointerDo: b = ( |
-            | 
-            m reflecteeHasMethodPointer ifTrue: [
-              b value: fakeSlot methodPointer copyMirror: m
-            ].
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'fakeSlotsIterator' -> 'fakeVectorSlots' -> () From: ( | {
-         'ModuleInfo: Module: fakeSlotsIterator InitialContents: FollowSlot\x7fVisibility: private'
-        
          mirror: mirr Do: block = ( |
             | 
             fakeVectorishSlots mirror: mirr Do: block.
-            ifMirror: mirr HasMethodPointerDo: block).
+            mirr reflecteeHasMethodPointer ifTrue: [
+              block value: fakeSlot methodPointer copyMirror: mirr
+            ]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'fakeSlotsIterator' -> 'fakeVectorSlots' -> () From: ( | {
@@ -385,7 +376,9 @@ See the LICENSE file for license information.
          mirror: m OneOfEachDo: b = ( |
             | 
             fakeVectorishSlots mirror: m OneOfEachDo: b.
-            ifMirror: m HasMethodPointerDo: b).
+            m reflecteeHasMethodPointer ifTrue: [
+              b value: fakeSlot methodPointer copyMirror: m
+            ]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'fakeSlotsIterator' -> 'fakeVectorSlots' -> () From: ( | {

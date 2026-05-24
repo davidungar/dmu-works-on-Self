@@ -1,6 +1,6 @@
  '$Revision: 30.4 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Keyboard\x7fModuleInfo: Module: keyCaps InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Keyboard\x7fModuleInfo: Module: keyCaps InitialContents: FollowSlot\x7fVisibility: public'
         
          keyCaps = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'keyCaps' -> () From: ( |
              {} = 'Comment: Namespace of objects that represent particular keys on a keyboard.
@@ -594,21 +594,6 @@ See the LICENSE file for license information.
         
          printString = ( |
             | character).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'keyCaps' -> () From: ( | {
-         'ModuleInfo: Module: keyCaps InitialContents: FollowSlot'
-        
-         unknown = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'keyCaps' -> 'unknown' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals keyCaps unknown.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'keyCaps' -> 'unknown' -> () From: ( | {
-         'ModuleInfo: Module: keyCaps InitialContents: FollowSlot'
-        
-         parent* = bootstrap stub -> 'globals' -> 'keyCaps' -> 'oddballs' -> 'abstract' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {

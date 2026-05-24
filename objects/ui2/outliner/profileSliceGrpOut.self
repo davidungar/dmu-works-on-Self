@@ -1,6 +1,6 @@
  '$Revision: 30.5 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -66,16 +66,16 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Self Object Outliner\x7fCategory: Profile Slice Outliner & helpers\x7fModuleInfo: Module: profileSliceGrpOut InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Self Object Outliner\x7fCategory: Profile Slice Outliner & helpers\x7fModuleInfo: Module: profileSliceGrpOut InitialContents: FollowSlot\x7fVisibility: public'
         
          profileSliceGroupOutliner = bootstrap define: bootstrap stub -> 'globals' -> 'profileSliceGroupOutliner' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
              bootstrap remove: 'prototype' From:
-             globals sliceGroupOutliner copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'profileSliceGroupOutliner' -> () From: ( |
+             globals sliceGroupOutliner copyRemoveAllMorphs ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'profileSliceGroupOutliner' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals profileSliceGroupOutliner.
 
 CopyDowns:
-globals sliceGroupOutliner. copy 
+globals sliceGroupOutliner. copyRemoveAllMorphs 
 SlotsToOmit: parent prototype.
 
 \x7fIsComplete: '.

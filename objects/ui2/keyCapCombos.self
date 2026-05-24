@@ -1,6 +1,6 @@
  '$Revision: 30.4 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Keyboard\x7fModuleInfo: Module: keyCapCombos InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Keyboard\x7fModuleInfo: Module: keyCapCombos InitialContents: FollowSlot\x7fVisibility: public'
         
          keyCapCombo = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'keyCapCombo' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals keyCapCombo.

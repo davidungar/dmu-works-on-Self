@@ -1,6 +1,6 @@
  '$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -59,7 +59,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Debugging\x7fModuleInfo: Module: ui2ResultReporter InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Debugging\x7fModuleInfo: Module: ui2ResultReporter InitialContents: FollowSlot'
         
          ui2ResultReporter = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui2ResultReporter' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals ui2ResultReporter.

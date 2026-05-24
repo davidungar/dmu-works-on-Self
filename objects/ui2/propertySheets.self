@@ -1,15 +1,14 @@
- '30.11.1'
+ '$Revision: 30.11 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          subPropertiesSheetMorph = bootstrap define: bootstrap stub -> 'globals' -> 'subPropertiesSheetMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -26,7 +25,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          subPropertiesSheetMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'subPropertiesSheetMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits subPropertiesSheetMorph.
@@ -80,31 +79,31 @@ SlotsToOmit: parent prototype.
             line beFlexibleHorizontally.
             line beRigidVertically.
 
-            titleR: rowMorph copyTransparent.
+            titleR: rowMorph copy color: color.
             titleR borderWidth: 0.
             titleR beFlexible.
             titleR addAllMorphs: (
                 (line copy beRigid setWidth: 15)          &
-                (transparentSpacerMorph copyH: 5)       &
+                (spacerMorph copyH: 5 Color: color)       &
                 (labelMorph copyLabel: title
-                    FontSpec: (outlinerPreferences mediumFontSpec copyName: 'helvetica' Style: 'italic')
+                    FontSpec: (outlinerPreferences mediumFontSpec copyName: 'times' Style: 'italic')
                     Color:    paint named: 'black')       &
-                (transparentSpacerMorph copyH: 5)       &
+                (spacerMorph copyH: 5 Color: color)       &
                 line copy) asVector.
 
-            entriesC: columnMorph copyTransparent beFlexible.
+            entriesC: columnMorph copy beFlexible color: color.
             entriesC borderWidth: 0.
             entriesC addAllMorphs: buildPropertyEntries.
 
-            entriesR: rowMorph copyTransparent beFlexible.
+            entriesR: rowMorph copy beFlexible color: color.
             entriesR borderWidth: 0.
             entriesR addAllMorphs:
                 ((spacerMorph copyH: 6 Color: color) & entriesC) asVector.
 
             addAllMorphs: (
-                (transparentSpacerMorph copyV: 5) &
+                (spacerMorph copyV: 5 Color: color) &
                 titleR                              &
-                (transparentSpacerMorph copyV: 3) &
+                (spacerMorph copyV: 3 Color: color) &
                 entriesR) asVector.
             self).
         } | ) 
@@ -118,7 +117,7 @@ SlotsToOmit: parent prototype.
             defaultButtonHolder: ui2Menu initializeDefaultButtonHolder: defaultButtonHolder.
             f: enumeratedTypeLabelMorph copyItemNames: labels Values: values DefaultButtonHolder: defaultButtonHolder.
             f setSelectedIndex: (values asVector keyAt: v).
-            f fontSpec: globals fontSpec copyName: 'helvetica' Size: outlinerPreferences mediumFontSize Style: 'bold'.
+            f fontSpec: globals fontSpec copyName: 'times' Size: outlinerPreferences mediumFontSize Style: 'bold'.
             buildFieldLabel: n ContentMorph: f).
         } | ) 
 
@@ -130,15 +129,15 @@ SlotsToOmit: parent prototype.
              r.
             | 
             labelM: labelMorph copyLabel: s
-                FontSpec: ( outlinerPreferences mediumFontSpec copyName: 'helvetica' )
+                FontSpec: ( outlinerPreferences mediumFontSpec copyName: 'times' )
                 Color:    (paint named: 'black').
-            r: rowMorph copyTransparent.
+            r: rowMorph copy color: color.
             r borderWidth: 0.
             r beFlexible.
             r baseMinHeight: (outlinerPreferences mediumFontSize + 6).
             r addAllMorphs: (
                 labelM &
-                ((transparentSpacerMorph copy beFlexible) baseMinWidth: 5) &
+                ((spacerMorph copy beFlexible color: color) baseMinWidth: 5) &
                 contentM) asVector.
             r).
         } | ) 
@@ -158,7 +157,7 @@ SlotsToOmit: parent prototype.
              f.
             | 
             e: editorMorph copy.
-            e setFontSpec: (outlinerPreferences mediumFontSpec copyName: 'helvetica' Style: 'bold')
+            e setFontSpec: (outlinerPreferences mediumFontSpec copyName: 'times' Style: 'bold')
                 FontColor: (paint named: 'black').
             e appendString: s.
             s isEmpty ifTrue: [ e appendString: '   ' ].
@@ -231,7 +230,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          borderPropsMorph = bootstrap define: bootstrap stub -> 'globals' -> 'borderPropsMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -260,7 +259,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          borderPropsMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'borderPropsMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits borderPropsMorph.
@@ -275,7 +274,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          buttonPropsMorph = bootstrap define: bootstrap stub -> 'globals' -> 'buttonPropsMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -298,7 +297,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          buttonPropsMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'buttonPropsMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits buttonPropsMorph.
@@ -319,7 +318,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          constructionPropsMorph = bootstrap define: bootstrap stub -> 'globals' -> 'constructionPropsMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -342,7 +341,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          constructionPropsMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'constructionPropsMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits constructionPropsMorph.
@@ -357,7 +356,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          labelPropsMorph = bootstrap define: bootstrap stub -> 'globals' -> 'labelPropsMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -398,7 +397,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          labelPropsMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'labelPropsMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits labelPropsMorph.
@@ -471,9 +470,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision revision: 
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'propertySheets' -> () From: ( | {
-         'ModuleInfo: Module: propertySheets InitialContents: InitializeToExpression: (\'30.11.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: propertySheets InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.11.1'.
+         revision <- '$Revision: 30.11 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'propertySheets' -> () From: ( | {
@@ -483,7 +482,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision revision: 
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          propertiesSheetMorph = bootstrap define: bootstrap stub -> 'globals' -> 'propertiesSheetMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -500,7 +499,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          propertiesSheetMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'propertiesSheetMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits propertiesSheetMorph.
@@ -527,7 +526,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          resizingPropsMorph = bootstrap define: bootstrap stub -> 'globals' -> 'resizingPropsMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -562,7 +561,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          resizingPropsMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'resizingPropsMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits resizingPropsMorph.
@@ -583,7 +582,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          sliderPropsMorph = bootstrap define: bootstrap stub -> 'globals' -> 'sliderPropsMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -618,7 +617,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          sliderPropsMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'sliderPropsMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits sliderPropsMorph.
@@ -826,7 +825,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: propertySheets InitialContents: FollowSlot'
         
          enumeratedTypeLabelMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'enumeratedTypeLabelMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits enumeratedTypeLabelMorph.
@@ -944,7 +943,7 @@ SlotsToOmit: parent prototype.
             borderWidth: 3.
 
             subsheets: target propertySheets.
-            fs: globals fontSpec copyName: 'helvetica' Size: ui2Button defaultFontSpec size.
+            fs: globals fontSpec copyName: 'times' Size: ui2Button defaultFontSpec size.
 
             b1: ui2Button copyColor: color Target: self.
             b1 label: ' Cancel '
@@ -984,7 +983,7 @@ SlotsToOmit: parent prototype.
                 b4) asVector.
 
             t: labelMorph copyLabel: ('Properties for ', target morphTypeName prependAOrAn)
-                FontSpec: (outlinerPreferences largeFontSpec copyName: 'helvetica' Style: 'bold')
+                FontSpec: (outlinerPreferences largeFontSpec copyName: 'times' Style: 'bold')
                 Color:    paint named: 'black'.
 
             c: columnMorph copy color: color.

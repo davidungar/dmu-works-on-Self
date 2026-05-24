@@ -1,9 +1,8 @@
  '$Revision: 30.11 $'
  '
-Copyright 1992-2026 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -95,7 +94,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                           hold all the lines of glue or primitive entries
                           (macro-name_glue or macro-name_entries)
 
-                     glueLibraryName: <glue-library-name>
+                     glueLibaryName: <glue-library-name>
 
                           (This template applies only to dynamic linking.)
                           specifies the file name of the glue library.
@@ -226,7 +225,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                           hold all the lines of glue or primitive entries
                           (macro-name_glue or macro-name_entries)
 
-                     glueLibraryName: <glue-library-name>
+                     glueLibaryName: <glue-library-name>
 
                           (This template applies only to dynamic linking.)
                           specifies the file name of the glue library.
@@ -2224,18 +2223,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'primitiveMaker' -> 'reader' -> () From: ( | {
-         'ModuleInfo: Module: primitiveMaker InitialContents: InitializeToExpression: (\'\')\x7fVisibility: public'
-        
-         currentCategory <- ''.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'primitiveMaker' -> 'reader' -> () From: ( | {
-         'ModuleInfo: Module: primitiveMaker InitialContents: InitializeToExpression: (visibility undeclaredSlot)\x7fVisibility: public'
-        
-         currentVisibility <- bootstrap stub -> 'globals' -> 'visibility' -> 'undeclaredSlot' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'primitiveMaker' -> 'reader' -> () From: ( | {
          'ModuleInfo: Module: primitiveMaker InitialContents: FollowSlot\x7fVisibility: public'
         
          entries <- ''.
@@ -3835,24 +3822,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'primitiveMaker' -> 'reader' -> () From: ( | {
          'ModuleInfo: Module: primitiveMaker InitialContents: FollowSlot\x7fVisibility: private'
         
-         processCategory: line = ( |
-             name <- ''.
-            | 
-
-            line removeFirst.
-            line doFirst: [|:word|
-                name: word ]
-              MiddleLast: [|:word|
-                name: name, ' ', word ].
-
-            endOfSlotAnnotation.
-            comment: name.
-            startOfCategory: name).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'primitiveMaker' -> 'reader' -> () From: ( | {
-         'ModuleInfo: Module: primitiveMaker InitialContents: FollowSlot\x7fVisibility: private'
-        
          processEnd = ( |
             | 
             endOfWrappers.
@@ -3902,8 +3871,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             line first = 'macroName:'        ifTrue: [^processMacroName:       line].
             line first = 'glueLibraryName:'  ifTrue: [^processGlueLibraryName: line].
             line first = 'visibility:'       ifTrue: [^processVisibility:      line].
-            line first = 'category:'         ifTrue: [^processCategory:        line].
-
             p: primitiveMaker parser copy.
             p tokenList: line.
             p parse.
@@ -3928,7 +3895,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             hostPath: path copyWithAll: vector.
             line do: [|:tok| hostPath: hostPath extendedBy: tok].
             wrappers: wrappers & hostPath fullName &  ' _AddSlots: ( |\n\n'.
-	    currentCategory: ''.
             startOfVisibility: undeclaredSlot.
             isInAddSlots: true).
         } | ) 
@@ -4051,40 +4017,21 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'primitiveMaker' -> 'reader' -> () From: ( | {
          'ModuleInfo: Module: primitiveMaker InitialContents: FollowSlot\x7fVisibility: private'
         
-         slotAnnoLine = ( |
-            | 
-            wrappers: wrappers &
-              slotAnnoLineVisibility: currentVisibility
-                            Category: currentCategory
-                          Expression: '').
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'primitiveMaker' -> 'reader' -> () From: ( | {
-         'Comment: Legacy variant used by addModuleInfoToWrappers.
-Current category is not applicable.\x7fModuleInfo: Module: primitiveMaker InitialContents: FollowSlot\x7fVisibility: private'
-        
          slotAnnoLineVisibility: vis = ( |
             | 
-            slotAnnoLineVisibility: vis
-                          Category: ''
-                        Expression: '').
+            slotAnnoLineVisibility: vis Expression: '').
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'primitiveMaker' -> 'reader' -> () From: ( | {
          'ModuleInfo: Module: primitiveMaker InitialContents: FollowSlot\x7fVisibility: private'
         
-         slotAnnoLineVisibility: vis Category: cat Expression: expr = ( |
-             cs.
+         slotAnnoLineVisibility: vis Expression: expr = ( |
             | 
-            cs: list copyRemoveAll.
-            cs addLast: 'generated by primitiveMaker'.
-            cat isEmpty ifFalse: [ cs addLast: cat ].
-
-            '{ ', "closed in endOfSlotAnnotation"
+            '{ ', 
             (
               ((slotAnnotation 
                 copyForVisibility: vis)
-                copyForCategories: cs)
+                copyForCategory: 'generated by primitiveMaker' )
                 copyForModuleInfo: [|:mi|
                    (mi copyForModule: moduleName)
                        copyForInitialContents: 
@@ -4098,32 +4045,12 @@ Current category is not applicable.\x7fModuleInfo: Module: primitiveMaker Initia
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'primitiveMaker' -> 'reader' -> () From: ( | {
-         'Comment: Legacy variant used by addModuleInfoToWrappers.
-Current category is not applicable.\x7fModuleInfo: Module: primitiveMaker InitialContents: FollowSlot\x7fVisibility: private'
-        
-         slotAnnoLineVisibility: vis Expression: expr = ( |
-            | 
-            slotAnnoLineVisibility: vis
-                          Category: ''
-                        Expression: expr).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'primitiveMaker' -> 'reader' -> () From: ( | {
-         'ModuleInfo: Module: primitiveMaker InitialContents: FollowSlot\x7fVisibility: private'
-        
-         startOfCategory: name = ( |
-            | 
-            currentCategory: name.
-            slotAnnoLine).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'primitiveMaker' -> 'reader' -> () From: ( | {
          'ModuleInfo: Module: primitiveMaker InitialContents: FollowSlot\x7fVisibility: private'
         
          startOfVisibility: vis = ( |
             | 
-            currentVisibility: vis.
-            slotAnnoLine).
+            wrappers: wrappers & 
+              slotAnnoLineVisibility: vis).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'primitiveMaker' -> 'reader' -> () From: ( | {

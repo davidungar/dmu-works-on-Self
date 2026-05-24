@@ -1,6 +1,6 @@
  '$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: applications\x7fCategory: examples\x7fModuleInfo: Module: programmingExamples InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: examples\x7fModuleInfo: Module: programmingExamples InitialContents: FollowSlot\x7fVisibility: public'
         
          anExampleObject = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'anExampleObject' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals anExampleObject.

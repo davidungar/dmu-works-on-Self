@@ -1,7 +1,7 @@
- '30.17.0'
+ 'Sun-$Revision: 30.15 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
 
 
@@ -49,7 +49,7 @@ method performs a sanity check on an error message argument.\x7fModuleInfo: Modu
                 (env processErrors userError copy
                     receiver: self)
                     message:  (ensureString: message) copyAtMostWithEllipsis: 2000.
-            env process this errorContinueValue] ) vmKitsError: message).
+            ^ env process this errorContinueValue] ) vmKitsError: message).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'defaultBehavior' -> () From: ( | {
@@ -73,13 +73,11 @@ method performs a sanity check on an error message argument.\x7fModuleInfo: Modu
              env = bootstrap stub -> 'lobby' -> ().
             | 
             env process this isDebugged ifFalse: [
-                env log fatal:
-                     'Halt: ', 
-                     env process this asString,
-                     env process this objectID asString.
+                'Halt: ' print.
+                env process this print. env process this objectID printLine.
                 env process this birthEvent ifNil: [
-                  env log info: 'To debug this process, type "attach: ', 
-                    env process this objectIDNumber printString, '"'.
+                  ( 'To debug this process, type "attach: ', 
+                    env process this objectIDNumber printString, '"') printLine
                 ] IfNotNil: [|:birthEvent|
                   birthEvent sourceHand safelyDo: [
                     env selfProcessModel debugProcess: env process this.
@@ -94,8 +92,7 @@ method performs a sanity check on an error message argument.\x7fModuleInfo: Modu
          'Category: error handling\x7fModuleInfo: Module: errorHandling InitialContents: FollowSlot\x7fVisibility: public'
         
          halt: msg = ( |
-            | 
-            log fatal: msg. halt).
+            | msg printLine. halt).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'defaultBehavior' -> () From: ( | {
@@ -119,7 +116,9 @@ method performs a sanity check on an error message argument.\x7fModuleInfo: Modu
         
          warning: string = ( |
             | 
-            log warn: string. self).
+            globals preferences noisy ifTrue: [ '\a' print. "beep"].
+            'Warning: ' print. string print. '.' printLine. 
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
@@ -163,9 +162,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'errorHandling' -> () From: ( | {
-         'ModuleInfo: Module: errorHandling InitialContents: InitializeToExpression: (\'30.17.0\')\x7fVisibility: public'
+         'ModuleInfo: Module: errorHandling InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.17.0'.
+         revision <- 'Sun-$Revision: 30.15 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'errorHandling' -> () From: ( | {

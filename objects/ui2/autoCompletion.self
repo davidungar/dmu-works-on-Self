@@ -1,7 +1,7 @@
  '$Revision: 30.4 $'
  '
-Copyright 1992-2011 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
 
 

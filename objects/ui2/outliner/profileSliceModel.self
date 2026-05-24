@@ -1,6 +1,6 @@
  '$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -67,7 +67,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Self Object Outliner\x7fCategory: Profile Slice Outliner & helpers\x7fModuleInfo: Module: profileSliceModel InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Self Object Outliner\x7fCategory: Profile Slice Outliner & helpers\x7fModuleInfo: Module: profileSliceModel InitialContents: FollowSlot\x7fVisibility: public'
         
          profileSliceModel = bootstrap define: bootstrap stub -> 'globals' -> 'profileSliceModel' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:

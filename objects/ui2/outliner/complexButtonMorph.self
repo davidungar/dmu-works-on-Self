@@ -1,15 +1,14 @@
- '30.10.1'
+ '$Revision: 30.10 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: complexButtonMorph InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: complexButtonMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          complexButtonMorph = bootstrap define: bootstrap stub -> 'globals' -> 'complexButtonMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -331,9 +330,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'complexButtonMorph' -> () From: ( | {
-         'ModuleInfo: Module: complexButtonMorph InitialContents: InitializeToExpression: (\'30.10.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: complexButtonMorph InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.10.1'.
+         revision <- '$Revision: 30.10 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'complexButtonMorph' -> () From: ( | {

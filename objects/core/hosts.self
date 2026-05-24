@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.15 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,13 +8,13 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: platform\x7fCategory: graphical interface\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: platform dependencies\x7fCategory: graphics\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
         
          graphicsDependentGlobals* = bootstrap stub -> 'globals' -> 'quartzGlobals' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: platform\x7fCategory: host and filesystem\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: OS and filesystem interface\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
         
          host = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'host' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals host.
@@ -62,7 +62,7 @@ See the LICENSE file for license information.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: platform\x7fCategory: host and filesystem\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: OS and filesystem interface\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
         
          host = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'host' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits host.
@@ -74,6 +74,24 @@ See the LICENSE file for license information.
          'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'host' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+         'Category: platform dependencies\x7fCategory: os\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+        
+         macOSGlobals = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'macOSGlobals' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals macOSGlobals.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+         'Category: platform dependencies\x7fCategory: graphics\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+        
+         macToolboxGlobals = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals macToolboxGlobals.
+'.
+            | ) .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
@@ -124,9 +142,11 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          postFileIn = ( |
             | 
             host setOSDependentGlobals.
-            "host setGraphicsDependentGlobals is set in modules allGraphcis"
+            "host setGraphicsDependentGlobals won't work at fileIn"
             snapshotAction addPostReadMessage: (
               message copy receiver: host Selector: 'setOSDependentGlobals').
+            snapshotAction addPostReadMessage: (
+              message copy receiver: host Selector: 'setGraphicsDependentGlobals').
             resend.postFileIn).
         } | ) 
 
@@ -144,7 +164,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: platform\x7fCategory: os\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: platform dependencies\x7fCategory: os\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
         
          unixGlobals = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'unixGlobals' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals unixGlobals.
@@ -153,13 +173,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: platform\x7fCategory: os\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: platform dependencies\x7fCategory: os\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
         
          osDependentGlobals* = bootstrap stub -> 'globals' -> 'unixGlobals' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: platform\x7fCategory: host and filesystem\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: OS and filesystem interface\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
         
          platforms = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'platforms' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals platforms.
@@ -1013,6 +1033,36 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osArchitectures' -> () From: ( | {
          'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
         
+         macOS = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'platforms' -> 'osArchitectures' -> 'macOS' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals platforms osArchitectures macOS.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osArchitectures' -> 'macOS' -> () From: ( | {
+         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+        
+         name = 'macOS'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'platforms' -> () From: ( | {
+         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+        
+         operatingSystem = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'platforms' -> 'operatingSystem' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits platforms operatingSystem.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osArchitectures' -> 'macOS' -> () From: ( | {
+         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'platforms' -> 'operatingSystem' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osArchitectures' -> () From: ( | {
+         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+        
          unix = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'platforms' -> 'osArchitectures' -> 'unix' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals platforms osArchitectures unix.
 '.
@@ -1023,15 +1073,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
         
          name = 'unix'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'platforms' -> () From: ( | {
-         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
-        
-         operatingSystem = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'platforms' -> 'operatingSystem' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits platforms operatingSystem.
-'.
-            | ) .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osArchitectures' -> 'unix' -> () From: ( | {
@@ -1065,69 +1106,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'aux' -> () From: ( | {
-         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: private'
-        
-         parent* = bootstrap stub -> 'globals' -> 'platforms' -> 'osArchitectures' -> 'unix' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> () From: ( | {
-         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
-        
-         freebsd = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'freebsd' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals platforms osFamilies freebsd.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'freebsd' -> () From: ( | {
-         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: private'
-        
-         globalsForThisOS = ( |
-            | 
-            unixGlobals).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'freebsd' -> () From: ( | {
-         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: private'
-        
-         graphicsSystemGlobals = ( |
-            | 
-            x11Globals).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'freebsd' -> () From: ( | {
-         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
-        
-         hostID = ( |
-            | 
-            os gethostid).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'freebsd' -> () From: ( | {
-         'Comment: _\x7fModuleInfo: Module: hosts InitialContents: FollowSlot'
-        
-         initialize = ( |
-            | 
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'freebsd' -> () From: ( | {
-         'Comment: Sun encodes the architecture in the high four bits, and
-	   the model in the lower four bits, of the most significant
-	   byte of the hostid.\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
-        
-         model = ( |
-            | 
-            platforms models macs unknown).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'freebsd' -> () From: ( | {
-         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
-        
-         name = 'freebsd'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'freebsd' -> () From: ( | {
          'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'globals' -> 'platforms' -> 'osArchitectures' -> 'unix' -> ().
@@ -1199,6 +1177,50 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> () From: ( | {
          'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
         
+         macOS = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'macOS' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals platforms osFamilies macOS.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'macOS' -> () From: ( | {
+         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: private'
+        
+         globalsForThisOS = ( |
+            | 
+            macOSGlobals).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'macOS' -> () From: ( | {
+         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: private'
+        
+         graphicsSystemGlobals = ( |
+            | macToolboxGlobals).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'macOS' -> () From: ( | {
+         'Comment: Place-holder.\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+        
+         model = ( |
+            | 
+            platforms models macs unknown).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'macOS' -> () From: ( | {
+         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+        
+         name = 'macOS'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'macOS' -> () From: ( | {
+         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'platforms' -> 'operatingSystem' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> () From: ( | {
+         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+        
          macOSX = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'macOSX' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals platforms osFamilies macOSX.
 '.
@@ -1243,69 +1265,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'macOSX' -> () From: ( | {
-         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: private'
-        
-         parent* = bootstrap stub -> 'globals' -> 'platforms' -> 'osArchitectures' -> 'unix' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> () From: ( | {
-         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
-        
-         netbsd = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'netbsd' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals platforms osFamilies netbsd.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'netbsd' -> () From: ( | {
-         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: private'
-        
-         globalsForThisOS = ( |
-            | 
-            unixGlobals).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'netbsd' -> () From: ( | {
-         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: private'
-        
-         graphicsSystemGlobals = ( |
-            | 
-            x11Globals).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'netbsd' -> () From: ( | {
-         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
-        
-         hostID = ( |
-            | 
-            os gethostid).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'netbsd' -> () From: ( | {
-         'Comment: _\x7fModuleInfo: Module: hosts InitialContents: FollowSlot'
-        
-         initialize = ( |
-            | 
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'netbsd' -> () From: ( | {
-         'Comment: Sun encodes the architecture in the high four bits, and
-	   the model in the lower four bits, of the most significant
-	   byte of the hostid.\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
-        
-         model = ( |
-            | 
-            platforms models macs unknown).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'netbsd' -> () From: ( | {
-         'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
-        
-         name = 'netbsd'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'platforms' -> 'osFamilies' -> 'netbsd' -> () From: ( | {
          'ModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'globals' -> 'platforms' -> 'osArchitectures' -> 'unix' -> ().
@@ -1398,10 +1357,25 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: platform\x7fCategory: host and filesystem\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: OS and filesystem interface\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
         
          thisHost = ( |
             | host copyForThisHost).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+         'Category: platform dependencies\x7fCategory: graphics\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+        
+         x11Globals = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'x11Globals' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals x11Globals.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> () From: ( | {
+         'Category: graphics (ui1)\x7fModuleInfo: Module: hosts InitialContents: FollowSlot\x7fVisibility: public'
+        
+         xlib = bootstrap stub -> 'globals' -> 'xlib' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'host' -> () From: ( | {
@@ -1501,12 +1475,10 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 findFirst: [|:c| c = ' ']
                 IfPresent: [|:c. :i| i]
                  IfAbsent: [operatingSystem size].
-            firstToken = 'Darwin'  ifTrue: [^ 'macOSX'  ].
-            firstToken = 'SunOS'   ifTrue: [^ 'sunOS'   ].
-            firstToken = 'MacOS'   ifTrue: [^ 'macOS'   ].
-            firstToken = 'Linux'   ifTrue: [^ 'linux'   ].
-            firstToken = 'FreeBSD' ifTrue: [^ 'freebsd' ].
-            firstToken = 'NetBSD'  ifTrue: [^ 'netbsd'  ].
+            firstToken = 'Darwin' ifTrue: [^ 'macOSX'].
+            firstToken = 'SunOS'  ifTrue: [^ 'sunOS' ].
+            firstToken = 'MacOS'  ifTrue: [^ 'macOS' ].
+            firstToken = 'Linux'  ifTrue: [^ 'linux' ].
             'sunOS' "just might work").
         } | ) 
 
@@ -1524,9 +1496,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                             'macOS_9' ].
             ].
             osName = 'macOSX'  ifTrue: [ ^ 'macOS_X' ].
-            osName = 'linux'   ifTrue: [ ^ 'linux'   ].
-            osName = 'freebsd' ifTrue: [ ^ 'freebsd' ].
-            osName = 'netbsd'  ifTrue: [ ^ 'netbsd'  ].
+            osName = 'linux'   ifTrue: [ ^ 'linux' ].
             error: ['unknown osName: ', osName]).
         } | ) 
 
@@ -1575,7 +1545,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: platform\x7fCategory: host and filesystem\x7fModuleInfo: Module: hosts InitialContents: FollowSlot'
+         'Category: system\x7fCategory: OS and filesystem interface\x7fModuleInfo: Module: hosts InitialContents: FollowSlot'
         
          platforms = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'platforms' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits platforms.

@@ -1,15 +1,14 @@
  '$Revision: 30.8 $'
  '
-Copyright 1992-2014 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Module Outliner\x7fModuleInfo: Module: moduleHolderModel InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Module Outliner\x7fModuleInfo: Module: moduleHolderModel InitialContents: FollowSlot\x7fVisibility: public'
         
          moduleHolderModel = bootstrap define: bootstrap stub -> 'globals' -> 'moduleHolderModel' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -88,9 +87,7 @@ globals generalModel parent buttonDescriptions. _Clone
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'moduleHolderModel' -> 'parent' -> () From: ( | {
          'Category: appearance\x7fModuleInfo: Module: moduleHolderModel InitialContents: FollowSlot\x7fVisibility: private'
         
-         menuColor = ( |
-            | 
-            preferences outliner theme moduleHolderModelMenuColor).
+         menuColor = paint copyRed: 0.942326 Green: 0.904203  Blue: 0.815249.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'moduleHolderModel' -> 'parent' -> () From: ( | {
@@ -100,19 +97,9 @@ globals generalModel parent buttonDescriptions. _Clone
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'moduleHolderModel' -> 'parent' -> () From: ( | {
-         'Category: appearance\x7fModuleInfo: Module: moduleHolderModel InitialContents: FollowSlot'
-        
-         preferredBodyColor = ( |
-            | 
-            preferences outliner theme moduleHolderModel).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'moduleHolderModel' -> 'parent' -> () From: ( | {
          'Category: appearance\x7fModuleInfo: Module: moduleHolderModel InitialContents: FollowSlot\x7fVisibility: public'
         
-         preferredColor = ( |
-            | 
-            preferences outliner theme moduleHolderModel).
+         preferredColor = paint copyRed: 0.86999 Green: 0.820137  Blue: 0.820137.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'moduleHolderModel' -> 'parent' -> () From: ( | {

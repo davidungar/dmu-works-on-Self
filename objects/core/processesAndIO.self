@@ -1,9 +1,8 @@
- '30.8.0'
+ 'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -48,9 +47,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'processesAndIO' -> () From: ( | {
-         'ModuleInfo: Module: processesAndIO InitialContents: InitializeToExpression: (\'30.8.0\')\x7fVisibility: public'
+         'ModuleInfo: Module: processesAndIO InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.8.0'.
+         revision <- 'Sun-$Revision: 30.7 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'processesAndIO' -> () From: ( | {
@@ -73,9 +72,9 @@ fileStream
 stdin
 stat
 sharedQueue
+socketServer
 monitor
 lock
-channel
 '.
         } | ) 
 
@@ -100,9 +99,9 @@ channel
  bootstrap read: 'stdin' From: 'core'
  bootstrap read: 'stat' From: 'core'
  bootstrap read: 'sharedQueue' From: 'core'
+ bootstrap read: 'socketServer' From: 'core'
  bootstrap read: 'monitor' From: 'core'
  bootstrap read: 'lock' From: 'core'
- bootstrap read: 'channel' From: 'core'
 
 
 

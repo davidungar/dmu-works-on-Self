@@ -1,6 +1,6 @@
  '$Revision: 30.1 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -86,7 +86,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Events\x7fModuleInfo: Module: qUI2Events InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Events\x7fModuleInfo: Module: qUI2Events InitialContents: FollowSlot\x7fVisibility: public'
         
          ui2QuartzEvent = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui2QuartzEvent' -> () From: ( |
              {} = 'Comment: A ui2MacEvent is a general input event. Variations include mouse button

@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.8 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -66,7 +66,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: xIconMaker InitialContents: FollowSlot'
+         'Category: graphics\x7fModuleInfo: Module: xIconMaker InitialContents: FollowSlot'
         
          xIconMaker = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'xIconMaker' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals xIconMaker.
@@ -111,7 +111,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: xIconMaker InitialContents: FollowSlot'
+         'Category: graphics\x7fModuleInfo: Module: xIconMaker InitialContents: FollowSlot'
         
          xIconMaker = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'xIconMaker' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits xIconMaker.

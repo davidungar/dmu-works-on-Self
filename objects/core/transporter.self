@@ -1,9 +1,8 @@
- '30.9.0'
+ 'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -48,9 +47,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'transporter' -> () From: ( | {
-         'ModuleInfo: Module: transporter InitialContents: InitializeToExpression: (\'30.9.0\')\x7fVisibility: public'
+         'ModuleInfo: Module: transporter InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.9.0'.
+         revision <- 'Sun-$Revision: 30.7 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'transporter' -> () From: ( | {
@@ -71,7 +70,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: system\x7fCategory: modules\x7fModuleInfo: Module: transporter InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: applications\x7fModuleInfo: Module: transporter InitialContents: FollowSlot\x7fVisibility: public'
         
          transporter = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'transporter' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals transporter.
@@ -92,7 +91,7 @@ accessed quickly
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'mixins' -> () From: ( | {
-         'Category: system\x7fCategory: modules\x7fModuleInfo: Module: transporter InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: applications\x7fModuleInfo: Module: transporter InitialContents: FollowSlot\x7fVisibility: public'
         
          transporter = bootstrap setObjectAnnotationOf: bootstrap stub -> 'mixins' -> 'transporter' -> () From: ( |
              {} = 'ModuleInfo: Creator: mixins transporter.
@@ -101,7 +100,7 @@ accessed quickly
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: system\x7fCategory: modules\x7fModuleInfo: Module: transporter InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: applications\x7fModuleInfo: Module: transporter InitialContents: FollowSlot\x7fVisibility: public'
         
          transporter = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'transporter' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits transporter.

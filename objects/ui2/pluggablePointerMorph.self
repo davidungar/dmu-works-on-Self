@@ -1,7 +1,7 @@
  '$Revision: 30.6 $'
  '
-Copyright 1992-2011 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
 
 
@@ -66,7 +66,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: pointers\x7fModuleInfo: Module: pluggablePointerMorph InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: pointers\x7fModuleInfo: Module: pluggablePointerMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          pluggableLeafPointerButton = bootstrap define: bootstrap stub -> 'globals' -> 'pluggableLeafPointerButton' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -119,18 +119,17 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: pointers\x7fModuleInfo: Module: pluggablePointerMorph InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: pointers\x7fModuleInfo: Module: pluggablePointerMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          pluggableOutlinerLeafPointerTailMorph = bootstrap define: bootstrap stub -> 'globals' -> 'pluggableOutlinerLeafPointerTailMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
              bootstrap remove: 'prototype' From:
-             bootstrap remove: 'rawColor' From:
              globals outlinerLeafPointerTailMorph copyRemoveAllMorphs ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'pluggableOutlinerLeafPointerTailMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals pluggableOutlinerLeafPointerTailMorph.
 
 CopyDowns:
 globals outlinerLeafPointerTailMorph. copyRemoveAllMorphs 
-SlotsToOmit: parent prototype rawColor.
+SlotsToOmit: parent prototype.
 
 \x7fIsComplete: '.
             | ) .
@@ -189,12 +188,6 @@ SlotsToOmit: droppedOn:Event:.
          prototype = ( |
             | 
             pluggableOutlinerLeafPointerTailMorph).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'pluggableOutlinerLeafPointerTailMorph' -> () From: ( | {
-         'Category: circleMorph State\x7fModuleInfo: Module: pluggablePointerMorph InitialContents: InitializeToExpression: (paint named: \'transparent\')\x7fVisibility: private'
-        
-         rawColor <- paint named: 'transparent'.
         } | ) 
 
 

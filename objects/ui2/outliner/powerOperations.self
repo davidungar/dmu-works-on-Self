@@ -1,6 +1,6 @@
  '$Revision: 30.32 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -66,7 +66,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: User-defined (batch) operations\x7fModuleInfo: Module: powerOperations InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: User-defined (batch) operations\x7fModuleInfo: Module: powerOperations InitialContents: FollowSlot\x7fVisibility: public'
         
          userDefinedOperation = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'userDefinedOperation' -> () From: ( |
              {} = 'Comment: A global point of access for user-defined operations.
@@ -83,7 +83,8 @@ Could be extended to specify actions polymorphically.\x7fModuleInfo: Creator: gl
             | 
             s: str.
 
-            s: s replace:'nodeProto' With: 'node'.
+            s: s replace:'korz demos' With: 'korz worldMaker demos'.
+
             s).
         } | ) 
 

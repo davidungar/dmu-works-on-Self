@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -60,7 +60,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: ordered\x7fModuleInfo: Module: sharedQueue InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: ordered\x7fModuleInfo: Module: sharedQueue InitialContents: FollowSlot\x7fVisibility: public'
         
          sharedQueue = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'sharedQueue' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals sharedQueue.
@@ -90,7 +90,7 @@ then call size which also locks it.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: ordered\x7fModuleInfo: Module: sharedQueue InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: ordered\x7fModuleInfo: Module: sharedQueue InitialContents: FollowSlot\x7fVisibility: public'
         
          sharedQueue = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'sharedQueue' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits sharedQueue.

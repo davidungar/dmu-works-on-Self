@@ -1,6 +1,6 @@
  '$Revision: 30.6 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: system\x7fCategory: virtual machine interface\x7fCategory: bytecode interpreters\x7fModuleInfo: Module: selectorFinder InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: Virtual Machine interface\x7fCategory: bytecode interpreters\x7fModuleInfo: Module: selectorFinder InitialContents: FollowSlot\x7fVisibility: public'
         
          selectorFinder = bootstrap define: bootstrap stub -> 'globals' -> 'selectorFinder' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -91,7 +91,7 @@ of selector sent or \'\'\x7fModuleInfo: Creator: globals selectorFinder parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: system\x7fCategory: virtual machine interface\x7fCategory: bytecode interpreters\x7fModuleInfo: Module: selectorFinder InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: Virtual Machine interface\x7fCategory: bytecode interpreters\x7fModuleInfo: Module: selectorFinder InitialContents: FollowSlot\x7fVisibility: public'
         
          implicitSelfSendFinder = bootstrap define: bootstrap stub -> 'globals' -> 'implicitSelfSendFinder' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:

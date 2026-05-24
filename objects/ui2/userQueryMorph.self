@@ -1,9 +1,8 @@
  '$Revision: 30.14 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -74,7 +73,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: userQueryMorph InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: userQueryMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          userQueryMorph = bootstrap define: bootstrap stub -> 'globals' -> 'userQueryMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -112,11 +111,11 @@ SlotsToOmit: parent prototype rawColor.
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'userQueryMorph' -> () From: ( | {
          'Category: User Query Morph State\x7fModuleInfo: Module: userQueryMorph InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
         
-         editor <- bootstrap stub -> 'globals' -> 'nil' -> ().
+         editor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: userQueryMorph InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: userQueryMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          userQueryMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'userQueryMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits userQueryMorph.
@@ -221,29 +220,6 @@ given default response.\x7fModuleInfo: Module: userQueryMorph InitialContents: F
             editor text selectAll beTypingFocusFor: evt sourceHand.
             query drawAttention awaitResponse.
             editor contentsString).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'userQueryMorph' -> () From: ( | {
-         'Category: simple queries\x7fComment: Ask the user a question and return the user\'s reply
-(a string). The type-in field is initialized to the
-given default response.\x7fModuleInfo: Module: userQueryMorph InitialContents: FollowSlot\x7fVisibility: public'
-        
-         askString: queryText DefaultAnswer: default Event: evt IfCancel: blk = ( |
-             query.
-            | 
-            editor: uglyTextEditorMorph copyString: default Style: ( | color = paint | ).
-            editor borderWidth: 3.
-            query: copyQuestion: queryText.
-            query widgetColumn addMorph: editor.
-            query buttonInRowLabel: 'Okay' Result: 'Okay'.
-            query buttonInRowLabel: 'Cancel' Result: 'Cancel'.
-            query colorAll: query color.
-            query popUpWhereEventHappened: evt.
-            editor text selectAll beTypingFocusFor: evt sourceHand.
-            query drawAttention awaitResponse.
-            query result = 'Cancel'
-              ifTrue: [blk value]
-               False: [editor contentsString]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'userQueryMorph' -> () From: ( | {
@@ -372,49 +348,15 @@ for user reponses are added via buttonLabel:Result:.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'userQueryMorph' -> () From: ( | {
-         'Category: query construction\x7fModuleInfo: Module: userQueryMorph InitialContents: FollowSlot'
-        
-         copyQuestionForNotice: queryText = ( |
-             c.
-             mphs.
-             new.
-            | 
-            new: copyRemoveAllMorphs beShrinkWrap.
-            "new colorAll: paint copyRed: 0 Green: 0 Blue: 0 Alpha: 0.7."
-            new doneSema: (doneSema copyCount: 0 Capacity: 1).
-            mphs: list copyRemoveAll.
-            (queryText asTextLines) do: [| :line |
-                mphs add:
-                    (labelMorph copyLabel: line
-                                 FontSpec: defaultFontSpec
-                                    Color: defaultFontColor).
-            ].
-            mphs add: spacerMorph copyV: 10 Color: color.
-            new buttonExpressions: buttonExpressions copyRemoveAll.
-            new buttonRow:    (rowMorph    copy beFlexible borderWidth: 0).
-            new widgetColumn: (columnMorph copy beFlexible borderWidth: 0).
-            new widgetColumn baseMinWidth:  0.
-            new widgetColumn baseMinHeight: 0.
-            new buttonRow addMorph: spacerMorph copy beFlexible.
-            mphs add: new widgetColumn.
-            mphs add: spacerMorph copyV: 5 Color: color.
-            mphs add: new buttonRow.
-            c: columnMorph copy beFlexible borderWidth: 20.
-            c addAllMorphs: mphs.
-            new addMorph: c.
-            new).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'userQueryMorph' -> () From: ( | {
          'Category: default fonts\x7fModuleInfo: Module: userQueryMorph InitialContents: InitializeToExpression: (paint named: \'black\')\x7fVisibility: private'
         
          defaultFontColor <- paint named: 'black'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'userQueryMorph' -> () From: ( | {
-         'Category: default fonts\x7fModuleInfo: Module: userQueryMorph InitialContents: InitializeToExpression: (fontSpec copyName: \'helvetica\' Size: 12 Style: \'bold\')\x7fVisibility: private'
+         'Category: default fonts\x7fModuleInfo: Module: userQueryMorph InitialContents: InitializeToExpression: (fontSpec copyName: \'times\' Size: 14 Style: \'bold\')\x7fVisibility: private'
         
-         defaultFontSpec <- fontSpec copyName: 'helvetica' Size: 12 Style: 'bold'.
+         defaultFontSpec <- fontSpec copyName: 'times' Size: 14 Style: 'bold'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'userQueryMorph' -> () From: ( | {
@@ -559,7 +501,7 @@ for user reponses are added via buttonLabel:Result:.
          show: showText Event: evt = ( |
              qm.
             | 
-            qm: copyQuestionForNotice: showText.
+            qm: copyQuestion: showText.
             qm popUpWhereEventHappened: evt.
             qm drawAttention.
             qm).
@@ -586,7 +528,7 @@ for user reponses are added via buttonLabel:Result:.
             qms: list copyRemoveAll.
             desktop worldsDo: [| :w |
               w winCanvases do: [| :c. qm |
-                qm: copyQuestionForNotice: showText.
+                qm: copyQuestion: showText.
                 qm popUpInWorld: w
                          Canvas: c
                              At: c boundingBoxInWorld center + everybodyOffset.

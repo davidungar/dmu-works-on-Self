@@ -1,14 +1,14 @@
  '$Revision: 30.7 $'
  '
-Copyright 1992-2011 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fModuleInfo: Module: generalLeafModel InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fModuleInfo: Module: generalLeafModel InitialContents: FollowSlot\x7fVisibility: public'
         
          generalLeafModel = bootstrap define: bootstrap stub -> 'globals' -> 'generalLeafModel' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -82,8 +82,8 @@ SlotsToOmit: parent.
     '       ' &
     '       ' ) asVector
  Colors: (
-    (paint named: 'transparent') &
-    (paint named: 'transparent')) asVector] value) From: ( |
+    (paint named: 'black') &
+    (paint named: 'black')) asVector] value) From: ( |
              {} = 'ModuleInfo: Creator: globals generalLeafModel parent buttonIcon.
 \x7fIsComplete: '.
             | ) .
@@ -100,7 +100,7 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalLeafModel' -> 'parent' -> () From: ( | {
          'Category: contents label\x7fModuleInfo: Module: generalLeafModel InitialContents: FollowSlot'
         
-         contentsLabelFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'verdana' Size: 12 Style: 'italic') From: ( |
+         contentsLabelFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'times' Size: 12 Style: 'italic') From: ( |
              {} = 'Comment: I am an abstract, portable, description of a font.
 I am also immutable.\x7fModuleInfo: Creator: globals generalLeafModel parent contentsLabelFontSpec.
 \x7fIsComplete: '.
@@ -147,6 +147,18 @@ I am also immutable.\x7fModuleInfo: Creator: globals generalLeafModel parent con
          'ModuleInfo: Module: generalLeafModel InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalLeafModel' -> 'parent' -> () From: ( | {
+         'Category: appearance\x7fModuleInfo: Module: generalLeafModel InitialContents: FollowSlot\x7fVisibility: public'
+        
+         preferredColor = ( |
+             o.
+            | 
+            o: myOutliner owner.
+            o isNil || [o isHandMorph] "don't change color when being carried"
+                ifTrue: [myOutliner color]
+                 False: [o color]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalLeafModel' -> 'parent' -> () From: ( | {

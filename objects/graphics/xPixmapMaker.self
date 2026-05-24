@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -60,7 +60,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: xPixmapMaker InitialContents: FollowSlot'
+         'Category: graphics\x7fModuleInfo: Module: xPixmapMaker InitialContents: FollowSlot'
         
          xPixmapMaker = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'xPixmapMaker' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals xPixmapMaker.
@@ -105,7 +105,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: xPixmapMaker InitialContents: FollowSlot'
+         'Category: graphics\x7fModuleInfo: Module: xPixmapMaker InitialContents: FollowSlot'
         
          xPixmapMaker = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'xPixmapMaker' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits xPixmapMaker.
