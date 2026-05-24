@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -69,7 +69,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: characters\x7fModuleInfo: Module: textLines InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: characters\x7fModuleInfo: Module: textLines InitialContents: FollowSlot\x7fVisibility: public'
         
          textLines = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'textLines' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals textLines.

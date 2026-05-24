@@ -1,9 +1,8 @@
- '30.9.0'
+ 'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -48,39 +47,25 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allCore' -> () From: ( | {
-         'ModuleInfo: Module: allCore InitialContents: InitializeToExpression: (\'30.9.0\')\x7fVisibility: public'
+         'ModuleInfo: Module: allCore InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.9.0'.
+         revision <- 'Sun-$Revision: 30.7 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allCore' -> () From: ( | {
-         'ModuleInfo: Module: allCore InitialContents: InitializeToExpression: (\'systemStructure
-coreObjects
-processesAndIO
-programmingSupport
-ttySupport
-defaultPreferences
-debugger
-coreUserProfile
-prompt
-int32and64
-systemLog
-about
-\')\x7fVisibility: private'
+         'ModuleInfo: Module: allCore InitialContents: FollowSlot\x7fVisibility: private'
         
-         subpartNames <- 'systemStructure
-coreObjects
-processesAndIO
-programmingSupport
-ttySupport
-defaultPreferences
-debugger
-coreUserProfile
-prompt
-int32and64
-systemLog
-about
-'.
+         subpartNames <- '
+	     systemStructure
+	     coreObjects
+	     processesAndIO
+	     programmingSupport
+	     ttySupport
+	     defaultPreferences
+	     debugger
+             prompt
+	     
+int32and64'.
         } | ) 
 
 
@@ -94,11 +79,8 @@ about
  bootstrap read: 'ttySupport' From: 'core'
  bootstrap read: 'defaultPreferences' From: 'core'
  bootstrap read: 'debugger' From: 'core'
- bootstrap read: 'coreUserProfile' From: 'core'
  bootstrap read: 'prompt' From: 'core'
  bootstrap read: 'int32and64' From: 'core'
- bootstrap read: 'systemLog' From: 'core'
- bootstrap read: 'about' From: 'core'
 
 
 

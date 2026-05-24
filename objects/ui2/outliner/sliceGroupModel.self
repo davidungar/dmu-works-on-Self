@@ -1,15 +1,14 @@
  '$Revision: 30.10 $'
  '
-Copyright 1992-2014 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: Slice Outliner & helpers\x7fModuleInfo: Module: sliceGroupModel InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: Slice Outliner & helpers\x7fModuleInfo: Module: sliceGroupModel InitialContents: FollowSlot\x7fVisibility: public'
         
          generalSliceGroupModel = bootstrap define: bootstrap stub -> 'globals' -> 'generalSliceGroupModel' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -147,14 +146,6 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: sliceGroupModel InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalSliceGroupModel' -> 'parent' -> () From: ( | {
-         'Category: appearance\x7fModuleInfo: Module: sliceGroupModel InitialContents: FollowSlot'
-        
-         preferredBodyColor = ( |
-            | 
-            preferences outliner theme generalSliceModel).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalSliceGroupModel' -> 'parent' -> () From: ( | {

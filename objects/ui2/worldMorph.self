@@ -1,9 +1,8 @@
- '30.30.1'
+ '$Revision: 30.30 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -68,14 +67,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             | 
             resend.postFileIn.
             worldMorph initializePrototype.
-            ( worldMorph & shell & memory & userProfile ) asVector do: [| :o | worldMorph addBackgroundMenuContributor: o ].
+            ( worldMorph & shell & memory ) asVector do: [| :o | worldMorph addBackgroundMenuContributor: o ].
             self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'worldMorph' -> () From: ( | {
-         'ModuleInfo: Module: worldMorph InitialContents: InitializeToExpression: (\'30.30.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.30.1'.
+         revision <- '$Revision: 30.30 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'worldMorph' -> () From: ( | {
@@ -85,7 +84,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          screenEdge = bootstrap define: bootstrap stub -> 'globals' -> 'screenEdge' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -108,7 +107,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Basic\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Basic\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          screenEdge = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'screenEdge' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits screenEdge.
@@ -135,7 +134,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          worldMorph = bootstrap define: bootstrap stub -> 'globals' -> 'worldMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -238,7 +237,7 @@ When I run again, the step cycle adds me in to the world.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          worldMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits worldMorph.
@@ -365,14 +364,6 @@ gets stuck.
                                    selfObjectModel newOutlinerFor: (reflect: shell copy)
                                                           InWorld: event sourceHand world] )
                    label: 'New shell' )
-            ToGroup: 'top'.
-
-            m addButton:
-                ( ( ui2Button copy
-                   scriptBlock: [event sourceHand attach:
-                                   selfObjectModel newOutlinerFor: (reflect: ())
-                                                          InWorld: event sourceHand world] )
-                   label: 'New Object' )
             ToGroup: 'top'.
 
             m addButton:
@@ -512,7 +503,7 @@ the world\'s layoutChanged method does nothing.\x7fModuleInfo: Module: worldMorp
         
          addBackgroundMenuContributor: obj = ( |
             | 
-            backgroundMenu: nil. 
+            backgroundMenu: nil.
             backgroundMenuContributors add: obj.
             self).
         } | ) 
@@ -573,14 +564,6 @@ the world\'s layoutChanged method does nothing.\x7fModuleInfo: Module: worldMorp
          'Category: window management\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot'
         
          addWindowOnDisplay: dispName Bounds: b Limited: isLimited = ( |
-            | 
-            addWindowOnDisplay: dispName Bounds: b User: users owner Limited: isLimited).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
-         'Category: window management\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot'
-        
-         addWindowOnDisplay: dispName Bounds: b User: aUserProfile Limited: isLimited = ( |
              bc.
              h.
              pc.
@@ -597,7 +580,6 @@ the world\'s layoutChanged method does nothing.\x7fModuleInfo: Module: worldMorp
 
             isLimited ifTrue: [wc platformWindow freezeSize: b size].
             h: handMorph copyRemoveAllSubscribers privateSetOwner: self.
-            h userInfo: aUserProfile.
             h color: randomColorForUser.
             h subscribeWindow:   self. 
 
@@ -718,7 +700,7 @@ evaluate fb if there is none.\x7fModuleInfo: Module: worldMorph InitialContents:
              n.
             | 
             n: userQuery
-             askMultipleChoice: 'Quit Self?'
+             askMultipleChoice: ''
              Choices: ('Just quit' & 'Save then quit' & 'Cancel') asVector
              Results: ('Just quit' & 'Save then quit' & 'Cancel') asVector.
             n = 'Cancel' ifTrue: [^ self ].
@@ -776,8 +758,6 @@ whenever the background menu is rebuilt\x7fModuleInfo: Module: worldMorph Initia
             m groups: ( 
               'top' 
             & 'builtInMorphs' 
-            & 'usefulObjects' 
-            & 'users'
             & 'worldManagement' 
             & 'applications' 
             & 'memory' 
@@ -959,9 +939,6 @@ the UI process if the last window is closed.\x7fModuleInfo: Module: worldMorph I
         
          contributeToBackgroundMenu: m = ( |
             | 
-            m addButton: ( (ui2Button copy scriptBlock: [event sourceHand attach: event sourceHand world outlinerForMirror: reflect: globals]) 
-                                                 label: 'Globals' )
-                ToGroup: 'usefulObjects'.
             m addButton: ( (ui2Button copy scriptBlock: [target toggleSpy]) 
                                                  label: 'Toggle Spy' )
                 ToGroup: 'builtInMorphs'.
@@ -1108,16 +1085,17 @@ morphs that have changed and should be redrawn.\x7fModuleInfo: Module: worldMorp
             tStart: times real msec.
             [desiredDelay > (times real msec - tStart)] whileTrue: [
               eventsPending ifTrue: [ ^self ].
-              times delay: 1.  "ask for a small delay; typically get a longer one"
+              "Changed the 5 below to 100 to reduce time 
+               spent idling while desktop was open"
+              times delay: 10.  "ask for a small delay; typically get a longer one"
             ].
             self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
-         'Category: running\x7fCategory: options\x7fComment: This is our desired frame time, we can go faster then this to
-cope with user input or slower to avoid hogging CPU\x7fModuleInfo: Module: worldMorph InitialContents: InitializeToExpression: (8)\x7fVisibility: public'
+         'Category: running\x7fCategory: options\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
         
-         desiredFrameTime <- 8.
+         desiredFrameTime <- 35.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
@@ -1192,17 +1170,19 @@ draw the morphs from the given list that intersect the given
 rectangle onto the given canvas.\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
         
          drawMorphs: mList Intersecting: r On: aCanvas Offset: offset = ( |
+             fill.
              morphsToDraw.
              redrawBoxes.
             | 
             morphsToDraw: list copyRemoveAll.
             redrawBoxes:  list copyRemoveAll.
-             filterMorphsIn: mList
-               Intersecting: r
-                       Into: morphsToDraw
-            RedrawBoxesInto: redrawBoxes
-                     Offset: offset.
-            aCanvas fillRectangle: r Color: color.
+            fill: filterMorphsIn: mList
+                    Intersecting: r
+                            Into: morphsToDraw
+                 RedrawBoxesInto: redrawBoxes
+                          Offset: offset.
+
+            fill ifTrue: [ aCanvas fillRectangle: r Color: color ].
             morphsToDraw with: redrawBoxes ReverseDo: [| :m. :rBox |
                aCanvas redrawBox:  rBox.
                 m drawOn: aCanvas.
@@ -1256,11 +1236,14 @@ simply lands on the world.\x7fModuleInfo: Module: worldMorph InitialContents: Fo
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
          'Category: running\x7fCategory: private\x7fCategory: step process\x7fComment: Support for efficient incremental display update. The given list of morphs
 is scanned for morphs that intersect the given damage rectangle. Such
-morphs are appended to morphsToDraw. If a morph is itself completely
+morphs are appended to morphsToDraw. Scanning terminates if any morph
+completely fills the given rectangle, since morphs behind this morph are
+completely obscured. On the other hand, if a morph is itself completely
 enclosed by the rectangle, there is nothing to be gained by pruning the
 drawing of its submorphs to the given rectangle; this fact is recorded
 by appending nil to redrawBoxes (versus the pruning box). This method
-puts the morphs to be drawn into the morphsToDraw list and the pruningBoxes into the redrawBoxes list.\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
+returns a boolean indicating whether the background is visible (true)
+or completely obscured by some morph.\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
         
          filterMorphsIn: mList Intersecting: r Into: morphsToDraw RedrawBoxesInto: redrawBoxes Offset: offset = ( |
              pruningBox.
@@ -1273,9 +1256,15 @@ puts the morphs to be drawn into the morphsToDraw list and the pruningBoxes into
                     redrawBoxes  add:
                         "nil means draw entire morph; otherwise, append the box for pruning"
                         ((r enclosesOrEquals: mBnds) ifTrue: nil False: pruningBox).
+                    (m isRectangular && [m noStickOuts && [mBnds enclosesOrEquals: r]]) ifTrue: [
+                        "m completely fills the given rectangle, hiding the morphs behind
+                         it and covering the background as well"
+                        ^ false.
+                    ].
                 ].
             ].
-            self).
+            "if we get here, no morph fills the rectangle, so the background may show"
+            true).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
@@ -1457,7 +1446,6 @@ puts the morphs to be drawn into the morphsToDraw list and the pruningBoxes into
             joinedMorphs:       joinedMorphs copyRemoveAll.
             outlinerActivities: outlinerActivities copyRemoveAll.
 
-            color: preferences desktop backgroundColor.
             backgroundMenu: nil.
             desktop setNameOfNewWorld: self.
             addWindowOnDisplay: dispName Bounds: b.
@@ -1542,9 +1530,7 @@ to each morph prototype after filing it in.\x7fModuleInfo: Module: worldMorph In
         
          leftMouseDown: e = ( |
             | 
-            preferences desktop useViewScrollMorph
-             ifTrue: [viewScrollMorph copyHand: e sourceHand]
-              False: [carpetMorph copyHand: e sourceHand].
+            carpetMorph copyHand: e sourceHand.
             self).
         } | ) 
 
@@ -1657,10 +1643,8 @@ Make a notifier to be spawned in a new world.\x7fModuleInfo: Module: worldMorph 
         
          middleMouseDown: e = ( |
             | 
-            "only if click on background, or if we
-             are dealing with an even forwarded by viewScrollMorph"
-            rootMorphsAt: e cursorPoint Do: [|:m|
-                m prototype = viewScrollMorph ifFalse: [^ self]].
+            "only if click on background"
+            rootMorphsAt: e cursorPoint Do: [^ self].
             backgroundMenu ifNil: [ backgroundMenu: buildBackgroundMenu ].
             ( backgroundMenu copy retargetButtonsTo: self) popUp: e.
             self).
@@ -1886,13 +1870,8 @@ oldGlobalBounds. \x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot'
             | 
             host osName == 'macOSX' ifTrue: [^'quartz'].
             displayName == 'quartz' ifTrue: [^ ''].
-            " Reset to zero if reseting X Display"
-            (snapshotAction commandLine includes: '--resetXDisplays')
-              ifTrue: [" Reset display to DISPLAY environment variable "
-                 ^ os environmentAt: 'DISPLAY' IfFail: ''].
             displayName).
         } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
          'Category: structure\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
         
@@ -2257,15 +2236,6 @@ on the default display.\x7fModuleInfo: Module: worldMorph InitialContents: Follo
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
-         'Category: event handling\x7fComment: If button down over the world, drag out a selection region\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
-        
-         rightMouseDown: e = ( |
-            | 
-            carpetMorph copyHand: e sourceHand.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
          'Category: arrows\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
         
          rootMorphsAt: globalPt Do: blk = ( |
@@ -2301,7 +2271,7 @@ run this method.\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x
                 stepDoneSema wait.
                 computeTime: times real msec - tStart.
                 "ensure don't use more than half of CPU just to run the UI"
-                 delayIfNoInputFor: (desiredFrameTime - computeTime) max: desktop worlds size * computeTime.
+                delayIfNoInputFor: 10 max: (desiredFrameTime - computeTime) max: desktop worlds size * computeTime.
             ] loop.
             self).
         } | ) 
@@ -2650,7 +2620,7 @@ IfAbsent: argument if none.\x7fModuleInfo: Module: worldMorph InitialContents: F
             | 
             (
               case
-                if: [host osName == 'macOSX']  Then: [quartzGlobals]
+                if: [dispName isEmpty  &&  [host osName == 'macOSX']]  Then: [self ]
                 If: [dispName = quartzGlobals windowCanvas displayName] Then: [quartzGlobals]
                 Else: [x11Globals ]
             ) windowCanvas).

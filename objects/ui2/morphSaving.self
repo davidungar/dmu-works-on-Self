@@ -1,9 +1,8 @@
  '$Revision: 30.9 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -291,14 +290,6 @@ See the legal/LICENSE file for license information and legal/AUTHORS for authors
             | enumerationMorphElement).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'evaluatorMorph' -> () From: ( | {
-         'Category: filing out\x7fModuleInfo: Module: morphSaving InitialContents: FollowSlot\x7fVisibility: public'
-        
-         prototype = ( |
-            | 
-            evaluatorMorph).
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'expanderMorph' -> () From: ( | {
          'Category: filing out\x7fModuleInfo: Module: morphSaving InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -529,7 +520,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Saving morphs to a file\x7fModuleInfo: Module: morphSaving InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Saving morphs to a file\x7fModuleInfo: Module: morphSaving InitialContents: FollowSlot'
         
          morphStoreStringBuilder = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'morphStoreStringBuilder' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals morphStoreStringBuilder.
@@ -1292,6 +1283,13 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             slotsInModuleMorph).
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'smallEditorMorph' -> () From: ( | {
+         'Category: filing out\x7fModuleInfo: Module: morphSaving InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prototype = ( |
+            | smallEditorMorph).
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'spacerMorph' -> () From: ( | {
          'Category: filing out\x7fModuleInfo: Module: morphSaving InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -1318,14 +1316,6 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          prototype = ( |
             | textViewerMorph).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'transparentSpacerMorph' -> () From: ( | {
-         'Category: filing out\x7fModuleInfo: Module: morphSaving InitialContents: FollowSlot\x7fVisibility: public'
-        
-         prototype = ( |
-            | 
-            transparentSpacerMorph).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'trashCanExpandedMorph' -> () From: ( | {
@@ -1396,13 +1386,6 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          prototype = ( |
             | userQueryMorph).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'viewScrollMorph' -> () From: ( | {
-         'Category: filing out\x7fModuleInfo: Module: morphSaving InitialContents: FollowSlot\x7fVisibility: public'
-        
-         prototype = ( |
-            | viewScrollMorph).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'worldMorph' -> () From: ( | {

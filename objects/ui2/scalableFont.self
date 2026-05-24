@@ -1,9 +1,8 @@
- '30.10.1'
+ 'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -56,9 +55,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'scalableFont' -> () From: ( | {
-         'ModuleInfo: Module: scalableFont InitialContents: InitializeToExpression: (\'30.10.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.10.1'.
+         revision <- 'Sun-$Revision: 30.10 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'scalableFont' -> () From: ( | {
@@ -68,7 +67,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Fonts\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Fonts\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot\x7fVisibility: public'
         
          fontDictionary = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontDictionary' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals x11Globals fontDictionary.
@@ -95,7 +94,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Fonts\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: System\x7fCategory: Fonts\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          xFontDictionary = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'xFontDictionary' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits xFontDictionary.
@@ -110,7 +109,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Fonts\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Fonts\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot\x7fVisibility: public'
         
          fontFamily = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals x11Globals fontFamily.
@@ -414,18 +413,6 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: urw\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
-        
-         nimbusMono = '-urw-nimbus mono l-medium-r-normal--'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: urw\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
-        
-         nimbusSans = '-urw-nimbus sans l-medium-r-normal--'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
          'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          palatino = '-*-palatino-medium-r-normal--'.
@@ -447,30 +434,6 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          palatinoItalic = '-*-palatino-medium-i-normal--'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: urw\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
-        
-         palladio = '-urw-urw palladio l-medium-r-normal--'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: urw\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
-        
-         palladioBold = '-urw-urw palladio l-bold-r-normal--'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: urw\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
-        
-         palladioBoldItalic = '-urw-urw palladio l-bold-i-normal--'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: urw\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
-        
-         palladioItalic = '-urw-urw palladio l-medium-i-normal--'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
@@ -532,58 +495,52 @@ I print out as asterisks.\x7fModuleInfo: Module: scalableFont InitialContents: F
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          symbol = '-*-symbol-medium-r-normal--'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          symbolBold = ( |
             | symbol).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          symbolBoldItalic = ( |
             | symbol).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          symbolItalic = ( |
             | symbol).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: terminus\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
-        
-         terminus = '-xos4-terminus-medium-r-normal--'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          times = '-*-times-medium-r-normal--'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          timesBold = '-*-times-bold-r-normal--'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          timesBoldItalic = '-*-times-bold-i-normal--'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          timesItalic = '-*-times-medium-i-normal--'.
         } | ) 
@@ -601,91 +558,91 @@ I print out as asterisks.\x7fModuleInfo: Module: scalableFont InitialContents: F
             now: time current.
             (now - lastKvetchTime ) > (1000 * 60 * 5)  ifTrue: [
               lastKvetchTime: now.
-              log warn: 'Unknown font: ', sel, ' ... subsituting terminus in x11Globals>>fontFamily>>undefinedSelector:...'.
+              ('unknown font: ', sel) printLine.
             ].
-            terminus).
+            times).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          urwAvantGarde = '-*-itc avant garde-medium-r-normal-sans-'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          urwAvantGardeBold = '-*-itc avant garde-demi-r-normal-sans-'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          urwAvantGardeBoldItalic = '-*-itc avant garde-demi-o-normal-sans-'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          urwAvantGardeItalic = '-*-itc avant garde-medium-o-normal-sans-'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          zapfChancery = '-*-zapfchancery-medium-i-normal--'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          zapfChanceryBold = ( |
             | zapfChancery).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          zapfChanceryBoldItalic = ( |
             | zapfChancery).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          zapfChanceryItalic = ( |
             | zapfChancery).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          zapfDingbats = '-*-zapfdingbats-medium-r-normal--'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          zapfDingbatsBold = ( |
             | zapfDingbats).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          zapfDingbatsBoldItalic = ( |
             | zapfDingbats).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: classic\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          zapfDingbatsItalic = ( |
             | zapfDingbats).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Fonts\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Fonts\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot\x7fVisibility: public'
         
          scalableFont = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'x11Globals' -> 'scalableFont' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals x11Globals scalableFont.
@@ -714,7 +671,7 @@ I print out as asterisks.\x7fModuleInfo: Module: scalableFont InitialContents: F
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Fonts\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: System\x7fCategory: Fonts\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          abstractFontDictionary = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'abstractFontDictionary' -> () From: ( |
              {} = 'Comment: A fontDictionary keeps track of X font ID\'s and font stuctures
@@ -796,7 +753,7 @@ I print out as asterisks.\x7fModuleInfo: Module: scalableFont InitialContents: F
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Fonts\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: System\x7fCategory: Fonts\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          macFontDictionary = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'macFontDictionary' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits macFontDictionary.
@@ -905,12 +862,7 @@ I print out as asterisks.\x7fModuleInfo: Module: scalableFont InitialContents: F
                 ^ familyName.
             ].
             fontSize: (pts max: 2) min: maxFontSize.
-            "Set points not pixels - rca 1/2020"
-            "Also points are expressed as * 10"
-            familyName,     "ends in -"
-            '*',            "NB: don't specify pixel size"
-            '-', (fontSize * 10) printString,
-            '-*-*-*-*-*-*').
+            familyName, fontSize printString, '-*-*-*-*-*-*-*').
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xFontDictionary' -> () From: ( | {
@@ -970,25 +922,28 @@ I print out as asterisks.\x7fModuleInfo: Module: scalableFont InitialContents: F
              xFontName.
             | 
             "Details: If a font with the given name cannot be found, we substitute
-             6x13 (non-bold, non-italic) for the font. This is ugly but hopefully on all
-             systems, even newer ones."
+             times (non-bold, non-italic) for the font. Someday this over-simplistic
+             font substitution policy should be improved. For now, it lets you keep
+             running if on a non-Sun X server. It is assumed that the times font is
+             ubiquitous. Nothing is done about size substitution. While many X
+             servers support font scaling, if you happen to have one that doesn't
+             and you ask for a size that it doesn't have, you are out of luck."
 
             xFontName: xFontNameOf: fSpec.
             fontStructs at: fSpec IfAbsent: [| fullName. fontStruct |
                 fullName: (fullNameFor: xFontName Size: fSpec size).
                 fontStruct: 
-                    wc display loadFont: fullName
+                    wc display loadFont: fullName 
                               IfFail: [| substituteName |
-                                  log warn: 'Failed to load font: ', fullName,
-                                            ' ... substituting 6x13',
-                                            ' in traits>>xFontDictionary>>structForFontSpec:WindowCanvas:'.
-                                  substituteName: (fullNameFor: '6x13' Size: 13).
+                                  substituteName: (fullNameFor: x11Globals scalableFont times Size: fSpec size).
+                                  [
+                                    ('Substituting font ', substituteName,
+                                   ' for font ', fullName) printLine.
+                                  ]. "too much kvetching"
                                   wc display loadFont: substituteName IfFail: [
-                                    "Last ditch attempt to get any font at all..."
-                                     wc display loadFont: '*' IfFail: [
-                                        error: 'Could not load substitute font: ', substituteName.
+                                      error: 'could not load substitute font: ', substituteName.
                                      ^nil
-                              ]].
+                              ].
                     ].
                 fontStructs at: fSpec Put: fontStruct.
                 fontStruct

@@ -1,9 +1,8 @@
- '30.12.2'
+ 'Sun-$Revision: 30.12 $'
  '
-Copyright 1992-2014 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -100,6 +99,15 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                                      i + 2)
                                  |).
 
+            snapshotAction
+              forCommandLineArg: '-headless'
+                       DoAction: (| parent* = lobby.
+                                    value: i With: arg = (
+                                     "Don't start up desktop this time"
+                                     desktop suppressRestart.
+                                     i succ).
+                                 |).
+                                 
             'Fhprtw' do: [|:opt|
               snapshotAction
                 forCommandLineArg: '-', opt
@@ -114,9 +122,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'snapshotAction' -> () From: ( | {
-         'ModuleInfo: Module: snapshotAction InitialContents: InitializeToExpression: (\'30.12.2\')\x7fVisibility: public'
+         'ModuleInfo: Module: snapshotAction InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.12.2'.
+         revision <- 'Sun-$Revision: 30.12 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'snapshotAction' -> () From: ( | {
@@ -248,10 +256,14 @@ option is used.\x7fModuleInfo: Module: snapshotAction InitialContents: FollowSlo
          printBanner = ( |
              v.
             | 
-            v: about core.
-            ('\n\tWelcome to the Self system!  (', about core asString, ')\n') printLine.
+            v: _VMversion.
+            '\n\tWelcome to the Self system!  (Version 4.4)\n' printLine.
             modules init copyright printLine.
             'Type _Credits for full credits.\n' printLine.
+            ('VM version: ',
+              (v at: 0) printString, '.',
+              (v at: 1) printString, '.',
+              (v at: 2) printString, '\n') printLine.
             isVMADebugBuild ifTrue: [
               printDebugVMWarning
             ]).
@@ -310,7 +322,6 @@ standard mechanism.\x7fModuleInfo: Module: snapshotAction InitialContents: Follo
         
          schedulerInitial = ( |
             | 
-            log info: 'Scheduler started (according to snapshotAction schedulerInitial)'.
             schedulerInitialMessages do: [|:msg| msg fork resume].
             self).
         } | ) 

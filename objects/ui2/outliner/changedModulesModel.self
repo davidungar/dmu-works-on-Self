@@ -1,15 +1,14 @@
- '30.7.1'
+ '$Revision: 30.7 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Module Outliner\x7fModuleInfo: Module: changedModulesModel InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Module Outliner\x7fModuleInfo: Module: changedModulesModel InitialContents: FollowSlot\x7fVisibility: public'
         
          changedModulesModel = bootstrap define: bootstrap stub -> 'globals' -> 'changedModulesModel' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -99,11 +98,6 @@ globals moduleHolderModel parent buttonDescriptions. _Clone
         
          contributeToBackgroundMenu: m = ( |
             | 
-            m addButton:
-                ( ( ui2Button copy
-                   scriptBlock: [event sourceHand attach: allModulesModel newOutliner] )
-                         label: 'All Modules' )
-            ToGroup: 'builtInMorphs'.
             m addButton:
                 ( ( ui2Button copy
                    scriptBlock: [event sourceHand attach: changedModulesModel newOutliner] )
@@ -215,9 +209,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'changedModulesModel' -> () From: ( | {
-         'ModuleInfo: Module: changedModulesModel InitialContents: InitializeToExpression: (\'30.7.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: changedModulesModel InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.7.1'.
+         revision <- '$Revision: 30.7 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'changedModulesModel' -> () From: ( | {

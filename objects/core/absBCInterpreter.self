@@ -1,6 +1,6 @@
  '$Revision: 30.14 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: system\x7fCategory: virtual machine interface\x7fCategory: bytecode interpreters\x7fModuleInfo: Module: absBCInterpreter InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: Virtual Machine interface\x7fCategory: bytecode interpreters\x7fModuleInfo: Module: absBCInterpreter InitialContents: FollowSlot\x7fVisibility: public'
         
          abstractBytecodeInterpreter = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'abstractBytecodeInterpreter' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals abstractBytecodeInterpreter.
@@ -106,18 +106,6 @@ See the LICENSE file for license information.
             | 
             areAssertionsEnabled ifTrue: [blk assert].
             self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'abstractBytecodeInterpreter' -> 'parent' -> () From: ( | {
-         'Category: interpreting general\x7fModuleInfo: Module: absBCInterpreter InitialContents: FollowSlot\x7fVisibility: private'
-        
-         bytecodeAt: i = ( |
-             bc.
-             proto.
-            | 
-            bc: codes byteAt: i IfAbsent: [^ nil].
-            proto: (instructionSet opcodeNameOf: bc) sendTo: bytecodes. "could optimize"
-            proto copyForInterpreter: self PC: i Code: bc).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'abstractBytecodeInterpreter' -> 'parent' -> () From: ( | {
@@ -346,8 +334,11 @@ See the LICENSE file for license information.
         
          interpretBytecode = ( |
              b.
+             bc.
             | 
-            b: peekAtNextBytecode.
+            bc: codes byteAt: pc.
+            b: (instructionSet opcodeNameOf: bc) sendTo: bytecodes. "could optimize"
+            b: b copyForInterpreter: self PC: pc Code: bc.
             pc: pc succ.
             interpret: b).
         } | ) 
@@ -438,14 +429,6 @@ See the LICENSE file for license information.
          'ModuleInfo: Module: absBCInterpreter InitialContents: FollowSlot'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'abstractBytecodeInterpreter' -> 'parent' -> () From: ( | {
-         'Category: interpreting general\x7fModuleInfo: Module: absBCInterpreter InitialContents: FollowSlot\x7fVisibility: private'
-        
-         peekAtNextBytecode = ( |
-            | 
-            bytecodeAt: pc).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'abstractBytecodeInterpreter' -> 'parent' -> () From: ( | {

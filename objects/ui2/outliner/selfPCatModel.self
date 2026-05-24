@@ -1,6 +1,6 @@
  '$Revision: 30.6 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -66,7 +66,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Self Object Outliner\x7fModuleInfo: Module: selfPCatModel InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Self Object Outliner\x7fModuleInfo: Module: selfPCatModel InitialContents: FollowSlot\x7fVisibility: public'
         
          selfPseudoCatModel = bootstrap define: bootstrap stub -> 'globals' -> 'selfPseudoCatModel' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:

@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -181,18 +181,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'message' -> 'directedResend' -> () From: ( | {
          'ModuleInfo: Module: message InitialContents: FollowSlot'
         
-         isDirectedResend = bootstrap stub -> 'globals' -> 'true' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'message' -> 'directedResend' -> () From: ( | {
-         'ModuleInfo: Module: message InitialContents: FollowSlot'
-        
-         isResend = bootstrap stub -> 'globals' -> 'true' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'message' -> 'directedResend' -> () From: ( | {
-         'ModuleInfo: Module: message InitialContents: FollowSlot'
-        
          parent* = bootstrap stub -> 'traits' -> 'message' -> ().
         } | ) 
 
@@ -268,25 +256,26 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'message' -> () From: ( | {
          'Category: testing\x7fModuleInfo: Module: message InitialContents: FollowSlot\x7fVisibility: public'
         
-         isDirectedResend = bootstrap stub -> 'globals' -> 'false' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'message' -> () From: ( | {
-         'Category: testing\x7fModuleInfo: Module: message InitialContents: FollowSlot\x7fVisibility: public'
-        
          isImmutableForFilingOut = bootstrap stub -> 'globals' -> 'true' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'message' -> () From: ( | {
-         'Category: testing\x7fModuleInfo: Module: message InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: lookup\x7fModuleInfo: Module: message InitialContents: FollowSlot\x7fVisibility: public'
         
-         isResend = bootstrap stub -> 'globals' -> 'false' -> ().
+         lookupSlotUsing: aSlotFinder = ( |
+            | aSlotFinder soleSlotFrom:  lookupSlotsUsing: aSlotFinder).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'message' -> () From: ( | {
-         'Category: testing\x7fModuleInfo: Module: message InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: lookup\x7fModuleInfo: Module: message InitialContents: FollowSlot\x7fVisibility: public'
         
-         isUndirectedResend = bootstrap stub -> 'globals' -> 'false' -> ().
+         lookupSlotsUsing: aSlotFinder = ( |
+            | 
+            aSlotFinder selector: selector.
+            case
+              if:   [type = undirectedResend type] Then: [ aSlotFinder                                                                 findSlotsInParents]
+              If:   [type =   directedResend type] Then: [(aSlotFinder copyForMirror: (aSlotFinder mirror slotAt: delegatee) contents) findSlots         ]
+                                                   Else: [ aSlotFinder                                                                 findSlots         ]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'message' -> 'normal' -> () From: ( | {
@@ -484,18 +473,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
              {} = 'ModuleInfo: Creator: traits message undirectedResend.
 '.
             | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'message' -> 'undirectedResend' -> () From: ( | {
-         'ModuleInfo: Module: message InitialContents: FollowSlot'
-        
-         isResend = bootstrap stub -> 'globals' -> 'true' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'message' -> 'undirectedResend' -> () From: ( | {
-         'ModuleInfo: Module: message InitialContents: FollowSlot'
-        
-         isUndirectedResend = bootstrap stub -> 'globals' -> 'true' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'message' -> 'undirectedResend' -> () From: ( | {

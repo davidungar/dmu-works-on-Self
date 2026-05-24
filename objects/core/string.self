@@ -1,21 +1,20 @@
- '30.23.1'
+ 'Sun-$Revision: 30.23 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: characters\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: characters\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
         
          highestPrintableChar = '~'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: characters\x7fComment: random needs these:\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: characters\x7fComment: random needs these:\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
         
          lowestPrintableChar = ' '.
         } | ) 
@@ -76,9 +75,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'string' -> () From: ( | {
-         'ModuleInfo: Module: string InitialContents: InitializeToExpression: (\'30.23.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.23.1'.
+         revision <- 'Sun-$Revision: 30.23 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'string' -> () From: ( | {
@@ -89,7 +88,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: vectors\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: vectors\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
         
          mutableString = bootstrap define: bootstrap stub -> 'globals' -> 'mutableString' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -105,7 +104,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: vectors\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: vectors\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
         
          mutableString = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'mutableString' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits mutableString.
@@ -128,7 +127,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: vectors\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: vectors\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
         
          canonicalString = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'canonicalString' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits canonicalString.
@@ -178,7 +177,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: vectors\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: vectors\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
         
          immutableString = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'immutableString' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits immutableString.
@@ -231,7 +230,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: vectors\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: vectors\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
         
          string = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'string' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits string.
@@ -510,34 +509,17 @@ for which aBlock returns true.
 See tokenizingUnitTests for examples.\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
         
          asTokensSeparatedByCharactersSatisfying: aBlock = ( |
+             result <- bootstrap stub -> 'globals' -> 'list' -> ().
+             token <- ''.
             | 
-            asTokensSeparatedByItemsSatisfying: aBlock).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'string' -> () From: ( | {
-         'Category: transforming\x7fCategory: tokenizing\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
-        
-         asTokensSeparatedBySubstring: s = ( |
-             i.
-             l.
-             p.
-            | 
-            l: sequence copyRemoveAll.
-            l add: 0.
-            i: 0.
-            [i < size] whileTrue: [
-              findSubstring: s
-                 StartingAt: i
-                  IfPresent: [|:in| l add: in. i: in + 1]
-                   IfAbsent: [i: size]].
-            l add: size. 
-            p: sequence copyRemoveAll.
-            p add: (copyFrom: 0 UpTo: (l at: 1)).
-            i: 1.
-            [i < (l size - 1)] whileTrue: [
-              p add: (copyFrom: (l at: i) + s size UpTo: (l at: i + 1)).
-              i: i + 1].
-            p).
+            result: list copyRemoveAll.
+            do: [|:c|
+              (aBlock value: c) ifTrue: [
+                 token isEmpty ifFalse: [result add: token. token: '']
+              ] False: [token: token, c ]
+            ].
+            token isEmpty ifFalse: [result add: token].
+            result).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'string' -> () From: ( | {
@@ -620,18 +602,6 @@ aResultReporter gets sent
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'string' -> () From: ( | {
-         'Category: transforming\x7fCategory: tokenizing\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
-        
-         breakOnFirstSubstring: s = ( |
-            | 
-            findSubstring: s
-               StartingAt: 0
-                IfPresent: [|:in| (list copyRemoveAll add: (copyFrom: 0 UpTo: in))
-                                               add: (copyFrom: in + 1 UpTo: size)]
-                 IfAbsent: [self]).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'string' -> () From: ( | {
          'Category: iterating\x7fComment: Iterate over the elements\' integer values\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: public'
         
          bytesDo: aBlock = ( |
@@ -680,7 +650,7 @@ aResultReporter gets sent
         
          capitalizeAll = ( |
             | 
-            copyMutable mapBy: [|:c| (c isLetter not || c isCapitalized) ifTrue: c False: [(c asByte + capitalizationDifference) asCharacter]]).
+            copyMutable mapBy: [|:c| c isCapitalized ifTrue: c False: [(c asByte + capitalizationDifference) asCharacter]]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'string' -> () From: ( | {
@@ -1902,9 +1872,11 @@ so fork can set it.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'string' -> () From: ( | {
-         'Category: padding\x7fModuleInfo: Module: string InitialContents: InitializeToExpression: (\'\\t\\n\\r \')\x7fVisibility: private'
+         'Category: padding\x7fModuleInfo: Module: string InitialContents: FollowSlot\x7fVisibility: private'
         
-         whiteSpace = '\t\n\r '.
+         whiteSpace = ' 	
+
+'.
         } | ) 
 
 

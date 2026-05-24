@@ -1,15 +1,14 @@
  'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2014 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: moduleWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: moduleWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          abstractAnnotationMorph = bootstrap define: bootstrap stub -> 'globals' -> 'abstractAnnotationMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -38,7 +37,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: moduleWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: moduleWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          abstractAnnotationMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'abstractAnnotationMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits abstractAnnotationMorph.
@@ -59,7 +58,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: moduleWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: moduleWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          moduleField = bootstrap define: bootstrap stub -> 'globals' -> 'moduleField' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -88,7 +87,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: moduleWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: moduleWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          moduleField = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'moduleField' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits moduleField.
@@ -209,19 +208,19 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             r borderWidth: 0.
 
             r addMorphLast: buildLabel: lst removeFirst Style: style.
-            r addMorphLast: transparentSpacerMorph copyH: 13.
+            r addMorphLast: spacerMorph copyH: 13 Color: color.
 
             [lst isEmpty] whileFalse: [|b|
               lst first isEmpty ifTrue: [ lst removeFirst ]
               False: [
                 r addMorphLast: buildLabel: lst removeFirst Style: style.
-                r addMorphLast: transparentSpacerMorph copyH: 2.
+                r addMorphLast: spacerMorph copyH: 2 Color: color.
               ].
               b: radioButton copyTarget: self Action: lst removeFirst Style: style.
               r addMorphLast: b.
               lst removeFirst, ':' sendTo: self With: b.
               lst isEmpty ifFalse: [
-                r addMorphLast: transparentSpacerMorph copyH: 10.
+                r addMorphLast: spacerMorph copyH: 10 Color: color.
               ].
             ].
 
@@ -354,7 +353,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: moduleWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: moduleWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          objectAnnotationMorph = bootstrap define: bootstrap stub -> 'globals' -> 'objectAnnotationMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -395,7 +394,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: moduleWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: moduleWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          objectAnnotationMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'objectAnnotationMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits objectAnnotationMorph.
@@ -428,7 +427,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: moduleWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: moduleWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          slotModuleMorph = bootstrap define: bootstrap stub -> 'globals' -> 'slotModuleMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -481,7 +480,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: moduleWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: moduleWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          slotModuleMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'slotModuleMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits slotModuleMorph.
@@ -559,7 +558,7 @@ SlotsToOmit: parent prototype.
             addMorphLast: 
               (labelMorph copyLabel: lab)
                            fontSpec: style fontSpec.
-            addMorphLast: transparentSpacerMorph copyH: 5.
+            addMorphLast: spacerMorph copyH: 5 Color: style color.
             f: frameMorph copy beShrinkWrap color: style color.
             f borderWidth: 2.
             f frameStyle: f insetBezelStyle.
@@ -831,7 +830,7 @@ SlotsToOmit: parent prototype.
 
             buildCompleteButtons.
 
-            contentsColumn addMorphLast: transparentSpacerMorph copyV: 5.
+            contentsColumn addMorphLast: spacerMorph copyV: 5 Color: color.
             buildCopyDownInfo.
             colorAll: myObjectOutliner color.
 
@@ -1119,11 +1118,11 @@ SlotsToOmit: parent prototype.
             ].
             r addMorphLast: followField.
 
-            r addMorphLast: transparentSpacerMorph copyH: 5.
+            r addMorphLast: spacerMorph copyH: 5 Color: color.
             r addMorphLast: buildLabel: 'Follow' Style: style.
             array addMorphLast: r.
 
-            array addMorphLast: transparentSpacerMorph copyH: 5.
+            array addMorphLast: spacerMorph copyH: 5 Color: color.
 
             "InitializeToExpression"
             r: (rowMorph copy beShrinkWrap color: color) borderWidth: 0.
@@ -1138,7 +1137,7 @@ SlotsToOmit: parent prototype.
             ] False: [ str: '' ].
             r addMorphLast: initializeField.
 
-            r addMorphLast: transparentSpacerMorph copyH: 5.
+            r addMorphLast: spacerMorph copyH: 5 Color: color.
             initializeEditor: moduleField copyLabel: 'Initialize to'
                                              String: str
                                               Style: style

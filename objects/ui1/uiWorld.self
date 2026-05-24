@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -1221,6 +1221,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 doBlock value.
                 myUI colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
             ].
+            times delay: 1. "hack to make motion blur visible on Mountain Lion, with async X fd -- dmu 1/20/13"
             self).
         } | ) 
 
@@ -1474,11 +1475,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
-         raiseBody: bod = ( | {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 fadeRaise = bootstrap stub -> 'globals' -> 'false' -> ().
-                } 
+         raiseBody: bod = ( |
+             fadeRaise = bootstrap stub -> 'globals' -> 'true' -> ().
             | 
             (isTop: bod) ifTrue: [
                 "still want bod to be alerted so it can fix its graphics"

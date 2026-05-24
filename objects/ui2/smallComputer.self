@@ -1,6 +1,6 @@
  '$Revision: 30.8 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -73,7 +73,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: kansas\x7fComment: a little computer that
+         'Category: ui2\x7fCategory: kansas\x7fComment: a little computer that
 represents the host of
 particpating viewers in 
 this world\x7fModuleInfo: Module: smallComputer InitialContents: FollowSlot\x7fVisibility: public'
@@ -657,7 +657,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: kansas\x7fModuleInfo: Module: smallComputer InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: kansas\x7fModuleInfo: Module: smallComputer InitialContents: FollowSlot\x7fVisibility: public'
         
          smallComputerDisplay = bootstrap define: bootstrap stub -> 'globals' -> 'smallComputerDisplay' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:

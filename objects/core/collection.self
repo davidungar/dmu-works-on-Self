@@ -1,9 +1,8 @@
- '30.27.1'
+ 'Sun-$Revision: 30.27 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -57,9 +56,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'collection' -> () From: ( | {
-         'ModuleInfo: Module: collection InitialContents: InitializeToExpression: (\'30.27.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: collection InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.27.1'.
+         revision <- 'Sun-$Revision: 30.27 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'collection' -> () From: ( | {
@@ -69,7 +68,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fModuleInfo: Module: collection InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fModuleInfo: Module: collection InitialContents: FollowSlot\x7fVisibility: public'
         
          collection = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'collection' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits collection.
@@ -436,19 +435,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'collection' -> () From: ( | {
-         'Category: setLikeOperations\x7fModuleInfo: Module: collection InitialContents: FollowSlot'
-        
-         difference: c = ( |
-             r.
-            | 
-            r: copy.
-            do: [ | :v |
-                (c includes: v) ifTrue: [ r remove: v ].
-            ].
-            r).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'collection' -> () From: ( | {
          'Category: iterating\x7fModuleInfo: Module: collection InitialContents: FollowSlot\x7fVisibility: public'
         
          do: b = ( |
@@ -666,15 +652,6 @@ the result.\x7fModuleInfo: Module: collection InitialContents: FollowSlot\x7fVis
             | 
             do: [|:e| h: h ^^ e hash].
             h).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'collection' -> () From: ( | {
-         'Category: accessing\x7fModuleInfo: Module: collection InitialContents: FollowSlot\x7fVisibility: public'
-        
-         ifNone: noneBlock = ( |
-            | 
-            isEmpty ifTrue: [^ noneBlock].
-            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'collection' -> () From: ( | {
@@ -1095,11 +1072,12 @@ Otherwise, raise an error.\x7fModuleInfo: Module: collection InitialContents: Fo
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'collection' -> () From: ( | {
          'Category: sorting\x7fModuleInfo: Module: collection InitialContents: FollowSlot\x7fVisibility: public'
         
-         sortedBy: cmp Do: b = ( |
-             queue.
+         sortedBy: cmp Do: b = ( | {
+                 'ModuleInfo: Module: collection InitialContents: FollowSlot'
+                
+                 queue.
+                } 
             | 
-            "If empty, just return"
-            isEmpty ifTrue: [^ self].
             queue: priorityQueue copyRemoveAll.
             queue sorter: cmp.
             do: [| :el | queue add: el].
@@ -1194,13 +1172,6 @@ Otherwise, raise an error.\x7fModuleInfo: Module: collection InitialContents: Fo
          sum = ( |
             | 
             reduceWith: [|:e1. :e2| e1 + e2] IfSingleton: [|:e| e] IfEmpty: 0).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'collection' -> () From: ( | {
-         'Category: setLikeOperations\x7fModuleInfo: Module: collection InitialContents: FollowSlot'
-        
-         union: c = ( |
-            | copy addAll: c).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'collection' -> () From: ( | {

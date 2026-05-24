@@ -1,7 +1,7 @@
  'Sun-$Revision: 30.8 $'
  '
-Copyright 1992-2011 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
 
 
@@ -56,45 +56,58 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allUI' -> () From: ( | {
          'ModuleInfo: Module: allUI InitialContents: FollowSlot\x7fVisibility: private'
         
-         subpartNames <- 'enumResult
-slab
-uiColormap
-uiColorPalette
-boxSize
-boxBitmap
-uiNester
-uiWorld
-boxBlueprint
-uiBody
-objBodyRegions
-objectBody
-slotCpt
-uiButton
-contentsButton
-slotNameCpt
-slotContentsCpt
-menu
-menuItem
-hierarchicalMenu
-menuButton
-hiddenSlotsButton
-objectButton
-slotButton
-sendButton
-objBodyTypes
-animator
-ui
-arrowheadCache
-uiArrow
-textEditor
-uiNotifier
-transcript
-toggleBody
-togglers
-diffUI
-uiDemo
-ui1Preferences
-'.
+         subpartNames <- '
+	 enumResult
+
+	 slab
+
+	 uiColormap
+
+	 uiColorPalette
+
+	 boxSize
+	 boxBitmap
+	 uiNester
+	 uiWorld
+	 boxBlueprint
+	 uiBody
+	 objBodyRegions
+	 objectBody
+	 slotCpt
+	 uiButton
+	 contentsButton
+	 slotNameCpt
+	 slotContentsCpt
+
+	 menu
+	 menuItem
+	 hierarchicalMenu
+
+	 menuButton
+	 hiddenSlotsButton
+	 objectButton
+	 slotButton
+	 sendButton
+
+	 objBodyTypes
+
+	 animator
+	 ui
+
+	 arrowheadCache
+	 uiArrow
+
+	 textEditor
+
+	 uiNotifier
+	 transcript
+
+	 toggleBody
+	 togglers
+
+	 diffUI
+	 uiDemo
+	 '.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
@@ -153,7 +166,6 @@ ui1Preferences
  bootstrap read: 'togglers' From: 'ui1'
  bootstrap read: 'diffUI' From: 'ui1'
  bootstrap read: 'uiDemo' From: 'ui1'
- bootstrap read: 'ui1Preferences' From: 'ui1'
 
 
 

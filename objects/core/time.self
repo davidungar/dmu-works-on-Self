@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -59,7 +59,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: time\x7fModuleInfo: Module: time InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: time\x7fModuleInfo: Module: time InitialContents: FollowSlot\x7fVisibility: public'
         
          time = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'time' -> () From: ( |
              {} = 'Comment: days and msecs since 1/1/70 0:00:00 GMT\x7fModuleInfo: Creator: globals time.
@@ -101,7 +101,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: time\x7fModuleInfo: Module: time InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: time\x7fModuleInfo: Module: time InitialContents: FollowSlot\x7fVisibility: public'
         
          times = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'times' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals times.
@@ -783,7 +783,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
      'Tue')
 
  ((bootstrap stub -> 'traits' -> 'time') \/-> 'shortWeekdayNames') -> () _At: 3 Put: (
-     'Wed')
+     'Wen')
 
  ((bootstrap stub -> 'traits' -> 'time') \/-> 'shortWeekdayNames') -> () _At: 4 Put: (
      'Thu')

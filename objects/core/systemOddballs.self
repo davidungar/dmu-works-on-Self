@@ -1,6 +1,5 @@
  'Sun-$Revision: 30.12 $'
  '
-Copyright 1992-2012 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -140,8 +139,10 @@ it should be the only thing that does.\x7fModuleInfo: Module: systemOddballs Ini
         
          doGarbageCollect = ( |
             | 
-            _GarbageCollect.
-            _ZombieProcesses do: [|:p| p abortIfLive: 'doGarbageCollect' ]).
+            userQuery showEverybody: 'Collecting Garbage' While: [
+              _GarbageCollect.
+              _ZombieProcesses do: [|:p| p abortIfLive: 'doGarbageCollect' ].
+            ]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'memory' -> () From: ( | {
@@ -485,12 +486,10 @@ Probably not worth making smaller than the size of eden.\x7fModuleInfo: Module: 
             | 
             releaseObjectIDs.
             history   freeResults.
-            ((reflect: self) lookupKey: 'desktop') isEmpty ifFalse: [
-              ((reflect: desktop) lookupKey: 'releaseObjects') isEmpty ifFalse: [
-                desktop releaseObjects]].
-            ((reflect: self) lookupKey: 'ui') isEmpty ifFalse: [
-              ((reflect: ui) lookupKey: 'releaseObjects') isEmpty ifFalse: [
-                ui releaseObjects]].
+            ((reflect: self) lookupKey: 'desktop') isEmpty 
+              ifFalse: [desktop releaseObjects].
+            ((reflect: self) lookupKey: 'ui') isEmpty 
+              ifFalse: [ui releaseObjects].
             traits cachedSlotAnnotation releaseObjects.
             scheduler releaseObjects.
             self).
@@ -815,7 +814,7 @@ set all code cache sizes relative to current values.\x7fModuleInfo: Module: syst
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'memory' -> 'snapshotOptionsPrototype' -> 'zcatCompressionFilters' -> () From: ( | {
          'ModuleInfo: Module: systemOddballs InitialContents: FollowSlot'
         
-         compression_filter = 'gzip'.
+         compression_filter = 'compress'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'memory' -> 'snapshotOptionsPrototype' -> 'zcatCompressionFilters' -> () From: ( | {
@@ -1005,7 +1004,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: system\x7fCategory: virtual machine interface\x7fModuleInfo: Module: systemOddballs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: Virtual Machine interface\x7fModuleInfo: Module: systemOddballs InitialContents: FollowSlot\x7fVisibility: public'
         
          typeSizes = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'typeSizes' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals typeSizes.
@@ -1040,7 +1039,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: system\x7fCategory: virtual machine interface\x7fModuleInfo: Module: systemOddballs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: Virtual Machine interface\x7fModuleInfo: Module: systemOddballs InitialContents: FollowSlot\x7fVisibility: public'
         
          vmSpy = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'vmSpy' -> () From: ( |
              {} = 'Comment: This object gathers together operations to control

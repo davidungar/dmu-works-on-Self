@@ -1,6 +1,6 @@
  '$Revision: 20.2 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992, 1993, 1994 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
          '
 

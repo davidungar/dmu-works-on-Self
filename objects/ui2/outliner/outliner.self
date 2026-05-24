@@ -1,15 +1,14 @@
- '30.15.1'
+ '$Revision: 30.15 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Outliner Framework (obsolete)\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Outliner Framework\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
         
          outliner = bootstrap define: bootstrap stub -> 'globals' -> 'outliner' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'borderWidth' From:
@@ -68,14 +67,8 @@ SlotsToOmit: borderWidth parent prototype.
          itemsCached <- bootstrap stub -> 'globals' -> 'false' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'outliner' -> () From: ( | {
-         'Category: Outliner Morph State\x7fModuleInfo: Module: outliner InitialContents: InitializeToExpression: (labelMorph copy)'
-        
-         moduleLabel <- labelMorph copy.
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Outliner Framework (deprecated)\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Outliner Framework\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
         
          outliner = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'outliner' -> () From: ( |
              {} = 'Comment: This object represents a general outliner.
@@ -88,12 +81,6 @@ Items are typically those shown when I am expanded.\x7fModuleInfo: Creator: trai
          'ModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'outliner' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'outliner' -> () From: ( | {
-         'Category: Outliner Morph State\x7fModuleInfo: Module: outliner InitialContents: InitializeToExpression: (morph copy)'
-        
-         tag <- morph copy.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'outliner' -> () From: ( | {
@@ -115,6 +102,7 @@ Items are typically those shown when I am expanded.\x7fModuleInfo: Creator: trai
             bs isEmpty ifFalse: [
               header addMorphLast: flexibleSpacer copy.
               header addAllMorphs: bs.
+              header colorAll: color.
             ].
             self).
         } | ) 
@@ -197,12 +185,11 @@ Items are typically those shown when I am expanded.\x7fModuleInfo: Creator: trai
         
          buildButtonLabeled: lbl Script: s IsAsync: isa = ( |
             | 
-            ((((ui2Button copy label: lbl
+            (((ui2Button copy label: lbl
                            FontSpec: headerButtonFontSpec
-                          FontColor: preferredTitleColor)
+                          FontColor: ui2Button defaultFontColor)
              script: s)
              isAsynchronous: isa)
-             color: preferredHeaderColor)
              target: self).
         } | ) 
 
@@ -235,7 +222,7 @@ Based on headerButtonContents\x7fModuleInfo: Module: outliner InitialContents: F
         
          buildItemsHolder = ( |
             | 
-            items: columnMorph copy color: (paint named: 'transparent').
+            items: columnMorph copy color: color.
             items  borderWidth: 0.
             items  leftJustify.
             items  beFlexible.
@@ -277,14 +264,6 @@ such as annotations, comments, etc.\x7fModuleInfo: Module: outliner InitialConte
             isExpanded ifTrue: [
                suboutliners do: [|:o| o collapseAll: evt]].
             collapse: evt).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'outliner' -> () From: ( | {
-         'Category: initializing\x7fModuleInfo: Module: outliner InitialContents: FollowSlot'
-        
-         colorForTag = ( |
-            | 
-            paint named: 'outlinerGray').
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'outliner' -> () From: ( | {
@@ -336,6 +315,7 @@ But some children use the updating mechanism instead.\x7fModuleInfo: Module: out
               ].
               safelyDo: [
                 addBodyMorph.
+                colorAll: color. "dave's experiment"
               ].
             ].
             self).
@@ -354,11 +334,9 @@ that should not expand.\x7fModuleInfo: Module: outliner InitialContents: FollowS
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'outliner' -> () From: ( | {
-         'Category: building\x7fCategory: building blocks (never overridden)\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: building\x7fCategory: building blocks (never overridden)\x7fModuleInfo: Module: outliner InitialContents: InitializeToExpression: (spacerMorph copy beFlexible baseMinWidth: 5)\x7fVisibility: private'
         
-         flexibleSpacer = ( |
-            | 
-            transparentSpacerMorph beFlexibleHorizontally beFlexibleVertically).
+         flexibleSpacer = spacerMorph copy beFlexible baseMinWidth: 5.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'outliner' -> () From: ( | {
@@ -414,24 +392,12 @@ Hack for asynchronous buttons: start script with an \"A\"\x7fModuleInfo: Module:
          'Category: initializing\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: private'
         
          initialize = ( |
-             cm.
-             rm.
             | 
-            color: preferredColor. 
             removeAllMorphs.
-            rm: rowMorph copyTransparent beFlexible borderWidth: 0.
-            tag: spacerMorph copyH: 3 Color: colorForTag.
-            rm addMorphFirst: tag.
-
-            cm: columnMorph copyTransparent beFlexible borderWidth: 0.
             columnUnderHeader: newColumnUnderHeader.
-            cm addMorphLast: columnUnderHeader.
-            cm addMorphFirst: buildHeader.
-            rm addMorphLast: cm.
-
-            addMorphLast: rm.
-
-            recolor.
+            addMorphLast: columnUnderHeader.
+            addMorphFirst: buildHeader.
+            colorAll: preferredColor. 
             self).
         } | ) 
 
@@ -531,7 +497,7 @@ outliner has non-items that might be counterfactual.\x7fModuleInfo: Module: outl
          newColumnUnderHeader = ( |
              c.
             | 
-            c: columnMorph copyTransparent.
+            c: columnMorph copy.
             c beFlexible.
             c leftJustify.
             c borderWidth: 0.
@@ -549,12 +515,6 @@ outliner has non-items that might be counterfactual.\x7fModuleInfo: Module: outl
          'ModuleInfo: Module: outliner InitialContents: FollowSlot'
         
          preferences = bootstrap stub -> 'globals' -> 'outlinerPreferences' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'outliner' -> () From: ( | {
-         'Category: building\x7fCategory: should be overridden\x7fModuleInfo: Module: outliner InitialContents: FollowSlot'
-        
-         preferredTitleColor = paint named: 'transparent'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'outliner' -> () From: ( | {
@@ -583,11 +543,9 @@ outliner has non-items that might be counterfactual.\x7fModuleInfo: Module: outl
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'outliner' -> () From: ( | {
-         'Category: building\x7fCategory: building blocks (never overridden)\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: building\x7fCategory: building blocks (never overridden)\x7fModuleInfo: Module: outliner InitialContents: InitializeToExpression: (spacerMorph copyH: 11 Color: paint named: \'black\')\x7fVisibility: private'
         
-         rigidSpacer = ( |
-            | 
-            transparentSpacerMorph beRigidHorizontally beFlexibleVertically setWidth: 4).
+         rigidSpacer = spacerMorph copyH: 11 Color: paint named: 'black'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'outliner' -> () From: ( | {
@@ -725,7 +683,7 @@ Only used by certain children.\x7fModuleInfo: Module: outliner InitialContents: 
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Outliner Framework (obsolete)\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Outliner Framework\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
         
          nonpluggableOutliner = bootstrap define: bootstrap stub -> 'globals' -> 'nonpluggableOutliner' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -754,7 +712,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Outliner Framework (deprecated)\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Outliner Framework\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
         
          nonpluggableOutliner = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'nonpluggableOutliner' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits nonpluggableOutliner.
@@ -834,7 +792,7 @@ boxedItems.\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisib
         
          buildBody = ( |
             | 
-            body: rowMorph copyTransparent.
+            body: rowMorph copy color: color.
             body  borderWidth: 0.
             body  beFlexible.
 
@@ -852,7 +810,7 @@ boxedItems.\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisib
             boxedFrame  addMorphLast: boxedItems.
 
             indentSubParts ifTrue: [
-              body addMorphLast: rigidSpacer copy
+              body addMorphLast: rigidSpacer copy color: color
             ].
             body addMorphLast: items.
             body).
@@ -1084,14 +1042,6 @@ Would not override.\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'nonpluggableOutliner' -> () From: ( | {
-         'Category: preferences (override for variation)\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
-        
-         preferredHeaderColor = ( |
-            | 
-            preferences headerColor).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'nonpluggableOutliner' -> () From: ( | {
          'Category: adding & removing boxed items in my expansion (called by children)\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: private'
         
          removeBoxedItem: item = ( |
@@ -1158,7 +1108,7 @@ Would not override.\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Outliner Framework (obsolete)\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Outliner Framework\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
         
          indexOutliner = bootstrap define: bootstrap stub -> 'globals' -> 'indexOutliner' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -1193,7 +1143,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Outliner Framework (deprecated)\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Outliner Framework\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
         
          indexOutliner = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'indexOutliner' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits indexOutliner.
@@ -1267,9 +1217,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'outliner' -> () From: ( | {
-         'ModuleInfo: Module: outliner InitialContents: InitializeToExpression: (\'30.15.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.15.1'.
+         revision <- '$Revision: 30.15 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'outliner' -> () From: ( | {
@@ -1279,7 +1229,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Outliner Framework (obsolete)\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Outliner Framework\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
         
          outlinerHeader = bootstrap define: bootstrap stub -> 'globals' -> 'outlinerHeader' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -1302,7 +1252,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Outliner Framework (deprecated)\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Outliner Framework\x7fModuleInfo: Module: outliner InitialContents: FollowSlot\x7fVisibility: public'
         
          outlinerHeader = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'outlinerHeader' -> () From: ( |
              {} = 'Comment: Header morph for the outliner. Catches the middleMouseEven
@@ -1535,8 +1485,13 @@ and an commentButtonMorph in the commentButton slot.
             commentEditor frameStyle: insetBezelStyle.
             commentEditor borderWidth: 1.
             commentEditor receiver: receiver.
+            "   commentMorph copyString: commentHolder comment
+                                Target: self
+                                Accept: acceptAction
+                                 Style: preferences commentStyle."
             safelyDo: [ columnUnderHeader addMorphFirst: commentEditor ].
             commentButton open.
+            colorAll: color.
             self).
         } | ) 
 
@@ -1739,7 +1694,7 @@ if none exists.
                      source editMode: source false)
                 | ).
               |
-              header addMorphLast: flexibleSpacer copy.
+              header addMorphLast: flexibleSpacer copy color: color.
               header addMorphLast: 
                  smallEditorMorph copyString: ref name
                                       Target: self

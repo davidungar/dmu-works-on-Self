@@ -1,6 +1,6 @@
  '$Revision: 1.3 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: unordered\x7fCategory: dictionaries\x7fModuleInfo: Module: idSetAndDictionary InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: unordered\x7fCategory: dictionaries\x7fModuleInfo: Module: idSetAndDictionary InitialContents: FollowSlot\x7fVisibility: public'
         
          identityDictionary = bootstrap define: bootstrap stub -> 'globals' -> 'identityDictionary' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -76,7 +76,7 @@ SlotsToOmit: parent prototype safety.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: unordered\x7fCategory: sets\x7fModuleInfo: Module: idSetAndDictionary InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: unordered\x7fCategory: sets\x7fModuleInfo: Module: idSetAndDictionary InitialContents: FollowSlot\x7fVisibility: public'
         
          identitySet = bootstrap define: bootstrap stub -> 'globals' -> 'identitySet' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:

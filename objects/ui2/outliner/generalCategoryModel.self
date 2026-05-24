@@ -1,14 +1,14 @@
  '$Revision: 30.15 $'
  '
-Copyright 1992-2014 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fModuleInfo: Module: generalCategoryModel InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fModuleInfo: Module: generalCategoryModel InitialContents: FollowSlot\x7fVisibility: public'
         
          categoryReferrent = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'categoryReferrent' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals categoryReferrent.
@@ -82,7 +82,7 @@ See the legal/LICENSE file for license information and legal/AUTHORS for authors
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fModuleInfo: Module: generalCategoryModel InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fModuleInfo: Module: generalCategoryModel InitialContents: FollowSlot\x7fVisibility: public'
         
          generalCategoryModel = bootstrap define: bootstrap stub -> 'globals' -> 'generalCategoryModel' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -398,7 +398,7 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalCategoryModel' -> 'parent' -> () From: ( | {
          'Category: title\x7fModuleInfo: Module: generalCategoryModel InitialContents: FollowSlot\x7fVisibility: private'
         
-         objectTitleFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'verdana' Size: 12 Style: '') From: ( |
+         objectTitleFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'times' Size: 14 Style: 'bold') From: ( |
              {} = 'Comment: I am an abstract, portable, description of a font.
 I am also immutable.\x7fModuleInfo: Creator: globals generalCategoryModel parent objectTitleFontSpec.
 \x7fIsComplete: '.
@@ -520,16 +520,6 @@ SlotsToOmit: parent.
             myOutliner outlinersFilteredBy: [|:o| 
                 o model isCategoryModel
             && [o model isPseudoCategoryModel not]]).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalCategoryModel' -> 'parent' -> () From: ( | {
-         'Category: appearance\x7fModuleInfo: Module: generalCategoryModel InitialContents: FollowSlot'
-        
-         recolorModuleSummary = ( |
-            | 
-            moduleSummary isNil ifFalse: [
-              moduleSummary color: preferredTitleColor].
-             self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalCategoryModel' -> 'parent' -> () From: ( | {
@@ -676,7 +666,7 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalCategoryModel' -> 'parent' -> () From: ( | {
          'Category: title\x7fModuleInfo: Module: generalCategoryModel InitialContents: FollowSlot\x7fVisibility: private'
         
-         subcategoryTitleFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'verdana' Size: 12 Style: 'italic') From: ( |
+         subcategoryTitleFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'times' Size: 12 Style: 'italic') From: ( |
              {} = 'Comment: I am an abstract, portable, description of a font.
 I am also immutable.\x7fModuleInfo: Creator: globals generalCategoryModel parent subcategoryTitleFontSpec.
 \x7fIsComplete: '.
@@ -725,16 +715,6 @@ I am also immutable.\x7fModuleInfo: Creator: globals generalCategoryModel parent
             isForEditingNew && [newName isEmpty] ifTrue: [
              ^ myOutliner cancelChangingNameEditor: rr editor Event: rr event
             ].
-
-            categoryList isEmpty ifTrue: [
-              referrent: categoryReferrentProto
-                    copyForMirror: mirror
-                     CategoryList: vector copy.
-              resend.unprotectedFinishChangingName: rr.
-              safelyDo: [ myOutliner beFlexibleHorizontally update ].
-              ^ self
-            ].
-
             i: categoryList size pred.
             ocat: categoryList last.
 

@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -66,7 +66,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: applications\x7fCategory: benchmarking\x7fModuleInfo: Module: allTests InitialContents: FollowSlot'
+         'Category: benchmarking\x7fModuleInfo: Module: allTests InitialContents: FollowSlot'
         
          bench = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'bench' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits bench.

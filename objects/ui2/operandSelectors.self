@@ -1,9 +1,8 @@
  '$Revision: 1.3 $'
  '
-Copyright 1992-2014 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -69,7 +68,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: operandSelectors InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: operandSelectors InitialContents: FollowSlot\x7fVisibility: public'
         
          operandSelectorsMorph = bootstrap define: bootstrap stub -> 'globals' -> 'operandSelectorsMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -98,7 +97,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: operandSelectors InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: operandSelectors InitialContents: FollowSlot\x7fVisibility: public'
         
          operandSelectorsMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'operandSelectorsMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits operandSelectorsMorph.
@@ -383,7 +382,7 @@ SlotsToOmit: parent prototype.
         
          buildSpacer = ( |
             | 
-            spacer: transparentSpacerMorph copyH: 0).
+            spacer: spacerMorph copyH: 0 Color: color).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'operandSelectorsMorph' -> 'operandSelector' -> 'parent' -> () From: ( | {
@@ -440,7 +439,7 @@ SlotsToOmit: parent prototype.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'operandSelectorsMorph' -> 'operandSelector' -> 'parent' -> () From: ( | {
          'Category: construction\x7fModuleInfo: Module: operandSelectors InitialContents: FollowSlot\x7fVisibility: private'
         
-         labelFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'verdana' Size: 12 Style: '') From: ( |
+         labelFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'times' Size: 14 Style: '') From: ( |
              {} = 'Comment: I am an abstract, portable, description of a font.
 I am also immutable.\x7fModuleInfo: Creator: traits operandSelectorsMorph operandSelector parent labelFontSpec.
 \x7fIsComplete: '.

@@ -1,15 +1,14 @@
  '$Revision: 30.7 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: demoUtilities InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: demoUtilities InitialContents: FollowSlot\x7fVisibility: public'
         
          clockMorph = bootstrap define: bootstrap stub -> 'globals' -> 'clockMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -32,7 +31,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Applications\x7fModuleInfo: Module: demoUtilities InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Applications\x7fModuleInfo: Module: demoUtilities InitialContents: FollowSlot'
         
          demoUtilities = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'demoUtilities' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals demoUtilities.
@@ -579,7 +578,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          initializePrototype = ( |
             | 
-            fontSpec: globals fontSpec copyName: 'helvetica' Size: 24 Style: ''.
+            fontSpec: globals fontSpec copyName: 'times' Size: 24 Style: ''.
             self).
         } | ) 
 

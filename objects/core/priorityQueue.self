@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.8 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -66,7 +66,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: unordered\x7fModuleInfo: Module: priorityQueue InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: unordered\x7fModuleInfo: Module: priorityQueue InitialContents: FollowSlot\x7fVisibility: public'
         
          priorityQueue = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'priorityQueue' -> () From: ( |
              {} = 'Comment: Invariants:
@@ -94,7 +94,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: unordered\x7fModuleInfo: Module: priorityQueue InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: unordered\x7fModuleInfo: Module: priorityQueue InitialContents: FollowSlot\x7fVisibility: public'
         
          priorityQueue = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'priorityQueue' -> () From: ( |
              {} = 'Comment: This is a priority queue data structure stored as a heap. The basic

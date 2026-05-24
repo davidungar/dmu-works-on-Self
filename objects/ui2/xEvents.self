@@ -1,9 +1,8 @@
- '30.18.1'
+ '$Revision: 30.18 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -55,9 +54,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'xEvents' -> () From: ( | {
-         'ModuleInfo: Module: xEvents InitialContents: InitializeToExpression: (\'30.18.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: xEvents InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.18.1'.
+         revision <- '$Revision: 30.18 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'xEvents' -> () From: ( | {
@@ -67,7 +66,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Events\x7fComment: Supports platform independent usage of events
+         'Category: ui2\x7fCategory: System\x7fCategory: Events\x7fComment: Supports platform independent usage of events
 combined with platform specific initialization:
 
 Native X events are used for initialization,
@@ -88,7 +87,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Events\x7fModuleInfo: Module: xEvents InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Events\x7fModuleInfo: Module: xEvents InitialContents: FollowSlot\x7fVisibility: public'
         
          ui2XEvent = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui2XEvent' -> () From: ( |
              {} = 'Comment: A ui2XEvent is a general input event. Variations include mouse button
@@ -132,8 +131,7 @@ SlotsToOmit: parent.
          'Category: stateMasks\x7fModuleInfo: Module: xEvents InitialContents: FollowSlot\x7fVisibility: public'
         
          commandMask = ( |
-            | 
-            xlib events xInputEvent mod3Mask).
+            | xlib events xInputEvent mod2Mask).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui2XEvent' -> () From: ( | {
@@ -159,37 +157,7 @@ SlotsToOmit: parent.
              bs.
             | 
             bs: resend.keyCapsPressed.
-            bs isEmpty ifFalse: [bs] True: [vector copyAddFirst: keySym]).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui2XEvent' -> () From: ( | {
-         'Category: keyboard Event Handling\x7fModuleInfo: Module: xEvents InitialContents: FollowSlot'
-        
-         keySymFrom: xEvt = ( |
-             k.
-            | 
-            k: xEvt lookupKeySym.
-
-            k =  xEvt xk_Left     ifTrue: [ ^ keyCaps arrows  left  ].
-            k =  xEvt xk_Up       ifTrue: [ ^ keyCaps arrows  up    ].
-            k =  xEvt xk_Right    ifTrue: [ ^ keyCaps arrows  right ].
-            k =  xEvt xk_Down     ifTrue: [ ^ keyCaps arrows  down  ].
-
-            k =  xEvt xk_KP_Left   ifTrue: [ ^ keyCaps arrows  left  ].
-            k =  xEvt xk_KP_Up     ifTrue: [ ^ keyCaps arrows  up    ].
-            k =  xEvt xk_KP_Right  ifTrue: [ ^ keyCaps arrows  right ].
-            k =  xEvt xk_KP_Down   ifTrue: [ ^ keyCaps arrows  down  ].
-
-            k =  xEvt xk_Shift_L    ifTrue: [ ^ keyCaps oddballs shift   ].
-            k =  xEvt xk_Shift_R    ifTrue: [ ^ keyCaps oddballs shift   ].
-            k =  xEvt xk_Control_L  ifTrue: [ ^ keyCaps oddballs control ].
-            k =  xEvt xk_Control_R  ifTrue: [ ^ keyCaps oddballs control ].
-            k =  xEvt xk_Alt_L      ifTrue: [ ^ keyCaps oddballs alt     ].
-            k =  xEvt xk_Alt_R      ifTrue: [ ^ keyCaps oddballs alt     ].
-            k =  xEvt xk_Super_L    ifTrue: [ ^ keyCaps oddballs command ].
-            k =  xEvt xk_Super_R    ifTrue: [ ^ keyCaps oddballs command ].
-
-            keyCaps unknown).
+            bs isEmpty ifFalse: [bs] True: [x11KeyCapsPressed]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui2XEvent' -> () From: ( | {
@@ -218,8 +186,7 @@ SlotsToOmit: parent.
          'Category: stateMasks\x7fModuleInfo: Module: xEvents InitialContents: FollowSlot\x7fVisibility: public'
         
          numLockMask = ( |
-            | 
-            xlib events xInputEvent mod2Mask).
+            | xlib events xInputEvent mod3Mask).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui2XEvent' -> () From: ( | {
@@ -251,22 +218,10 @@ SlotsToOmit: parent.
             timeStamp: xEvt time.
             state: xEvt state.
             b: xEvt button.
-
-            "Swap middle and right buttons if wanted"
-            preferences swapMouseButtons ifTrue: [
-              case
-                if: [ 2 = b ] Then: [ b: 3 ]
-                If: [ 3 = b ] Then: [ b: 2 ]
-            ].
-
             case
               if: [ 1 = b ] Then: [
-                metaIsDown || commandIsDown || altIsDown ifTrue: [
-                  type: 'rightMouseDown'.
-                  state: state || rightMouseMask]
-                False: [
-                  type: 'leftMouseDown'.
-                  state: state || leftMouseMask].
+                type: 'leftMouseDown'.
+                state: state || leftMouseMask.
               ]
               If: [ 2 = b ] Then: [
                 type: 'middleMouseDown'.
@@ -296,14 +251,6 @@ SlotsToOmit: parent.
             timeStamp: xEvt time.
             state: xEvt state.
             b: xEvt button.
-
-            "Swap middle and right buttons if wanted"
-            preferences swapMouseButtons ifTrue: [
-              case
-                if: [ 2 = b ] Then: [ b: 3 ]
-                If: [ 3 = b ] Then: [ b: 2 ]
-            ].
-
             case
               if: [ 1 = b ] Then: [
                 type: 'leftMouseUp'.
@@ -385,7 +332,6 @@ SlotsToOmit: parent.
             state:      xEvt state.
             keycode:    xEvt keycode.
             keystrokes: xEvt lookupString.
-            keySym:     keySymFrom: xEvt.
             self).
         } | ) 
 
@@ -440,6 +386,70 @@ SlotsToOmit: parent.
         
          shiftMask = ( |
             | xlib events xInputEvent shiftMask).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui2XEvent' -> () From: ( | {
+         'Category: keyboard Event Handling\x7fModuleInfo: Module: xEvents InitialContents: FollowSlot\x7fVisibility: private'
+        
+         x11KeyCapPressedIfNone: nb = ( |
+            | 
+            host hasSolaris ifTrue: [
+              "Arrow keys"
+              keycode =  88  ifTrue: [ ^ keyCaps arrows  down ].
+              keycode =  87  ifTrue: [ ^ keyCaps arrows  left ].
+              keycode =  89  ifTrue: [ ^ keyCaps arrows  up   ].
+              keycode =  86  ifTrue: [ ^ keyCaps arrows  right].
+
+              "Arrow keys on numerical pad"
+              keycode =  97  ifTrue: [ ^ keyCaps arrows  down ].
+              keycode =  99  ifTrue: [ ^ keyCaps arrows  left ].
+              keycode = 103  ifTrue: [ ^ keyCaps arrows  up   ].
+              keycode = 101  ifTrue: [ ^ keyCaps arrows  right].
+
+              "The combination arrow keys on the numerical pad"
+              keycode = 102 ifTrue: [ ^ keyCaps arrows  upLeft    ].
+              keycode = 104 ifTrue: [ ^ keyCaps arrows  upRight   ].
+              keycode =  96 ifTrue: [ ^ keyCaps arrows  downLeft  ].
+              keycode =  98 ifTrue: [ ^ keyCaps arrows  downRight ].
+
+              keycode =  80 ifTrue: [ ^ keyCaps oddballs insert   ].
+              keycode =  82 ifTrue: [ ^ keyCaps oddballs pageUp   ].
+              keycode =  85 ifTrue: [ ^ keyCaps oddballs pageDown ].
+              keycode =  81 ifTrue: [ ^ keyCaps oddballs home     ].
+              keycode =  84 ifTrue: [ ^ keyCaps oddballs end      ].
+
+              "Undo Cut Copy and Paste keys"
+
+              "Note- Undo isn't implemented yet.  Calling it will cause"
+              "the system to printLine a message saying so"
+              keycode = 129 ifTrue: [ ^ keyCaps oddballs  undo_cmd     ].
+              keycode = 131 ifTrue: [ ^ keyCaps oddballs  copy_cmd     ].
+              keycode = 132 ifTrue: [ ^ keyCaps oddballs  paste_cmd    ].
+              keycode = 130 ifTrue: [ ^ keyCaps oddballs  cut_cmd      ].
+
+            ] False: [
+
+              keycode = 122 ifTrue: [ ^ keyCaps oddballs insert   ].
+              keycode = 124 ifTrue: [ ^ keyCaps oddballs pageUp   ].
+              keycode = 129 ifTrue: [ ^ keyCaps oddballs pageDown ].
+              keycode = 123 ifTrue: [ ^ keyCaps oddballs home     ].
+              keycode = 127 ifTrue: [ ^ keyCaps oddballs end      ].
+
+              keycode = 133 ifTrue: [ ^ keyCaps arrows  down  ].
+              keycode = 134 ifTrue: [ ^ keyCaps arrows  up    ].
+              keycode = 131 ifTrue: [ ^ keyCaps arrows  left  ].
+              keycode = 132 ifTrue: [ ^ keyCaps arrows  right ].
+
+            ].
+
+            nb value).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui2XEvent' -> () From: ( | {
+         'Category: keyboard Event Handling\x7fModuleInfo: Module: xEvents InitialContents: FollowSlot\x7fVisibility: private'
+        
+         x11KeyCapsPressed = ( |
+            | vector copyAddFirst: x11KeyCapPressedIfNone: [^ vector]).
         } | ) 
 
 

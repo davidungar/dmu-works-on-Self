@@ -1,15 +1,14 @@
- '30.11.1'
+ 'Sun-$Revision: 30.11 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
         
          cachedColormap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'cachedColormap' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals cachedColormap.
@@ -40,7 +39,7 @@ See the legal/LICENSE file for license information and legal/AUTHORS for authors
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
         
          cachedColormap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'cachedColormap' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits cachedColormap.
@@ -61,7 +60,7 @@ See the legal/LICENSE file for license information and legal/AUTHORS for authors
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
         
          colormap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'colormap' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals colormap.
@@ -70,7 +69,7 @@ See the legal/LICENSE file for license information and legal/AUTHORS for authors
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
         
          colormap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'colormap' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits colormap.
@@ -97,6 +96,22 @@ See the legal/LICENSE file for license information and legal/AUTHORS for authors
          'ModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: private'
         
          xcm <- bootstrap stub -> 'traits' -> 'colormap' -> 'nullXCM' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> () From: ( | {
+         'Category: graphics (ui1)\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
+        
+         newPlatformColorForPixel: i = ( |
+            | 
+            0 macToolbox colorSpec new value: i).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> () From: ( | {
+         'Category: graphics (ui1)\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
+        
+         platformColormap = ( |
+            | 
+            0 macToolbox colorTable).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
@@ -149,9 +164,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'colormap' -> () From: ( | {
-         'ModuleInfo: Module: colormap InitialContents: InitializeToExpression: (\'30.11.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.11.1'.
+         revision <- 'Sun-$Revision: 30.11 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'colormap' -> () From: ( | {

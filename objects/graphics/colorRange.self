@@ -1,6 +1,6 @@
  '$Revision: 30.9 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: colorRange InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: colorRange InitialContents: FollowSlot\x7fVisibility: public'
         
          hsbRange = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'hsbRange' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals hsbRange.

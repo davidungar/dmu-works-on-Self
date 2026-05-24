@@ -1,6 +1,6 @@
  '$Revision: 30.4 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: unordered\x7fCategory: dictionaries\x7fModuleInfo: Module: customizableSetAndDictionary InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: unordered\x7fCategory: dictionaries\x7fModuleInfo: Module: customizableSetAndDictionary InitialContents: FollowSlot\x7fVisibility: public'
         
          customizableDictionary = bootstrap define: bootstrap stub -> 'globals' -> 'customizableDictionary' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -82,7 +82,7 @@ SlotsToOmit: parent prototype safety.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: unordered\x7fCategory: sets\x7fModuleInfo: Module: customizableSetAndDictionary InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: unordered\x7fCategory: sets\x7fModuleInfo: Module: customizableSetAndDictionary InitialContents: FollowSlot\x7fVisibility: public'
         
          customizableSet = bootstrap define: bootstrap stub -> 'globals' -> 'customizableSet' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:

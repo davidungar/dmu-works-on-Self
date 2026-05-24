@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.11 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: color InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: color InitialContents: FollowSlot\x7fVisibility: public'
         
          colormapEntry = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'colormapEntry' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals colormapEntry.
@@ -17,7 +17,7 @@ See the LICENSE file for license information.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: color InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: color InitialContents: FollowSlot\x7fVisibility: public'
         
          rgbColor = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'rgbColor' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals rgbColor.
@@ -38,7 +38,7 @@ See the LICENSE file for license information.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: color InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: color InitialContents: FollowSlot\x7fVisibility: public'
         
          colormapEntry = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'colormapEntry' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits colormapEntry.
@@ -69,7 +69,7 @@ See the LICENSE file for license information.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: color InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: color InitialContents: FollowSlot\x7fVisibility: public'
         
          colormapIndexEntry = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'colormapIndexEntry' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals colormapIndexEntry.
@@ -110,7 +110,7 @@ See the LICENSE file for license information.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: color InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: color InitialContents: FollowSlot\x7fVisibility: public'
         
          hsbColor = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'hsbColor' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals hsbColor.
@@ -131,7 +131,7 @@ See the LICENSE file for license information.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: color InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: color InitialContents: FollowSlot\x7fVisibility: public'
         
          hsbColor = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'hsbColor' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits hsbColor.
@@ -232,7 +232,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: color InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: color InitialContents: FollowSlot\x7fVisibility: public'
         
          rgbColor = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'rgbColor' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits rgbColor.
@@ -270,7 +270,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: color InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: color InitialContents: FollowSlot\x7fVisibility: public'
         
          color = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'color' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits color.

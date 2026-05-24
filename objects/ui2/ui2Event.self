@@ -1,15 +1,14 @@
  'Sun-$Revision: 30.24 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Events\x7fModuleInfo: Module: ui2Event InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Events\x7fModuleInfo: Module: ui2Event InitialContents: FollowSlot\x7fVisibility: public'
         
          abstractUI2Event = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'abstractUI2Event' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals abstractUI2Event.
@@ -30,12 +29,6 @@ See the legal/LICENSE file for license information and legal/AUTHORS for authors
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'abstractUI2Event' -> () From: ( | {
-         'ModuleInfo: Module: ui2Event InitialContents: InitializeToExpression: (0)'
-        
-         keySym <- 0.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'abstractUI2Event' -> () From: ( | {
          'ModuleInfo: Module: ui2Event InitialContents: FollowSlot\x7fVisibility: public'
         
          keycode <- 0.
@@ -48,7 +41,7 @@ See the legal/LICENSE file for license information and legal/AUTHORS for authors
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Events\x7fModuleInfo: Module: ui2Event InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Events\x7fModuleInfo: Module: ui2Event InitialContents: FollowSlot\x7fVisibility: public'
         
          abstractUI2Event = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'abstractUI2Event' -> () From: ( |
              {} = 'Comment: A ui2Event is a general input event. Variations include mouse button
@@ -424,8 +417,7 @@ Feel free to inherit me and override the ones you can implement.
         
          handle: combo IfCannot: b = ( |
             | 
-            (keyComboTranslator translatedCombo: combo)
-                beHandledBy: self IfCannot: b).
+            combo beHandledBy: self IfCannot: b).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractUI2Event' -> 'editorKeyCapComboHandler' -> () From: ( | {
@@ -465,8 +457,6 @@ Feel free to inherit me and override the ones you can implement.
             combo nonmodifierKeyCap isArrow ifTrue: [handleMediumArrowPress: combo IfCannot: b].
 
             combo nonmodifierKeyCap = keyCaps oddballs enter ifTrue: [^ acceptTextChanges: combo event].
-
-            combo nonmodifierKeyCap isPrintable ifTrue: [^combo nonmodifierKeyCap printString do: [|:c| insert_char: c]].
 
             b value).
         } | ) 
@@ -552,8 +542,6 @@ Feel free to inherit me and override the ones you can implement.
             | 
             combo nonmodifierKeyCap isArrow ifTrue: [^ handleSmallArrowPress: combo IfCannot: b].
 
-            combo nonmodifierKeyCap = keyCaps oddballs tab ifTrue: [^  tab].
-
             combo nonmodifierKeyCap isPrintable ifTrue: [^combo nonmodifierKeyCap printString do: [|:c| insert_char: c]].
 
             combo nonmodifierKeyCap = keyCaps oddballs enter     ifTrue: [^ split_line].
@@ -579,7 +567,7 @@ Feel free to inherit me and override the ones you can implement.
         
          handlePressWithOptionDown: combo IfCannot: b = ( |
             | 
-            handlePressWithNoModifiers: combo IfCannot: b).
+            handlePressWithAltDown: combo IfCannot: b).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractUI2Event' -> 'editorKeyCapComboHandler' -> () From: ( | {
@@ -616,24 +604,6 @@ Feel free to inherit me and override the ones you can implement.
         
          insert_char: char = ( |
             | self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractUI2Event' -> 'editorKeyCapComboHandler' -> () From: ( | {
-         'Category: filter\x7fComment: I provide a pluggable mechanism to translate and handle
-incoming key events to editors. Override me with something
-useful if you want. Default is to do nothing.\x7fModuleInfo: Module: ui2Event InitialContents: FollowSlot'
-        
-         keyComboTranslator = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'abstractUI2Event' -> 'editorKeyCapComboHandler' -> 'keyComboTranslator' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits abstractUI2Event editorKeyCapComboHandler keyComboTranslator.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractUI2Event' -> 'editorKeyCapComboHandler' -> 'keyComboTranslator' -> () From: ( | {
-         'ModuleInfo: Module: ui2Event InitialContents: FollowSlot'
-        
-         translatedCombo: combo = ( |
-            | combo).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractUI2Event' -> 'editorKeyCapComboHandler' -> () From: ( | {

@@ -1,15 +1,14 @@
- '30.12.1'
+ 'Sun-$Revision: 30.12 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          enumerationMorph = bootstrap define: bootstrap stub -> 'globals' -> 'enumerationMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -38,7 +37,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          enumerationMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'enumerationMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits enumerationMorph.
@@ -103,14 +102,14 @@ SlotsToOmit: parent prototype.
          buildFilteringRow = ( |
              r.
             | 
-            r: (rowMorph copyTransparent) borderWidth: 0.
+            r: (rowMorph copy color: color) borderWidth: 0.
 
-            r addMorphLast:  transparentSpacerMorph copyH: 15.
+            r addMorphLast:  spacerMorph copyH: 15 Color: color.
             r addMorphLast:  (labelMorph copy  label: 'Well-known only') 
                                             fontSpec: fontSpec.
-            r addMorphLast:  transparentSpacerMorph copyH: 5.
+            r addMorphLast:  spacerMorph copyH: 5 Color: color.
             r addMorphLast:  filterButton press.
-            r addMorphLast:  transparentSpacerMorph copyH: 10.
+            r addMorphLast:  spacerMorph copyH: 10 Color: color.
             r).
         } | ) 
 
@@ -326,7 +325,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          mirrorEnumerationMorph = bootstrap define: bootstrap stub -> 'globals' -> 'mirrorEnumerationMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -349,7 +348,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          mirrorEnumerationMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'mirrorEnumerationMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits mirrorEnumerationMorph.
@@ -430,7 +429,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          referencesMorph = bootstrap define: bootstrap stub -> 'globals' -> 'referencesMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'mirror' From:
@@ -454,7 +453,7 @@ SlotsToOmit: mirror parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          referencesMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'referencesMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits referencesMorph.
@@ -521,7 +520,7 @@ SlotsToOmit: mirror parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          slotsInModuleMorph = bootstrap define: bootstrap stub -> 'globals' -> 'slotsInModuleMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'mirror' From:
@@ -551,7 +550,7 @@ SlotsToOmit: mirror parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          slotsInModuleMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'slotsInModuleMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits slotsInModuleMorph.
@@ -577,8 +576,7 @@ SlotsToOmit: mirror parent prototype.
          'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
         
          buildFilteringRow = ( |
-            | 
-            transparentSpacerMorph copyH: 0).
+            | spacerMorph copyH: 0 Color: color).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slotsInModuleMorph' -> () From: ( | {
@@ -617,7 +615,7 @@ SlotsToOmit: mirror parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          addedOrChangedSlotsInModuleMorph = bootstrap define: bootstrap stub -> 'globals' -> 'addedOrChangedSlotsInModuleMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -634,7 +632,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          addedOrChangedSlotsInModuleMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'addedOrChangedSlotsInModuleMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits addedOrChangedSlotsInModuleMorph.
@@ -649,7 +647,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          childrenMorph = bootstrap define: bootstrap stub -> 'globals' -> 'childrenMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'mirror' From:
@@ -673,7 +671,7 @@ SlotsToOmit: mirror parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          childrenMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'childrenMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits childrenMorph.
@@ -688,7 +686,7 @@ SlotsToOmit: mirror parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          copyDownChildrenMorph = bootstrap define: bootstrap stub -> 'globals' -> 'copyDownChildrenMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'mirror' From:
@@ -712,7 +710,7 @@ SlotsToOmit: mirror parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          copyDownChildrenMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'copyDownChildrenMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits copyDownChildrenMorph.
@@ -727,7 +725,7 @@ SlotsToOmit: mirror parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          selectorEnumerationMorph = bootstrap define: bootstrap stub -> 'globals' -> 'selectorEnumerationMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -744,7 +742,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          selectorEnumerationMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'selectorEnumerationMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits selectorEnumerationMorph.
@@ -801,11 +799,12 @@ SlotsToOmit: parent prototype.
             t: labelMorph copy label: titlePrefix.
             t fontSpec: fontSpec.
 
-            title: columnMorph copyTransparent beShrinkWrap leftJustify borderWidth: 0.
+            title: (columnMorph copy beShrinkWrap leftJustify color: color)
+                     borderWidth: 0.
             title addMorphLast: t.
 
-            row: rowMorph copyTransparent beShrinkWrap borderWidth: 0.
-            row addMorphLast: transparentSpacerMorph copyH: 11.        
+            row: (rowMorph copy beShrinkWrap color: color) borderWidth: 0.
+            row addMorphLast: spacerMorph copyH: 11 Color: color.        
             frame: frameMorph copy beShrinkWrap color: color.
             frame frameStyle: frame insetBezelStyle.
             frame borderWidth: 2.
@@ -905,7 +904,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          copyDownsContainingMorph = bootstrap define: bootstrap stub -> 'globals' -> 'copyDownsContainingMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -922,7 +921,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          copyDownsContainingMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'copyDownsContainingMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits copyDownsContainingMorph.
@@ -945,7 +944,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          enumerationMorphElement = bootstrap define: bootstrap stub -> 'globals' -> 'enumerationMorphElement' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -962,7 +961,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          enumerationMorphElement = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'enumerationMorphElement' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits enumerationMorphElement.
@@ -977,7 +976,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          enumerationMorphFactory = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'enumerationMorphFactory' -> () From: ( |
              {} = 'Comment: I implement creation messages for
@@ -1080,7 +1079,7 @@ This allows experiments that override them.\x7fModuleInfo: Creator: globals enum
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          findSlotEnumerationMorph = bootstrap define: bootstrap stub -> 'globals' -> 'findSlotEnumerationMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -1099,7 +1098,7 @@ SlotsToOmit: parent prototype selector selector:.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          findSlotEnumerationMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'findSlotEnumerationMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits findSlotEnumerationMorph.
@@ -1126,7 +1125,7 @@ SlotsToOmit: parent prototype selector selector:.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          implementorsMorph = bootstrap define: bootstrap stub -> 'globals' -> 'implementorsMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -1149,7 +1148,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          implementorsMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'implementorsMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits implementorsMorph.
@@ -1164,7 +1163,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          methodsContainingMorph = bootstrap define: bootstrap stub -> 'globals' -> 'methodsContainingMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -1182,7 +1181,7 @@ SlotsToOmit: parent prototype selector.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          methodsContainingMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'methodsContainingMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits methodsContainingMorph.
@@ -1252,7 +1251,7 @@ SlotsToOmit: parent prototype selector.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          initialContentsContainingMorph = bootstrap define: bootstrap stub -> 'globals' -> 'initialContentsContainingMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -1269,7 +1268,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          initialContensContainingMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'initialContensContainingMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits initialContensContainingMorph.
@@ -1292,7 +1291,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          messagesMorph = bootstrap define: bootstrap stub -> 'globals' -> 'messagesMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -1309,7 +1308,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          messagesMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'messagesMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits messagesMorph.
@@ -1370,9 +1369,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'browseMorphs' -> () From: ( | {
-         'ModuleInfo: Module: browseMorphs InitialContents: InitializeToExpression: (\'30.12.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.12.1'.
+         revision <- 'Sun-$Revision: 30.12 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'browseMorphs' -> () From: ( | {
@@ -1382,7 +1381,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          orphansMorph = bootstrap define: bootstrap stub -> 'globals' -> 'orphansMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'module' From:
@@ -1405,7 +1404,7 @@ SlotsToOmit: module parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          orphansMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'orphansMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits orphansMorph.
@@ -1420,7 +1419,7 @@ SlotsToOmit: module parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          sendersMorph = bootstrap define: bootstrap stub -> 'globals' -> 'sendersMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -1437,7 +1436,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          sendersMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'sendersMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits sendersMorph.
@@ -1458,7 +1457,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          slotHoldersMorph = bootstrap define: bootstrap stub -> 'globals' -> 'slotHoldersMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'mirror' From:
@@ -1476,7 +1475,7 @@ SlotsToOmit: mirror parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Enumeration\x7fModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          slotHoldersMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'slotHoldersMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits slotHoldersMorph.
@@ -1630,13 +1629,16 @@ SlotsToOmit: mirror parent prototype.
          buildHeader = ( |
              t.
             | 
-            header: rowMorph copyTransparent.
+            header: rowMorph copy color: color.
             header borderWidth: 1.
             header beFlexible.
 
+            "No spacer: left justify:"
+            "header addMorphLast: flexibleSpacer copy color: color."
+
             t: labelMorph copy label:
               (outer nameAt: index) copyAtMostWithEllipsis: 80.
-            t fontSpec: globals fontSpec copyName: 'helvetica' Size: fontSpec size Style: 'italic'.
+            t fontSpec: globals fontSpec copyName: 'times' Size: fontSpec size Style: 'italic'.
             header addMorphLast: t.
             addButtonsToHeader.
             header).
@@ -1738,8 +1740,7 @@ SlotsToOmit: mirror parent prototype.
          'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
         
          buildFilteringRow = ( |
-            | 
-            transparentSpacerMorph copyH: 0).
+            | spacerMorph copyH: 0 Color: color).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'findSlotEnumerationMorph' -> () From: ( | {
@@ -1752,15 +1753,15 @@ SlotsToOmit: mirror parent prototype.
             | 
             resend.buildTitle.
 
-            row: rowMorph copyTransparent beShrinkWrap borderWidth: 0.
-            row addMorphLast: transparentSpacerMorph copyH: 11.        
+            row: (rowMorph copy beShrinkWrap color: color) borderWidth: 0.
+            row addMorphLast: spacerMorph copyH: 11 Color: color.        
             t: labelMorph copy label: 'Starting lookup from:'.
             t fontSpec: fontSpec.
             row addMorphLast: t.
             title addMorphLast: row.
 
             row: (rowMorph copy beShrinkWrap color: color) borderWidth: 0.
-            row addMorphLast: transparentSpacerMorph copyH: 22.        
+            row addMorphLast: spacerMorph copyH: 22 Color: color.        
             frame: frameMorph copy beShrinkWrap color: color.
             frame frameStyle: frame insetBezelStyle.
             frame borderWidth: 2.
@@ -2028,8 +2029,7 @@ SlotsToOmit: mirror parent prototype.
          'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
         
          buildFilteringRow = ( |
-            | 
-            transparentSpacerMorph copyH: 0).
+            | spacerMorph copyH: 0 Color: color).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'messagesMorph' -> () From: ( | {

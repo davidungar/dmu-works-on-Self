@@ -1,15 +1,14 @@
- '30.19.0'
+ '$Revision: 30.18 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          circleMorph = bootstrap define: bootstrap stub -> 'globals' -> 'circleMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -34,7 +33,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          circleMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'circleMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits circleMorph.
@@ -61,7 +60,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          labelMorph = bootstrap define: bootstrap stub -> 'globals' -> 'labelMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -98,9 +97,9 @@ SlotsToOmit: parent prototype rawBox rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'labelMorph' -> () From: ( | {
-         'Category: Label Morph State\x7fModuleInfo: Module: morphLib InitialContents: InitializeToExpression: (fontSpec copyName: \'helvetica\' Size: 12 Style: \'bold\')\x7fVisibility: private'
+         'Category: Label Morph State\x7fModuleInfo: Module: morphLib InitialContents: InitializeToExpression: (fontSpec copyName: \'times\' Size: 14 Style: \'bold\')\x7fVisibility: private'
         
-         myFontSpec <- fontSpec copyName: 'helvetica' Size: 12 Style: 'bold'.
+         myFontSpec <- fontSpec copyName: 'times' Size: 14 Style: 'bold'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'labelMorph' -> () From: ( | {
@@ -122,7 +121,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          labelMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'labelMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits labelMorph.
@@ -143,7 +142,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          lineMorph = bootstrap define: bootstrap stub -> 'globals' -> 'lineMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -174,7 +173,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          lineMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'lineMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits lineMorph.
@@ -189,7 +188,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'lineMorph' -> () From: ( | {
-         'ModuleInfo: Module: morphLib InitialContents: InitializeToExpression: (paint named: \'black\')\x7fVisibility: private'
+         'ModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: private'
         
          rawColor <- paint named: 'black'.
         } | ) 
@@ -247,16 +246,16 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             | 
             resend.postFileIn.
             "dropping morphs fall through labelMorphs by default"
-            labelMorph fontSpec: globals fontSpec copyName: 'helvetica' Style: 'bold'.
-            selectionInListMorph fontSpec: globals fontSpec copyName: 'helvetica' Size: 12 Style: 'bold'.
+            labelMorph fontSpec: globals fontSpec copyName: 'times' Style: 'bold'.
+            selectionInListMorph fontSpec: globals fontSpec copyName: 'times' Size: 14 Style: 'bold'.
             sliderMorph initializePrototype.
             self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'morphLib' -> () From: ( | {
-         'ModuleInfo: Module: morphLib InitialContents: InitializeToExpression: (\'30.19.0\')\x7fVisibility: public'
+         'ModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.19.0'.
+         revision <- '$Revision: 30.18 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'morphLib' -> () From: ( | {
@@ -266,7 +265,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          polygonMorph = bootstrap define: bootstrap stub -> 'globals' -> 'polygonMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -291,7 +290,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          polygonMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'polygonMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits polygonMorph.
@@ -336,7 +335,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
      (10)@(0))
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          selectionInListMorph = bootstrap define: bootstrap stub -> 'globals' -> 'selectionInListMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -355,9 +354,9 @@ SlotsToOmit: parent prototype rawBox rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selectionInListMorph' -> () From: ( | {
-         'ModuleInfo: Module: morphLib InitialContents: InitializeToExpression: (globals fontSpec copyName: \'helvetica\' Size: 12 Style: \'bold\')\x7fVisibility: public'
+         'ModuleInfo: Module: morphLib InitialContents: InitializeToExpression: (globals fontSpec copyName: \'times\' Size: 12 Style: \'bold\')\x7fVisibility: public'
         
-         fontSpec <- globals fontSpec copyName: 'helvetica' Size: 12 Style: 'bold'.
+         fontSpec <- globals fontSpec copyName: 'times' Size: 12 Style: 'bold'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selectionInListMorph' -> () From: ( | {
@@ -395,7 +394,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          selectionInListMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'selectionInListMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits selectionInListMorph.
@@ -436,7 +435,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selectionInListMorph' -> () From: ( | {
          'ModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
-         textColor <- paint named: 'transparent'.
+         textColor <- paint named: 'black'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selectionInListMorph' -> () From: ( | {
@@ -446,7 +445,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          sliderMorph = bootstrap define: bootstrap stub -> 'globals' -> 'sliderMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -485,7 +484,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliderMorph' -> () From: ( | {
          'ModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: private'
         
-         myValue <- 61.1084.
+         myValue <- 50.0.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliderMorph' -> () From: ( | {
@@ -495,7 +494,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          sliderMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'sliderMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits sliderMorph.
@@ -528,15 +527,9 @@ SlotsToOmit: parent prototype rawBox rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliderMorph' -> () From: ( | {
-         'ModuleInfo: Module: morphLib InitialContents: InitializeToExpression: (paint named: \'black\')\x7fVisibility: public'
+         'ModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          sliderColor <- paint named: 'black'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliderMorph' -> () From: ( | {
-         'ModuleInfo: Module: morphLib InitialContents: InitializeToExpression: (0.1)\x7fVisibility: public'
-        
-         sliderProportionalLength <- 0.1.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliderMorph' -> () From: ( | {
@@ -552,18 +545,17 @@ SlotsToOmit: parent prototype rawBox rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          spacerMorph = bootstrap define: bootstrap stub -> 'globals' -> 'spacerMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
              bootstrap remove: 'prototype' From:
-             bootstrap remove: 'rawColor' From:
              globals morph copyRemoveAllMorphs ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'spacerMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals spacerMorph.
 
 CopyDowns:
 globals morph. copyRemoveAllMorphs 
-SlotsToOmit: parent prototype rawColor.
+SlotsToOmit: parent prototype.
 
 \x7fIsComplete: '.
             | ) .
@@ -582,7 +574,7 @@ SlotsToOmit: parent prototype rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          spacerMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'spacerMorph' -> () From: ( |
              {} = 'Comment: This morph is just used for spacing in rows and columns.
@@ -595,111 +587,6 @@ SlotsToOmit: parent prototype rawColor.
          'ModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          parent* = bootstrap stub -> 'traits' -> 'spacerMorph' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'spacerMorph' -> () From: ( | {
-         'Category: Basic Morph State\x7fModuleInfo: Module: morphLib InitialContents: InitializeToExpression: (paint named: \'transparent\')\x7fVisibility: private'
-        
-         rawColor <- paint named: 'transparent'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'spacerMorph' -> () From: ( | {
-         'Category: drawing\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
-        
-         baseDrawOn: c = ( |
-            | 
-            "Optimization: don't draw if transparent"
-            rawColor isTransparent ifTrue: [^ self].
-
-            "Optimization: suppress drawing if this morph's color matches
-             that of its owner."
-
-            (owner submorphVisible: self) ifTrue: [ resend.baseDrawOn: c ].
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'spacerMorph' -> () From: ( | {
-         'Category: creating\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
-        
-         copyH: hspace = ( |
-            | copyH: hspace Color: paint named: 'transparent').
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'spacerMorph' -> () From: ( | {
-         'Category: creating\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
-        
-         copyH: hSpace Color: c = ( |
-             new.
-            | 
-            new: copyRemoveAllMorphs color: c.
-            new beRigidHorizontally.
-            new beFlexibleVertically.
-            new setWidth: hSpace.
-            new).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'spacerMorph' -> () From: ( | {
-         'Category: creating\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
-        
-         copyV: vspace = ( |
-            | copyV: vspace Color: paint named: 'transparent').
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'spacerMorph' -> () From: ( | {
-         'Category: creating\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
-        
-         copyV: vSpace Color: c = ( |
-             new.
-            | 
-            new: copyRemoveAllMorphs color: c.
-            new beFlexibleHorizontally.
-            new beRigidVertically.
-            new setHeight: vSpace.
-            new).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'spacerMorph' -> () From: ( | {
-         'Category: basics\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
-        
-         morphTypeName = 'spacerMorph'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'spacerMorph' -> () From: ( | {
-         'ModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
-        
-         parent* = bootstrap stub -> 'traits' -> 'morph' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
-        
-         transparentSpacerMorph = bootstrap define: bootstrap stub -> 'globals' -> 'transparentSpacerMorph' -> () ToBe: bootstrap addSlotsTo: (
-             bootstrap remove: 'parent' From:
-             bootstrap remove: 'prototype' From:
-             globals spacerMorph copyRemoveAllMorphs ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'transparentSpacerMorph' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals transparentSpacerMorph.
-
-CopyDowns:
-globals spacerMorph. copyRemoveAllMorphs 
-SlotsToOmit: parent prototype.
-
-\x7fIsComplete: '.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
-        
-         transparentSpacerMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'transparentSpacerMorph' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits transparentSpacerMorph.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'transparentSpacerMorph' -> () From: ( | {
-         'ModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
-        
-         parent* = bootstrap stub -> 'traits' -> 'transparentSpacerMorph' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'labelMorph' -> () From: ( | {
@@ -753,9 +640,9 @@ SlotsToOmit: parent prototype.
             | 
             "See comment in traits morph for general idea.
              Here, for readability, do not change color."
+
             morphsDo: [| :m | m colorAll: newC ].
-            "color: newC textColorForBackground." 
-            " - disabled Aug13 rca to stop outliners coloring wrong"
+            color: newC textColorForBackground.
             self).
         } | ) 
 
@@ -1021,7 +908,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          updatingLabelMorph = bootstrap define: bootstrap stub -> 'globals' -> 'updatingLabelMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'myLabel' From:
@@ -1064,7 +951,7 @@ SlotsToOmit: myLabel myLabel: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          updatingLabelMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'updatingLabelMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits updatingLabelMorph.
@@ -2195,33 +2082,18 @@ horizontal sliderMorph\x7fModuleInfo: Module: morphLib InitialContents: FollowSl
          'Category: drawing\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot'
         
          verticalDrawOn: c = ( |
-             b.
              box.
-             p.
-             s.
-             s2.
              sliderBox.
-             t.
-             y.
+             sliderOffset.
+             sliderY.
             | 
             box: baseBounds.
-
-            s:  (box height * sliderProportionalLength) max: 4.  "slider length"
-            s2: s / 2.                                           "half length"
-            p: (value - minValue) / (maxValue - minValue).       "offset as proportion"
-            t: box top.
-            b: box bottom.
-            y: b - s2 - (((b - s2) - (t + s2)) * p).             "middle of slider"
-
-            sliderBox: ((box left  )@(y - s2)) #
-                       ((box right )@(y + s2)).
-
-            "Fast path for transparency"
-            color isTransparent ifFalse: [c fillRectangle: box Color: color].
-            "Round top and bottom, unless it would make us a circle..."
-            sliderBox height <= sliderBox width
-              ifTrue: [c                fillRectangle: sliderBox  Color: sliderColor]
-               False: [c circledVerticalFillRectangle: sliderBox  Color: sliderColor].
+            sliderOffset: ((value - minValue) * (height - 2)) / (maxValue - minValue).
+            sliderY: box bottom - ((sliderOffset max: 1) min: (height - 2)) asInteger.
+            sliderBox: ((box left  "+ 1")@(sliderY - 1)) #
+                       ((box right "- 1")@(sliderY + 1)).
+            c fillRectangle: box            Color: color.
+            c fillRectangle: sliderBox      Color: sliderColor.
             self).
         } | ) 
 
@@ -2249,57 +2121,54 @@ horizontal sliderMorph\x7fModuleInfo: Module: morphLib InitialContents: FollowSl
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'transparentSpacerMorph' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'spacerMorph' -> () From: ( | {
          'Category: drawing\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          baseDrawOn: c = ( |
             | 
+            "Optimization: suppress drawing if this morph's color matches
+             that of its owner."
+
+            (owner submorphVisible: self) ifTrue: [ resend.baseDrawOn: c ].
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'transparentSpacerMorph' -> () From: ( | {
-         'Category: basics\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot'
-        
-         color: c = ( |
-            | self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'transparentSpacerMorph' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'spacerMorph' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          copyH: hSpace Color: c = ( |
              new.
             | 
-            new: copyRemoveAllMorphs colorTransparent.
+            new: copyRemoveAllMorphs color: c.
             new beRigidHorizontally.
             new beFlexibleVertically.
             new setWidth: hSpace.
             new).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'transparentSpacerMorph' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'spacerMorph' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
          copyV: vSpace Color: c = ( |
              new.
             | 
-            new: copyRemoveAllMorphs colorTransparent.
+            new: copyRemoveAllMorphs color: c.
             new beFlexibleHorizontally.
             new beRigidVertically.
             new setHeight: vSpace.
             new).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'transparentSpacerMorph' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'spacerMorph' -> () From: ( | {
          'Category: basics\x7fModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
-         morphTypeName = 'transparentSpacerMorph'.
+         morphTypeName = 'spacerMorph'.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'transparentSpacerMorph' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'spacerMorph' -> () From: ( | {
          'ModuleInfo: Module: morphLib InitialContents: FollowSlot\x7fVisibility: public'
         
-         parent* = bootstrap stub -> 'traits' -> 'spacerMorph' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'morph' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'updatingLabelMorph' -> () From: ( | {
