@@ -3331,15 +3331,18 @@ to empty.
          'Category: clipboard\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          fetchFromClipboard = ( |
-            | xFetchBytes).
+            |
+            "use the native Mac pasteboard; X cut buffers (xFetchBytes) aren't bridged by XQuartz -- claude & dmu 5/2026"
+            quartz window fetchFromClipboard).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
          'Category: clipboard\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          fetchFromClipboardIfFail: fb = ( |
-            | 
-            xFetchBytesIfFail: fb).
+            |
+            "see fetchFromClipboard -- claude & dmu 5/2026"
+            quartz window fetchFromClipboardIfFail: fb).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
@@ -3601,15 +3604,18 @@ to empty.
          'Category: clipboard\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          storeToClipboard: aString = ( |
-            | xStoreBytes: aString).
+            |
+            "use the native Mac pasteboard; X cut buffers (xStoreBytes) aren't bridged by XQuartz -- claude & dmu 5/2026"
+            quartz window storeToClipboard: aString).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
          'Category: clipboard\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          storeToClipboard: aString IfFail: fb = ( |
-            | 
-            xStoreBytes: aString IfFail: fb).
+            |
+            "see storeToClipboard: -- claude & dmu 5/2026"
+            quartz window storeToClipboard: aString IfFail: fb).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
