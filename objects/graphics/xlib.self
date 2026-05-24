@@ -3328,18 +3328,19 @@ to empty.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
-         'Category: clipboard\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
+         'Category: clipboard\x7fComment: use the native Mac pasteboard; X cut buffers (xFetchBytes) aren\'t bridged by XQuartz -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          fetchFromClipboard = ( |
-            | xFetchBytes).
+            |
+            quartz window fetchFromClipboard).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
-         'Category: clipboard\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
+         'Category: clipboard\x7fComment: see fetchFromClipboard -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          fetchFromClipboardIfFail: fb = ( |
-            | 
-            xFetchBytesIfFail: fb).
+            |
+            quartz window fetchFromClipboardIfFail: fb).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
@@ -3598,18 +3599,19 @@ to empty.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
-         'Category: clipboard\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
+         'Category: clipboard\x7fComment: use the native Mac pasteboard; X cut buffers (xStoreBytes) aren\'t bridged by XQuartz -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          storeToClipboard: aString = ( |
-            | xStoreBytes: aString).
+            |
+            quartz window storeToClipboard: aString).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
-         'Category: clipboard\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
+         'Category: clipboard\x7fComment: see storeToClipboard: -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          storeToClipboard: aString IfFail: fb = ( |
-            | 
-            xStoreBytes: aString IfFail: fb).
+            |
+            quartz window storeToClipboard: aString IfFail: fb).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
