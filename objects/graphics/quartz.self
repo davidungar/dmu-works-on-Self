@@ -1,6 +1,6 @@
  '$Revision: 30.5 $'
  '
-Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -62,19 +62,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
         
-         subpartNames <- bootstrap setObjectAnnotationOf: ( 'qDrawable
+         subpartNames <- 'qDrawable
 cgDirectDisplay
 quartz_wrappers
 quartzForFF
-' copyMutable) From: ( |
-             {} = 'ModuleInfo: Creator: globals modules quartz subpartNames.
-
-CopyDowns:
-globals byteVector. copy 
-SlotsToOmit: parent.
-
-\x7fIsComplete: '.
-            | ) .
+ui1OnQuartzHacks
+'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
@@ -6769,6 +6762,7 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
  bootstrap read: 'cgDirectDisplay' From: 'graphics'
  bootstrap read: 'quartz_wrappers' From: 'glue'
  bootstrap read: 'quartzForFF' From: 'graphics'
+ bootstrap read: 'ui1OnQuartzHacks' From: 'graphics'
 
 
 
