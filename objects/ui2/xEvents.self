@@ -235,6 +235,11 @@ SlotsToOmit: parent.
                 type: 'ignore'.
                 wheelDelta: (b = 4 ifTrue: 1 False: -1).
               ]
+              "buttons 6/7 are horizontal scroll; ignore the press, emit wheelMovedInX on release -- claude & dmu 5/2026"
+              If: [ ( 6 = b )  ||  [7 = b] ]  Then: [
+                type: 'ignore'.
+                wheelDelta: (b = 6 ifTrue: 1 False: -1).
+              ]
               Else: [
                 type: 'someMouseDown'.
               ].
@@ -267,6 +272,11 @@ SlotsToOmit: parent.
               If: [ ( 4 = b )  ||  [5 = b] ]  Then: [
                 type: 'wheelMovedInY'.
                 wheelDelta: (b = 4 ifTrue: 1 False: -1) * 3.
+              ]
+              "buttons 6/7 are horizontal scroll -- claude & dmu 5/2026"
+              If: [ ( 6 = b )  ||  [7 = b] ]  Then: [
+                type: 'wheelMovedInX'.
+                wheelDelta: (b = 6 ifTrue: 1 False: -1) * 3.
               ]
               Else: [
                 type: 'someMouseUp'.
