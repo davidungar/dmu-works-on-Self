@@ -7,6 +7,10 @@
 # include "_itimer_unix.cpp.incl"
 
 # include <pthread.h>
+# if TARGET_OS_VERSION == MACOSX_VERSION
+#   include <mach/mach.h>
+#   include <time.h>
+# endif
 
 // --- timer signals must be processed on the VM thread ---------------------
 // setitimer is process-directed: the kernel delivers SIGALRM/SIGVTALRM to an
@@ -22,8 +26,13 @@ pthread_t        self_vm_timer_thread;
 volatile bool    self_vm_timer_thread_known = false;
 volatile int32   itt_vm_ticks    = 0;  // ticks handled on the VM thread
 volatile int32   itt_nonvm_ticks = 0;  // ticks redirected from another thread
+# if TARGET_OS_VERSION == MACOSX_VERSION
+mach_port_t      self_vm_mach_thread = MACH_PORT_NULL;  // VM thread's Mach port (identity check)
+# endif
 
 extern "C" { void IntervalTimerTick(int sig, self_code_info_t *info, self_sig_context_t *scp); }
+
+
 
 
 class TimerEntry: public AbstractTimerEntry {
@@ -87,6 +96,9 @@ IntervalTimer::IntervalTimer(int s, int t) {
 
  sig = s;
  timer = t;
+# if TARGET_OS_VERSION == MACOSX_VERSION
+ ticker_running = false;
+# endif
 }
 
 
@@ -95,25 +107,55 @@ IntervalTimer::~IntervalTimer() {}
 
 // enabling/disabling a timer:
 
-
-// cannot be done in initializer because signal stack does not exist yet
-
+static void record_vm_thread();
 void IntervalTimer::enable() {
   if (dont_use_any_timer) return;                     // no timers wanted
   if (dont_use_real_timer && sig == SIGALRM) return;  // don't install real timer
   if (!check_and_pre_enable()) return;
 
-  // setitimer signals must be serviced on the thread that runs Self.  That is
-  // the thread arming the timer right here; record it so IntervalTimerTick can
-  // redirect any tick the kernel delivers to another thread back to it.
-  self_vm_timer_thread = pthread_self();
+  record_vm_thread();   // arming thread is the Self-running thread; ticks go there
+  install_tick_handler();
+  start_tick_source(1000000 / ticks_per_second() / oversample_rate);  // microseconds
+  post_enable();
+}
+
+
+void IntervalTimer::disable(bool) {
+  pre_disable();
+# if TARGET_OS_VERSION == MACOSX_VERSION
+  // Stop this timer's VM-owned ticker (joins within at most one tick interval).
+  // -- claude & dmu 5/2026
+  if (ticker_running) {
+    ticker_running = false;
+    pthread_join(ticker_thread, NULL);
+  }
+# else
+  static struct itimerval dt0;         // to deactivate (all zero)
+  dt0.it_value.tv_sec = dt0.it_value.tv_usec = 0;
+  if (setitimer(timer, &dt0, NULL))
+    fatal("cannot reset timer!");
+# endif
+  // in OS X: can get timer killing process, try SIG_IGN instead of SIG_DFL
+  (void)signal( sig, SIG_IGN);
+  post_disable();
+}
+
+
+// Record the arming thread as the VM thread (process-global, not per-timer):
+// setitimer ticks must be serviced on the thread that runs Self, which is the
+// thread arming the timer here; IntervalTimerTick redirects any stray tick back
+// to it.  -- claude & dmu 5/2026
+static void record_vm_thread() {
+  self_vm_timer_thread = pthread_self();        // pthread_kill target (both platforms)
+# if TARGET_OS_VERSION == MACOSX_VERSION
+  self_vm_mach_thread  = mach_thread_self();     // macOS identity check
+# endif
   self_vm_timer_thread_known = true;
+}
 
-  static struct itimerval dt;          // value for activating timer
 
-  dt.it_value.tv_sec  = dt.it_interval.tv_sec  = 0;
-  dt.it_value.tv_usec = dt.it_interval.tv_usec = 1000000 / ticks_per_second() / oversample_rate; 
-  
+// Install IntervalTimerTick as the handler for this timer's signal.
+void IntervalTimer::install_tick_handler() {
   struct sigaction action;
 # if  TARGET_OS_VERSION == SOLARIS_VERSION \
   ||  TARGET_OS_VERSION ==  MACOSX_VERSION \
@@ -121,7 +163,7 @@ void IntervalTimer::enable() {
   ||  TARGET_OS_VERSION ==  FREEBSD_VERSION \
   ||  TARGET_OS_VERSION ==   LINUX_VERSION
   action.sa_sigaction = (void (*)(int, siginfo_t*, void*)) IntervalTimerTick;
-  
+
 # elif COMPILER != GCC_COMPILER  &&  TARGET_OS_VERSION == SUNOS_VERSION
   action.sa_handler = (void (*)()) IntervalTimerTick;
 # else
@@ -129,7 +171,7 @@ void IntervalTimer::enable() {
 # endif
 
   action.sa_flags   = SignalInterface::install_flags();
- 
+
   sigfillset(&action.sa_mask);
 # if GENERATE_DEBUGGING_AIDS
     if (CheckAssertions) {
@@ -148,24 +190,27 @@ void IntervalTimer::enable() {
   }
   if (!sigismember(&action.sa_mask, sig) || !sigismember(&SignalInterface::sig_mask, sig))
     fatal1("should have masked %d", sig);
-    
-  if (setitimer(timer, &dt, NULL)) fatal("cannot start timer!");
-  
-  post_enable();
 }
 
 
-void IntervalTimer::disable(bool) {
-  pre_disable();
-  static struct itimerval dt0;         // to deactivate (all zero)
-  dt0.it_value.tv_sec = dt0.it_value.tv_usec = 0;
-  if (setitimer(timer, &dt0, NULL))
-    fatal("cannot reset timer!");
-  // in OS X: can get timer killing process, try SIG_IGN instead of SIG_DFL
-  (void)signal( sig, SIG_IGN);
-  post_disable();
-}  
-
+// Begin generating ticks: this timer's own VM-owned thread on macOS (see note
+// near the top of this file), else the process-directed setitimer.
+// -- claude & dmu 5/2026
+void IntervalTimer::start_tick_source(long interval_usec) {
+# if TARGET_OS_VERSION == MACOSX_VERSION
+  ticker_interval_usec = interval_usec;
+  if (!ticker_running) {
+    ticker_running = true;
+    if (pthread_create(&ticker_thread, NULL, ticker_main, this))
+      fatal("cannot start VM timer thread!");
+  }
+# else
+  struct itimerval dt;
+  dt.it_value.tv_sec  = dt.it_interval.tv_sec  = 0;
+  dt.it_value.tv_usec = dt.it_interval.tv_usec = interval_usec;
+  if (setitimer(timer, &dt, NULL)) fatal("cannot start timer!");
+# endif
+}
 
 // enrolling/withdrawing tasks
 
@@ -214,11 +259,25 @@ void IntervalTimerTick(int sig, self_code_info_t *info, self_sig_context_t *scp)
   // below only ever runs on the VM thread, where `scp` is a Self context.
   if (!self_vm_timer_thread_known)
     return;                              // armed before VM thread was recorded
+# if TARGET_OS_VERSION == MACOSX_VERSION
+  // Identify the VM thread by Mach port; pthread_self() faults on foreign host
+  // threads in signal context.  With the VM-owned ticker this redirect is now
+  // a safety net for stray process-directed ticks.  -- claude & dmu 5/2026
+  mach_port_t mt = mach_thread_self();
+  bool on_vm_thread = (mt == self_vm_mach_thread);
+  mach_port_deallocate(mach_task_self(), mt);
+  if (!on_vm_thread) {
+    ++itt_nonvm_ticks;
+    pthread_kill(self_vm_timer_thread, sig);   // async-signal-safe
+    return;
+  }
+# else
   if (!pthread_equal(pthread_self(), self_vm_timer_thread)) {
     ++itt_nonvm_ticks;
     pthread_kill(self_vm_timer_thread, sig);   // async-signal-safe
     return;
   }
+# endif
   ++itt_vm_ticks;
 
   // A Mac OS X application, ApplicationEnhancer, causes the VM to receive nested
@@ -311,3 +370,40 @@ void IntervalTimer::do_async_tasks() {
 
 TimerEntry* IntervalTimer::entry_at(int i) { return &entries()[i]; }
 
+# if TARGET_OS_VERSION == MACOSX_VERSION
+// --- dedicated VM-owned timer thread ---------------------------------------
+// Replaces setitimer, which is process-directed: the kernel hands SIGALRM/
+// SIGVTALRM to any host thread (AppKit/GCD), forcing the ~200/s pthread_kill
+// bounce -- whose pthread_self() identity check faults (EXC_BREAKPOINT) on
+// foreign threads.  Each enabled timer instead owns this thread, which sleeps
+// the interval (wall clock) and pthread_kill()s the VM thread directly, so the
+// tick is *always* delivered to the right thread.  (Wall-clock ticks replace
+// ITIMER_VIRTUAL's CPU-time accounting; on macOS the CPU timer is usually
+// aliased to the real timer anyway -- use_real_instead_of_cpu_timer.)
+// -- claude & dmu 5/2026
+void* IntervalTimer::ticker_main(void* arg) {
+  IntervalTimer* self = (IntervalTimer*)arg;
+  pthread_setname_np("self-vm-timer");
+  // This thread only *sends* the tick; it must never be chosen to handle a
+  // VM signal, so block everything but the fatal (synchronous) signals.
+  sigset_t block;
+  sigfillset(&block);
+  sigdelset(&block, SIGSEGV);
+  sigdelset(&block, SIGBUS);
+  sigdelset(&block, SIGILL);
+  sigdelset(&block, SIGFPE);
+  sigdelset(&block, SIGTRAP);
+  sigdelset(&block, SIGABRT);
+  pthread_sigmask(SIG_BLOCK, &block, NULL);
+  while (self->ticker_running) {
+    long usec = self->ticker_interval_usec;
+    struct timespec ts;
+    ts.tv_sec  =  usec / 1000000;
+    ts.tv_nsec = (usec % 1000000) * 1000;
+    nanosleep(&ts, NULL);
+    if (self->ticker_running  &&  self_vm_timer_thread_known)
+      pthread_kill(self_vm_timer_thread, self->sig);   // async-signal-safe
+  }
+  return NULL;
+}
+# endif
