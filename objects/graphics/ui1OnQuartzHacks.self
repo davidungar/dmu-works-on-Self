@@ -1,6 +1,6 @@
  '$Revision:$'
  '
-Copyright 1992-2009 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
