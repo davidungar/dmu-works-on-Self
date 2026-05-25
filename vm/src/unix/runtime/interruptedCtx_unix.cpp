@@ -6,12 +6,26 @@
 # pragma implementation "interruptedCtx_unix.hh"
 # include "_interruptedCtx_unix.cpp.incl"
 
+# if TARGET_OS_VERSION == MACOSX_VERSION
+#   include <mach/mach.h>
+// The VM thread's Mach port.  pthread_self() can fault (EXC_BREAKPOINT / PAC)
+// when a process-directed signal lands on a foreign host thread (AppKit /
+// LaunchServices / GCD worker) whose libpthread TSD is invalid in signal
+// context, so the forwarding check below compares Mach ports instead -- a bare
+// trap that is safe on any thread.  -- claude & dmu 5/2026
+static mach_port_t the_self_mach_thread = MACH_PORT_NULL;
+# endif
+
 
 self_sig_context_t InterruptedContext::dummy_scp;
 
 
-void InterruptedContext::set_the_self_thread() { 
-  the_self_thread = pthread_self(); }
+void InterruptedContext::set_the_self_thread() {
+  the_self_thread = pthread_self();
+# if TARGET_OS_VERSION == MACOSX_VERSION
+  the_self_mach_thread = mach_thread_self();
+# endif
+}
 
 bool InterruptedContext::is_in_self_thread() {
   return pthread_self() == the_self_thread;
@@ -31,7 +45,16 @@ bool InterruptedContext::forwarded_to_self_thread(int sig) {
   must_be_in_self_thread();
   return false;
 #else
+# if TARGET_OS_VERSION == MACOSX_VERSION
+  // Identify the VM thread by Mach port; pthread_self() faults on foreign
+  // host threads in signal context (see note above).  -- claude & dmu 5/2026
+  mach_port_t mt = mach_thread_self();
+  bool on_self_thread = (mt == the_self_mach_thread);
+  mach_port_deallocate(mach_task_self(), mt);
+  if (on_self_thread) return false;
+# else
   if (is_in_self_thread()) return false;
+# endif
   if (pthread_kill(the_self_thread, sig)) {
     perror("pthread_kill");
     fatal("forwarded_to_self_thread failed");
