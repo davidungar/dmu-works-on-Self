@@ -2299,18 +2299,7 @@ the pixmapCache some day.
         
          displayName = ( |
             | display name).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindowCanvas' -> () From: ( | {
-         'Category: portable access\x7fModuleInfo: Module: canvas InitialContents: FollowSlot\x7fVisibility: public'
-
-         reincarnationDisplayName = ( |
-            |
-            "Backend-stable name for reopening after a snapshot: the X display
-             name persists in a slot, so an X window reincarnates as X.
-             -- claude & dmu 5/2026"
-            display name).
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindowCanvas' -> () From: ( | {
          'Category: basics\x7fModuleInfo: Module: canvas InitialContents: FollowSlot\x7fVisibility: public'
@@ -2483,6 +2472,17 @@ the pixmapCache some day.
          pixmapCanvasPrototypeForMyScreen = ( |
             | 
             x11Globals pixmapCanvas).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindowCanvas' -> () From: ( | {
+         'Category: portable access\x7fModuleInfo: Module: canvas InitialContents: FollowSlot\x7fVisibility: public'
+        
+         reincarnationDisplayName = ( |
+            | 
+            "Backend-stable name for reopening after a snapshot: the X display
+             name persists in a slot, so an X window reincarnates as X.
+             -- claude & dmu 5/2026"
+            display originalName).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindowCanvas' -> () From: ( | {
