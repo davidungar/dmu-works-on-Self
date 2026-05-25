@@ -31,10 +31,35 @@ endif()
 include(common)
 
 
+# Resolve the vm64/src symlink mirror to the real vm/src files before the
+# sources reach the (Xcode) project. vm64/src/ is ~350 symlinks into vm/src/;
+# if the project references them through the symlinks, Xcode's atomic save
+# replaces the symlink with a regular file (breaking the mirror) or refuses to
+# edit it at all ("cannot edit in Xcode"). Resolving here, in CMake, bakes the
+# real paths into every (re)generation -- including Xcode's ZERO_CHECK rerun --
+# so the fix can't silently regress the way the old post-generation pbxproj
+# rewrite (fix-xcode-paths.py) did. Real (non-symlinked) vm64 sources resolve to
+# themselves and are unaffected.  -- claude & dmu 5/26
+macro(resolve_symlinks_in_list _listVar)
+  set(_resolved)
+  foreach(_f ${${_listVar}})
+    get_filename_component(_real "${_f}" REALPATH)
+    list(APPEND _resolved "${_real}")
+  endforeach()
+  set(${_listVar} ${_resolved})
+endmacro()
+get_filename_component(SELF_REAL_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src" REALPATH)
+
 # sets SRC_src
 add_subdirectory(src)
+# Keep the vm64/src (symlink) paths for the header search path below: vm64/src
+# holds 64-bit-specific headers (config.hh, types.hh, ...) that must shadow the
+# 32-bit originals in vm/src. Only the project's file references / compile inputs
+# get resolved to real paths (the edit-in-Xcode fix).
+set(SRC_src_inc ${SRC_src})
+resolve_symlinks_in_list(SRC_src)
 # for IDEs, make the source nice.
-source_groups_from_src(SRC_src "${CMAKE_CURRENT_SOURCE_DIR}/src/")
+source_groups_from_src(SRC_src "${SELF_REAL_SRC_DIR}/")
 
 # aarch64 JIT headers are symlinked from amd64 but have no source files;
 # add their directories to the include path for the precompiled header.
@@ -51,7 +76,9 @@ endif()
 # use glue-directory, but put binaries into a local dir
 # sets SRC_glue
 add_subdirectory(${SELF_GLUE_DIRECTORY} _glue)
-source_group("glue" FILES ${SRC_glue} "${CMAKE_CURRENT_SOURCE_DIR}/src/")
+set(SRC_glue_inc ${SRC_glue})
+resolve_symlinks_in_list(SRC_glue)
+source_group("glue" FILES ${SRC_glue} "${SELF_REAL_SRC_DIR}/")
 
 list(APPEND SRC ${SRC_src} ${SRC_glue})
 
@@ -63,8 +90,12 @@ list(APPEND SRC ${SRC_src} ${SRC_glue})
 #   $TARGET_OS_VERSION $TARGET_OS_FAMILY
 include(${platform})
 
-# set up the self-specific include-directories
-include_directories_from_src(SRC)
+# set up the self-specific include-directories.  Derive them from the vm64/src
+# (symlink) paths, NOT the resolved real paths: vm64/src must be on the search
+# path ahead of vm/src so its 64-bit headers win (otherwise the 32-bit config.hh
+# is found first -> "64bit not supported yet").
+list(APPEND SRC_inc ${SRC_src_inc} ${SRC_glue_inc})
+include_directories_from_src(SRC_inc)
 
 
 # setup general definitions. 

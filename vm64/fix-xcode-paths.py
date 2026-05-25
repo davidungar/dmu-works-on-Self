@@ -4,8 +4,11 @@ Post-process a CMake-generated Xcode project. Two fixups:
 
 1. Rewrite source-file references to use absolute, symlink-resolved paths.
    Why: vm64/src/ contains symlinks into vm/src/. Xcode's atomic save replaces
-   symlinks with regular files, breaking the mirror. Pointing the project at
-   realpath()-resolved locations sends writes directly to the real files.
+   symlinks with regular files, breaking the mirror (and Xcode often refuses to
+   edit a symlinked file at all). NOTE: this is now a backstop -- vm64/CMakeLists.txt
+   resolves the symlinks itself (resolve_symlinks_in_list), so a freshly generated
+   project already points at the real files even after Xcode's ZERO_CHECK rerun.
+   This rewrite only mops up any source that CMake still left SOURCE_ROOT-relative.
 
 2. Set the Run scheme's Console to "Xcode (with Standard Input)" so the Self
    REPL can read stdin when launched from Xcode. CMake has no XCODE_SCHEME_*
