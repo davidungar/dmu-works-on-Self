@@ -1,6 +1,6 @@
  '$Revision: 30.30 $'
  '
-Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -769,6 +769,20 @@ whenever the background menu is rebuilt\x7fModuleInfo: Module: worldMorph Initia
             ].
             m colorAll: m color.
             m).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
+         'Category: window management\x7fComment: True if an X11 (XQuartz) display connection can be opened; lets
+ windowCanvasPrototypeForDisplay: fall back to Quartz on macOS when
+ no X server is reachable.  Non-interactive, unlike openDisplayNamed:.
+ -- claude & dmu 5/2026\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
+        
+         canOpenXDisplay: dispName = ( |
+             d.
+            | 
+            d: xlib display open: dispName IfFail: [| :e | ^ false].
+            d close.
+            true).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
@@ -1877,8 +1891,18 @@ oldGlobalBounds. \x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot'
             " An X window: --resetXDisplays sends it to the local $DISPLAY "
             (snapshotAction commandLine includes: '--resetXDisplays')
               ifTrue: [^ os environmentAt: 'DISPLAY' IfFail: ''].
+            "The saved X display name is usually another session's: XQuartz runs
+             -nolisten tcp, so a 'host:0.0' name like 'Four.local:0.0' can never
+             be opened here.  On macOS, if the saved name won't open, reincarnate
+             on the live $DISPLAY (the current XQuartz socket) so the window stays
+             X instead of silently dropping to Quartz; only if $DISPLAY is also
+             unreachable does windowCanvasPrototypeForDisplay: fall back to Quartz.
+             -- claude & dmu 5/2026"
+            ((host osName == 'macOSX') && [(canOpenXDisplay: displayName) not])
+              ifTrue: [^ os environmentAt: 'DISPLAY' IfFail: displayName].
             displayName).
         } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
          'Category: structure\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
         
@@ -2627,7 +2651,7 @@ IfAbsent: argument if none.\x7fModuleInfo: Module: worldMorph InitialContents: F
  running), fall back to Quartz. -- claude & dmu 5/2026\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
         
          windowCanvasPrototypeForDisplay: dispName = ( |
-            |
+            | 
             dispName = 'quartz' ifTrue: [^ quartzGlobals windowCanvas].
             (dispName isEmpty && [host osName == 'macOSX'])
               ifTrue: [^ quartzGlobals windowCanvas].
@@ -2638,21 +2662,7 @@ IfAbsent: argument if none.\x7fModuleInfo: Module: worldMorph InitialContents: F
                 '$DISPLAY name rather than a bare \':N\') and retry. -- claude & dmu 5/2026') printLine.
                ^ quartzGlobals windowCanvas].
             x11Globals windowCanvas).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
-         'Category: window management\x7fComment: True if an X11 (XQuartz) display connection can be opened; lets
- windowCanvasPrototypeForDisplay: fall back to Quartz on macOS when
- no X server is reachable.  Non-interactive, unlike openDisplayNamed:.
- -- claude & dmu 5/2026\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
-
-         canOpenXDisplay: dispName = ( |
-             d.
-            |
-            d: xlib display open: dispName IfFail: [| :e | ^ false].
-            d close.
-            true).
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
          'Category: window management\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
