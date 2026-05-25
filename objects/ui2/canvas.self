@@ -1,6 +1,6 @@
  '$Revision: 30.17 $'
  '
-Copyright 1992-2008 Russell Allen, Sun Microsystems, Inc. and Stanford University.
+Copyright 1992-2016 AUTHORS.
 See the LICENSE file for license information.
 '
 

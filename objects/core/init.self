@@ -1,7 +1,7 @@
 'Sun-$Revision: 30.10 $'
 
 '
-Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -515,7 +515,7 @@ globals modules _AddSlots: ( |
     }
     {  'Category: state\x7fModuleInfo: Module: init InitialContents: FollowSlot\x7fVisibility: public'
       copyright <- '
-Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
