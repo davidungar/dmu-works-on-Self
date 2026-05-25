@@ -2632,7 +2632,10 @@ IfAbsent: argument if none.\x7fModuleInfo: Module: worldMorph InitialContents: F
             (dispName isEmpty && [host osName == 'macOSX'])
               ifTrue: [^ quartzGlobals windowCanvas].
             ((host osName == 'macOSX') && [(canOpenXDisplay: dispName) not]) ifTrue: [
-               'No X11/XQuartz display available, falling back to Quartz.' printLine.
+               ('No X server reachable on display \'', dispName,
+                '\'; falling back to Quartz.\n',
+                'Start XQuartz with \'open -a XQuartz\' (or open the launchd ',
+                '$DISPLAY name rather than a bare \':N\') and retry. -- claude & dmu 5/2026') printLine.
                ^ quartzGlobals windowCanvas].
             x11Globals windowCanvas).
         } | )
