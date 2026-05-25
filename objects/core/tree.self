@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.8 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -75,7 +75,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: sorted\x7fCategory: trees\x7fModuleInfo: Module: tree InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: sorted\x7fCategory: trees\x7fModuleInfo: Module: tree InitialContents: FollowSlot\x7fVisibility: public'
         
          treeBag = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'treeBag' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals treeBag.
@@ -112,7 +112,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: sorted\x7fCategory: treeNodes\x7fModuleInfo: Module: tree InitialContents: FollowSlot'
+         'Category: collections\x7fCategory: sorted\x7fCategory: treeNodes\x7fModuleInfo: Module: tree InitialContents: FollowSlot'
         
          treeBagNode = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'treeBagNode' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals treeBagNode.
@@ -173,7 +173,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: sorted\x7fCategory: trees\x7fModuleInfo: Module: tree InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: sorted\x7fCategory: trees\x7fModuleInfo: Module: tree InitialContents: FollowSlot\x7fVisibility: public'
         
          treeSet = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'treeSet' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals treeSet.
@@ -210,7 +210,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: sorted\x7fCategory: treeNodes\x7fModuleInfo: Module: tree InitialContents: FollowSlot'
+         'Category: collections\x7fCategory: sorted\x7fCategory: treeNodes\x7fModuleInfo: Module: tree InitialContents: FollowSlot'
         
          treeSetNode = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'treeSetNode' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals treeSetNode.
@@ -287,7 +287,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: sorted\x7fModuleInfo: Module: tree InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: sorted\x7fModuleInfo: Module: tree InitialContents: FollowSlot\x7fVisibility: public'
         
          emptyTrees = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'emptyTrees' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits emptyTrees.
@@ -369,7 +369,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: sorted\x7fModuleInfo: Module: tree InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: sorted\x7fModuleInfo: Module: tree InitialContents: FollowSlot\x7fVisibility: public'
         
          tree = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'tree' -> () From: ( |
              {} = 'Comment: create the abstract traits object for all trees, empty and non-empty \x7fModuleInfo: Creator: traits tree.
@@ -495,7 +495,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: sorted\x7fModuleInfo: Module: tree InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: sorted\x7fModuleInfo: Module: tree InitialContents: FollowSlot\x7fVisibility: public'
         
          treeNodes = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'treeNodes' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits treeNodes.

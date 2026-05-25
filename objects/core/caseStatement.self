@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.9 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fModuleInfo: Module: caseStatement InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fModuleInfo: Module: caseStatement InitialContents: FollowSlot\x7fVisibility: public'
         
          case = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'case' -> () From: ( |
              {} = 'Comment: This object is used to implement multi-way

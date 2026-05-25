@@ -1,9 +1,8 @@
  '$Revision: 30.6 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -70,7 +69,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Debugging\x7fModuleInfo: Module: debuggerWidgets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Debugging\x7fModuleInfo: Module: debuggerWidgets InitialContents: FollowSlot'
         
          objectPushButton = bootstrap define: bootstrap stub -> 'globals' -> 'objectPushButton' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -94,7 +93,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Debugging\x7fModuleInfo: Module: debuggerWidgets InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Debugging\x7fModuleInfo: Module: debuggerWidgets InitialContents: FollowSlot'
         
          objectPushButton = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'objectPushButton' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits objectPushButton.
@@ -119,6 +118,14 @@ SlotsToOmit: parent prototype.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objectPushButton' -> () From: ( | {
          'ModuleInfo: Module: debuggerWidgets InitialContents: FollowSlot'
         
+         copyMirror: mirr Style: sty = ( |
+            | 
+            ((copy mirror: mirr) color: sty color) initializeStyle).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objectPushButton' -> () From: ( | {
+         'ModuleInfo: Module: debuggerWidgets InitialContents: FollowSlot'
+        
          initializePrototype = ( |
             | 
             removeAllMorphs.
@@ -135,7 +142,7 @@ SlotsToOmit: parent prototype.
             addMorph:  
               ((rowMorph copy beShrinkWrap color: color) borderWidth: 0) addMorphFirst:
                  (labelMorph copyLabel: name)
-                              fontSpec: outlinerPreferences tinyFontSpec copyName: 'helvetica'.
+                              fontSpec: outlinerPreferences tinyFontSpec copyName: 'palatino'.
             recolor.
             self).
         } | ) 

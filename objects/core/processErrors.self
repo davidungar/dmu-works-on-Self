@@ -1,7 +1,7 @@
  'Sun-$Revision: 30.11 $'
  '
-Copyright 1992-2014 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
 
 
@@ -216,7 +216,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          reportError: proc ForceStackTrace: sft = ( |
             | 
-            log error: errorString.
+            proc stderr write: errorString, '\n'.
             process != proc ifFalse: [
                 ^ self  "can't print nice stack trace if running raw VM prompt"].  
             (sft || [preferences printStackOnError])
@@ -245,7 +245,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          methodHolderString = ( |
             | 
-            nil == methodHolder ifTrue: [ '' ] False: [
+            methodHolder ifNil: [ '' ] IfNotNil: [
              '\nSending method holder is ', (reflect: methodHolder) safeName, '.']).
         } | ) 
 

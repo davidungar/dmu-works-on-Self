@@ -1,9 +1,8 @@
  'Sun-$Revision: 30.9 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -93,8 +92,8 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: system\x7fCategory: prompt\x7fCategory: concurrency\x7fComment: Holds the real prototype for objects
-like stdout which are lookuped up in current
+         'Category: system\x7fCategory: concurrency\x7fComment: Holds the real prototype for objects
+like stdout which are lookuped up in corrent
 process by methods in defaultBehavior.\x7fModuleInfo: Module: stdin InitialContents: FollowSlot\x7fVisibility: public'
         
          perProcessGlobals = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'perProcessGlobals' -> () From: ( |
@@ -137,7 +136,7 @@ process by methods in defaultBehavior.\x7fModuleInfo: Module: stdin InitialConte
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: system\x7fCategory: prompt\x7fModuleInfo: Module: stdin InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fModuleInfo: Module: stdin InitialContents: FollowSlot\x7fVisibility: public'
         
          userQuery = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'userQuery' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals userQuery.
@@ -251,31 +250,6 @@ Provide the given string as the default answer.\x7fModuleInfo: Module: stdin Ini
                 userQueryMorph askString: queryText
                            DefaultAnswer: default
                                    Event: process this birthEvent.
-            ]).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'userQuery' -> () From: ( | {
-         'Category: user queries\x7fComment: Ask the user the given question and return the user\'s reply.
-Provide the given string as the default answer. Provide an 
-option to cancel the operation.\x7fModuleInfo: Module: stdin InitialContents: FollowSlot\x7fVisibility: public'
-        
-         askString: queryText DefaultAnswer: default IfCancel: blk = ( |
-            | 
-            askViaTTY ifTrue: [| reply |
-                'Do you wish to proceed? (y/n) ' print.
-                stdin preemptReadLine = 'y'
-                    ifFalse: [^ blk value].
-                queryText print.
-                default isEmpty ifFalse: [
-                    ('[RET => ', default, '] ') print.
-                ].
-                reply: stdin preemptReadLine.
-                reply isEmpty ifTrue: default False: reply.
-            ] False: [
-                userQueryMorph askString: queryText
-                           DefaultAnswer: default
-                                   Event: process this birthEvent
-                                IfCancel: [blk value].
             ]).
         } | ) 
 

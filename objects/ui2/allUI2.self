@@ -1,9 +1,8 @@
- '30.14.0'
+ 'Sun-$Revision: 30.13 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -50,9 +49,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allUI2' -> () From: ( | {
-         'ModuleInfo: Module: allUI2 InitialContents: InitializeToExpression: (\'30.14.0\')\x7fVisibility: public'
+         'ModuleInfo: Module: allUI2 InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.14.0'.
+         revision <- 'Sun-$Revision: 30.13 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allUI2' -> () From: ( | {
@@ -105,10 +104,6 @@ absAppMorph
 testMorphs
 qUI2Events
 tempPaints
-preferencesMenu
-ui2Version
-viewScrollMorph
-stationMorph
 '.
         } | ) 
 
@@ -172,10 +167,6 @@ stationMorph
  bootstrap read: 'testMorphs' From: 'ui2'
  bootstrap read: 'qUI2Events' From: 'ui2'
  bootstrap read: 'tempPaints' From: 'ui2'
- bootstrap read: 'preferencesMenu' From: 'ui2'
- bootstrap read: 'ui2Version' From: 'ui2'
- bootstrap read: 'viewScrollMorph' From: 'ui2'
- bootstrap read: 'stationMorph' From: 'ui2'
 
 
 

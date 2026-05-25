@@ -1,9 +1,8 @@
- '30.35.0'
+ 'Sun-$Revision: 30.34 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -49,9 +48,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'larsText' -> () From: ( | {
-         'ModuleInfo: Module: larsText InitialContents: InitializeToExpression: (\'30.35.0\')\x7fVisibility: public'
+         'ModuleInfo: Module: larsText InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.35.0'.
+         revision <- 'Sun-$Revision: 30.34 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'larsText' -> () From: ( | {
@@ -61,7 +60,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: larsText InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: larsText InitialContents: FollowSlot\x7fVisibility: public'
         
          ui2_textBuffer = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui2_textBuffer' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals ui2_textBuffer.
@@ -135,7 +134,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: larsText InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: larsText InitialContents: FollowSlot\x7fVisibility: public'
         
          ui2_textField = bootstrap define: bootstrap stub -> 'globals' -> 'ui2_textField' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -242,7 +241,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: larsText InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: larsText InitialContents: FollowSlot\x7fVisibility: public'
         
          ui2_textField = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui2_textField' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits ui2_textField.
@@ -429,7 +428,6 @@ SlotsToOmit: parent prototype.
                         ifTrue: [ off asFloat / (contents size - linesInView) ]
                          False: [ 0.0 ]) min: 1.0.
                 slider myValue: 1.0 - v.
-                slider sliderProportionalLength: linesInView asFloat / contents size.
                 slider changed.
             ].
             self).

@@ -1,9 +1,8 @@
  '$Revision: 30.11 $'
  '
-Copyright 1992-2014 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -93,16 +92,8 @@ selfObjectModel
 '.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'preferences' -> 'outliner' -> () From: ( | {
-         'Comment: When set to true, outliners will
-use the experimental Kevo-like
-mode and will show all parent slots.\x7fModuleInfo: Module: selfCatOrObjModel InitialContents: InitializeToExpression: (false)'
-        
-         kevooidal <- bootstrap stub -> 'globals' -> 'false' -> ().
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Self Object Outliner\x7fModuleInfo: Module: selfCatOrObjModel InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Self Object Outliner\x7fModuleInfo: Module: selfCatOrObjModel InitialContents: FollowSlot\x7fVisibility: public'
         
          selfCatOrObjModel = bootstrap define: bootstrap stub -> 'globals' -> 'selfCatOrObjModel' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -135,10 +126,8 @@ SlotsToOmit: parent.
                   labelMorph copyLabel: moduleSummaryString
                               FontSpec: moduleSummaryFontSpec
                                  Color: moduleSummaryFontColor.
-            safelyDo: [
-              myOutliner addItemFirst: transparentSpacerMorph copyV: 4.
-              myOutliner addItemFirst: moduleSummary.
-              myOutliner addItemFirst: transparentSpacerMorph copyV: 4].
+            moduleSummary colorAll: myOutliner color.
+            safelyDo: [myOutliner addItemFirst: moduleSummary].
             self).
         } | ) 
 
@@ -227,23 +216,9 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfCatOrObjModel' -> 'parent' -> () From: ( | {
-         'Category: kevo-oidal option: fold parents in\x7fModuleInfo: Module: selfCatOrObjModel InitialContents: FollowSlot'
+         'Category: kevo-oidal option: fold parents in\x7fModuleInfo: Module: selfCatOrObjModel InitialContents: FollowSlot\x7fVisibility: public'
         
-         kevooidal = ( |
-            | preferences outliner kevooidal).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfCatOrObjModel' -> 'parent' -> () From: ( | {
-         'Category: kevo-oidal option: fold parents in\x7fModuleInfo: Module: selfCatOrObjModel InitialContents: FollowSlot'
-        
-         kevooidalAddSlot: s Category: cs Parent: p To: res = ( |
-            | 
-            res add: 
-               ((slotWithFakedCategories _Clone theSlot: s) 
-                      category: cs, 
-                            (s category isEmpty || [cs isEmpty] ifTrue: '' False: [annotation annotationSeparator]),
-                             s category)
-                      categories: p asList copy addAll: s categories).
+         kevooidal = bootstrap stub -> 'globals' -> 'false' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfCatOrObjModel' -> 'parent' -> () From: ( | {
@@ -265,13 +240,16 @@ SlotsToOmit: parent.
             p do: [|:n| cs: cs, annotation annotationSeparator, n].
             cs: cs copyWithoutFirst.
             m do: [|:s|
-              (s isParent && (s value != reflect: lobby))
-                ifTrue: [
-                    "We are at top level, so include parents"
-                    p isEmpty ifTrue: [kevooidalAddSlot: s Category: cs Parent: p To: res].
-                    "Add to shared slots"
-                    kevooidalSlotsInMirror: s contents Into: res Visited: v Parents: list copyRemoveAll addLast: '* Shared Slots']
-                 False: [kevooidalAddSlot: s Category: cs Parent: p To: res].
+              s isParent
+                ifTrue: [kevooidalSlotsInMirror: s contents Into: res Visited: v Parents: p asList copy addLast: s name, '*']
+                 False: [
+                  res add: 
+                    ((slotWithFakedCategories _Clone theSlot: s) 
+                             category: cs, 
+                                       (s category isEmpty || [cs isEmpty] ifTrue: '' False: [annotation annotationSeparator]),
+                                       s category)
+                             categories: p asList copy addAll: s categories.
+                 ].
             ].
             res).
         } | ) 
@@ -303,7 +281,7 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfCatOrObjModel' -> 'parent' -> () From: ( | {
          'Category: module summary\x7fModuleInfo: Module: selfCatOrObjModel InitialContents: FollowSlot'
         
-         moduleSummaryFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'verdana' Size: 12 Style: '') From: ( |
+         moduleSummaryFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'palatino' Size: 12 Style: '') From: ( |
              {} = 'Comment: I am an abstract, portable, description of a font.
 I am also immutable.\x7fModuleInfo: Creator: globals selfCatOrObjModel parent moduleSummaryFontSpec.
 \x7fIsComplete: '.
@@ -433,13 +411,6 @@ object or category outliner
             | 
             (selfModuleSetter copyForOutliner: myOutliner)
               chooseSlotsAndSetModule: evt).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfCatOrObjModel' -> 'parent' -> () From: ( | {
-         'Category: menu\x7fModuleInfo: Module: selfCatOrObjModel InitialContents: FollowSlot'
-        
-         showParents = ( |
-            | kevooidal: false).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfCatOrObjModel' -> 'parent' -> () From: ( | {
@@ -620,6 +591,7 @@ SlotsToOmit: parent.
             moduleSummary label = s
              ifFalse: [
               moduleSummary label: s.
+              moduleSummary colorAll: myOutliner color.
             ].
             self).
         } | ) 

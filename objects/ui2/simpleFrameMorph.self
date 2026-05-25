@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.8 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -68,7 +68,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Layout\x7fModuleInfo: Module: simpleFrameMorph InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Layout\x7fModuleInfo: Module: simpleFrameMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          simpleFrameMorph = bootstrap define: bootstrap stub -> 'globals' -> 'simpleFrameMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -128,7 +128,7 @@ SlotsToOmit: parent prototype rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Layout\x7fModuleInfo: Module: simpleFrameMorph InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Layout\x7fModuleInfo: Module: simpleFrameMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          simpleFrameMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'simpleFrameMorph' -> () From: ( |
              {} = 'Comment: A simpleFrameMorph supplies a rectangular border around its submorphs.\x7fModuleInfo: Creator: traits simpleFrameMorph.

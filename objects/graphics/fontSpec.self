@@ -1,6 +1,6 @@
  '$Revision: 30.6 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,19 +8,13 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Fonts\x7fModuleInfo: Module: fontSpec InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Fonts\x7fModuleInfo: Module: fontSpec InitialContents: FollowSlot\x7fVisibility: public'
         
          fontSpec = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'fontSpec' -> () From: ( |
              {} = 'Comment: I am an abstract, portable, description of a font.
 I am also immutable.\x7fModuleInfo: Creator: globals fontSpec.
 \x7fIsComplete: '.
             | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'fontSpec' -> () From: ( | {
-         'Category: state\x7fComment: One of \'sans\', \'serif\', \'mono\'\x7fModuleInfo: Module: fontSpec InitialContents: FollowSlot'
-        
-         fGenericFamily = 'sans'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'fontSpec' -> () From: ( | {
@@ -126,20 +120,6 @@ I am also immutable.\x7fModuleInfo: Creator: globals fontSpec.
             ( name = x name )
             && [ ( style = x style )
             && [   size  = x size ] ]).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'fontSpec' -> 'parent' -> () From: ( | {
-         'Category: accessors\x7fModuleInfo: Module: fontSpec InitialContents: FollowSlot'
-        
-         generic = ( |
-            | fGenericFamily).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'fontSpec' -> 'parent' -> () From: ( | {
-         'Category: mutators\x7fModuleInfo: Module: fontSpec InitialContents: FollowSlot'
-        
-         generic: aString = ( |
-            | fGenericFamily: aString).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'fontSpec' -> 'parent' -> () From: ( | {

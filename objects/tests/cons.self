@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.9 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: applications\x7fCategory: benchmarking\x7fModuleInfo: Module: cons InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: bench\x7fModuleInfo: Module: cons InitialContents: FollowSlot\x7fVisibility: public'
         
          cons = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'cons' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals cons.

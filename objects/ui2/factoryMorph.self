@@ -1,15 +1,14 @@
  '$Revision: 30.8 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: factoryMorph InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: factoryMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          factoryMorph = bootstrap define: bootstrap stub -> 'globals' -> 'factoryMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'looksHollow' From:
@@ -36,7 +35,7 @@ SlotsToOmit: looksHollow parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: factoryMorph InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: factoryMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          factoryMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'factoryMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits factoryMorph.
@@ -168,7 +167,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                                                foo: factoryMorph standardFactory copy.
                                                foo globalPosition: minSmallInt@minSmallInt. 
                                                target addMorph: foo.
-                                               event sourceHand attach: foo
+                                               foo popUpInWindow
             ].
             b label: 'Open factory window'.
             b isAsynchronous: true.

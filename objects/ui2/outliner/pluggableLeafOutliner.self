@@ -1,9 +1,8 @@
- '30.9.1'
+ '$Revision: 30.9 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -57,9 +56,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'pluggableLeafOutliner' -> () From: ( | {
-         'ModuleInfo: Module: pluggableLeafOutliner InitialContents: InitializeToExpression: (\'30.9.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: pluggableLeafOutliner InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.9.1'.
+         revision <- '$Revision: 30.9 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'pluggableLeafOutliner' -> () From: ( | {
@@ -69,7 +68,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fModuleInfo: Module: pluggableLeafOutliner InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fModuleInfo: Module: pluggableLeafOutliner InitialContents: FollowSlot\x7fVisibility: public'
         
          pluggableLeafOutliner = bootstrap define: bootstrap stub -> 'globals' -> 'pluggableLeafOutliner' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -152,10 +151,10 @@ SlotsToOmit: parent prototype.
             tle: buildTitle.
             header addMorphLast: tle.
             addCommentButtonToHeader.
-            header addMorphLast: flexibleSpacer copy.
-            contentsLabel: optionalMorph copyTransparent.
+            header addMorphLast: flexibleSpacer copy color: color.
+            contentsLabel: optionalMorph copy color: color.
             header addMorphLast: contentsLabel.
-            header addMorphLast: rigidSpacer copyH: 4.
+            header addMorphLast: rigidSpacer copyH: 4 Color: color.
             header addMorphLast: buildExpander.
 
             " put contents string and sprout box at bottom of tall title "
@@ -174,7 +173,6 @@ SlotsToOmit: parent prototype.
             borderWidth: 1.
             beFlexible.
             frameStyle: insetBezelStyle.
-            recolor.
             layoutChanged).
         } | ) 
 
@@ -211,19 +209,6 @@ SlotsToOmit: parent prototype.
          'ModuleInfo: Module: pluggableLeafOutliner InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'globals' -> 'pluggableOutliner' -> 'parent' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'pluggableLeafOutliner' -> 'parent' -> () From: ( | {
-         'Category: updating\x7fModuleInfo: Module: pluggableLeafOutliner InitialContents: FollowSlot'
-        
-         recolor = ( |
-            | 
-            resend.recolor.
-            contentsLabel inner ifNotNil: [
-               contentsLabel inner color: model preferredTitleColor].
-            expander color: model preferredBodyColor.
-            updateButtonIcon.
-            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'pluggableLeafOutliner' -> 'parent' -> () From: ( | {
@@ -296,14 +281,13 @@ SlotsToOmit: parent prototype.
              e.
              i.
             | 
-            i: buttonIcon copy.
-            i colors size > 0 
-              ifTrue: [i colors at: 0 
-                               Put: model preferredTitleColor].
+            i: buttonIcon.
             e: expander.
-            e morphs size < 1 ifTrue: [^ self].
             i = e firstMorph image ifFalse: [
-              e firstMorph setImage: i].
+              e removeAllMorphs.
+              e addMorphLast: (imageMorph copyImage: i).
+              e changed.
+            ].
             self).
         } | ) 
 
@@ -316,7 +300,8 @@ SlotsToOmit: parent prototype.
               contentsLabel inner ifNil: [
                 contentsLabel inner: 
                     ((labelMorph copy label: oneLinerContentsString)
-                                   fontSpec: contentsLabelFontSpec).
+                                   fontSpec: contentsLabelFontSpec)
+                                   colorAll: color.
                 contentsLabel open.
               ] IfNotNil: [| c <- ''|
                 c: oneLinerContentsString.
@@ -324,6 +309,7 @@ SlotsToOmit: parent prototype.
                   safelyDo: [ contentsLabel inner label: c ].
                 ].
               ].
+              contentsLabel color = color ifFalse: [contentsLabel colorAll: color].
             ] False: [
               contentsLabel inner ifNotNil: [
                 contentsLabel inner delete.
@@ -341,7 +327,7 @@ SlotsToOmit: parent prototype.
             resend.updateDo: blk.
             isPlaceHolder ifTrue: [^ self].
             updateContentsLabelString.
-            "updateButtonIcon."
+            updateButtonIcon.
             updateArrow).
         } | ) 
 

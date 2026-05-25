@@ -1,15 +1,14 @@
  '$Revision: 30.19 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fModuleInfo: Module: generalModel InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fModuleInfo: Module: generalModel InitialContents: FollowSlot\x7fVisibility: public'
         
          generalModel = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'generalModel' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals generalModel.
@@ -380,6 +379,7 @@ I use:
          acceptContents: str Editor: ed Event: evt = ( |
              r.
             | 
+
             r: newResultReporterForEditingContentsIn: ed Event: evt.
             r succeededReturning: nil.
             self).
@@ -493,7 +493,7 @@ I use:
             | 
             needSpacerToKeepButtonOnRight ifFalse: [^ self].
             myOutliner header addMorphLast:
-              transparentSpacerMorph copy beFlexible.
+              spacerMorph copy beFlexible color: myOutliner color.
             self).
         } | ) 
 
@@ -519,7 +519,7 @@ they go to my outliner\'s morphs.
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
          'Category: annotation info\x7fCategory: override these\x7fModuleInfo: Module: generalModel InitialContents: FollowSlot\x7fVisibility: public'
         
-         annotationInfoFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'verdana' Size: 12 Style: '') From: ( |
+         annotationInfoFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'times' Size: 12 Style: '') From: ( |
              {} = 'Comment: I am an abstract, portable, description of a font.
 I am also immutable.\x7fModuleInfo: Creator: globals generalModel parent annotationInfoFontSpec.
 \x7fIsComplete: '.
@@ -574,8 +574,6 @@ Index outliner should probably use something else.\x7fModuleInfo: Module: genera
             | 
             myOutliner expander:
               expanderMorph copyTarget: self Action: expanderAction.
-            myOutliner expander color:
-              preferredTitleColor.
             myOutliner expander).
         } | ) 
 
@@ -592,8 +590,7 @@ update the object\'s title\x7fModuleInfo: Module: generalModel InitialContents: 
                     Target: myOutliner
                     Accept: acceptNameChange
                     Cancel: cancelNameChange
-                     Style: titleStyle
-                LabelColor: preferredTitleColor.
+                     Style: titleStyle.
             titleEditor isAsynchronous: true.
             myOutliner titleEditor: titleEditor.
             titleEditor).
@@ -855,7 +852,7 @@ public slots make asynchronous buttons.\x7fModuleInfo: Creator: globals generalM
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
          'Category: comment\x7fCategory: comment button\x7fModuleInfo: Module: generalModel InitialContents: FollowSlot'
         
-         commentButtonFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'verdana' Size: 8 Style: 'bold') From: ( |
+         commentButtonFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'helvetica' Size: 8 Style: 'bold') From: ( |
              {} = 'Comment: I am an abstract, portable, description of a font.
 I am also immutable.\x7fModuleInfo: Creator: globals generalModel parent commentButtonFontSpec.
 \x7fIsComplete: '.
@@ -872,7 +869,7 @@ I am also immutable.\x7fModuleInfo: Creator: globals generalModel parent comment
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
          'Category: comment\x7fCategory: override me\x7fModuleInfo: Module: generalModel InitialContents: FollowSlot'
         
-         commentButtonText = '`...\''.
+         commentButtonText = '``...\'\''.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
@@ -886,7 +883,7 @@ I am also immutable.\x7fModuleInfo: Creator: globals generalModel parent comment
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
          'Category: comment\x7fCategory: comment editor\x7fModuleInfo: Module: generalModel InitialContents: FollowSlot'
         
-         commentFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'verdana' Size: 12 Style: '') From: ( |
+         commentFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'times' Size: 12 Style: '') From: ( |
              {} = 'Comment: I am an abstract, portable, description of a font.
 I am also immutable.\x7fModuleInfo: Creator: globals generalModel parent commentFontSpec.
 \x7fIsComplete: '.
@@ -1381,9 +1378,7 @@ and calling \"expand:\"\x7fModuleInfo: Module: generalModel InitialContents: Fol
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
          'Category: appearance\x7fModuleInfo: Module: generalModel InitialContents: FollowSlot\x7fVisibility: private'
         
-         menuColor = ( |
-            | 
-            preferences outliner theme generalModelMenuColor).
+         menuColor = paint copyRed: 0.942326 Green: 0.904203  Blue: 0.815249.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
@@ -1580,66 +1575,21 @@ May cause me to expand if doExpand is true. -- dmu 10/04\x7fModuleInfo: Module: 
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
-         'Category: appearance\x7fModuleInfo: Module: generalModel InitialContents: FollowSlot'
-        
-         preferredBodyColor = ( |
-            | 
-            preferences outliner theme generalModel).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
-         'Category: appearance\x7fModuleInfo: Module: generalModel InitialContents: FollowSlot'
-        
-         preferredBorderColor = ( |
-            | 
-            preferences outliner theme generalModelBorder).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
          'Category: appearance\x7fModuleInfo: Module: generalModel InitialContents: FollowSlot\x7fVisibility: public'
         
-         preferredColor = ( |
-            | 
-            "For non-pluggable outliner compatiblity"
-            preferredBorderColor).
+         preferredColor = paint named: 'gray'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
-         'Category: appearance\x7fModuleInfo: Module: generalModel InitialContents: InitializeToExpression: (fontSpec copyName: \'helvetica\' Size: 12 Style: \'bold\')\x7fVisibility: public'
+         'Category: appearance\x7fModuleInfo: Module: generalModel InitialContents: InitializeToExpression: (paint named: \'black\')\x7fVisibility: public'
         
-         preferredFontSpec <- fontSpec copyName: 'helvetica' Size: 12 Style: 'bold'.
+         preferredFontColor <- paint named: 'black'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
-         'Category: appearance\x7fModuleInfo: Module: generalModel InitialContents: FollowSlot'
+         'Category: appearance\x7fModuleInfo: Module: generalModel InitialContents: InitializeToExpression: (fontSpec copyName: \'arial\' Size: 12 Style: \'bold\')\x7fVisibility: public'
         
-         preferredHeaderColor = ( |
-            | 
-            preferences outliner theme headerColorFor: referrent).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
-         'Category: appearance\x7fModuleInfo: Module: generalModel InitialContents: FollowSlot'
-        
-         preferredSlotTitleColor = ( |
-            | 
-            preferences outliner theme slotTitle).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
-         'Category: appearance\x7fModuleInfo: Module: generalModel InitialContents: FollowSlot'
-        
-         preferredTagColor = ( |
-            | 
-            preferences outliner theme tagColorFor: referrent).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
-         'Category: appearance\x7fModuleInfo: Module: generalModel InitialContents: FollowSlot'
-        
-         preferredTitleColor = ( |
-            | 
-            preferences outliner theme titleColorFor: referrent).
+         preferredFontSpec <- fontSpec copyName: 'arial' Size: 12 Style: 'bold'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
@@ -1666,13 +1616,6 @@ May cause me to expand if doExpand is true. -- dmu 10/04\x7fModuleInfo: Module: 
          receiveDroppingPointerToModel: m IfAccepted: aBlk = ( |
             | 
             self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
-         'Category: appearance\x7fModuleInfo: Module: generalModel InitialContents: FollowSlot'
-        
-         recolorModuleSummary = ( |
-            | "See children" self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
@@ -1838,7 +1781,7 @@ May cause me to expand if doExpand is true. -- dmu 10/04\x7fModuleInfo: Module: 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
          'Category: title\x7fModuleInfo: Module: generalModel InitialContents: FollowSlot\x7fVisibility: public'
         
-         titleFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'verdana' Size: 12 Style: '') From: ( |
+         titleFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'times' Size: 14 Style: '') From: ( |
              {} = 'Comment: I am an abstract, portable, description of a font.
 I am also immutable.\x7fModuleInfo: Creator: globals generalModel parent titleFontSpec.
 \x7fIsComplete: '.

@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -60,7 +60,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
          slab = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'slab' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals slab.
@@ -81,7 +81,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
          slab = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'slab' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits slab.

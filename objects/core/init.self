@@ -1,8 +1,8 @@
-'30.12.0'
+'Sun-$Revision: 30.10 $'
 
 '
-Copyright 1992-2026 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
 
 _AddSlotsIfAbsent: ( |
@@ -120,20 +120,6 @@ mixins _AddSlotsIfAbsent: ( |
 | )
 
 globals _AddSlotsIfAbsent: ( |
-
-{ 'Category: core\x7fModuleInfo: Module: init InitialContents: FollowSlot\x7fVisibility: public'
-  nil        = nil _AddSlots: ( | 
-{} = 'ModuleInfo: Creator: globals nil.\x7fIsComplete: '. 
-| ).
-  { 'Category: booleans'
-false      = false _AddSlots: ( | 
-  {} = 'ModuleInfo: Creator: globals false.\x7fIsComplete: '. 
-  | ).
-true       = true _AddSlots: ( | 
-  {} = 'ModuleInfo: Creator: globals true.\x7fIsComplete: '. 
-  | ).
-  }
-
  { 'Category: collections\x7fCategory: vectors\x7fModuleInfo: Module: init InitialContents: FollowSlot\x7fVisibility: public'
     byteVector	= byteVector _AddSlots: ( |
       {} = 'ModuleInfo: Creator: globals byteVector.'.
@@ -151,25 +137,10 @@ true       = true _AddSlots: ( |
     "needed for file names below, replaced in string.self"
     mutableString     = byteVector _Clone.
  }
-}
-
- { 'Category: platform\x7fCategory: external libraries\x7fModuleInfo: Module: init InitialContents: FollowSlot\x7fVisibility: public'
-	proxy    = proxy _AddSlots: ( |
-	  {} = 'ModuleInfo: Creator: globals proxy.'
-	  | ).
-	fctProxy = fctProxy _AddSlots: ( |
-	  {} = 'ModuleInfo: Creator: globals fctProxy.'
-	  | ).
- }
-
-
  { 'Category: system\x7fModuleInfo: Module: init InitialContents: FollowSlot\x7fVisibility: public'
- 
-    { 'Category: modules'
-        bootstrap = ( |
-          {} = 'Comment: routines used to read in self source files into an empty VM.\x7fModuleInfo: Creator: globals bootstrap.'.
-        | ).
-    }
+    bootstrap = ( |
+      {} = 'Comment: routines used to read in self source files into an empty VM.\x7fModuleInfo: Creator: globals bootstrap.'.
+    | ).
 
     mirrors = ( |
       {} = 'ModuleInfo: Creator: globals mirrors.'.
@@ -228,15 +199,28 @@ true       = true _AddSlots: ( |
       }
     | ).
 
+    modules = ( |
+      {} = 'ModuleInfo: Creator: globals modules.'.
+    | ).
 
-    { 'Category: modules\x7fModuleInfo: Module: init InitialContents: FollowSlot'
-        modules = ( |
-          {} = 'ModuleInfo: Creator: globals modules.'.
-        | ).
-        snapshotAction = snapshotAction _AddSlots: ( |
-          {} = 'ModuleInfo: Creator: globals snapshotAction.\x7fIsComplete: '.
-        | ).
+    { 'Category: OS and filesystem interface\x7fModuleInfo: Module: init InitialContents: FollowSlot'
+      snapshotAction = snapshotAction _AddSlots: ( |
+        {} = 'ModuleInfo: Creator: globals snapshotAction.\x7fIsComplete: '.
+      | ).
     }
+
+    { 'ModuleInfo: Module: init InitialContents: FollowSlot\x7fVisibility: public'
+      nil        = nil _AddSlots: ( | 
+	{} = 'ModuleInfo: Creator: globals nil.\x7fIsComplete: '. 
+	| ).
+      { 'Category: booleans'
+	false      = false _AddSlots: ( | 
+	  {} = 'ModuleInfo: Creator: globals false.\x7fIsComplete: '. 
+	  | ).
+	true       = true _AddSlots: ( | 
+	  {} = 'ModuleInfo: Creator: globals true.\x7fIsComplete: '. 
+	  | ).
+      }
 
       { 'Category: concurrency'
 	process    = _ThisProcess _AddSlots: ( |
@@ -254,6 +238,14 @@ true       = true _AddSlots: ( |
 	  } 
 	  | ).
       }
+      { 'Category: external libraries'
+	proxy    = proxy _AddSlots: ( |
+	  {} = 'ModuleInfo: Creator: globals proxy.'
+	  | ).
+	fctProxy = fctProxy _AddSlots: ( |
+	  {} = 'ModuleInfo: Creator: globals fctProxy.'
+	  | ).
+      }
       { 'Category: annotations'
 	objectAnnotation = objectAnnotation _AddSlots: ( |
 	  {} = 'ModuleInfo: Creator: globals objectAnnotation.'
@@ -263,7 +255,7 @@ true       = true _AddSlots: ( |
 	  | ).
       }
     }
- 
+  }
 | )
 
 
@@ -316,11 +308,37 @@ globals bootstrap _AddSlotsIfAbsent: ( |
 	   Else: [ object _RemoveSlot: slotName IfFail: [|:a. :b | object] ]).
   }
   { 'Category: bootstrap reading'
-  
-    concat: n With: p = ( | lobby = lobby |
-        n _ByteVectorConcatenate: p  Prototype: lobby mutableString).
 
-    selfObjectsWorkingDir <- ''.
+    defaultSelfWorkingDir = (
+      ( | sun = '..'. apple = '..'. | ) _Perform: _Manufacturer ).
+      
+    defaultSelfObjectsWorkingDir = (
+      ( | sun = '.'. apple = '.'. | ) _Perform: _Manufacturer ).
+
+    getSelfWorkingDirEVIfFail: fb = (
+         'SELF_WORKING_DIR' _getenvenvironmentAtIfFail: [
+	   |:e. :n| 
+	   fb value ] ).
+
+    selfWorkingDir = (
+         |
+         {} = 'ModuleInfo: Creator: globals bootstrap selfWorkingDir.'.
+         |
+         getSelfWorkingDirEVIfFail: [defaultSelfWorkingDir]).
+
+    selfObjectsWorkingDir = (
+         |
+         {} = 'ModuleInfo: Creator: globals bootstrap selfWorkingDir.'.
+         |
+         concat: (
+           getSelfWorkingDirEVIfFail: [^ defaultSelfObjectsWorkingDir]
+         ) With: '/objects').
+
+    concat: n With: p = (| 
+	lobby = lobby.
+        {} = 'ModuleInfo: Creator: globals bootstrap concat:With:.'.
+        |
+        n _ByteVectorConcatenate: p  Prototype: lobby mutableString).
 
     read: name From: dir = (
         |
@@ -348,59 +366,6 @@ globals bootstrap _AddSlotsIfAbsent: ( |
         n: concat: n                     With: '/'.
         n: concat: n                     With: name.
         (concat: n With: '.self') _RunScriptIfFail: fb).
-        
-        read: name InTree: t RootedAt: r = ( |
-           | 
-           read: name From: '' InTree: t RootedAt: r IfFail: [ | :e. :prim |
-             'failed to read: ' _StringPrint. 
-             name           _StringPrint.
-             ' in tree: '   _StringPrint.
-             t              _StringPrint.
-             ' rooted at: ' _StringPrint.
-             r              _StringPrint.
-             '.  Error: '   _StringPrint.
-             e              _StringPrint. 
-             '\n'           _StringPrint. 
-             _ThisProcess _AbortProcess.
-           ]).
-
-        read: name From: dir InTree: t RootedAt: r IfFail: fb = (
-            registerTree: t RootedAt: r IfConflict: [|:v | ^ fb value: v].
-            read: name From: dir InTree: t IfFail: fb).
-
-        registerTree: t RootedAt: r IfConflict: fb = ( | l |
-            l: (| lobby = lobby |) lobby.
-            (l modules init treeRootFor: t 
-                               IfAbsent: [l modules init registerTree: t At: r. r]
-               ) = r ifFalse: [ ^ fb value: (concat: 'Tree ' With: t With: 'exists with different root.')].
-            self).
-
-        read: name From: dir InTree: t IfFail: fb = ( | n | 
-           n: ''.
-           t = '' ifFalse: [| l |
-             "This will break if modules module not loaded!"
-             l: (| lobby = lobby |) lobby.
-             n: concat: (l modules init treeRootFor: t 
-                                           IfAbsent: [^ l error: 'Cannot find tree:', t]) 
-                  With: '/'].
-           n: concat: n                     With: dir.
-           n: concat: n                     With: '/'.
-           n: concat: n                     With: name.
-           (concat: n With: '.self') _RunScriptIfFail: [|:e. :prim | ^ fb value: e With: prim]).
-
-        read: name InTree: t = ( |
-           | 
-           read: name From: '' InTree: t IfFail: [ | :e. :prim |
-             'failed to read: ' _StringPrint. 
-             name         _StringPrint.
-             ' in tree: ' _StringPrint.
-             t            _StringPrint.
-             '.  Error: ' _StringPrint.
-             e            _StringPrint. 
-             '\n'         _StringPrint. 
-             _ThisProcess _AbortProcess.
-           ]).
-    
   }
   { 'Category: creating name spaces\x7fVisibility: public'
     stub = ( |
@@ -550,8 +515,8 @@ globals modules _AddSlots: ( |
     }
     {  'Category: state\x7fModuleInfo: Module: init InitialContents: FollowSlot\x7fVisibility: public'
       copyright <- '
-Copyright 1992-2026 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
 
     }
@@ -562,14 +527,6 @@ See the legal/LICENSE file for license information and legal/AUTHORS for authors
     {  'Category: state\x7fModuleInfo: Module: init InitialContents: InitializeToExpression: (vector)\x7fVisibility: publicReadPrivateWrite'
 	 removedSlotPaths <- vector.
 	 addedOrChangedSlots <- vector.
-    }
-    {  'ModuleInfo: Module: init InitialContents: InitializeToExpression: (\'\')'
-        
-         tree <- ''.
-    }
-    {  'ModuleInfo: Module: init InitialContents: FollowSlot'
-        
-         preFileIn = ("preFileIn" self).
     }
      {  'ModuleInfo: Module: init InitialContents: FollowSlot\x7fVisibility: private'
       parent* = ( | 
@@ -625,7 +582,7 @@ This module is used to avoid filing out spurious objects in other modules
 	 lobby _RemoveSlot: 'help' IfFail: [|:err. :name| nil].
 	 resend.postFileIn).
 
-      revision <- '30.12.0'.
+      revision <- 'Sun-$Revision: 30.10 $'.
 
       subpartNames <- ''.
 

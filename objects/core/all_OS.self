@@ -1,6 +1,6 @@
  '$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -69,6 +69,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          subpartNames <- 'abstract_OS
 unix
+macOS
 '.
         } | ) 
 
@@ -78,6 +79,7 @@ unix
 
  bootstrap read: 'abstract_OS' From: 'core'
  bootstrap read: 'unix' From: 'core'
+ bootstrap read: 'macOS' From: 'core'
 
 
 

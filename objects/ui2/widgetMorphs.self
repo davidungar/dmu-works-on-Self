@@ -1,15 +1,14 @@
  'Sun-$Revision: 30.9 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          checkBoxMorph = bootstrap define: bootstrap stub -> 'globals' -> 'checkBoxMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -27,7 +26,7 @@ SlotsToOmit: parent prototype rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          radioButtonGroup = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'radioButtonGroup' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals radioButtonGroup.
@@ -48,7 +47,7 @@ SlotsToOmit: parent prototype rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          checkBoxMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'checkBoxMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits checkBoxMorph.
@@ -75,7 +74,7 @@ SlotsToOmit: parent prototype rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          radioButtonGroup = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'radioButtonGroup' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits radioButtonGroup.
@@ -321,7 +320,7 @@ SlotsToOmit: parent prototype rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          checkCircleMorph = bootstrap define: bootstrap stub -> 'globals' -> 'checkCircleMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -338,7 +337,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          checkCircleMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'checkCircleMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits checkCircleMorph.
@@ -353,7 +352,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          checkMarkMorph = bootstrap define: bootstrap stub -> 'globals' -> 'checkMarkMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -370,7 +369,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          checkMarkMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'checkMarkMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits checkMarkMorph.
@@ -385,7 +384,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          colorChangerMorph = bootstrap define: bootstrap stub -> 'globals' -> 'colorChangerMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -432,7 +431,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          colorChangerMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'colorChangerMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits colorChangerMorph.
@@ -465,7 +464,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Properties\x7fModuleInfo: Module: widgetMorphs InitialContents: FollowSlot'
         
          enumeratedTypeLabelMorph = bootstrap define: bootstrap stub -> 'globals' -> 'enumeratedTypeLabelMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -635,7 +634,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
     '0011100' ) asVector
  Colors: (
     (paint named: 'white') &
-    (paint named: 'transparent')) asVector] value) From: ( |
+    (paint named: 'black')) asVector] value) From: ( |
              {} = 'ModuleInfo: Creator: traits checkCircleMorph sevenPixelCircleImage.
 \x7fIsComplete: '.
             | ) .
@@ -707,7 +706,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             s beRigidHorizontally setWidth: 10.
             s color: (paint named: 'gray') copyBrightness: 0.84.
             lbl: labelMorph copy.
-            lbl fontSpec: globals fontSpec copyName: 'helvetica' Size: 18.
+            lbl fontSpec: globals fontSpec copyName: 'times' Size: 18.
             col: columnMorph copy beFlexible color: c.
             col baseMinHeight: 50.
             col borderWidth: 0.

@@ -1,9 +1,8 @@
  '$Revision: 30.12 $'
  '
-Copyright 1992-2014 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -69,7 +68,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Self Object Outliner\x7fModuleInfo: Module: selfSlotModel InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Self Object Outliner\x7fModuleInfo: Module: selfSlotModel InitialContents: FollowSlot\x7fVisibility: public'
         
          selfSlotModel = bootstrap define: bootstrap stub -> 'globals' -> 'selfSlotModel' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -253,6 +252,12 @@ SlotsToOmit: setModule.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSlotModel' -> 'parent' -> () From: ( | {
+         'Category: copy-down slots\x7fModuleInfo: Module: selfSlotModel InitialContents: FollowSlot'
+        
+         copyDownColor = paint copyRed: 0.86999 Green: 0.820137  Blue: 0.820137.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSlotModel' -> 'parent' -> () From: ( | {
          'Category: editing whole thing\x7fModuleInfo: Module: selfSlotModel InitialContents: FollowSlot\x7fVisibility: private'
         
          copySlotsWithCategoriesSetForAdding: mirr = ( |
@@ -347,23 +352,15 @@ SlotsToOmit: setModule.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSlotModel' -> 'parent' -> () From: ( | {
-         'Category: appearance\x7fModuleInfo: Module: selfSlotModel InitialContents: FollowSlot'
+         'Category: copy-down slots\x7fModuleInfo: Module: selfSlotModel InitialContents: FollowSlot\x7fVisibility: public'
         
-         preferredBodyColor = ( |
+         preferredColor = ( |
+             c.
             | 
+            c: resend.preferredColor.
             slot isNotNil && [slot isCopiedDown]
-              ifTrue: [ preferences outliner theme copiedDownSlotBody ]
-               False: [ preferences outliner theme normalSlotBody ]).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSlotModel' -> 'parent' -> () From: ( | {
-         'Category: appearance\x7fModuleInfo: Module: selfSlotModel InitialContents: FollowSlot'
-        
-         preferredHeaderColor = ( |
-            | 
-            slot isNotNil && [slot isCopiedDown]
-              ifTrue: [ preferences outliner theme copiedDownSlotBody ]
-               False: [ preferences outliner theme normalSlotBody ]).
+              ifTrue: [copyDownColor]
+               False: [c]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSlotModel' -> 'parent' -> () From: ( | {

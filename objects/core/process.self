@@ -1,7 +1,7 @@
  'Sun-$Revision: 30.16 $'
  '
-Copyright 1992-2014 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
 
 
@@ -959,7 +959,7 @@ processes).\x7fModuleInfo: Module: process InitialContents: FollowSlot\x7fVisibi
          printError = ( |
             | 
             causeOfError errorString isEmpty
-               ifTrue: [ log error: 'This process has no cause of error!'] 
+               ifTrue: [ 'This process has no cause of error!' printLine] 
                False:  [ causeOfError reportError: self ForceStackTrace: true ]).
         } | ) 
 

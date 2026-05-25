@@ -1,9 +1,8 @@
- '30.6.1'
+ '$Revision: 30.6 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -55,9 +54,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'specialPaintManager' -> () From: ( | {
-         'ModuleInfo: Module: specialPaintManager InitialContents: InitializeToExpression: (\'30.6.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: specialPaintManager InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.6.1'.
+         revision <- '$Revision: 30.6 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'specialPaintManager' -> () From: ( | {
@@ -67,7 +66,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartzGlobals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Paint\x7fModuleInfo: Module: specialPaintManager InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Paint\x7fModuleInfo: Module: specialPaintManager InitialContents: FollowSlot\x7fVisibility: public'
         
          unmappedPaintManager = bootstrap define: bootstrap stub -> 'globals' -> 'quartzGlobals' -> 'unmappedPaintManager' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -98,7 +97,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Paint\x7fModuleInfo: Module: specialPaintManager InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Paint\x7fModuleInfo: Module: specialPaintManager InitialContents: FollowSlot\x7fVisibility: public'
         
          unmappedPaintManager = bootstrap define: bootstrap stub -> 'globals' -> 'x11Globals' -> 'unmappedPaintManager' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:

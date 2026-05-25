@@ -1,7 +1,7 @@
  '$Revision: 30.8 $'
  '
-Copyright 1992-2011 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
 
 
@@ -554,7 +554,7 @@ This saves recomputing the bounds for most morphs.
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'javaUser' -> () From: ( | {
          'Category: Basic Morph State\x7fModuleInfo: Module: javaInterface InitialContents: InitializeToExpression: (vector)\x7fVisibility: private'
         
-         rawMorphs <- ((bootstrap stub -> 'globals') \/-> 'vector') -> ().
+         rawMorphs <- bootstrap stub -> 'globals' -> 'vector' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'javaUser' -> () From: ( | {
@@ -578,7 +578,7 @@ This saves recomputing the bounds for most morphs.
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'javaUser' -> () From: ( | {
          'ModuleInfo: Module: javaInterface InitialContents: InitializeToExpression: (os_file)'
         
-         socket <- bootstrap stub -> 'globals' -> 'unixGlobals' -> 'os_file' -> ().
+         socket <- bootstrap stub -> 'globals' -> 'os_file' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'javaUser' -> () From: ( | {
@@ -682,7 +682,6 @@ SlotsToOmit: parent.
              bootstrap remove: 'comment' From:
              bootstrap remove: 'directory' From:
              bootstrap remove: 'fileInTimeString' From:
-             bootstrap remove: 'myComment' From:
              bootstrap remove: 'postFileIn' From:
              bootstrap remove: 'revision' From:
              bootstrap remove: 'subpartNames' From:
@@ -698,6 +697,12 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'javaInterface' -> () From: ( | {
+         'ModuleInfo: Module: javaInterface InitialContents: FollowSlot\x7fVisibility: private'
+        
+         myComment <- ''.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'javaInterface' -> () From: ( | {
          'ModuleInfo: Module: javaInterface InitialContents: FollowSlot\x7fVisibility: public'
         
          directory <- 'applications'.
@@ -707,12 +712,6 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'ModuleInfo: Module: javaInterface InitialContents: InitializeToExpression: (_CurrentTimeString)\x7fVisibility: public'
         
          fileInTimeString <- _CurrentTimeString.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'javaInterface' -> () From: ( | {
-         'ModuleInfo: Module: javaInterface InitialContents: FollowSlot\x7fVisibility: private'
-        
-         myComment <- ''.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'javaInterface' -> () From: ( | {
@@ -898,7 +897,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
              [changedFields matchesPattern: '*image*'] ifTrue: [
                d at: 'imageColormap' Put: image javaGetColormapDataString.
                d at: 'imagePixels' Put: image javaGetImageDataString.
-               d at: 'imageWidth' Put: image width.
+               d at: 'imageWidth' Put: width.
             ].
 
             d).
@@ -2358,11 +2357,11 @@ Hacked since java users don\'t have a winCanvas
             d: resend.javaDataPairs: changedFields.
             (changedFields = 'all') ||
              [changedFields matchesPattern: '*fontName*'] ifTrue: [
-               d at: 'fontName' Put: myFontSpec name.
+               d at: 'fontName' Put: fontName.
             ].
             (changedFields = 'all') ||
              [changedFields matchesPattern: '*fontSize*'] ifTrue: [
-               d at: 'fontSize' Put: myFontSpec size.
+               d at: 'fontSize' Put: fontSize.
             ].
             (changedFields = 'all') ||
              [changedFields matchesPattern: '*label*'] ifTrue: [
@@ -2850,15 +2849,6 @@ forcibly resized using this method.\x7fModuleInfo: Module: javaInterface Initial
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'ModuleInfo: Module: javaInterface InitialContents: FollowSlot'
-        
-         objectOutliner = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'objectOutliner' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits objectOutliner.
-'.
-            | ) .
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objectOutliner' -> () From: ( | {
          'Category: java interface\x7fModuleInfo: Module: javaInterface InitialContents: FollowSlot'
         
@@ -2870,18 +2860,15 @@ forcibly resized using this method.\x7fModuleInfo: Module: javaInterface Initial
         
          expand: evt = ( |
             | 
-                        expander isNil || [isExpanded]  ifFalse: [
-                          expander isExpanded  ifFalse: [ expander expand: evt ].
+                        isExpanded ifFalse: [
+                          expander isExpanded ifFalse: [ expander expand: evt ].
                           itemsCached ifFalse: [
                             buildBody.
                             constructItems.
-                            constructBoxedItems.
                             itemsCached: true.
-                          ].
-                          safelyDo: [
-                            addBodyMorph.
                             colorAll: color. "dave's experiment"
                           ].
+                          frame addMorphFirst: body.
                           body morphs do: [ |:m| m javaChanged: 'all' ].
                           "Andy 7/10/96 - The remote clients aren't so lucky as to be caching"
             "               safelyDo: [
@@ -2974,7 +2961,7 @@ forcibly resized using this method.\x7fModuleInfo: Module: javaInterface Initial
          'Category: padding\x7fModuleInfo: Module: javaInterface InitialContents: FollowSlot\x7fVisibility: private'
         
          whiteSpace = ' 	
-\x0d'.
+'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'trashCanMorph' -> () From: ( | {

@@ -1,6 +1,6 @@
  '$Revision: 1.4 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -63,7 +63,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: windowing\x7fModuleInfo: Module: colormapEmulation InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: windowing\x7fModuleInfo: Module: colormapEmulation InitialContents: FollowSlot\x7fVisibility: public'
         
          virtual8BitWindow = bootstrap define: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'virtual8BitWindow' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:

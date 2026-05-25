@@ -1,27 +1,11 @@
  '$Revision: 30.12 $'
  '
-Copyright 1992-2014 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'evaluatorMorph' -> 'parent' -> 'evaluatorStyleProto' -> () From: ( | {
-         'ModuleInfo: Module: selfObjectModel InitialContents: FollowSlot\x7fVisibility: private'
-        
-         parent* = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'evaluatorMorph' -> 'parent' -> 'evaluatorStyleProto' -> 'parent' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals evaluatorMorph parent evaluatorStyleProto parent.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'evaluatorMorph' -> 'parent' -> 'evaluatorStyleProto' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: selfObjectModel InitialContents: FollowSlot'
-        
-         parent* = bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> 'styleProto' -> 'parent' -> ().
-        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> () From: ( | {
          'Category: just for mirror models\x7fModuleInfo: Module: selfObjectModel InitialContents: FollowSlot'
@@ -90,7 +74,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Self Object Outliner\x7fModuleInfo: Module: selfObjectModel InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Self Object Outliner\x7fModuleInfo: Module: selfObjectModel InitialContents: FollowSlot\x7fVisibility: public'
         
          selfObjectModel = bootstrap define: bootstrap stub -> 'globals' -> 'selfObjectModel' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -115,13 +99,55 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> () From: ( | {
-         'Category: evaluators\x7fModuleInfo: Module: selfObjectModel InitialContents: FollowSlot'
+         'Category: evaluators\x7fModuleInfo: Module: selfObjectModel InitialContents: FollowSlot\x7fVisibility: public'
         
          addEvaluator: evt = ( |
+             b1.
+             b2.
+             b3.
+             ed.
+             f.
+             r.
+             result.
             | 
-            myOutliner addMorphToBottom: 
-              (evaluatorMorph copyOnEvt: evt OutlinerModel: self).
-            self).
+
+            b1: newEvaluatorButtonLabel: 'Get it'
+                                 Script: 'target get_it_cmd: event'
+                         IsAsynchronous: true.
+            b2: newEvaluatorButtonLabel: 'Do it'
+                                 Script: 'target  do_it_cmd: event'
+                         IsAsynchronous: true.
+            b3: newEvaluatorButtonLabel: 'Close'
+                                 Script: 'target delete'
+                         IsAsynchronous: false.
+
+            r: newEvaluatorButtonRow: (b1 & b2 & b3 ) asVector.
+
+            ed: uglyTextEditorMorph copyString: '' Style: evaluatorStyle.
+            ed receiver: receiver.
+            "ed beFlexibleHorizontally. won't resize"
+            ed beTypingFocusFor: evt sourceHand.
+
+            ed frameStyle: ed flatStyle.
+            b1 target: ed text.
+            b2 target: ed text.
+            ed borderWidth: 0.
+
+            f: frameMorph copy.
+            f addMorphFirst: ed.
+            f addMorphLast:  r.
+            f frameStyle: f insetBezelStyle.
+            f borderWidth: 2.
+            f beFlexibleHorizontally.
+            f leftJustify.
+
+            result: f.
+
+            result colorAll: myOutliner color.
+            myOutliner addMorphToBottom: result.
+            b3 target: result.
+
+            ed).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> () From: ( | {
@@ -139,6 +165,28 @@ SlotsToOmit: tearOff tearOffCopy.
 
 '.
             | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> 'buttonDescriptions' -> () From: ( | {
+         'Category: browsing\x7fCategory: asVector\x7fModuleInfo: Module: selfObjectModel InitialContents: FollowSlot\x7fVisibility: public'
+        
+         asVector = ( |
+            | 
+            event sourceHand attach: 
+              (event sourceHand world outlinerForMirror: target model mirror reflectee asVector asMirror)
+                expandAll: event.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> 'buttonDescriptions' -> () From: ( | {
+         'Category: browsing\x7fCategory: asVector of keys\x7fModuleInfo: Module: selfObjectModel InitialContents: FollowSlot\x7fVisibility: public'
+        
+         asVectorOfKeys = ( |
+            | 
+            event sourceHand attach: 
+              (event sourceHand world outlinerForMirror: target model mirror reflectee keys asVector asMirror)
+                expandAll: event.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> 'buttonDescriptions' -> () From: ( | {
@@ -193,6 +241,16 @@ SlotsToOmit: tearOff tearOffCopy.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> 'buttonDescriptions' -> () From: ( | {
+         'Category: showing and hiding\x7fCategory: Show Model\x7fModuleInfo: Module: selfObjectModel InitialContents: FollowSlot'
+        
+         showModel = ( |
+            | 
+            event sourceHand attach: 
+              event sourceHand world outlinerForMirror: target model mirror reflectee model asMirror.
+             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> 'buttonDescriptions' -> () From: ( | {
          'Category: showing and hiding\x7fCategory: Show Morph\x7fModuleInfo: Module: selfObjectModel InitialContents: FollowSlot'
         
          showMorph = ( |
@@ -244,6 +302,8 @@ SlotsToOmit: tearOff tearOffCopy.
             mirror isComplete ifFalse: [ r: r & 'showTraitsFamily' ].
             r: r & 'children' & 'references' & 'findSlot'.
             mirror hasAnyMissingSlots ifTrue: [r: r & 'missingSlots'].
+            (mirror doesCompletelyUnderstand: 'keys'    ) ifTrue: [r: r & 'asVectorOfKeys'].
+            (mirror doesCompletelyUnderstand: 'asVector') ifTrue: [r: r & 'asVector'].
             r: r & nil.
 
             r: r & expandOrCollapseAll.
@@ -251,6 +311,7 @@ SlotsToOmit: tearOff tearOffCopy.
                 (mirror isOKToSend: 'isShowableAsMorph')
             && [ mirror reflectee isShowableAsMorph]
               ifTrue: [ r: r & 'showMorph' ].
+            (mirror doesCompletelyUnderstand: 'model' ) ifTrue: [r: r & 'showModel'].
 
             r asVector).
         } | ) 
@@ -338,6 +399,45 @@ Set the creator of my parent slot.\x7fModuleInfo: Module: selfObjectModel Initia
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> () From: ( | {
+         'Category: evaluators\x7fModuleInfo: Module: selfObjectModel InitialContents: FollowSlot'
+        
+         evaluatorStyle = ( |
+            | 
+            evaluatorStyleProto copyModel: self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> () From: ( | {
+         'Category: evaluators\x7fModuleInfo: Module: selfObjectModel InitialContents: FollowSlot'
+        
+         evaluatorStyleProto = bootstrap define: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> 'evaluatorStyleProto' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'parent' From:
+             globals generalModel parent styleProto copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> 'evaluatorStyleProto' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals selfObjectModel parent evaluatorStyleProto.
+
+CopyDowns:
+globals generalModel parent styleProto. copy 
+SlotsToOmit: parent.
+
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> 'evaluatorStyleProto' -> () From: ( | {
+         'ModuleInfo: Module: selfObjectModel InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> 'evaluatorStyleProto' -> 'parent' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals selfObjectModel parent evaluatorStyleProto parent.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> 'evaluatorStyleProto' -> 'parent' -> () From: ( | {
+         'ModuleInfo: Module: selfObjectModel InitialContents: FollowSlot'
+        
+         parent* = bootstrap stub -> 'globals' -> 'generalModel' -> 'parent' -> 'styleProto' -> 'parent' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> () From: ( | {
          'Category: menu operations\x7fModuleInfo: Module: selfObjectModel InitialContents: FollowSlot\x7fVisibility: public'
         
          findSlot: evt = ( |
@@ -406,6 +506,37 @@ Set the creator of my parent slot.\x7fModuleInfo: Module: selfObjectModel Initia
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> () From: ( | {
+         'Category: evaluators\x7fModuleInfo: Module: selfObjectModel InitialContents: FollowSlot\x7fVisibility: private'
+        
+         newEvaluatorButtonLabel: l Script: s IsAsynchronous: isA = ( |
+             b.
+             n.
+            | 
+            b: ui2Button copy.
+            b script: s.
+            b isAsynchronous: isA.
+            n: preferredFontSpec size - 2.
+            b label: l  FontSpec:      (preferredFontSpec copySize: n)
+                        FontColor:      preferredFontColor.
+            b beFlexibleHorizontally.
+            b).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> () From: ( | {
+         'Category: evaluators\x7fModuleInfo: Module: selfObjectModel InitialContents: FollowSlot\x7fVisibility: private'
+        
+         newEvaluatorButtonRow: buts = ( |
+             r.
+            | 
+            r: rowMorph    copy.
+            r borderWidth: 0.
+            buts reverseDo: [|:b| r addMorph: b].
+            r moveToFront: buts first.
+            r beShrinkWrapVertically.
+            r).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> () From: ( | {
          'Category: copying\x7fModuleInfo: Module: selfObjectModel InitialContents: FollowSlot\x7fVisibility: private'
         
          newOutlinerFor: whatever = ( |
@@ -422,9 +553,7 @@ Set the creator of my parent slot.\x7fModuleInfo: Module: selfObjectModel Initia
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> () From: ( | {
          'Category: appearance\x7fModuleInfo: Module: selfObjectModel InitialContents: FollowSlot\x7fVisibility: public'
         
-         preferredColor = ( |
-            | 
-            preferences outliner theme selfObjectModel).
+         preferredColor = paint copyRed: 0.839687 Green: 0.839687  Blue: 0.839687.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfObjectModel' -> 'parent' -> () From: ( | {

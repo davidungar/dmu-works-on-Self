@@ -1,14 +1,14 @@
  'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2014 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Applications\x7fCategory: Histogram\x7fModuleInfo: Module: pixmapMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Applications\x7fCategory: Histogram\x7fModuleInfo: Module: pixmapMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          imageMorph = bootstrap define: bootstrap stub -> 'globals' -> 'imageMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -25,7 +25,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Applications\x7fCategory: Histogram\x7fModuleInfo: Module: pixmapMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Applications\x7fCategory: Histogram\x7fModuleInfo: Module: pixmapMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          ui2Image = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui2Image' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals ui2Image.
@@ -40,7 +40,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Applications\x7fCategory: Histogram\x7fModuleInfo: Module: pixmapMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Applications\x7fCategory: Histogram\x7fModuleInfo: Module: pixmapMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          imageMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'imageMorph' -> () From: ( |
              {} = 'Comment: An imageMorph displays a ui2Image (i.e., a masked pixmap).\x7fModuleInfo: Creator: traits imageMorph.
@@ -107,7 +107,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Applications\x7fCategory: Histogram\x7fModuleInfo: Module: pixmapMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Applications\x7fCategory: Histogram\x7fModuleInfo: Module: pixmapMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          movieMorph = bootstrap define: bootstrap stub -> 'globals' -> 'movieMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -154,7 +154,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Applications\x7fCategory: Histogram\x7fModuleInfo: Module: pixmapMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Applications\x7fCategory: Histogram\x7fModuleInfo: Module: pixmapMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          movieMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'movieMorph' -> () From: ( |
              {} = 'Comment: A movieMorph displays a sequence of ui2Images.\x7fModuleInfo: Creator: traits movieMorph.
@@ -199,7 +199,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Applications\x7fCategory: Histogram\x7fModuleInfo: Module: pixmapMorphs InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Applications\x7fCategory: Histogram\x7fModuleInfo: Module: pixmapMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
          ui2Image = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui2Image' -> () From: ( |
              {} = 'Comment: A ui2Image represents a potentially self-masking picture of
@@ -496,8 +496,7 @@ SlotsToOmit: parent prototype.
              quantizing to avoid double-quantizing artifacts."
 
             (colorQuantizing &&
-             [paintMgr areColorsMapped &&
-             [paintMgr policy != paintMgr quantizingColors] ]) ifTrue: [
+             [paintMgr policy != paintMgr quantizingColors]) ifTrue: [
                 colors copy mapBy: [| :c | c copyRGBQuantized ].
             ] False: [
                 colors copy.

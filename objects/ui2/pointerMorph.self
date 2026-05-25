@@ -1,15 +1,14 @@
- '30.15.1'
+ '$Revision: 30.15 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
         
          leafPointerButton = bootstrap define: bootstrap stub -> 'globals' -> 'leafPointerButton' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -26,7 +25,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
         
          leafPointerButton = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'leafPointerButton' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits leafPointerButton.
@@ -88,9 +87,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'pointerMorph' -> () From: ( | {
-         'ModuleInfo: Module: pointerMorph InitialContents: InitializeToExpression: (\'30.15.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: pointerMorph InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.15.1'.
+         revision <- '$Revision: 30.15 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'pointerMorph' -> () From: ( | {
@@ -101,7 +100,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
         
          pointerTailMorph = bootstrap define: bootstrap stub -> 'globals' -> 'pointerTailMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -124,7 +123,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
         
          pointerTailMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'pointerTailMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits pointerTailMorph.
@@ -233,7 +232,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
         
          outlinerLeafPointerTailMorph = bootstrap define: bootstrap stub -> 'globals' -> 'outlinerLeafPointerTailMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -267,7 +266,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
         
          outlinerLeafPointerTailMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'outlinerLeafPointerTailMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits outlinerLeafPointerTailMorph.
@@ -301,7 +300,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
         
          pointerHeadMorph = bootstrap define: bootstrap stub -> 'globals' -> 'pointerHeadMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -333,7 +332,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
         
          pointerHeadMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'pointerHeadMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits pointerHeadMorph.
@@ -354,7 +353,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Outliner Framework\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
         
          pointerMorph = bootstrap define: bootstrap stub -> 'globals' -> 'pointerMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -371,7 +370,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: pointers\x7fModuleInfo: Module: pointerMorph InitialContents: FollowSlot'
         
          pointerMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'pointerMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits pointerMorph.
@@ -419,19 +418,21 @@ SlotsToOmit: parent prototype.
              button.
              new.
             | 
-            button: copyTransparent.
+
+            button: copy.
             button removeAllMorphs.
             button baseMinWidth:  3.
             button baseMinHeight: 3.
             button beShrinkWrap.
-            button addMorph: (imageMorph copyImage: lo buttonIcon copy).
+            button addMorph: (imageMorph copyImage: lo buttonIcon).
+            button color: lo color.
             button).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'leafPointerButton' -> () From: ( | {
          'ModuleInfo: Module: pointerMorph InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
         
-         defaultButtonHolder.
+         defaultButtonHolder <- bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'leafPointerButton' -> () From: ( | {
@@ -534,9 +535,9 @@ on a new object to serve as replacement slot contents. -- Randy, 5/2/95\x7fModul
             button globalPosition: new headMorph globalPosition - (button bounds size / 2).
             new headMorph addMorph: button.
             button target: new headMorph.
-            button script: headButtonScript.
-            new           colorTransparent.
-            new headMorph colorTransparent.
+            button script: headButtonScript. 
+            new           color: lo color.
+            new headMorph color: lo color.
             new).
         } | ) 
 

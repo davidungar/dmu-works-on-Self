@@ -1,6 +1,6 @@
  '$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Examples\x7fComment: A circle with velocity. For use
+         'Category: ui2\x7fCategory: Examples\x7fComment: A circle with velocity. For use
 in simulations-- Randy, 2/11/95\x7fModuleInfo: Module: idealGas InitialContents: FollowSlot\x7fVisibility: public'
         
          atom = bootstrap define: bootstrap stub -> 'globals' -> 'atom' -> () ToBe: bootstrap addSlotsTo: (
@@ -61,7 +61,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Examples\x7fModuleInfo: Module: idealGas InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Examples\x7fModuleInfo: Module: idealGas InitialContents: FollowSlot'
         
          atom = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'atom' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits atom.
@@ -94,7 +94,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Examples\x7fComment: For use in an ideal gas demo. Simply
+         'Category: ui2\x7fCategory: Examples\x7fComment: For use in an ideal gas demo. Simply
 holds atoms and moves them around.
   -- Randy, 2/11/95\x7fModuleInfo: Module: idealGas InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -162,7 +162,7 @@ size across steps\x7fModuleInfo: Module: idealGas InitialContents: InitializeToE
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Examples\x7fModuleInfo: Module: idealGas InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Examples\x7fModuleInfo: Module: idealGas InitialContents: FollowSlot'
         
          gasTank = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'gasTank' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits gasTank.

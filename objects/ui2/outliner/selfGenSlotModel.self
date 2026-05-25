@@ -1,6 +1,6 @@
  '$Revision: 30.14 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -68,7 +68,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Self Object Outliner\x7fModuleInfo: Module: selfGenSlotModel InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Self Object Outliner\x7fModuleInfo: Module: selfGenSlotModel InitialContents: FollowSlot\x7fVisibility: public'
         
          selfGeneralSlotModel = bootstrap define: bootstrap stub -> 'globals' -> 'selfGeneralSlotModel' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -416,7 +416,7 @@ globals generalSlotModel parent buttonDescriptions. _Clone
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfGeneralSlotModel' -> 'parent' -> () From: ( | {
          'Category: title\x7fModuleInfo: Module: selfGenSlotModel InitialContents: FollowSlot\x7fVisibility: private'
         
-         privateTitleFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'verdana' copyMutable Size: 12 Style: '') From: ( |
+         privateTitleFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'times' copyMutable Size: 14 Style: '') From: ( |
              {} = 'Comment: I am an abstract, portable, description of a font.
 I am also immutable.\x7fModuleInfo: Creator: globals selfGeneralSlotModel parent privateTitleFontSpec.
 \x7fIsComplete: '.
@@ -434,7 +434,7 @@ I am also immutable.\x7fModuleInfo: Creator: globals selfGeneralSlotModel parent
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfGeneralSlotModel' -> 'parent' -> () From: ( | {
          'Category: title\x7fModuleInfo: Module: selfGenSlotModel InitialContents: FollowSlot\x7fVisibility: private'
         
-         publicTitleFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'verdana' copyMutable Size: 12 Style: 'bold') From: ( |
+         publicTitleFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'times' copyMutable Size: 14 Style: 'bold') From: ( |
              {} = 'Comment: I am an abstract, portable, description of a font.
 I am also immutable.\x7fModuleInfo: Creator: globals selfGeneralSlotModel parent publicTitleFontSpec.
 \x7fIsComplete: '.

@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.11 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: ordered\x7fModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: collections\x7fCategory: ordered\x7fModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: private'
         
          link = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'link' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals link.
@@ -23,7 +23,7 @@ See the LICENSE file for license information.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: ordered\x7fModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: ordered\x7fModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: public'
         
          link = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'link' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits link.
@@ -50,7 +50,7 @@ See the LICENSE file for license information.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: ordered\x7fModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: ordered\x7fModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: public'
         
          list = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'list' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals list.
@@ -59,7 +59,7 @@ See the LICENSE file for license information.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: ordered\x7fModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: ordered\x7fModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: public'
         
          list = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'list' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits list.
@@ -153,8 +153,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'list' -> () From: ( | {
          'ModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: private'
         
-         subpartNames <- 'sortedList
-'.
+         subpartNames <- ''.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'link' -> () From: ( | {
@@ -397,7 +396,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          addAll: c = ( |
             | 
-            c do: [ | :v | add: v ].
+            c do: [ | :v | addLast:  v ].
             self).
         } | ) 
 
@@ -560,7 +559,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'Category: inserting\x7fComment: Inserts the specified element after the first
 element in the list satisfying the condition
 block (or calls the IfAbsent: block if no such
-element is found). -- Adam, 5/06\x7fModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: public'
+element is fount). -- Adam, 5/06\x7fModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: public'
         
          insert: x AfterElementSatisfying: blk IfAbsent: aBlk = ( |
             | 
@@ -575,7 +574,7 @@ element is found). -- Adam, 5/06\x7fModuleInfo: Module: list InitialContents: Fo
          'Category: inserting\x7fComment: Inserts the specified element before the first
 element in the list satisfying the condition
 block (or calls the IfAbsent: block if no such
-element is found). -- Adam, 5/06\x7fModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: public'
+element is fount). -- Adam, 5/06\x7fModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: public'
         
          insert: x BeforeElementSatisfying: blk IfAbsent: aBlk = ( |
             | 
@@ -590,7 +589,7 @@ element is found). -- Adam, 5/06\x7fModuleInfo: Module: list InitialContents: Fo
          'Category: inserting\x7fComment: Inserts the specified elements after the first
 element in the list satisfying the condition
 block (or calls the IfAbsent: block if no such
-element is found). -- Adam, 5/06\x7fModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: public'
+element is fount). -- Adam, 5/06\x7fModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: public'
         
          insertAll: c AfterElementSatisfying: blk IfAbsent: aBlk = ( |
             | 
@@ -609,7 +608,7 @@ element is found). -- Adam, 5/06\x7fModuleInfo: Module: list InitialContents: Fo
          'Category: inserting\x7fComment: Inserts the specified elements before the first
 element in the list satisfying the condition
 block (or calls the IfAbsent: block if no such
-element is found). -- Adam, 5/06\x7fModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: public'
+element is fount). -- Adam, 5/06\x7fModuleInfo: Module: list InitialContents: FollowSlot\x7fVisibility: public'
         
          insertAll: c BeforeElementSatisfying: blk IfAbsent: aBlk = ( |
             | 
@@ -738,12 +737,6 @@ element is found). -- Adam, 5/06\x7fModuleInfo: Module: list InitialContents: Fo
                 b value: v1 value With: v2 With: k1 value With: k2].
             self).
         } | ) 
-
-
-
- '-- Sub parts'
-
- bootstrap read: 'sortedList' From: 'core'
 
 
 

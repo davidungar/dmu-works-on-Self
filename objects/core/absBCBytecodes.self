@@ -1,6 +1,6 @@
  '$Revision: 30.24 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -198,12 +198,6 @@ See the LICENSE file for license information.
          'Category: testing\x7fModuleInfo: Module: absBCBytecodes InitialContents: FollowSlot\x7fVisibility: public'
         
          isLocal = bootstrap stub -> 'globals' -> 'false' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'abstractBytecodeInterpreter' -> 'parent' -> 'bytecodes' -> 'abstract' -> 'parent' -> () From: ( | {
-         'Category: testing\x7fModuleInfo: Module: absBCBytecodes InitialContents: FollowSlot\x7fVisibility: public'
-        
-         isPop = bootstrap stub -> 'globals' -> 'false' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'abstractBytecodeInterpreter' -> 'parent' -> 'bytecodes' -> 'abstract' -> 'parent' -> () From: ( | {
@@ -1377,12 +1371,6 @@ SlotsToOmit: parent.
          'Category: testing\x7fModuleInfo: Module: absBCBytecodes InitialContents: FollowSlot\x7fVisibility: public'
         
          isExtended = bootstrap stub -> 'globals' -> 'true' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'abstractBytecodeInterpreter' -> 'parent' -> 'bytecodes' -> 'pop' -> 'parent' -> () From: ( | {
-         'Category: testing\x7fModuleInfo: Module: absBCBytecodes InitialContents: FollowSlot\x7fVisibility: public'
-        
-         isPop = bootstrap stub -> 'globals' -> 'true' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'abstractBytecodeInterpreter' -> 'parent' -> 'bytecodes' -> 'pop' -> 'parent' -> () From: ( | {

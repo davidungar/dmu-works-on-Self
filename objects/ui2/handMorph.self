@@ -1,15 +1,14 @@
  '$Revision: 30.16 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: handMorph InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: handMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          handMorph = bootstrap define: bootstrap stub -> 'globals' -> 'handMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -92,7 +91,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: handMorph InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Basic\x7fModuleInfo: Module: handMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          handMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'handMorph' -> () From: ( |
              {} = 'Comment: A handMorph represents the user\'s hand in the world,
@@ -279,7 +278,7 @@ capability
             | 
             resend.baseBounds union: 
               ((position + nameOffset) ##
-                (cachedNameWidth @ nameFontSpec size))).
+                (cachedNameWidth @ userInfo preferences nameFontSpec size))).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'handMorph' -> () From: ( | {
@@ -297,7 +296,7 @@ is in the coordinates of the morph that owns this morph.\x7fModuleInfo: Module: 
          baseContainsPt: p = ( |
             | 
             (resend.baseContainsPt: p) || 
-            [((position + nameOffset) ## (cachedNameWidth @ nameFontSpec size)) 
+            [((position + nameOffset) ## (cachedNameWidth @ userInfo preferences nameFontSpec size)) 
                includes: p]).
         } | ) 
 
@@ -428,6 +427,7 @@ will also change the screen edges, but not the held objects.\x7fModuleInfo: Modu
          'Category: damageManagement\x7fModuleInfo: Module: handMorph InitialContents: FollowSlot\x7fVisibility: private'
         
          damagedLeft: l Right: r Top: t Bottom: b From: m = ( |
+             extraShadowOffsetHackToAvoidQuartzShadowTurds = 1.
              p.
             | 
             "Override this message to add the shadow offset."
@@ -437,9 +437,9 @@ will also change the screen edges, but not the held objects.\x7fModuleInfo: Modu
                 px: p x.
                 py: p y.
                 owner damagedLeft: l + px
-                            Right: r + px + shadowOffset x
+                            Right: r + px + shadowOffset x + extraShadowOffsetHackToAvoidQuartzShadowTurds
                               Top: t + py
-                           Bottom: b + py + shadowOffset y
+                           Bottom: b + py + shadowOffset y + extraShadowOffsetHackToAvoidQuartzShadowTurds
                              From: m.
             ].
             self).
@@ -491,11 +491,11 @@ will also change the screen edges, but not the held objects.\x7fModuleInfo: Modu
              h.
              s.
             | 
-            h: nameFontSpec size.
+            h: userInfo preferences nameFontSpec size.
             s: name ifNil: ['!??'].
             c text: s 
                 At: position +  (nameOffset +  (0@h))
-            FontSpec: nameFontSpec
+            FontSpec: userInfo preferences nameFontSpec
              Color: color).
         } | ) 
 
@@ -735,7 +735,6 @@ will also change the screen edges, but not the held objects.\x7fModuleInfo: Modu
         
          handleKeyDown: e = ( |
             | 
-            jumpScrollEvent: e.
             testMetaEscape: e.  
             self).
         } | ) 
@@ -983,38 +982,6 @@ will also change the screen edges, but not the held objects.\x7fModuleInfo: Modu
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'handMorph' -> () From: ( | {
-         'Category: event handling\x7fModuleInfo: Module: handMorph InitialContents: FollowSlot'
-        
-         jumpScrollEvent: e = ( |
-             a.
-             b.
-             cs.
-             i <- 3.
-             pt <- (0)@(0).
-            | 
-            " Quick Exit "
-            (e commandIsDown || e metaIsDown) ifFalse: [^ self].
-
-            " Are we shift jumping? "
-            e shiftIsDown ifTrue: [i: 1].
-
-            " Setup "
-            cs: winCanvasForHand size.
-            b: e keyCapsPressed first. " Hmm. Assuming arrow press is first. RCA 2016-07-25 "
-            a: e keyCaps arrows.
-
-            " Set jump direction and distance "
-            b = a left  ifTrue: [pt: (cs x / i) negate @ 0                 ].
-            b = a right ifTrue: [pt: (cs x / i)        @ 0                 ].
-            b = a up    ifTrue: [pt: 0                 @ (cs y / i) negate ].
-            b = a down  ifTrue: [pt: 0                 @ (cs y / i)        ].
-
-            " Jump if we need to "
-            pt != (0@0) ifTrue: [world moveHand: self InWorldBy: pt].
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'handMorph' -> () From: ( | {
          'Category: meta hand\x7fModuleInfo: Module: handMorph InitialContents: FollowSlot\x7fVisibility: private'
         
          metaHandEvent: e = ( |
@@ -1098,9 +1065,15 @@ object. This will update the hand\'s cachedNameSize slot.\x7fModuleInfo: Module:
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'handMorph' -> () From: ( | {
-         'Category: name and other userInfo issues\x7fModuleInfo: Module: handMorph InitialContents: InitializeToExpression: (globals fontSpec copyName: \'helvetica\' Size: 11 Style: \'bold\')'
+         'Category: name and other userInfo issues\x7fModuleInfo: Module: handMorph InitialContents: FollowSlot\x7fVisibility: public'
         
-         nameFontSpec <- globals fontSpec copyName: 'helvetica' Size: 11 Style: 'bold'.
+         nameFontSpec: fs = ( |
+            | 
+            changed.
+            setCachedNameWidth.
+            userInfo preferences nameFontSpec: fs.
+            changed.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'handMorph' -> () From: ( | {
@@ -1171,7 +1144,7 @@ your kind of finished for the day.\x7fModuleInfo: Module: handMorph InitialConte
              w.
             | 
             isInWorld ifTrue: [| xfnt |
-              xfnt: (world anyOpenWindowCanvas structForFontSpec: nameFontSpec).
+              xfnt: (world anyOpenWindowCanvas structForFontSpec: userInfo preferences nameFontSpec).
               cachedNameWidth:  (xfnt textWidth: name).
             ].
             self).
@@ -1195,20 +1168,10 @@ your kind of finished for the day.\x7fModuleInfo: Module: handMorph InitialConte
             | 
             userInfo setNamesByGuess.
             setCachedNameWidth.
-            informSystemAboutPassword.
             self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'handMorph' -> () From: ( | {
-         'Category: name and other userInfo issues\x7fModuleInfo: Module: handMorph InitialContents: FollowSlot\x7fVisibility: public'
-        
-         informSystemAboutPassword = ( |
-            | 
-            "This is overriden for OurSelf.io - rca 2022.04.22"
-            self).
-        } | ) 
-
-bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'handMorph' -> () From: ( | {
          'Category: meta hand\x7fModuleInfo: Module: handMorph InitialContents: FollowSlot\x7fVisibility: private'
         
          shedHand = ( |
@@ -1311,10 +1274,7 @@ appearance of the cursor.
         
          topRootMorphAt: p = ( |
             | 
-            " viewScrollMorphs don't count as we can't 
-              bring up a selfMenu on them"
-            world rootMorphsAt: p Do: [| :m | 
-              m prototype = viewScrollMorph ifFalse: [ ^m ]].
+            world rootMorphsAt: p Do: [| :m | ^m ].
             world).
         } | ) 
 

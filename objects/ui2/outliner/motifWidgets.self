@@ -1,15 +1,14 @@
  'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2014 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          optionalMorph = bootstrap define: bootstrap stub -> 'globals' -> 'optionalMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -32,7 +31,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          optionalMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'optionalMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits optionalMorph.
@@ -51,9 +50,6 @@ SlotsToOmit: parent prototype.
         
          baseDrawOn: aCanvas = ( |
             | 
-            "Optimisation: suppress drawing if transparent"
-            rawColor isTransparent ifTrue: [^ self].
-
             "Optimization: suppress drawing if this morph's color matches
              that of its owner."
 
@@ -141,18 +137,17 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          commentButtonMorph = bootstrap define: bootstrap stub -> 'globals' -> 'commentButtonMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
              bootstrap remove: 'prototype' From:
-             bootstrap remove: 'rawColor' From:
              globals optionalMorph copyRemoveAllMorphs ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'commentButtonMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals commentButtonMorph.
 
 CopyDowns:
 globals optionalMorph. copyRemoveAllMorphs 
-SlotsToOmit: parent prototype rawColor.
+SlotsToOmit: parent prototype.
 
 \x7fIsComplete: '.
             | ) .
@@ -165,7 +160,7 @@ SlotsToOmit: parent prototype rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          commentButtonMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'commentButtonMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits commentButtonMorph.
@@ -177,12 +172,6 @@ SlotsToOmit: parent prototype rawColor.
          'ModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'commentButtonMorph' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'commentButtonMorph' -> () From: ( | {
-         'Category: Basic Morph State\x7fModuleInfo: Module: motifWidgets InitialContents: InitializeToExpression: (paint named: \'transparent\')\x7fVisibility: private'
-        
-         rawColor <- paint named: 'transparent'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'commentButtonMorph' -> () From: ( | {
@@ -198,7 +187,7 @@ SlotsToOmit: parent prototype rawColor.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          pushButton = bootstrap define: bootstrap stub -> 'globals' -> 'pushButton' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -228,7 +217,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          pushButton = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'pushButton' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits pushButton.
@@ -548,7 +537,7 @@ is supposed to simulate actually pressing the button.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          expanderPushButton = bootstrap define: bootstrap stub -> 'globals' -> 'expanderPushButton' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -578,7 +567,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          expanderPushButton = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'expanderPushButton' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits expanderPushButton.
@@ -658,7 +647,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          radioButton = bootstrap define: bootstrap stub -> 'globals' -> 'radioButton' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -699,7 +688,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Widgets\x7fModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: public'
         
          radioButton = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'radioButton' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits radioButton.
@@ -759,29 +748,16 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'commentButtonMorph' -> () From: ( | {
-         'ModuleInfo: Module: motifWidgets InitialContents: FollowSlot'
-        
-         colorButtonBackground: bg Foreground: fg = ( |
-            | 
-            "Inner is pushButtonMorph"
-            inner color: bg.
-            "First submorph is a labelMorph"
-            inner morphs first color: fg.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'commentButtonMorph' -> () From: ( | {
          'ModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: private'
         
          copyTarget: tar Action: act Style: sty = ( |
             | 
-            "rca 2014/11/11 Ignore style color.
-            Color handled by recolor"
-            ((copy
+            (((copy
                beShrinkWrap
                target: tar)
                action: act)
-               style: sty).
+               style: sty)
+               color: sty color).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'commentButtonMorph' -> () From: ( | {
@@ -791,6 +767,13 @@ SlotsToOmit: parent prototype.
             | 
             beFlexibleVertically.
             beShrinkWrapHorizontally.
+            quoteIcon: ui2Image copyPixelLines: (
+                    ' 00' &
+                    ' 0 ' &
+                    '0  ' ) asVector
+                Colors: (
+                    (paint named: 'black') &
+                    (paint named: 'black') ) asVector.
             self).
         } | ) 
 
@@ -813,6 +796,12 @@ SlotsToOmit: parent prototype.
          'ModuleInfo: Module: motifWidgets InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'optionalMorph' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'commentButtonMorph' -> () From: ( | {
+         'ModuleInfo: Module: motifWidgets InitialContents: InitializeToExpression: (ui2Image)'
+        
+         quoteIcon <- bootstrap stub -> 'globals' -> 'ui2Image' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'expanderPushButton' -> () From: ( | {

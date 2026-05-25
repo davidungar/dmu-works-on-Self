@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.16 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: core\x7fCategory: numbers\x7fModuleInfo: Module: bigInt InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: numbers\x7fModuleInfo: Module: bigInt InitialContents: FollowSlot\x7fVisibility: public'
         
          bigInt = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'bigInt' -> () From: ( |
              {} = 'Comment: A bigInt is represented using a smallInt for the sign (-1, 0, 1  if 
@@ -29,7 +29,7 @@ See the LICENSE file for license information.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: core\x7fCategory: numbers\x7fModuleInfo: Module: bigInt InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: numbers\x7fModuleInfo: Module: bigInt InitialContents: FollowSlot\x7fVisibility: public'
         
          bigInt = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'bigInt' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits bigInt.

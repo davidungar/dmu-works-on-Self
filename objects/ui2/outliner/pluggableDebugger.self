@@ -1,15 +1,14 @@
- '30.38.2'
+ '$Revision: 30.38 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Debugger\x7fModuleInfo: Module: pluggableDebugger InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Debugger\x7fModuleInfo: Module: pluggableDebugger InitialContents: FollowSlot'
         
          generalActivationModel = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'generalActivationModel' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals generalActivationModel.
@@ -306,7 +305,7 @@ to point to other methods\x7fModuleInfo: Module: pluggableDebugger InitialConten
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Debugger\x7fModuleInfo: Module: pluggableDebugger InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Debugger\x7fModuleInfo: Module: pluggableDebugger InitialContents: FollowSlot\x7fVisibility: public'
         
          generalProcessModel = bootstrap define: bootstrap stub -> 'globals' -> 'generalProcessModel' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -392,7 +391,7 @@ e.g. Self or Klein. -- dmu 1/02\x7fModuleInfo: Creator: globals generalProcessMo
         
          anotherCommandButtonSpacer = ( |
             | 
-            transparentSpacerMorph copyH: 5).
+            spacerMorph copyH: 5 Color: myOutliner color).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalProcessModel' -> 'parent' -> () From: ( | {
@@ -406,6 +405,7 @@ e.g. Self or Klein. -- dmu 1/02\x7fModuleInfo: Creator: globals generalProcessMo
               FontSpec: commandButtonStyle fontSpec
              FontColor: commandButtonStyle fontColor.
             ((b script: lblScript y) target: self) isAsynchronous: true.
+            b colorAll: myOutliner color.
             b).
         } | ) 
 
@@ -416,13 +416,13 @@ e.g. Self or Klein. -- dmu 1/02\x7fModuleInfo: Creator: globals generalProcessMo
              cbc.
              r.
             | 
-            r: rowMorph copyTransparent borderWidth: 2.
+            r: rowMorph copy borderWidth: 2.
             cbc: commandButtonContents.
             cbc do: [|:ls. :i. |
               r addMorphLast: buildCommandButton: ls.
               i  =  cbc size pred  ifFalse: [ r addMorphLast: anotherCommandButtonSpacer ].
             ].
-            r addMorphLast: transparentSpacerMorph copy beFlexible.
+            r addMorphLast: spacerMorph copy beFlexible color: myOutliner color.
             r).
         } | ) 
 
@@ -488,7 +488,7 @@ globals generalModel parent buttonDescriptions. _Clone
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalProcessModel' -> 'parent' -> () From: ( | {
          'Category: command buttons\x7fModuleInfo: Module: pluggableDebugger InitialContents: FollowSlot\x7fVisibility: private'
         
-         commandButtonFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'verdana' copyMutable Size: 12 Style: 'bold') From: ( |
+         commandButtonFontSpec = bootstrap setObjectAnnotationOf: ( fontSpec copyName: 'helvetica' copyMutable Size: 12 Style: 'bold') From: ( |
              {} = 'Comment: I am an abstract, portable, description of a font.
 I am also immutable.\x7fModuleInfo: Creator: globals generalProcessModel parent commandButtonFontSpec.
 \x7fIsComplete: '.
@@ -581,24 +581,24 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalProcessModel' -> 'parent' -> () From: ( | {
-         'Category: building\x7fModuleInfo: Module: pluggableDebugger InitialContents: FollowSlot'
+         'Category: building\x7fModuleInfo: Module: pluggableDebugger InitialContents: FollowSlot\x7fVisibility: private'
         
          constructItems = ( |
              l.
             | 
             l: list copyRemoveAll.
+
             updateStatus.
             l add: status.
-            myProcess isAlive ifTrue: [
+            "l add: mirrorModel newOutlinerFor: process asMirror."
+            myProcess isAlive ifTrue: [ 
               commands: buildCommandButtons.
               l add: commands.
               stack: processStackModel newOutlinerFor: myProcess.
-              l add: stack.
+              stack colorAll: myOutliner color.
+              l add: stack. 
             ].
-            myOutliner addItems: l.
-            myOutliner recolor.
-            commands isNil ifFalse: [
-              commands morphsDo: [|:m| m color: myOutliner color]]).
+            myOutliner addItems: l).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalProcessModel' -> 'parent' -> () From: ( | {
@@ -965,7 +965,7 @@ the processMorph is updated.\x7fModuleInfo: Module: pluggableDebugger InitialCon
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Debugger\x7fModuleInfo: Module: pluggableDebugger InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: Programming Environment\x7fCategory: Pluggable Debugger\x7fModuleInfo: Module: pluggableDebugger InitialContents: FollowSlot\x7fVisibility: public'
         
          generalProcessStackModel = bootstrap define: bootstrap stub -> 'globals' -> 'generalProcessStackModel' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -978,6 +978,12 @@ SlotsToOmit: parent.
 
 '.
             | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalProcessStackModel' -> () From: ( | {
+         'Category: processStackModel state\x7fModuleInfo: Module: pluggableDebugger InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
+        
+         allStackButton.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalProcessStackModel' -> () From: ( | {
@@ -1135,7 +1141,7 @@ globals generalModel parent buttonDescriptions. _Clone
                  resend.expand: evt.
                  myOutliner =  buttons owner ifFalse: [
                    buttons delete.
-                   myOutliner addMorphLast:  buttons].
+                   myOutliner addMorphLast:  buttons colorAll: myOutliner color].
               ]. 
             self).
         } | ) 
@@ -1174,39 +1180,28 @@ globals generalModel parent buttonDescriptions. _Clone
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalProcessStackModel' -> 'parent' -> () From: ( | {
-         'Category: appearance\x7fModuleInfo: Module: pluggableDebugger InitialContents: FollowSlot'
-        
-         preferredBodyColor = ( |
-            | preferences outliner theme debugger).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalProcessStackModel' -> 'parent' -> () From: ( | {
-         'Category: appearance\x7fModuleInfo: Module: pluggableDebugger InitialContents: FollowSlot'
-        
-         preferredHeaderColor = ( |
-            | preferences outliner theme processDebugger).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalProcessStackModel' -> 'parent' -> () From: ( | {
          'Category: building\x7fModuleInfo: Module: pluggableDebugger InitialContents: FollowSlot\x7fVisibility: private'
         
          setAppearanceOfOutliner = ( |
              lessStackButton.
             | 
+            allStackButton: buildStackButton: 'All stack' @ 'target showAllStack'.
+            allStackButton target: self.
+
             moreStackButton: buildStackButton: 'More stack' @ 'target showMoreStack'.
-            moreStackButton color: preferredBodyColor.
             moreStackButton target: self.
 
             lessStackButton: buildStackButton: 'Less stack' @ 'target showLessStack'.
-            lessStackButton color: preferredBodyColor.
             lessStackButton target: self.
 
-            buttons: rowMorph copyTransparent.
+            buttons: rowMorph copy.
+            buttons colorAll: myOutliner color.
             buttons beShrinkWrap.
             buttons borderWidth: 3.
 
             buttons addMorph: lessStackButton.
             buttons addMorphLast: moreStackButton.
+            buttons addMorphLast: allStackButton.
 
             myOutliner beFlexible.
             myOutliner borderWidth: 0).
@@ -1225,6 +1220,15 @@ be the focus
              a last beTypingFocusFor: sourceHand.
             ].
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalProcessStackModel' -> 'parent' -> () From: ( | {
+         'Category: expanding & collapsing\x7fModuleInfo: Module: pluggableDebugger InitialContents: FollowSlot\x7fVisibility: public'
+        
+         showAllStack = ( |
+            | 
+            stackDepthToShow: referrent stackDepth.
+            safelyDo: [myOutliner update]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalProcessStackModel' -> 'parent' -> () From: ( | {
@@ -1333,6 +1337,7 @@ be the focus
             safelyDo: [
               as do: [|:a. am| 
                am: activationModelProto newOutlinerFor: a.
+               am colorAll: myOutliner color.
                myOutliner addItemFirst: am.
               ]
             ].
@@ -1388,10 +1393,15 @@ be the focus
             activationMorphs do: [|:a| blk value: a ].
 
             moreStack not && [ buttons morphs includes: moreStackButton ]
-              ifTrue: [ moreStackButton safelyDo: [ moreStackButton delete ] ].
+              ifTrue: [ 
+                moreStackButton safelyDo: [ moreStackButton delete ]. 
+                 allStackButton safelyDo: [  allStackButton delete ] 
+              ].
 
             moreStack && [ ( buttons morphs includes: moreStackButton ) not ]
-              ifTrue: [ buttons safelyDo: [ buttons addMorphLast: moreStackButton ] ].
+              ifTrue: [ buttons safelyDo: [ buttons addMorphLast: moreStackButton.
+                                            buttons addMorphLast:  allStackButton.
+                                            buttons colorAll: myOutliner color ] ].
 
             self).
         } | ) 
@@ -1449,9 +1459,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'pluggableDebugger' -> () From: ( | {
-         'ModuleInfo: Module: pluggableDebugger InitialContents: InitializeToExpression: (\'30.38.2\')\x7fVisibility: public'
+         'ModuleInfo: Module: pluggableDebugger InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.38.2'.
+         revision <- '$Revision: 30.38 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'pluggableDebugger' -> () From: ( | {

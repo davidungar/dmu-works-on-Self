@@ -1,9 +1,8 @@
- '30.12.1'
+ 'Sun-$Revision: 30.12 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -59,9 +58,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui2Button' -> () From: ( | {
-         'ModuleInfo: Module: ui2Button InitialContents: InitializeToExpression: (\'30.12.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: ui2Button InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.12.1'.
+         revision <- 'Sun-$Revision: 30.12 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui2Button' -> () From: ( | {
@@ -71,7 +70,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: ui2Button InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: ui2Button InitialContents: FollowSlot\x7fVisibility: public'
         
          ui2Button = bootstrap define: bootstrap stub -> 'globals' -> 'ui2Button' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'baseMinHeight' From:
@@ -129,7 +128,7 @@ SlotsToOmit: baseMinHeight baseMinWidth parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: ui2Button InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: ui2Button InitialContents: FollowSlot\x7fVisibility: public'
         
          ui2Button = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui2Button' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits ui2Button.
@@ -188,7 +187,6 @@ SlotsToOmit: baseMinHeight baseMinWidth parent prototype.
              new.
             | 
             "Copy the button and its action object."
-
             new: resend.baseCopy.
             new buttonActionObject: buttonActionObject copy.
             new).
@@ -229,7 +227,7 @@ SlotsToOmit: baseMinHeight baseMinWidth parent prototype.
             m: morphs.
             removeAllMorphs.
             addMorph:
-               (rowMorph copyTransparent
+              (rowMorph copy 
                 beFlexibleVertically
                 beShrinkWrapHorizontally
                 borderWidth: 0)
@@ -353,7 +351,7 @@ SlotsToOmit: baseMinHeight baseMinWidth parent prototype.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui2Button' -> () From: ( | {
          'Category: events\x7fModuleInfo: Module: ui2Button InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
         
-         defaultButtonHolder.
+         defaultButtonHolder <- bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui2Button' -> () From: ( | {
@@ -363,9 +361,9 @@ SlotsToOmit: baseMinHeight baseMinWidth parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui2Button' -> () From: ( | {
-         'Category: construction\x7fModuleInfo: Module: ui2Button InitialContents: InitializeToExpression: (globals fontSpec copyName: \'helvetica\' Size: 12)\x7fVisibility: public'
+         'Category: construction\x7fModuleInfo: Module: ui2Button InitialContents: InitializeToExpression: (globals fontSpec copyName: \'times\' Size: 14)\x7fVisibility: public'
         
-         defaultFontSpec <- globals fontSpec copyName: 'helvetica' Size: 12.
+         defaultFontSpec <- globals fontSpec copyName: 'times' Size: 14.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui2Button' -> () From: ( | {
@@ -536,13 +534,6 @@ they contain this button -- Randy, 1/10/95\x7fModuleInfo: Module: ui2Button Init
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui2Button' -> () From: ( | {
-         'Category: basics\x7fModuleInfo: Module: ui2Button InitialContents: FollowSlot'
-        
-         labelColor: c = ( |
-            | findMorphWithLabel color: c. self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui2Button' -> () From: ( | {
          'Category: events\x7fModuleInfo: Module: ui2Button InitialContents: FollowSlot\x7fVisibility: public'
         
          leftMouseDown: evt = ( |
@@ -633,7 +624,7 @@ they contain this button -- Randy, 1/10/95\x7fModuleInfo: Module: ui2Button Init
          outdentAndSelect: isSelected = ( |
             | 
             "Used when in a menu by the menu."
-             frameStyle: flatStyle.
+             frameStyle: bezelStyle.
              rawState: isSelected ifTrue: 'down' False: 'up').
         } | ) 
 

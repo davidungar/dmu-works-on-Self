@@ -1,9 +1,8 @@
  '$Revision: 30.5 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2009 AUTHORS, Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -63,23 +62,16 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
         
-         subpartNames <- bootstrap setObjectAnnotationOf: ( 'qDrawable
+         subpartNames <- 'qDrawable
 cgDirectDisplay
 quartz_wrappers
 quartzForFF
-' copyMutable) From: ( |
-             {} = 'ModuleInfo: Creator: globals modules quartz subpartNames.
-
-CopyDowns:
-globals byteVector. copy 
-SlotsToOmit: parent.
-
-\x7fIsComplete: '.
-            | ) .
+ui1OnQuartzHacks
+'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          quartz = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals quartz.
@@ -3523,14 +3515,11 @@ SlotsToOmit: parent.
              c.
             | 
             b: getUnsignedShortParam: parameters mouseButton Type: types mouseButton.
-
-            "Swap middle and right buttons if wanted"
-            preferences swapMouseButtons ifTrue: [
-              case
-                if: [ 2 = b ] Then: [ b: 3 ]
-                If: [ 3 = b ] Then: [ b: 2 ]
-            ].
-
+            [ "does not work"
+              c: getUnsignedParam: parameters mouseChord Type: types uint32 IfFail: -1.
+              c printLine.
+              c = 3 ifTrue: [b: 3]. "left + mid = right"
+            ]. 
             b = 1 ifTrue: [|m|
               "use control and option for now"
               m: getUnsignedParam: parameters keyModifiers Type: types uint32.
@@ -3540,7 +3529,6 @@ SlotsToOmit: parent.
                       If: [(m &&  modifierMasks control) != 0] Then: 2
                                                                Else: 1.
             ].
-
             buttonNames at: 0 max: buttonNames size pred min: b pred).
         } | ) 
 
@@ -4202,7 +4190,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: graphics\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          quartz = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'quartz' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits quartz.
@@ -6449,7 +6437,7 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Canvas\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Canvas\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          quartzBufferCanvas = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'quartzBufferCanvas' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits quartzBufferCanvas.
@@ -6686,7 +6674,7 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Fonts\x7fModuleInfo: Module: quartz InitialContents: FollowSlot'
+         'Category: ui2\x7fCategory: System\x7fCategory: Fonts\x7fModuleInfo: Module: quartz InitialContents: FollowSlot'
         
          quartzFontDictionary = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'quartzFontDictionary' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits quartzFontDictionary.
@@ -6774,6 +6762,7 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
  bootstrap read: 'cgDirectDisplay' From: 'graphics'
  bootstrap read: 'quartz_wrappers' From: 'glue'
  bootstrap read: 'quartzForFF' From: 'graphics'
+ bootstrap read: 'ui1OnQuartzHacks' From: 'graphics'
 
 
 

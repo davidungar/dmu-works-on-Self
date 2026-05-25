@@ -1,15 +1,14 @@
- '30.14.1'
+ 'Sun-$Revision: 30.14 $'
  '
-Copyright 1992-2016 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: windowing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: windowing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
         
          simpleEventHandler = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'simpleEventHandler' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals simpleEventHandler.
@@ -24,6 +23,96 @@ So annotate this one slot as module window.
 -- dmu 2/95\x7fModuleInfo: Module: window InitialContents: FollowSlot'
         
          parent* = bootstrap stub -> 'globals' -> 'simpleEventHandler' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> () From: ( | {
+         'Category: windowing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         window = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'window' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals macToolboxGlobals window.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'window' -> () From: ( | {
+         'ModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         bitmap <- bootstrap stub -> 'globals' -> 'windowBitmap' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'window' -> () From: ( | {
+         'ModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         cursor <- bootstrap stub -> 'globals' -> 'cursor' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'window' -> () From: ( | {
+         'ModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: private'
+        
+         display <- bootstrap stub -> 'globals' -> 'xlib' -> 'display' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'window' -> () From: ( | {
+         'ModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         displayName <- ''.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'window' -> () From: ( | {
+         'ModuleInfo: Module: window InitialContents: InitializeToExpression: (nil \"simpleEventHandler\")\x7fVisibility: public'
+        
+         handler <- bootstrap stub -> 'globals' -> 'nil' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'window' -> () From: ( | {
+         'ModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         name <- 'A Window'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
+         'Category: windowing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         macWindow = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits macWindow.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'window' -> () From: ( | {
+         'ModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'macWindow' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'window' -> () From: ( | {
+         'ModuleInfo: Module: window InitialContents: InitializeToExpression: (nil)'
+        
+         platformWindow.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'window' -> () From: ( | {
+         'ModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         position <- (5)@(5).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'window' -> () From: ( | {
+         'ModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         size <- (200)@(200).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'window' -> () From: ( | {
+         'ModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: private'
+        
+         watcher <- bootstrap stub -> 'globals' -> 'eventWatcher' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'window' -> () From: ( | {
+         'ModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: private'
+        
+         watcherProcess <- bootstrap stub -> 'globals' -> 'process' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
@@ -74,14 +163,15 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          postFileIn = ( |
             | 
-            x11Globals window handler: simpleEventHandler.
+            macToolboxGlobals window handler: simpleEventHandler.
+                   x11Globals window handler: simpleEventHandler.
             resend.postFileIn).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'window' -> () From: ( | {
-         'ModuleInfo: Module: window InitialContents: InitializeToExpression: (\'30.14.1\')\x7fVisibility: public'
+         'ModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
         
-         revision <- '30.14.1'.
+         revision <- 'Sun-$Revision: 30.14 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'window' -> () From: ( | {
@@ -237,7 +327,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: windowing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: windowing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
         
          window = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'x11Globals' -> 'window' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals x11Globals window.
@@ -306,7 +396,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: windowing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: windowing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
         
          xWindow = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'xWindow' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits xWindow.
@@ -351,7 +441,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: windowing\x7fComment: platform-independent code
+         'Category: windowing\x7fComment: platform-independent code
 for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
         
          abstractWindow = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'abstractWindow' -> () From: ( |
@@ -525,6 +615,121 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
          useQueueingHandlerFor: target = ( |
             | 
             handler: queueingEventHandler copyOn: self For: target).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
+         'Category: destroying\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: private'
+        
+         closeDisplay = ( |
+            | 
+            platformWindow close.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
+         'Category: portable accessing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         flush = ( |
+            | [xxx]. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
+         'Category: accessing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         gc = ( |
+            | platformWindow gc).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
+         'Category: accessing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         iconFilename: x = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
+         'Category: accessing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         iconName: x = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
+         'Category: screenType\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         isColor8 = ( |
+            | platformWindow depth = 8).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
+         'Category: screenType\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         isGrey4 = ( |
+            | 
+            false "for now").
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
+         'Category: screenType\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         isMono = ( |
+            | platformWindow depth = 1).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
+         'Category: creating\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         openIfFail: fblock = ( |
+            | 
+            platformWindow: macToolbox platformWindow new.
+            platformWindow
+               openDisplay: displayName
+               BoundingBox: position ## size
+                WindowName: name.
+
+            createBitmap.
+            createCursor.
+
+            init.
+            spawnEventWatcherProcess.
+
+            synchronous ifTrue: [ display synchronize: true ].
+
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
+         'ModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'abstractWindow' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
+         'Category: forwardToDisplay\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         putBackEvent: e = ( |
+            | 
+            display xPutBackEvent: e.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
+         'Category: creating\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: private'
+        
+         spawnEventWatcherProcess = ( |
+            | 
+            watcher: eventWatcher copyForDisplay: display Handler: handler.
+            watcherProcess: process copySend: message copy receiver: watcher
+                                                           Selector: 'watch'.
+            "watcherProcess resume"
+            warning: 'spawnEventWatcherProcess nopped for now').
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
+         'Category: portable accessing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+        
+         sync = ( |
+            | [todo ui1 dmu experimental]. self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindow' -> () From: ( | {

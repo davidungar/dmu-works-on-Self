@@ -1,9 +1,8 @@
- '30.24.0'
+ 'Sun-$Revision: 30.23 $'
  '
-Copyright 1992-2026 AUTHORS.
-See the legal/LICENSE file for license information and legal/AUTHORS for authors.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
+See the LICENSE file for license information.
 '
-["preFileIn" self] value
 
 
  '-- Module body'
@@ -49,34 +48,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'tests' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot'
+         'ModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
-         postFileIn = ( |
-            | 
-            resend.postFileIn.
-
-            snapshotAction
-              forCommandLineArg: '--runAutomaticTests'
-                       DoAction: (| parent* = lobby.
-                                    value: i With: arg = (
-                                     tests runTestsAutomaticallyOnStartupFlag: true.
-                                     i succ).
-
-                                 |).
-
-            " For easy finding... "
-            [tests runTestsAutomaticallyOnStartupFlag: false].
-            [tests runTestsAutomaticallyOnStartup].
-
-            snapshotAction addSchedulerInitialMessage:
-              message copy receiver: tests Selector: 'runTestsAutomaticallyOnStartup'.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'tests' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: InitializeToExpression: (\'30.24.0\')\x7fVisibility: public'
-        
-         revision <- '30.24.0'.
+         revision <- 'Sun-$Revision: 30.23 $'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'tests' -> () From: ( | {
@@ -90,13 +64,11 @@ deltablue
 sicTests
 branchTests
 nicTests
-testSuite
-languageTests
 '.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: applications\x7fCategory: benchmarking\x7fModuleInfo: Module: tests InitialContents: FollowSlot'
+         'Category: bench\x7fModuleInfo: Module: tests InitialContents: FollowSlot'
         
          tests = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'tests' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals tests.
@@ -228,6 +200,37 @@ languageTests
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
+         'Category: infrastructure\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
+        
+         check: xb Against: yb Named: n = ( |
+             x.
+             xs.
+             y.
+             ys.
+            | 
+            ('testing ', n, ' ... ') print.
+            x: xb value.
+            y: yb value.
+            xs: x printString.
+            ys: y printString.
+            x = y ifFalse: [ error:  '', xs, ' != ', ys ].
+            ('ok: ', xs, ' = ', ys) printLine.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
+         'Category: infrastructure\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
+        
+         check: xb Named: n = ( |
+             x.
+            | 
+            ('running ', n, ' ... ') print.
+            x: xb value.
+            ('value: ', x printString) printLine.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
          'Category: VM tests\x7fCategory: debugging and debugging info\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
         
          compare: method At: bci With: sel = ( |
@@ -322,13 +325,6 @@ that surfaced doing Klein export work in winter/spring 2003.
          test2 = ( |
             | 
             self _Perform: 'a' DelegatingTo: self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: infrastructure\x7fModuleInfo: Module: tests InitialContents: FollowSlot'
-        
-         copyUsingFramework: fmk = ( |
-            | copy framework: fmk).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
@@ -515,6 +511,17 @@ that surfaced doing Klein export work in winter/spring 2003.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
+         'Category: infrastructure\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
+        
+         endOfTests: errorMessages = ( |
+            | 
+            _Verify.
+            '\nEnd of tests.\n' printLine.
+            errorMessages do: [ | :err | err printLine ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
          'Category: VM tests\x7fCategory: enumeration\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
          enumerationTest = ( |
@@ -598,222 +605,10 @@ that surfaced doing Klein export work in winter/spring 2003.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: infrastructure\x7fModuleInfo: Module: tests InitialContents: InitializeToExpression: (list copyRemoveAll)'
-        
-         errorMessages <- list copyRemoveAll.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
          'Category: VM tests\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
          evalTest = ( |
             | perverseFac: 3).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot'
-        
-         blank = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'blank' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals tests frameworks blank.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: infrastructure\x7fModuleInfo: Module: tests InitialContents: InitializeToExpression: (tests frameworks blank)'
-        
-         framework* <- bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'blank' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: infrastructure\x7fModuleInfo: Module: tests InitialContents: FollowSlot'
-        
-         frameworks = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals tests frameworks.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'blank' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
-        
-         check: xb Against: yb Named: n = ( |
-            | 
-            childResponsibility).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'blank' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
-        
-         check: xb Named: n = ( |
-            | 
-            childResponsibility).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'blank' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
-        
-         endOfTests: errorMessages = ( |
-            | 
-            childResponsibility).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'blank' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
-        
-         startOfTests = ( |
-            | 
-            childResponsibility).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot'
-        
-         ci = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'ci' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals tests frameworks ci.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'ci' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
-        
-         check: xb Against: yb Named: n = ( |
-             x.
-             xs.
-             y.
-             ys.
-            | 
-            ('testing ', n, ' ... ') print.
-            x: xb value.
-            y: yb value.
-            xs: x printString.
-            ys: y printString.
-            x = y
-             ifTrue: [ ('ok: ', xs, ' = ', ys) printLine ]
-              False: [ 
-                ('FAIL ', xs, ' = ', ys) printLine.
-                errorMessages addLast:  
-                 'In test ', n, ', ', xs, ' != ', ys ].
-
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'ci' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
-        
-         check: xb Named: n = ( |
-             x.
-            | 
-            ('running ', n, ' ... ') print.
-            x: xb value.
-            ('value: ', x printString) printLine.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'ci' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
-        
-         endOfTests = ( |
-            | 
-            _Verify.
-            '
-            ---------------
-            End of CI tests
-            ---------------
-
-            ERRORS:' printLine.
-            errorMessages do: [ | :err | err printLine ].
-
-            errorMessages isEmpty
-             ifTrue: [ _Quit ]
-              False: [ _QuitWithExitCode: 1]).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'ci' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot'
-        
-         parent* = bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'blank' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'ci' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
-        
-         startOfTests = ( |
-            | 
-            errorMessages: list copyRemoveAll.
-            '
-            --------------------------
-            Starting CI test suite ...
-            --------------------------
-            ' printLine.
-            _Verify).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot'
-        
-         printout = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'printout' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals tests frameworks printout.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'printout' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
-        
-         check: xb Against: yb Named: n = ( |
-             x.
-             xs.
-             y.
-             ys.
-            | 
-            ('testing ', n, ' ... ') print.
-            x: xb value.
-            y: yb value.
-            xs: x printString.
-            ys: y printString.
-            x = y ifFalse: [ error:  '', xs, ' != ', ys ].
-            ('ok: ', xs, ' = ', ys) printLine.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'printout' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
-        
-         check: xb Named: n = ( |
-             x.
-            | 
-            ('running ', n, ' ... ') print.
-            x: xb value.
-            ('value: ', x printString) printLine.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'printout' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
-        
-         endOfTests: errorMessages = ( |
-            | 
-            _Verify.
-            '\nEnd of tests.\n' printLine.
-            errorMessages do: [ | :err | err printLine ].
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'printout' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot'
-        
-         parent* = bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'blank' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> 'frameworks' -> 'printout' -> () From: ( | {
-         'ModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
-        
-         startOfTests = ( |
-            | 
-            '\nStarting test suite ...' printLine.
-            _Verify).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
@@ -947,7 +742,7 @@ a better way to ensure that? -- Adam, 6/05\x7fModuleInfo: Module: tests InitialC
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
          listTest = ( | {
                  'ModuleInfo: Module: tests InitialContents: FollowSlot'
@@ -2018,7 +1813,7 @@ One possible fault is that the whole stack unwinds! -- Mario, 2/8/95\x7fModuleIn
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fComment: a simle test -- dmu 2/97\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fComment: a simle test -- dmu 2/97\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
          orderedDictionaryTests = ( |
              ks.
@@ -2051,7 +1846,7 @@ One possible fault is that the whole stack unwinds! -- Mario, 2/8/95\x7fModuleIn
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
          'ModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
         
-         parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'oddball' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
@@ -2235,35 +2030,6 @@ frame conversion of all frames.\x7fModuleInfo: Module: tests InitialContents: Fo
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: test suites\x7fModuleInfo: Module: tests InitialContents: FollowSlot'
-        
-         runCISuite = ( |
-            | 
-            startOfTests.
-            integerTest.
-            floatTest.
-            arithmeticTest.
-             divAndModTest.
-             listTest.
-             treeTest.
-             vectorTest.
-             stringTest.
-             textLinesTest.
-             sequenceTest.
-             messageTest.
-             parserTest.
-            "numberTest.   "
-            sharedQueueTests.
-             orderedDictionaryTests.
-             monitorTest.
-             mirrorLookupTests.
-            deltablueTest.
-
-            endOfTests. " shoult quit "
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
          'Category: test suites\x7fComment: Tests of low-level operations\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
          runNICSuite = ( |
@@ -2328,7 +2094,6 @@ frame conversion of all frames.\x7fModuleInfo: Module: tests InitialContents: Fo
              sequenceTest.
              orderedSet unitTests run.
              traits indexable unitTests run.
-             traits byteVector unitTests run.
              traits universalSetOrDictionary unitTests run.
              messageTest.
              parserTest.
@@ -2343,17 +2108,9 @@ frame conversion of all frames.\x7fModuleInfo: Module: tests InitialContents: Fo
              mirrorLookupTests.
              browse unitTests run.
              deltablueTest.
-            ] withAndWithoutInlining.
-
-            [
-             "We don't need to run these application tests
-              for general testing.
-              We can add back in when we have a more comprehensive testing 
-              framework -- rca 2023
-             "
              uiTest: errorMessages.
              primitiveMakerTest.
-            ].
+            ] withAndWithoutInlining.
 
             [
               "We do not use the so-called fast transporter anymore
@@ -2363,26 +2120,6 @@ frame conversion of all frames.\x7fModuleInfo: Module: tests InitialContents: Fo
 
             endOfTests: errorMessages.
             self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: run automatically\x7fComment: This message is sent on startup.\x7fModuleInfo: Module: tests InitialContents: FollowSlot'
-        
-         runTestsAutomaticallyOnStartup = ( |
-            | 
-            runTestsAutomaticallyOnStartupFlag ifTrue: [
-             prompt suspendWhile: [
-                (copyUsingFramework: frameworks ci) runCISuite]].
-            "Should not reach here"
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: run automatically\x7fComment: This is set to true if the snapshot was
-started with the --runAutomaticTests command line 
-option.\x7fModuleInfo: Module: tests InitialContents: InitializeToExpression: (false)'
-        
-         runTestsAutomaticallyOnStartupFlag <- bootstrap stub -> 'globals' -> 'false' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
@@ -2397,7 +2134,7 @@ option.\x7fModuleInfo: Module: tests InitialContents: InitializeToExpression: (f
             eqInliningRelocationTest.
             [
                 immediateTest.
-                "conversionPrologueTest." " - weird test that takes too long - rca 2023"
+                conversionPrologueTest.
                 lookupTest.
                 parentInMethodTest.
                 inheritanceTest.
@@ -2405,7 +2142,6 @@ option.\x7fModuleInfo: Module: tests InitialContents: InitializeToExpression: (f
                 unwindProtectTest.
                 nlrInliningTest.
                 lowLevelTest.
-                resending run.
                 mirrorTest.
                 enumerationTest.
                 timeTest.
@@ -2433,7 +2169,7 @@ option.\x7fModuleInfo: Module: tests InitialContents: InitializeToExpression: (f
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
          sequenceTest = ( | {
                  'ModuleInfo: Module: tests InitialContents: FollowSlot'
@@ -2486,7 +2222,7 @@ option.\x7fModuleInfo: Module: tests InitialContents: InitializeToExpression: (f
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: multi-threaded collections\x7fCategory: keyed collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: multi-threaded collections\x7fCategory: keyed collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
          sharedDictionaryTests: useMT = ( |
              b1.
@@ -2517,7 +2253,7 @@ option.\x7fModuleInfo: Module: tests InitialContents: InitializeToExpression: (f
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: multi-threaded collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: multi-threaded collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
          sharedQueueTests = ( |
             | 
@@ -2527,7 +2263,7 @@ option.\x7fModuleInfo: Module: tests InitialContents: InitializeToExpression: (f
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: multi-threaded collections\x7fComment: For this and other MT tests, first try serially,
+         'Category: collections\x7fCategory: multi-threaded collections\x7fComment: For this and other MT tests, first try serially,
 then with MT. That will help isolate the bug. -- dmu\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
          sharedQueueTests: useMT = ( |
@@ -2556,7 +2292,7 @@ then with MT. That will help isolate the bug. -- dmu\x7fModuleInfo: Module: test
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: multi-threaded collections\x7fCategory: keyed collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: multi-threaded collections\x7fCategory: keyed collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
          sharedSetAndDictionaryTests = ( |
             | 
@@ -2567,7 +2303,7 @@ then with MT. That will help isolate the bug. -- dmu\x7fModuleInfo: Module: test
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fCategory: multi-threaded collections\x7fCategory: keyed collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fCategory: multi-threaded collections\x7fCategory: keyed collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
          sharedSetTests: useMT = ( |
              b.
@@ -2676,7 +2412,16 @@ then with MT. That will help isolate the bug. -- dmu\x7fModuleInfo: Module: test
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: infrastructure\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: private'
+        
+         startOfTests = ( |
+            | 
+            '\nStarting test suite ...' printLine.
+            _Verify).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
+         'Category: collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
          stringTest = ( |
             | 
@@ -2727,7 +2472,7 @@ Return the result\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVi
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
          textLinesTest = ( |
             | 
@@ -2751,7 +2496,7 @@ Return the result\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVi
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
          treeTest = ( |
             | 
@@ -2766,7 +2511,7 @@ Return the result\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVi
         
          uiTest: errorMessages = ( |
             | 
-                   ui testIfBadDisplay: [ | :err |
+                    ui testIfBadDisplay: [ | :err |
                         ('Not testing ui: ', err) printLine.
                         errorMessages add:
             ' 
@@ -2882,7 +2627,7 @@ Return the result\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVi
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
          vectorTest = ( | {
                  'ModuleInfo: Module: tests InitialContents: FollowSlot'
@@ -2919,7 +2664,7 @@ Return the result\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVi
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
-         'Category: core\x7fCategory: collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot'
+         'Category: collections\x7fModuleInfo: Module: tests InitialContents: FollowSlot'
         
          whiteSpaceTestString <- '	
 
@@ -2950,8 +2695,6 @@ Return the result\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVi
  bootstrap read: 'sicTests' From: 'tests'
  bootstrap read: 'branchTests' From: 'tests'
  bootstrap read: 'nicTests' From: 'tests'
- bootstrap read: 'testSuite' From: 'tests'
- bootstrap read: 'languageTests' From: 'tests'
 
 
 

@@ -1,6 +1,6 @@
  '$Revision: 30.5 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2006 Sun Microsystems, Inc. and Stanford University.
 See the LICENSE file for license information.
 '
 
@@ -66,7 +66,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: tristateIndicator InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: tristateIndicator InitialContents: FollowSlot\x7fVisibility: public'
         
          tristateIndicatorMorph = bootstrap define: bootstrap stub -> 'globals' -> 'tristateIndicatorMorph' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
@@ -83,7 +83,7 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
-         'Category: graphical interface\x7fCategory: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: tristateIndicator InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui2\x7fCategory: System\x7fCategory: Morphs\x7fCategory: Widgets\x7fModuleInfo: Module: tristateIndicator InitialContents: FollowSlot\x7fVisibility: public'
         
          tristateIndicatorMorph = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'tristateIndicatorMorph' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits tristateIndicatorMorph.
