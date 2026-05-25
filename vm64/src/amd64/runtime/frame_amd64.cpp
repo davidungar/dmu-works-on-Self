@@ -293,8 +293,12 @@ Location frame::location_of_interpreter_of_block_scope(void* entry_point) {
 
 
 frame* frame::get_patched_self_frame(char* sp_of_patched_frame) {
-  if (Interpret)
+  static bool kvetched = false;
+  if (kvetched) ;
+  else if (Interpret) {
     warning("next line may be wrong for interpreter, was currentFrame()->sender()");
+    kvetched = true;
+  }
   return (frame*)sp_of_patched_frame;
 }
 
