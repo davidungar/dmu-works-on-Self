@@ -384,6 +384,12 @@ TimerEntry* IntervalTimer::entry_at(int i) { return &entries()[i]; }
 void* IntervalTimer::ticker_main(void* arg) {
   IntervalTimer* self = (IntervalTimer*)arg;
   pthread_setname_np("self-vm-timer");
+  // Run at the highest QoS so the scheduler wakes us promptly after each
+  // nanosleep -- otherwise host load deprioritizes this thread and ticks arrive
+  // 50-100ms late (the SELFTIMER stalls), which would stutter timer-driven UI
+  // animation.  This thread is a pure sleeper, so high QoS costs ~no CPU.
+  // -- claude & dmu 5/2026
+  pthread_set_qos_class_self_np(QOS_CLASS_USER_INTERACTIVE, 0);
   // This thread only *sends* the tick; it must never be chosen to handle a
   // VM signal, so block everything but the fatal (synchronous) signals.
   sigset_t block;
@@ -395,14 +401,30 @@ void* IntervalTimer::ticker_main(void* arg) {
   sigdelset(&block, SIGTRAP);
   sigdelset(&block, SIGABRT);
   pthread_sigmask(SIG_BLOCK, &block, NULL);
+  // -- diag: only the real-timer ticker watches for its OWN sleep overrun -- a
+  //    process-starvation canary (asked to sleep 10ms, slept far longer).  The
+  //    two tickers don't both print.  -- claude & dmu 5/2026
+  bool reporter = (self->sig == SIGALRM);
   while (self->ticker_running) {
     long usec = self->ticker_interval_usec;
     struct timespec ts;
     ts.tv_sec  =  usec / 1000000;
     ts.tv_nsec = (usec % 1000000) * 1000;
+    struct timespec before;
+    if (reporter) clock_gettime(CLOCK_MONOTONIC, &before);
     nanosleep(&ts, NULL);
     if (self->ticker_running  &&  self_vm_timer_thread_known)
       pthread_kill(self_vm_timer_thread, self->sig);   // async-signal-safe
+    if (reporter) {
+      struct timespec after;
+      clock_gettime(CLOCK_MONOTONIC, &after);
+      long iter_usec = (after.tv_sec - before.tv_sec) * 1000000L
+                     + (after.tv_nsec - before.tv_nsec) / 1000;
+      if (iter_usec > usec * 5 + 1000)   // asked for `usec`, slept far longer
+        lprintf("SELFTIMER stall: ticker slept %ld us (asked %ld); "
+                "vm_ticks=%d nonvm_ticks=%d\n",
+                iter_usec, usec, (int)itt_vm_ticks, (int)itt_nonvm_ticks);
+    }
   }
   return NULL;
 }
