@@ -305,6 +305,10 @@ record-transport contract is unchanged.
 
 ## Graphics present path — DECIDED (2026-05-26)
 
+> Readable rationale + progress narrative for this section:
+> [`AVP_FRAMEBUFFER_RENDERING.md`](./AVP_FRAMEBUFFER_RENDERING.md) (the "why"; this
+> section is the terse decision record).
+
 The efficiency fear ("serialize canvas ops to a socket") is misplaced: it lives in
 the **vocabulary**, not the transport. Four independent axes were being conflated —
 transport (pipe / shm / in-process call), vocabulary (chatty ops / display list /
