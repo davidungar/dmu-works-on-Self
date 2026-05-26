@@ -404,6 +404,33 @@ instead of an fd). Caveat: CMake→Xcode regen is already fragile (scheme writes
 clobbered by a live Xcode — [[project_vm64_regen_xcode_closed]]); a shared workspace
 doesn't worsen it, but still regen with Xcode quit.
 
+### IMPLEMENTED & verified (2026-05-26) — SpatialSelf builds the VM from source
+
+Done for the **visionOS app first** (the headline xcframework drop), verified by a
+simulator (arm64) build:
+- `SpatialSelf.xcodeproj/project.pbxproj`: removed the `SelfVM.xcframework` link +
+  the `build-self-vm.sh` Run Script; added a **cross-project dependency** on
+  `cmake-build-AVP-compilation-check/Self.xcodeproj` (file ref + product proxy for
+  `libSelfVM.a` + target dependency on `Self`). `SpatialSelf.app` builds with the VM
+  compiled from source into `Debug-xrsimulator/libSelfVM.a` and linked — no
+  xcframework, no Run Script. (On branch `host-bridge-unify`.)
+- Two worries resolved empirically: (1) **device/sim** — one generated VM project
+  builds *both* `xros` and `xrsimulator` on demand (Xcode picks the SDK; CMake does
+  not bake the sysroot into compile flags), so the xcframework's multi-slice job is
+  covered. (2) **UUID stability** — CMake's Xcode UUIDs are deterministic, so the
+  cross-project refs survive `configure.sh visionos` regen.
+- **arm64 only:** `libSelfVM.a` is arm64-only, so build for an arm64 destination; a
+  generic-sim build pulling x86_64 fails to link (same constraint as the old
+  arm64-only xcframework slices — not a regression).
+- The referenced VM project is **generated, not checked in** — regenerate with
+  `vm64/configure.sh visionos`. Documented in `SpatialSelf/README.md` and the
+  `visionos` preset description. `Frameworks/SelfVM.xcframework` symlink +
+  `scripts/build-self-vm.sh` are now unused.
+- For the **macOS host app** path (E.2), added a `macos-lib` preset producing a
+  headless macOS `libSelfVM.a` (built/verified, arm64, exports `self_vm_main`).
+- Still **not** done: adding the VM project to `Enchilada.xcworkspace` for IDE/source
+  visibility (build works without it); a real **run** (only a build is verified).
+
 ## Sequencing (2026-05-26)
 
 Explicit order — the two new decisions reinforce, not replace, test ladder E:
