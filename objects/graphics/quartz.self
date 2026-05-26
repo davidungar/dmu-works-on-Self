@@ -4063,9 +4063,13 @@ SlotsToOmit: parent.
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'platformWindow' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
-        
+
          quartzWindow.
-        } | ) 
+        }  {
+         'Comment: ui1 8-bit indexed shadow (a quartz indexedPixmap). When set (makeShadow, ui1 only), gc routes drawing here so direct window draws (caret, etc.) are indexed like the offscreens; blit shadow->trueColour window at display. nil for ui2 windows (which draw true colour directly). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
+
+         shadow.
+        } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
@@ -5234,9 +5238,16 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          maxCharHeight = ( |
-            | 
+            |
             ascent + descent  + leading).
-        } | ) 
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
+         'Comment: max char advance in font units (normalized by size, like ascent/descent); `width` = widMax * fontSize. Was referenced by width but never defined. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         widMax = ( |
+            | metrics maxAdvanceWidth).
+        } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
@@ -5660,7 +5671,7 @@ SlotsToOmit: parent.
          'Category: accessing quartz objects\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          gc = ( |
-            | quartzWindow gc).
+            | shadow isNil ifTrue: [quartzWindow gc] False: [shadow gc]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
@@ -6763,6 +6774,85 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
 
          depth = ( |
             | 8).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'Comment: create the 8-bit indexed shadow for a ui1 window (called once at window open). Direct window draws (caret etc.) and the world flush both target the shadow; display blits shadow->trueColour. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         makeShadow = ( |
+            | shadow: quartz indexedPixmap createForSameScreenAs: self Size: size Depth: 8. self).
+        }  {
+         'Comment: blit the indexed shadow to the true-colour window through the given CLUT (256*3 bytes). Used by the display/flush. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         blitShadowWithCLUT: clut = ( |
+            | shadow gc blitIndexedTo: quartzWindow gc CLUT: clut X: 0 Y: 0. self).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'Comment: ui1 draws the caret and other direct-to-window graphics through the drawable protocol; forward them to the 8-bit shadow (which is a quartz drawable). The gc passed in is already the shadow gc (see gc above). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         drawLine: a To: b GC: g = ( |
+            | shadow drawLine: a To: b GC: g. self).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         drawLines: ptlist GC: g = ( |
+            | shadow drawLines: ptlist GC: g. self).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         drawRectangle: r GC: g = ( |
+            | shadow drawRectangle: r GC: g. self).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         drawString: str At: pt GC: g = ( |
+            | shadow drawString: str At: pt GC: g. self).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         drawPolygonIntegerXs: xs Ys: ys GC: g = ( |
+            | shadow drawPolygonIntegerXs: xs Ys: ys GC: g. self).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         fillPolygon: ptlist GC: g = ( |
+            | shadow fillPolygon: ptlist GC: g. self).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         fillPolygonIntegerXs: xs Ys: ys GC: g = ( |
+            | shadow fillPolygonIntegerXs: xs Ys: ys GC: g. self).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         fillRectangle: r GC: g = ( |
+            | shadow fillRectangle: r GC: g. self).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         drawArcWithin: r From: sa Spanning: spa GC: g = ( |
+            | shadow drawArcWithin: r From: sa Spanning: spa GC: g. self).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         drawArcWithin: r From: sa Spanning: spa Width: w GC: g = ( |
+            | shadow drawArcWithin: r From: sa Spanning: spa Width: w GC: g. self).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         fillArcWithin: r From: sa Spanning: spa GC: g = ( |
+            | shadow fillArcWithin: r From: sa Spanning: spa GC: g. self).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         copyArea: srcRect To: destImage At: destPt GC: g = ( |
+            | shadow copyArea: srcRect To: destImage At: destPt GC: g. self).
+        }  {
+         'Comment: pixel read goes to the shadow. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         pixelValueAt: pt = ( |
+            | shadow pixelValueAt: pt).
         } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {

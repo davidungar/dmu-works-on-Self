@@ -686,6 +686,7 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
                openDisplay: displayName
                BoundingBox: position ## size
                 WindowName: name.
+            platformWindow makeShadow. "ui1-on-Quartz: 8-bit indexed shadow for direct window draws -- claude & dmu 5/26"
 
             createBitmap.
             createCursor.
