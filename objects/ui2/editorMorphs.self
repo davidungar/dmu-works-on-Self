@@ -151,7 +151,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
             hasSelection ifTrue: [
                 menu addButtonTarget: self ScriptBlock: [target copy_cmd]                      Label: 'Copy'.
             ].
-            ui2_textBuffer contents isEmpty ifFalse: [
+            (ui2_textBuffer contentsForWorld: world) isEmpty ifFalse: [
                 menu addButtonTarget: self ScriptBlock: [target paste_cmd]                     Label: 'Paste'.
             ].
             hasSelection ifTrue: [
@@ -1824,11 +1824,11 @@ the face of this editor? -- Randy, 1/6/95\x7fModuleInfo: Module: editorMorphs In
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'editorRowMorph' -> () From: ( | {
-         'Category: copying and pasting\x7fModuleInfo: Module: editorMorphs InitialContents: FollowSlot\x7fVisibility: public'
-        
+         'Category: copying and pasting\x7fComment: store through this editor\'s own world, not the global desktop, so the Mac pasteboard is updated even when editing in an X world whose desktop is closed -- claude & dmu 5/2026\x7fModuleInfo: Module: editorMorphs InitialContents: FollowSlot\x7fVisibility: public'
+
          copy_cmd = ( |
-            | 
-            firstRow hasSelection ifTrue: [ ui2_textBuffer contents: firstRow textInSelection ].
+            |
+            (isInWorld && [firstRow hasSelection]) ifTrue: [ ui2_textBuffer setContentsTo: firstRow textInSelection ForWorld: world ].
             self).
         } | ) 
 
@@ -2426,12 +2426,12 @@ selection?-- Randy, 2/6/95\x7fModuleInfo: Module: editorMorphs InitialContents: 
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'editorRowMorph' -> () From: ( | {
-         'Category: copying and pasting\x7fModuleInfo: Module: editorMorphs InitialContents: FollowSlot\x7fVisibility: public'
-        
+         'Category: copying and pasting\x7fComment: read through this editor\'s own world (see copy_cmd) so paste pulls from the Mac pasteboard even when the global desktop is closed -- claude & dmu 5/2026\x7fModuleInfo: Module: editorMorphs InitialContents: FollowSlot\x7fVisibility: public'
+
          paste_cmd = ( |
-            | 
+            |
             firstRow hasSelection ifTrue: [firstRow deleteSelection].
-            ui2_textBuffer contents do: [|:c|
+            (ui2_textBuffer contentsForWorld: world) do: [|:c|
               typer emitCharInEditor: c.
             ].
 

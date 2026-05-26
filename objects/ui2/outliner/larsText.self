@@ -659,7 +659,7 @@ SlotsToOmit: parent prototype.
             ].
 
             shouldNextCtrlKAppend ifFalse: [ ui2_textBuffer setContentsTo: '' ForWorld: world].
-            ui2_textBuffer contents:  (ui2_textBuffer contentsForWorld: world), whatWasKilled, '\n'.
+            ui2_textBuffer setContentsTo:  (ui2_textBuffer contentsForWorld: world), whatWasKilled, '\n' ForWorld: world.
             shouldNextCtrlKAppend: true.
             textHasChanged.
             self).
