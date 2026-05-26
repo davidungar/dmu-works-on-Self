@@ -21,10 +21,11 @@ cmake --build build -j$(nproc)
 
 It should build on MacOS (arm64) and Linux (amd64 and arm64).
 
-To generate an Xcode project, use `vm64/cmake-xcode.sh` (or
-`vm64/cmake-xcode-visionos.sh` for visionOS) rather than `cmake -G Xcode`
-directly: the wrappers run `fix-xcode-paths.py` afterwards so Xcode's atomic
-saves don't clobber the `vm64/src` → `vm/src` symlink mirror.
+To generate an Xcode project, use `vm64/configure.sh macos` (or
+`vm64/configure.sh visionos` for visionOS) rather than `cmake -G Xcode`
+directly: the wrapper runs `fix-xcode-paths.py` afterwards so Xcode's atomic
+saves don't clobber the `vm64/src` → `vm/src` symlink mirror. The per-platform
+knobs live in `vm64/CMakePresets.json`; run `cmake --list-presets` to see them.
 
 Building for Apple Vision Pro (visionOS)
 ----------------------------------------
@@ -36,13 +37,13 @@ terminal, so the VM is hosted by a SwiftUI app (**SpatialSelf**, in
 stdin/stdout/stderr into the library through the C entry point in
 `vm64/build_support/embed/self_vm.h`.
 
-Generate the Xcode project with `vm64/cmake-xcode-visionos.sh`, which lands
-in `cmake-build-visionos-xcode/` — deliberately separate from the macOS
-Xcode project in `cmake-build-xcode/`.
+Generate the Xcode project with `vm64/configure.sh visionos`, which lands
+in `cmake-build-AVP-compilation-check/` — deliberately separate from the macOS
+Xcode project in `cmake-build-xcode-macos/`.
 
 To produce the device+simulator xcframework that SpatialSelf consumes, run
-`vm64/cmake-xcframework.sh`. The output lands in
-`cmake-build-xcframework/Self.xcframework`.
+`vm64/configure.sh xcframework`. The output lands in
+`cmake-build-AVP-framework/Self.xcframework`.
 
 To run on Apple Vision Pro, open
 `~/code/separatingForInlining/Enchilada.xcworkspace` and run the
@@ -57,6 +58,89 @@ configure each platform/generator pair into its own directory.
 Cross-compiling for visionOS uses a host-tool sub-project to build the
 code-generation tools that run on the Mac during the build; this is handled
 automatically by the wrapper.
+
+Running the UI under X11 (XQuartz) on macOS
+-------------------------------------------
+
+On macOS the Self UI normally uses the native Quartz backend, which is the
+simplest and fastest choice for solo, local work. Set up the X11 (XQuartz)
+backend if you might ever want either of:
+
+- a *collaborative* session -- Self lets several people share one world, even
+  work together in the same editor window, with each person's display served
+  over X11, optionally from another machine; or
+- to try ui1, the original Self environment and perhaps the first IDE to apply
+  the principles of cartoon animation to a user interface (Bay-Wei Chang and
+  David Ungar, "Animation: From Cartoons to the User Interface," UIST '93,
+  pp. 43-55 -- see `docs/papers/animation.pdf` -- later honored with the 2004
+  ACM UIST Lasting Impact Award). ui1 needs an 8-bit X display, so it runs only
+  under X11.
+
+(X11 is also handy for plain remote display.)
+
+### Opening an X11 world
+
+- `desktop open` -- the main desktop, preferring X11 (falls back to Quartz if X
+  cannot be started)
+- `desktop openOnX11` / `desktop openOnQuartz` -- the main desktop, forcing X11
+  or Quartz
+- `desktop openNewWorldOnX11` / `desktop openNewWorldOnQuartz` -- an additional
+  world (use these for a collaborative session)
+- `desktop openNewWorldOnDisplay: 'host:0'` -- an additional world on a specific
+  X display
+
+`desktop open` and the `...OnX11` commands target `$DISPLAY` -- the standard X
+environment variable that names your X server -- falling back to `:0` if it is
+unset. The `:0` fallback is ordinary X notation: a display name is
+`host:number.screen`, so `:0` means "display 0 on your local host", the first X
+server on this machine.
+
+### Installing XQuartz
+
+Install from https://www.xquartz.org or `brew install --cask xquartz`. You do
+not normally launch it yourself: XQuartz sets `$DISPLAY`, and Self starts
+XQuartz on demand the first time you open an X11 world (printing a brief
+"Starting X11" notice). If X still cannot be opened, Self falls back to Quartz
+and, once per session, points you back to this section.
+
+### The one setting you must change
+
+```
+defaults write org.xquartz.X11 enable_key_equivalents -bool false
+```
+
+(then quit and relaunch XQuartz -- it reads its preferences only at launch).
+
+With key equivalents enabled (the XQuartz default), XQuartz captures every
+Command-key combination (Cmd-C, Cmd-M, Cmd-W, ...) for its own menus, so Self
+never sees them: copy/paste won't work and Self can't bind any Cmd-key. Turning
+it off hands all Command combos to Self. It is all-or-nothing; XQuartz offers
+no per-shortcut control.
+
+### Other preferences
+
+| Tab | Setting | Use | When it matters |
+|-----|---------|-----|-----------------|
+| Output     | Colors -> 256 (8-bit)                  | on      | only if you run ui1, which requires an 8-bit display; ui2 and Quartz don't care |
+| Input      | Emulate three button mouse             | on      | unless your mouse already has three buttons -- the Self UI uses middle and right |
+| Input      | Option keys send Alt_L and Alt_R       | on (?)  | intended so Option acts as Alt/Meta for Self's commands -- not yet verified |
+| Input      | Follow system keyboard layout          | off (?) | whether XQuartz tracks your macOS layout; effect on Self not yet verified |
+| Security   | Authenticate connections               | on      | safe default |
+| Security   | Allow connections from network clients | off     | local-only; turn on only for a multi-machine collaborative session |
+| Pasteboard | sync options                           | default | not relevant to Self (see below) |
+| Windows    | focus / click-through / shading        | default | preference only |
+
+Rows marked `(?)` are recommendations whose effect on Self has not yet been
+verified empirically.
+
+### Copy and paste
+
+Self writes the macOS pasteboard (`NSPasteboard`) directly, not X cut buffers
+or X selections (XQuartz bridges neither). So with `enable_key_equivalents`
+off, Cmd-C in a Self X11 window copies to the Mac pasteboard and Cmd-V pastes
+from it, fully interoperating with native Mac apps. XQuartz's own
+Pasteboard-sync preferences only affect X-selection interop between *other* X
+clients and the Mac pasteboard; they have no effect on Self.
 
 
 AI Disclosure Statement

@@ -492,6 +492,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                     window closeAsync.              
                     ('\nThe opened X display, \'', dispName,
                      '\', is not an 8-bit monitor.') printLine.
+                    'Set XQuartz Output colors to 256; see "Running the UI under X11" in readme.md.' printLine.
                     fblock value.
                 ].
             ].
@@ -1295,8 +1296,11 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             'To change the ui display type:               ' printLine.
             '  preferences xDisplay: \'YOUR-DISPLAY\' '     printLine.
             ''                                              printLine.
-            'To start the ui type:'                         printLine. 
+            'To start the ui type:'                         printLine.
             '  ui demo'                                     printLine.
+            ''                                              printLine.
+            'For the required XQuartz settings (incl. 256-color/8-bit), see' printLine.
+            '"Running the UI under X11 (XQuartz) on macOS" in readme.md.'    printLine.
             self).
         } | ) 
 

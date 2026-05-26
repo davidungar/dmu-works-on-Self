@@ -2656,13 +2656,41 @@ IfAbsent: argument if none.\x7fModuleInfo: Module: worldMorph InitialContents: F
             (dispName isEmpty && [host osName == 'macOSX'])
               ifTrue: [^ quartzGlobals windowCanvas].
             ((host osName == 'macOSX') && [(canOpenXDisplay: dispName) not]) ifTrue: [
-               ('No X server reachable on display \'', dispName,
-                '\'; falling back to Quartz.\n',
-                'Start XQuartz with \'open -a XQuartz\' (or open the launchd ',
-                '$DISPLAY name rather than a bare \':N\') and retry. -- claude & dmu 5/2026') printLine.
-               ^ quartzGlobals windowCanvas].
+               (startXQuartzAndCanOpen: dispName) ifFalse: [
+                  noteXFallbackToReadmeOnce.
+                  ^ quartzGlobals windowCanvas
+               ].
+            ].
             x11Globals windowCanvas).
-        } | ) 
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
+         'Category: window management\x7fComment: macOS backup for launchd on-demand start: print a short notice, launch XQuartz, then retry opening dispName for a few seconds. Skipped when headless. Returns whether X became openable. -- claude & dmu 5/2026\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
+
+         startXQuartzAndCanOpen: dispName = ( |
+            |
+            (snapshotAction commandLine includes: '-headless') ifTrue: [^ false].
+            'Starting X11 (XQuartz)...' printLine.
+            os command: 'open -a XQuartz' IfFail: [|:e| ^ false].
+            6 timesRepeat: [
+              process this sleep: 700.
+              (canOpenXDisplay: dispName) ifTrue: [^ true].
+            ].
+            false).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
+         'Category: window management\x7fComment: The first time per session that an X open fails and we drop to Quartz, point the user at the readme. -- claude & dmu 5/2026\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
+
+         noteXFallbackToReadmeOnce = ( |
+            |
+            desktop xFallbackNoticeShown ifTrue: [^ self].
+            desktop xFallbackNoticeShown: true.
+            ('Could not open X11; using Quartz. To run the UI under X11 see ',
+             '"Running the UI under X11 (XQuartz) on macOS" in readme.md. ',
+             '-- claude & dmu 5/2026') printLine.
+            self).
+        } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
          'Category: window management\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
