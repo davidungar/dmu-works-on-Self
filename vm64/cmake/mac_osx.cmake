@@ -331,7 +331,7 @@ macro(setup_target target)
     # Bake OS_ACTIVITY_MODE=disable into the generated Run scheme so os_log
     # chatter from frameworks we don't use (App Intents / linkd autoShortcut
     # donation, etc.) stays out of the console under Xcode Run / xcodebuild.
-    # CMake regenerates the scheme on every cmake-xcode.sh run, so this
+    # CMake regenerates the scheme on every configure.sh run, so this
     # survives regen with no manual scheme editing. (The open(1)/LaunchServices
     # path is covered separately via LSEnvironment in the Info.plist template.)
     # -- claude & dmu 5/26

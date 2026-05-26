@@ -1,0 +1,56 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": { "major": 3, "minor": 19, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "_xcode",
+      "hidden": true,
+      "generator": "Xcode",
+      "description": "Common base: emit an Xcode project from vm64/CMakeLists.txt."
+    },
+    {
+      "name": "_visionos",
+      "hidden": true,
+      "inherits": "_xcode",
+      "description": "Common base for the headless visionOS VM (libSelfVM.a, no Quartz/X11). SELF_AS_LIBRARY defaults ON for visionOS in CMakeLists; the OSX_SYSROOT (xros vs xrsimulator) is set by each leaf preset.",
+      "cacheVariables": {
+        "CMAKE_SYSTEM_NAME": "visionOS",
+        "CMAKE_OSX_ARCHITECTURES": "arm64",
+        "CMAKE_OSX_DEPLOYMENT_TARGET": "1.0",
+        "SELF_QUARTZ": { "type": "BOOL", "value": "OFF" },
+        "SELF_X11": { "type": "BOOL", "value": "OFF" }
+      }
+    },
+    {
+      "name": "macos",
+      "inherits": "_xcode",
+      "displayName": "macOS (Quartz + X11 app)",
+      "description": "Editable macOS Self.app dev project. Defaults give Quartz+X11 and SELF_AS_LIBRARY=OFF. Build Debug or Release by picking the configuration in the scheme.",
+      "binaryDir": "${sourceDir}/../cmake-build-xcode-macos"
+    },
+    {
+      "name": "visionos",
+      "inherits": "_visionos",
+      "displayName": "visionOS device (editable, fast compile-check)",
+      "description": "Editable visionOS-device VM project for fast Debug compile-checks. Nothing ships from here; SpatialSelf links the xcframework instead.",
+      "binaryDir": "${sourceDir}/../cmake-build-AVP-compilation-check",
+      "cacheVariables": { "CMAKE_OSX_SYSROOT": "xros" }
+    },
+    {
+      "name": "xcframework-device",
+      "inherits": "_visionos",
+      "displayName": "visionOS device slice (for xcframework)",
+      "description": "xros device slice that configure.sh xcframework builds (RelWithDebInfo) and bundles.",
+      "binaryDir": "${sourceDir}/../cmake-build-AVP-framework/xros",
+      "cacheVariables": { "CMAKE_OSX_SYSROOT": "xros" }
+    },
+    {
+      "name": "xcframework-sim",
+      "inherits": "_visionos",
+      "displayName": "visionOS simulator slice (for xcframework)",
+      "description": "xrsimulator slice that configure.sh xcframework builds (RelWithDebInfo) and bundles.",
+      "binaryDir": "${sourceDir}/../cmake-build-AVP-framework/xrsimulator",
+      "cacheVariables": { "CMAKE_OSX_SYSROOT": "xrsimulator" }
+    }
+  ]
+}
