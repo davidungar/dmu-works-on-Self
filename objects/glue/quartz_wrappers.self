@@ -3156,6 +3156,79 @@ traits quartz context _AddSlots: ( |
     self).
 
 
+" ui1-on-Quartz indexed offscreen: an 8-bit grayscale bitmap context whose  "
+
+" gray byte is the palette index, plus a CLUT->trueColour blit into a window. -- claude & dmu 5/26  "
+
+  makeIndexedOffscreenWidth: t0 Height: t1  = (
+
+       makeIndexedOffscreenWidth: t0 Height: t1 IfFail: 
+        [|:e| ^error: 'makeIndexedOffscreenWidth:Height: failed: ', e] ).
+
+  makeIndexedOffscreenWidth: t0 Height: t1 IfFail: fb = (
+    |
+
+    |
+
+      t0 _MakeIndexedOffscreen_wrapmakeIndexedOffscreenWidthHeight: 
+        t1 ResultProxy:  quartz context deadCopy  IfFail: 
+        
+      [|:e| ('badTypeError'   isPrefixOf: e)
+        ||  ['deadProxyError' isPrefixOf: e]
+           ifFalse: [^fb value: e] 
+              True: [
+                  t0 asSmallInteger _MakeIndexedOffscreen_wrapmakeIndexedOffscreenWidthHeight: 
+                    t1 asSmallInteger ResultProxy: 
+                     quartz context deadCopy  IfFail: fb 
+           ]] ).
+
+
+  blitIndexedTo: t0 CLUT: t1 X: t2 Y: t3  = (
+
+       blitIndexedTo: t0 CLUT: t1 X: t2 Y: t3 IfFail: 
+        [|:e| ^error: 'blitIndexedTo:CLUT:X:Y: failed: ', e] ).
+
+  blitIndexedTo: t0 CLUT: t1 X: t2 Y: t3 IfFail: fb = (
+    |
+
+    |
+
+       _BlitIndexedToContext_wrapblitIndexedTo: t0 CLUT: t1 X: t2 
+        Y: t3 IfFail: 
+        
+      [|:e| ('badTypeError'   isPrefixOf: e)
+        ||  ['deadProxyError' isPrefixOf: e]
+           ifFalse: [^fb value: e] 
+              True: [
+                  ( reviveIfFail: [|:e| ^ fb value: e]) _BlitIndexedToContext_wrapblitIndexedTo: 
+                    (t0 reviveIfFail: [|:e| ^ fb value: e]) 
+                    CLUT: t1 asVMByteVector X: t2 asFloat 
+                    Y: t3 asFloat IfFail: fb 
+           ]] .
+    self).
+
+
+  indexedPixelAtX: t0 Y: t1  = (
+
+       indexedPixelAtX: t0 Y: t1 IfFail: 
+        [|:e| ^error: 'indexedPixelAtX:Y: failed: ', e] ).
+
+  indexedPixelAtX: t0 Y: t1 IfFail: fb = (
+    |
+
+    |
+
+       _OffscreenPixelAt_wrapindexedPixelAtX: t0 Y: t1 IfFail: 
+        
+      [|:e| ('badTypeError'   isPrefixOf: e)
+        ||  ['deadProxyError' isPrefixOf: e]
+           ifFalse: [^fb value: e] 
+              True: [
+                  ( reviveIfFail: [|:e| ^ fb value: e]) _OffscreenPixelAt_wrapindexedPixelAtX: t0 asSmallInteger Y: 
+                    t1 asSmallInteger IfFail: fb 
+           ]] ).
+
+
   setShadowOffsetX: t0 OffsetY: t1 Blur: t2 Color: t3  = (
 
        setShadowOffsetX: t0 OffsetY: t1 Blur: t2 Color: t3 IfFail: 

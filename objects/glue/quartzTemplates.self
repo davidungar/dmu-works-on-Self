@@ -275,7 +275,13 @@ primitiveMaker reader copy beNoisy staticLinking create: 'quartz' Flag: 'quartz_
    CGContext drawImage: CGImage X: float Y: float Width: float Height: float = void call CGContextDrawImage_wrap
    CGContext interpolationQuality = int call CGContextGetInterpolationQuality
    CGContext interpolationQuality: int = void call CGContextSetInterpolationQuality_wrap
-   
+
+   -- ui1-on-Quartz indexed offscreen: an 8-bit grayscale bitmap context whose
+   -- gray byte is the palette index, plus a CLUT->trueColour blit into a window. -- claude & dmu 5/26
+   void makeIndexedOffscreenWidth: int Height: int = CGContext { quartz context deadCopy } call MakeIndexedOffscreen_wrap
+   CGContext blitIndexedTo: CGContext CLUT: cbv_len u_char* X: float Y: float = void call BlitIndexedToContext_wrap
+   CGContext indexedPixelAtX: int Y: int = int call OffscreenPixelAt_wrap
+
    CGContext setShadowOffsetX: float OffsetY: float Blur: float Color: CGColor = void call CGContextSetShadowWithColor_wrap
    CGContext setShadowOffsetX: float OffsetY: float Blur: float Red: float Green: float Blue: float Alpha: float \
      = void call CGContextSetShadowWithColor_wrap2

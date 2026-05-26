@@ -78,6 +78,78 @@ CGLayer* CGLayerCreateWithContext_wrap(CGContextRef context, float w, float h) {
 }
 
 
+// ui1-on-Quartz indexed-colour offscreen.  ui1 draws into an 8-bit *indexed*
+// framebuffer (so its colormap-animation / acetate / arrow-plane tricks keep
+// working unchanged), and we convert that buffer + a CLUT to true colour for
+// the Quartz window.  We realise the "8-bit indexed drawable" as an 8-bit
+// grayscale CGBitmapContext: the gray byte *is* the palette index, and CG's
+// own rasteriser fills lines/rects/text/blits for us.  Antialiasing is off so
+// CG never blends two indices into a meaningless intermediate byte.
+// CGBitmapContextGetData lets Self read/write individual index bytes for
+// pixelValueAt:/copyArea/plane_mask.  -- claude & dmu 5/26
+CGContextRef MakeIndexedOffscreen_wrap(int32 w, int32 h) {
+  if (w <= 0 || h <= 0)  return NULL;
+  CGColorSpaceRef gray = CGColorSpaceCreateDeviceGray();
+  // data == NULL: CG owns the (row-aligned) backing store; fetch it later with
+  // CGBitmapContextGetData.  One byte per pixel, no alpha.
+  CGContextRef ctx = CGBitmapContextCreate( NULL, (size_t)w, (size_t)h,
+                                            8, (size_t)w,
+                                            gray, kCGImageAlphaNone);
+  CGColorSpaceRelease(gray);
+  if (ctx) {
+    CGContextSetShouldAntialias(ctx, false);
+    CGContextSetAllowsAntialiasing(ctx, false);
+    CGContextSetInterpolationQuality(ctx, kCGInterpolationNone);
+  }
+  return ctx;
+}
+
+// Convert the indexed offscreen (gray byte = index) through a CLUT to true
+// colour and draw it into a destination context (the window).  clut is a
+// packed RGB table (3 bytes per entry); colour-map animation is just calling
+// this again with a different clut over the same offscreen bytes.  -- claude & dmu 5/26
+void BlitIndexedToContext_wrap( CGContextRef offscreen, CGContextRef dest,
+                                u_char* clut, uint32 clutLen,
+                                float x, float y) {
+  if ((offscreen == NULL) || (dest == NULL) || (clut == NULL))  return;
+  void*  data = CGBitmapContextGetData(offscreen);
+  size_t w    = CGBitmapContextGetWidth(offscreen);
+  size_t h    = CGBitmapContextGetHeight(offscreen);
+  size_t bpr  = CGBitmapContextGetBytesPerRow(offscreen);
+  uint32 nColors = clutLen / 3;
+  if ((data == NULL) || (w == 0) || (h == 0) || (nColors == 0))  return;
+  CGColorSpaceRef base = CGColorSpaceCreateDeviceRGB();
+  CGColorSpaceRef idx  = CGColorSpaceCreateIndexed(base, nColors - 1, clut);
+  CGDataProviderRef dp = CGDataProviderCreateWithData(NULL, data, bpr * h, NULL);
+  CGImageRef img = CGImageCreate( w, h, 8, 8, bpr, idx,
+                                  kCGImageAlphaNone, dp, NULL,
+                                  false, kCGRenderingIntentDefault);
+  if (img) {
+    CGContextDrawImage(dest, CGRectMake(x, y, (CGFloat)w, (CGFloat)h), img);
+    CGImageRelease(img);
+  }
+  CGDataProviderRelease(dp);
+  CGColorSpaceRelease(idx);
+  CGColorSpaceRelease(base);
+}
+
+// Read one palette-index byte from an indexed offscreen at logical (x,y).
+// ui1/X coords are top-down (row 0 = top); a CGBitmapContext is bottom-up, so
+// flip.  Returns -1 if the context isn't a bitmap or (x,y) is out of range.
+// This is pixelValueAt: for the quartz indexed pixMap.  -- claude & dmu 5/26
+int32 OffscreenPixelAt_wrap(CGContextRef ctx, int32 x, int32 y) {
+  if (ctx == NULL)  return -1;
+  u_char* data = (u_char*)CGBitmapContextGetData(ctx);
+  size_t  w    = CGBitmapContextGetWidth(ctx);
+  size_t  h    = CGBitmapContextGetHeight(ctx);
+  size_t  bpr  = CGBitmapContextGetBytesPerRow(ctx);
+  if ((data == NULL) || (x < 0) || (y < 0) || ((size_t)x >= w) || ((size_t)y >= h))
+    return -1;
+  size_t row = h - 1 - (size_t)y;   // flip top-down -> CG's bottom-up
+  return (int32)data[row * bpr + (size_t)x];
+}
+
+
 void CGContextSelectFont_wrap(CGContext* c, const char* s, float siz) {
   // CGContextSelectFont is deprecated since macOS 10.9 but still functional.
   // Self-level code calls this through glue to set the font for subsequent
