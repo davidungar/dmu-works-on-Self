@@ -431,11 +431,23 @@ int select_wrap(objVectorOop vec, int howMany, void *FH) {
     prim_failure(FH, BADSIZEERROR);
     return 0;
   }
-  if (howMany > FD_SETSIZE) 
+  if (howMany > FD_SETSIZE)
     howMany = FD_SETSIZE;
-  fd_set r = activeFDs, w = activeFDs;
+  // Read set: every currently-valid fd in range, so descriptors wrapped from
+  // RAW fds (a host-bridge socketpair/pipe, created by socketpair(2)/the host)
+  // are watched without a prior register_file_descriptor().  activeFDs only
+  // ever held fds opened through open_wrap/socket_wrap, so suspendForIO on a
+  // wrapped raw fd never woke.  This read set is a superset of the old activeFDs
+  // read set, so other platforms keep waking exactly as before; the write set
+  // stays activeFDs to preserve write-readiness wakeups.  (On macOS selectInto:
+  // was a stdin-only stub, so this is the first time select runs there at all.)
+  // -- claude & dmu 5/26
+  fd_set r, w = activeFDs;
+  FD_ZERO(&r);
+  for (int fd = 0; fd < howMany; fd++)
+    if (fcntl(fd, F_GETFL) != -1)  FD_SET(fd, &r);
   timeval nowait;
-  nowait.tv_sec  = 0; 
+  nowait.tv_sec  = 0;
   nowait.tv_usec = 0;
   if (select(howMany, &r, &w, NULL, &nowait) < 0) {
     unix_failure(FH);
