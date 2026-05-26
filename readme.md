@@ -123,15 +123,17 @@ no per-shortcut control.
 |-----|---------|-----|-----------------|
 | Output     | Colors -> 256 (8-bit)                  | on      | only if you run ui1, which requires an 8-bit display; ui2 and Quartz don't care |
 | Input      | Emulate three button mouse             | on      | unless your mouse already has three buttons -- the Self UI uses middle and right |
-| Input      | Option keys send Alt_L and Alt_R       | on (?)  | intended so Option acts as Alt/Meta for Self's commands -- not yet verified |
-| Input      | Follow system keyboard layout          | off (?) | whether XQuartz tracks your macOS layout; effect on Self not yet verified |
+| Input      | Option keys send Alt_L and Alt_R       | preference | ON makes Option act as Alt (Self uses Alt only for Alt+arrow and Alt+Enter); OFF lets Option compose accented characters |
+| Input      | Follow system keyboard layout          | preference | ON tracks your macOS keyboard layout (matters for non-US layouts); OFF uses XQuartz's built-in keymap -- no Self-specific effect |
 | Security   | Authenticate connections               | on      | safe default |
 | Security   | Allow connections from network clients | off     | local-only; turn on only for a multi-machine collaborative session |
 | Pasteboard | sync options                           | default | not relevant to Self (see below) |
 | Windows    | focus / click-through / shading        | default | preference only |
 
-Rows marked `(?)` are recommendations whose effect on Self has not yet been
-verified empirically.
+`enable_key_equivalents` (off) is always required. *Emulate three button mouse*
+is required for any Self X11 UI -- both ui1 and ui2 use the middle and right
+buttons -- unless your mouse already has three. *256-color/8-bit* is required
+only for ui1 (ui2 and Quartz don't care). Everything else is preference.
 
 ### Copy and paste
 
