@@ -166,12 +166,16 @@ quartzFontFamily
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'atsFontOrFontFamily' -> 'parent' -> () From: ( | {
          'ModuleInfo: Module: quartzForFF InitialContents: FollowSlot\x7fVisibility: private'
         
-         quartzNameForFontSpec: fs = ( |
-            | 
-            (fs name first isDigit "e.g. 6x13" 
-                    ifTrue: 'Courier' False: [fs name capitalize]),
+         quartzNameForFontSpec: fs = ( | nm |
+            nm: fs name.
+            "X11 monospace font names dont exist on macOS; CTFontCreateWithName would silently substitute a PROPORTIONAL font, and the fixed-width text editor (caret/layout assume one cell width per char) then drifts -- e.g. the caret lands a half-char behind. Map the known X monospace families to a real macOS monospace so every glyph has the same advance. -- claude & dmu 5/26"
+            ((nm = 'lucidasanstypewriter') || [nm = 'lucidatypewriter']
+                                           || [nm = 'fixed'] || [nm = 'screen'] || [nm = 'monospace'])
+              ifTrue: [^ 'Menlo', (fs style isEmpty ifTrue: '' False: [' ', fs style capitalize])].
+            (nm first isDigit "e.g. 6x13"
+                    ifTrue: 'Courier' False: [nm capitalize]),
             (fs style isEmpty ifTrue: '' False: [' ', fs style capitalize])).
-        } | ) 
+        } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'atsFontOrFontFamily' -> 'parent' -> () From: ( | {
          'ModuleInfo: Module: quartzForFF InitialContents: FollowSlot\x7fVisibility: public'
