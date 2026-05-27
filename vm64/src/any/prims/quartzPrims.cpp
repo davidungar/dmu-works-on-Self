@@ -311,6 +311,46 @@ void CopyIndexedAreaMasked_wrap( CGContextRef src, CGContextRef dst,
 }
 
 
+// Draw a string via CoreText (CTLine) instead of the deprecated
+// CGContextShowTextAtPoint.  The legacy path gives tight, wrong per-glyph
+// advances (ui1 labels looked cramped); CoreText lays the run out properly and
+// matches the metrics ui1 measures with.  kCTForegroundColorFromContextAttribute
+// makes CTLineDraw paint with the context's current fill colour -- for the 8-bit
+// indexed offscreen that fill is the palette index as a gray byte, so glyphs land
+// the right index (no colour conversion).  Honours the context text matrix, so
+// the indexed offscreen's vertical flip still yields upright glyphs.  Strings are
+// passed as counted bytes (not necessarily NUL-terminated).  -- claude & dmu 5/26
+void DrawTextCoreText_wrap( CGContextRef ctx,
+                            char* text,     uint32 textLen,
+                            char* fontName, uint32 fontNameLen,
+                            float size, float x, float y) {
+  if ((ctx == NULL) || (text == NULL) || (fontName == NULL))  return;
+  CFStringRef fn = CFStringCreateWithBytes( NULL, (const UInt8*)fontName, fontNameLen,
+                                            kCFStringEncodingUTF8, false);
+  if (fn == NULL)  return;
+  CTFontRef font = CTFontCreateWithName(fn, (CGFloat)size, NULL);
+  CFRelease(fn);
+  if (font == NULL)  return;
+  CFStringRef str = CFStringCreateWithBytes( NULL, (const UInt8*)text, textLen,
+                                             kCFStringEncodingMacRoman, false);
+  if (str == NULL) { CFRelease(font);  return; }
+  CFStringRef keys[2] = { kCTFontAttributeName, kCTForegroundColorFromContextAttributeName };
+  CFTypeRef   vals[2] = { font, kCFBooleanTrue };
+  CFDictionaryRef attrs = CFDictionaryCreate( NULL, (const void**)keys, (const void**)vals, 2,
+                                              &kCFTypeDictionaryKeyCallBacks,
+                                              &kCFTypeDictionaryValueCallBacks);
+  CFAttributedStringRef astr = CFAttributedStringCreate(NULL, str, attrs);
+  CTLineRef line = CTLineCreateWithAttributedString(astr);
+  CGContextSetTextPosition(ctx, (CGFloat)x, (CGFloat)y);
+  CTLineDraw(line, ctx);
+  CFRelease(line);
+  CFRelease(astr);
+  CFRelease(attrs);
+  CFRelease(str);
+  CFRelease(font);
+}
+
+
 void CGContextSelectFont_wrap(CGContext* c, const char* s, float siz) {
   // CGContextSelectFont is deprecated since macOS 10.9 but still functional.
   // Self-level code calls this through glue to set the font for subsequent

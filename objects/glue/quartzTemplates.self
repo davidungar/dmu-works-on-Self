@@ -286,6 +286,8 @@ primitiveMaker reader copy beNoisy staticLinking create: 'quartz' Flag: 'quartz_
    -- plane-masked / raster-op fill + copy for ui1 acetate/arrow overlays (plane_mask + function). -- claude & dmu 5/26
    CGContext fillIndexedMaskedX: int Y: int Width: int Height: int Index: int Mask: int Function: int = void call FillIndexedAreaMasked_wrap
    CGContext copyIndexedMaskedAreaTo: CGContext SrcX: int SrcY: int Width: int Height: int DestX: int DestY: int Mask: int Function: int = void call CopyIndexedAreaMasked_wrap
+   -- draw text via CoreText (CTLine) instead of the deprecated CGContextShowTextAtPoint -- proper per-glyph advances, paints with the contexts fill colour (= palette index for the indexed offscreen). -- claude & dmu 5/26
+   CGContext drawCTText: cbv_len char* FontName: cbv_len char* Size: float X: float Y: float = void call DrawTextCoreText_wrap
 
    CGContext setShadowOffsetX: float OffsetY: float Blur: float Color: CGColor = void call CGContextSetShadowWithColor_wrap
    CGContext setShadowOffsetX: float OffsetY: float Blur: float Red: float Green: float Blue: float Alpha: float \

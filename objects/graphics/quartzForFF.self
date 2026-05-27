@@ -172,6 +172,9 @@ quartzFontFamily
             ((nm = 'lucidasanstypewriter') || [nm = 'lucidatypewriter']
                                            || [nm = 'fixed'] || [nm = 'screen'] || [nm = 'monospace'])
               ifTrue: [^ 'Menlo', (fs style isEmpty ifTrue: '' False: [' ', fs style capitalize])].
+            "X11 proportional Lucida (lucidasans is the ui1 default boxFont, used for slot names/titles/buttons) has no exact macOS name; CTFontCreateWithName 'Lucidasans' silently substitutes Helvetica AND drops the bold weight (so the bold slot-name labels rendered plain). The ui1 offscreen draws WITHOUT antialiasing (8-bit indexed: glyph bytes must be exact palette indices), so a thin outline font (Lucida Grande/Helvetica) looks broken; Verdana is designed for crisp small-size SCREEN rendering and stays legible at 1-bit (David picked it from a no-AA comparison). Map the Lucida proportional family to 'Verdana'; the appended style yields 'Verdana Bold', which resolves to the real bold face. -- claude & dmu 5/26"
+            ((nm = 'lucidasans') || [nm = 'lucida'] || [nm = 'lucidabright'])
+              ifTrue: [^ 'Verdana', (fs style isEmpty ifTrue: '' False: [' ', fs style capitalize])].
             (nm first isDigit "e.g. 6x13"
                     ifTrue: 'Courier' False: [nm capitalize]),
             (fs style isEmpty ifTrue: '' False: [' ', fs style capitalize])).

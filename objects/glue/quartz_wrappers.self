@@ -3334,6 +3334,33 @@ traits quartz context _AddSlots: ( |
     self).
 
 
+" draw text via CoreText (CTLine) instead of the deprecated CGContextShowTextAtPoint -- proper per-glyph advances, paints with the contexts fill colour (= palette index for the indexed offscreen). -- claude & dmu 5/26  "
+
+  drawCTText: t0 FontName: t1 Size: t2 X: t3 Y: t4  = (
+
+       drawCTText: t0 FontName: t1 Size: t2 X: t3 Y: t4 IfFail: 
+        [|:e| ^error: 'drawCTText:FontName:Size:X:Y: failed: ', e] ).
+
+  drawCTText: t0 FontName: t1 Size: t2 X: t3 Y: t4 IfFail: fb = (
+    |
+
+    |
+
+       _DrawTextCoreText_wrapdrawCTText: t0 FontName: t1 Size: t2 
+        X: t3 Y: t4 IfFail: 
+        
+      [|:e| ('badTypeError'   isPrefixOf: e)
+        ||  ['deadProxyError' isPrefixOf: e]
+           ifFalse: [^fb value: e] 
+              True: [
+                  ( reviveIfFail: [|:e| ^ fb value: e]) _DrawTextCoreText_wrapdrawCTText: t0 asVMByteVector 
+                    FontName: t1 asVMByteVector Size: 
+                    t2 asFloat X: t3 asFloat Y: t4 asFloat 
+                    IfFail: fb 
+           ]] .
+    self).
+
+
   setShadowOffsetX: t0 OffsetY: t1 Blur: t2 Color: t3  = (
 
        setShadowOffsetX: t0 OffsetY: t1 Blur: t2 Color: t3 IfFail: 

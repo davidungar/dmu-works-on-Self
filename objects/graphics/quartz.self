@@ -277,6 +277,18 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
 
          rasterFn <- 3.
+        }  {
+         'Comment: effective CG line width (0 normalised to 1), tracked so drawLine: can render thin axis-aligned lines as exact 1px rects (crisp bevels) while thick lines still stroke. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+
+         lineWidthValue <- 1.
+        }  {
+         'Comment: current font name + size, recorded by font: so drawString: can lay the text out with CoreText (drawCTText:) -- the CGContextSelectFont/ShowText legacy path gives tight per-glyph advances. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+
+         curFontName <- ''.
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+
+         curFontSize <- 12.
         } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
@@ -3722,6 +3734,17 @@ and the X font struct object (used to measure text).\x7fModuleInfo: Module: quar
         
          drawLine: pt1 To: pt2 GC: gc = ( |
             |
+            "Crisp 1px bevels: ui1 draws box edges/highlights/sunken-frames as horizontal or vertical 1px lines. A CG strokePath at integer coords (antialiasing off) lands a 1px stroke between pixel rows AND the +1 nudge below shifts it off the filled faces -- so corners gap and the sunken type-area bevel vanishes. Render a thin axis-aligned line as an exact 1px filled rect in the same logical (top-down) coords the faces use; only thick or truly diagonal lines still stroke. -- claude & dmu 5/26"
+            (gc lineWidthValue <= 1) ifTrue: [
+              pt1 y = pt2 y ifTrue: [
+                gc fillRectIntegerX: (pt1 x min: pt2 x) Y: pt1 y
+                              Width: (((pt1 x max: pt2 x) - (pt1 x min: pt2 x)) + 1) Height: 1.
+                ^ self ].
+              pt1 x = pt2 x ifTrue: [
+                gc fillRectIntegerX: pt1 x Y: (pt1 y min: pt2 y)
+                              Width: 1 Height: (((pt1 y max: pt2 y) - (pt1 y min: pt2 y)) + 1).
+                ^ self ].
+            ].
             gc beginPath.
             gc moveToPointX: pt1 x succ Y: pt1 y succ.
             gc addLineToPointX: pt2 x succ Y: pt2 y succ.
@@ -4621,9 +4644,11 @@ SlotsToOmit: parent.
          'Category: drawing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          drawString: s At: pt = ( |
-            | 
+            |
             setTextDrawingMode: textMode fill.
-            showTextAtX: pt x asFloat Y: pt y asFloat Text: s).
+            "CoreText layout (proper advances) instead of the deprecated showTextAtPoint; paints with the current fill colour (= palette index in the indexed offscreen) via kCTForegroundColorFromContextAttribute in the prim. -- claude & dmu 5/26"
+            drawCTText: s FontName: curFontName Size: curFontSize asFloat
+                     X: pt x asFloat Y: pt y asFloat).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
@@ -4675,8 +4700,10 @@ SlotsToOmit: parent.
          'Category: drawing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          font: aQuartzFontIDAndStruct = ( |
-            | 
-            selectFont: aQuartzFontIDAndStruct postScriptName Size: aQuartzFontIDAndStruct fontSize).
+            |
+            curFontName: aQuartzFontIDAndStruct postScriptName.
+            curFontSize: aQuartzFontIDAndStruct fontSize.
+            selectFont: curFontName Size: curFontSize).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
@@ -4923,9 +4950,10 @@ SlotsToOmit: parent.
          'Category: drawing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          lineWidth: w = ( |
-            | 
+            |
             "other systems use line width 0 for fine lines, not Quartz"
-            setLineWidth: w = 0 ifTrue: 1 False: w.
+            lineWidthValue: w = 0 ifTrue: 1 False: w.
+            setLineWidth: lineWidthValue.
             w = 0 ifTrue: [setLineDashPhase: 0 Lengths: vector].
             self).
         } | ) 
