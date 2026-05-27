@@ -7279,9 +7279,10 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
             k: getKind.
             pt: getPointParam: parameters windowMouseLocation IfFail: [0@0].
             aUI1Evt x: pt x. aUI1Evt y: pt y.
-            aUI1Evt state:
-               (  getUnsignedParam: parameters mouseChord   Type: types uint32 IfFail: 0 )
-            || (  getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0 ).
+            aUI1Evt state: xStateMaskFromChord:
+                             (getUnsignedParam: parameters mouseChord   Type: types uint32 IfFail: 0)
+                                       Modifiers:
+                             (getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0).
             aUI1Evt button: ui1ButtonNumber.
             aUI1Evt typeName:
              case if: [k = kinds mouse down] Then: 'buttonPress'
@@ -7302,13 +7303,27 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
             ].
             b).
         }  {
+         'Category: converting to ui1 events\x7fComment: ui1 reads the event `state` as an X11 state mask (cursor leftButtonDown = state && button1Mask, shiftKeyDown = state && shiftMask, ...). Translate the Mac mouse chord (bit0 left, bit1 right, bit2 middle) and Carbon modifiers into that mask. X11 constants: button1=256 button2=512 button3=1024, shift=1 lock=2 control=4 mod1=8. (&&/|| are bitwise on Self integers.) Without this, drag failed -- the raw Mac chord bit (left=1) ANDed with button1Mask (256) is 0, so the modal drag loop saw the button as up. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+
+         xStateMaskFromChord: chord Modifiers: mods = ( | s |
+            s: 0.
+            (chord && 1) != 0 ifTrue: [s: s || 256].   "Mac left   -> button1Mask"
+            (chord && 4) != 0 ifTrue: [s: s || 512].   "Mac middle -> button2Mask"
+            (chord && 2) != 0 ifTrue: [s: s || 1024].  "Mac right  -> button3Mask"
+            (mods && modifierMasks shift)    != 0 ifTrue: [s: s || 1].  "shiftMask"
+            (mods && modifierMasks control)  != 0 ifTrue: [s: s || 4].  "controlMask"
+            (mods && modifierMasks option)   != 0 ifTrue: [s: s || 8].  "mod1Mask (meta/alt)"
+            (mods && modifierMasks capsLock) != 0 ifTrue: [s: s || 2].  "lockMask"
+            s).
+        }  {
          'Category: converting to ui1 events\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
 
          setUI1Key: aUI1Evt = ( | k. cc |
             k: getKind.
             "the .mm stores keyMacCharCodes as a uint32 char code (not utf8Text), so read it as uint32"
             cc: getUnsignedParam: parameters keyMacCharCodes Type: types uint32 IfFail: 0.
-            aUI1Evt state: getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0.
+            aUI1Evt state: xStateMaskFromChord: 0 Modifiers:
+                             (getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0).
             aUI1Evt keycode: getUnsignedParam: parameters keyCode Type: types uint32 IfFail: 0.
             aUI1Evt lookupString: cc = 0 ifTrue: '' False: [cc asCharacter asString].
             aUI1Evt typeName:
