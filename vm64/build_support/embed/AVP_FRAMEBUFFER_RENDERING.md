@@ -204,6 +204,20 @@ What is actually done and verified, versus assumed:
 - The exact display path for the first cut: RealityKit textured plane vs. SwiftUI
   `Image`/`Canvas`. Decide when building it.
 
+**BUILD BLOCKER discovered 2026-05-26 — CG drawing is gated out of the headless slices.**
+All of `vm64/src/any/prims/quartzPrims.cpp` is `#if defined(QUARTZ_LIB)` (line 8) — every CG
+wrapper (`CGContextFillRect_wrap`, `CGContextSetRGBFillColor_wrap`, text, etc.). `QUARTZ_LIB`
+is set only when `SELF_QUARTZ=ON` (`vm64/cmake/mac_osx.cmake:14`), which the `macos-lib` and
+`visionos` slices turn OFF. So the headless VM that the host bridge links has **no CG drawing
+primitives at all** — it can create an IOSurface but can't draw UI2 into it. `QUARTZ_LIB`
+currently conflates *two* concerns: **(a) CoreGraphics drawing** (needed for the present path)
+and **(b) NSWindow/AppKit platform windows** (correctly omitted headless). **The present path's
+FIRST task is to split them** — make the CG-drawing wrappers (+ an IOSurface-backed offscreen,
+no on-screen window) compile in the headless/embedded build, gated by something like a new
+`SELF_COREGRAPHICS` independent of the window code in `quartzWindow.cpp`/`platformWindow`. Only
+then can the BGRA8-IOSurface pixmap-canvas leaf actually draw. (The app must also link
+`-framework IOSurface` + Metal for the Swift display side.)
+
 ---
 
 ## Sequencing
@@ -212,10 +226,15 @@ What is actually done and verified, versus assumed:
 2. *(done)* Workspace unification — build the VM from source in the app.
 3. **E.2** — a SwiftUI button drives the event→doorbell→present loop with a real frontend
    (no graphics yet). This proves the doorbell round-trip end-to-end.
-4. **The present path** *(this document)* — `MakeIOSurfaceOffscreen` prim + the BGRA8
-   IOSurface pixmap-canvas leaf + the Swift-side IOSurface→texture→plane binding +
-   double-buffer/doorbell swap. Flat panel first.
-5. Later — spatial morphs, if/when wanted.
+4. **Decouple CG drawing from NSWindows** (the build blocker above) — make the CoreGraphics
+   wrappers + an IOSurface-backed offscreen compile in the headless/embedded slices, separate
+   from the AppKit window code. *Prerequisite for everything below.*
+5. **The present path** *(this document)* — `MakeIOSurfaceOffscreen` prim + the BGRA8
+   IOSurface pixmap-canvas leaf + the Swift-side IOSurface→texture→display binding +
+   double-buffer/doorbell swap. **macOS first** (MacSpatialSelf, SwiftUI `Image` from the
+   IOSurface — no RealityKit needed yet); a trivial C++ fill → display "present test" before
+   wiring real UI2 canvas.
+6. Later — RealityKit textured plane for AVP; spatial morphs, if/when wanted.
 
 ---
 
