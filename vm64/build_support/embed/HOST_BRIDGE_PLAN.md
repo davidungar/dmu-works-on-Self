@@ -435,6 +435,30 @@ simulator (arm64) build:
 - Still **not** done: adding the VM project to `Enchilada.xcworkspace` for IDE/source
   visibility (build works without it); a real **run** (only a build is verified).
 
+## E.2 result (2026-05-26) — DONE, round-trips at runtime
+
+The SwiftUI-button rung is green: a **macOS** app (`MacSpatialSelf`, a second target in
+SpatialSelf.xcodeproj alongside the renamed `VisionSpatialSelf`) links the headless macOS
+`libSelfVM-macos.a`, launches the VM on a background thread, and round-trips events through
+`hostBridge`. Tapping "tick" increments a count: button → event pipe → VM `hostBridge watch`
+(woken by the E.1 `selectInto:` fix) → `handleEvent:` → present pipe → `DispatchSource` →
+main-actor SwiftUI. Verified on-device-Mac: window appears, count climbs; console shows
+`hostBridge.self` filed in, `selectInto:` override installed, `bindEventFd:PresentFd:` bound
+fds 3/6, and the `watch` process forked and waiting in `suspendForIO`.
+
+- **Swift side** (in `MacSpatialSelf/`, *not* ReusableViews — it's Self-specific):
+  `HostBridge.swift` (two pipes, `postEvent`, `DispatchSource` → `@Observable` count),
+  `MacSelfLauncher.swift` (detached thread → `self_vm_set_io_fds` + `self_vm_main` with
+  `-s A.snap -f objects/hostBridge.self`, then a boot script over stdin that installs the
+  `selectInto:` override, binds the fds, forks `watch`), `ContentView.swift` (BridgeTestView).
+- **Build/packaging:** macOS target links `libSelfVM-macos.a`; the two VM slices were renamed
+  (`SELF_LIB_NAME`) to `libSelfVM-macos.a` / `libSelfVM-visionos.a` so they're unambiguous in
+  one workspace. **App Sandbox must be OFF** (a dev tool reaching `~/self/...`; otherwise
+  `NSHomeDirectory()` is a container and the snapshot/source paths fail).
+- Gotchas burned: renaming a referenced CMake project in the Xcode navigator renames the file
+  on disk (desyncs CMake) — use `name` display attr instead; a synchronized root group needs
+  `path = Foo` (not bare `name = Foo`) or it sweeps sibling folders into the target.
+
 ## Sequencing (2026-05-26)
 
 Explicit order — the two new decisions reinforce, not replace, test ladder E:

@@ -38,7 +38,8 @@
         "CMAKE_OSX_ARCHITECTURES": "arm64",
         "SELF_AS_LIBRARY": { "type": "BOOL", "value": "ON" },
         "SELF_QUARTZ": { "type": "BOOL", "value": "OFF" },
-        "SELF_X11": { "type": "BOOL", "value": "OFF" }
+        "SELF_X11": { "type": "BOOL", "value": "OFF" },
+        "SELF_LIB_NAME": { "type": "STRING", "value": "SelfVM-macos" }
       }
     },
     {
@@ -47,7 +48,7 @@
       "displayName": "visionOS VM project (editable; linked by SpatialSelf)",
       "description": "The visionOS VM Xcode project. SpatialSelf links THIS generated project as a cross-project dependency (its libSelfVM.a / Self target), so run `configure.sh visionos` to (re)create cmake-build-AVP-compilation-check/Self.xcodeproj before building SpatialSelf -- it is generated, not checked in. SDKROOT=xros but Xcode builds the xrsimulator slice too on demand (sysroot is not baked into the flags). Also fine for fast Debug compile-checks. (binaryDir name is historical -- 'compile-check' predates the SpatialSelf coupling.) -- claude & dmu 5/26",
       "binaryDir": "${sourceDir}/../cmake-build-AVP-compilation-check",
-      "cacheVariables": { "CMAKE_OSX_SYSROOT": "xros" }
+      "cacheVariables": { "CMAKE_OSX_SYSROOT": "xros", "SELF_LIB_NAME": "SelfVM-visionos" }
     },
     {
       "name": "xcframework-device",

@@ -141,9 +141,15 @@ endif()
 #
 if(SELF_AS_LIBRARY)
   add_library(${PROJECT_NAME} STATIC ${SRC})
-  # Library artifact is libSelfVM.a (matches the self_vm_* symbol prefix);
-  # the CMake target stays `Self` so existing tooling continues to work.
-  set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME SelfVM)
+  # Library artifact is libSelfVM*.a (matches the self_vm_* symbol prefix).  The base
+  # name is overridable per build via SELF_LIB_NAME so multiple slices (e.g. visionOS
+  # vs macOS) link unambiguously inside one Xcode workspace; defaults to SelfVM so the
+  # xcframework path is unchanged.  The CMake target stays `Self` so existing tooling
+  # continues to work.  -- claude & dmu 5/26
+  if(NOT SELF_LIB_NAME)
+    set(SELF_LIB_NAME SelfVM)
+  endif()
+  set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${SELF_LIB_NAME})
   target_compile_definitions(${PROJECT_NAME} PRIVATE SELF_AS_LIBRARY=1)
 else()
   add_executable(${PROJECT_NAME} ${GUI_TYPE} ${SRC})
