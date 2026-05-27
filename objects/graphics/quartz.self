@@ -3707,13 +3707,22 @@ and the X font struct object (used to measure text).\x7fModuleInfo: Module: quar
          'Category: drawing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          drawLine: pt1 To: pt2 GC: gc = ( |
-            | 
+            |
             gc beginPath.
             gc moveToPointX: pt1 x succ Y: pt1 y succ.
             gc addLineToPointX: pt2 x succ Y: pt2 y succ.
             gc strokePath.
             self).
-        } | ) 
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'drawable' -> () From: ( | {
+         'Category: drawing\x7fComment: ui1 draws single pixels (cursor/caret feedback, scatter plots) via drawPoint:GC:; the X drawable has it as a primitive. Realise it as a 1x1 fill so the index byte is written with the gcs foreground8Bit colour, same as fillRectangle:. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         drawPoint: pt GC: gc = ( |
+            |
+            gc fillRectX: pt x Y: pt y Width: 1 Height: 1.
+            self).
+        } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'drawable' -> () From: ( | {
          'Category: drawing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
@@ -6820,6 +6829,11 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
         }  {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
+         drawPoint: pt GC: g = ( |
+            | shadow drawPoint: pt GC: g. self).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
          drawLines: ptlist GC: g = ( |
             | shadow drawLines: ptlist GC: g. self).
         }  {
@@ -7230,6 +7244,266 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
 
          darkGray = ( |
             | nullImage).
+        } | )
+
+
+
+ '-- ui1 input on Quartz: ui1s eventWatcher pulls X-style events from display nextEvent and the queueingEventHandler dispatches by typeName. Quartz delivers Cocoa events into a per-window VM queue (no fd to block on), so we decode each quartz event into a ui1 X-style event (quartz ui1Event) and a quartz ui1EventSource plays the display role, sleep-polling the queue like ui2 does (the times-delay heartbeat is also what lets check_carbon_events pump Cocoa events at all). -- claude & dmu 5/26'
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
+         'Category: converting to ui1 events\x7fComment: fill aUI1Evt (a quartz ui1Event) from this native event, X-style: typeName + x/y/button/state/keycode/lookupString. Mirrors setUI2Event: but targets ui1s xEvent protocol. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         setUI1Event: aUI1Evt = ( | cls |
+            cls: getClass.
+            case if: [cls = classes mouse   ] Then: [ setUI1Mouse:  aUI1Evt ]
+                 If: [cls = classes keyboard ] Then: [ setUI1Key:    aUI1Evt ]
+                 If: [cls = classes window   ] Then: [ setUI1Window: aUI1Evt ]
+                Else: [ aUI1Evt typeName: 'otherEvent' ].
+            aUI1Evt time: getSecondsSinceBoot * 1000.0.
+            aUI1Evt).
+        }  {
+         'Category: converting to ui1 events\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+
+         setUI1Mouse: aUI1Evt = ( | k. pt |
+            k: getKind.
+            pt: getPointParam: parameters windowMouseLocation IfFail: [0@0].
+            aUI1Evt x: pt x. aUI1Evt y: pt y.
+            aUI1Evt state:
+               (  getUnsignedParam: parameters mouseChord   Type: types uint32 IfFail: 0 )
+            || (  getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0 ).
+            aUI1Evt button: ui1ButtonNumber.
+            aUI1Evt typeName:
+             case if: [k = kinds mouse down] Then: 'buttonPress'
+                  If: [k = kinds mouse up  ] Then: 'buttonRelease'
+                                             Else: 'motionNotify'.
+            self).
+        }  {
+         'Category: converting to ui1 events\x7fComment: a Mac one-button mouse fakes the middle/right button with option/control/command, the same mapping ui2s whichButton uses. Returns the X button number 1/2/3. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+
+         ui1ButtonNumber = ( | b. m |
+            b: getUnsignedShortParam: parameters mouseButton Type: types mouseButton.
+            b = 1 ifTrue: [
+              m: getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0.
+              b: case if: [(m && modifierMasks option ) != 0] Then: 2
+                      If: [(m && modifierMasks command) != 0] Then: 3
+                      If: [(m && modifierMasks control) != 0] Then: 2
+                                                              Else: 1.
+            ].
+            b).
+        }  {
+         'Category: converting to ui1 events\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+
+         setUI1Key: aUI1Evt = ( | k. cc |
+            k: getKind.
+            "the .mm stores keyMacCharCodes as a uint32 char code (not utf8Text), so read it as uint32"
+            cc: getUnsignedParam: parameters keyMacCharCodes Type: types uint32 IfFail: 0.
+            aUI1Evt state: getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0.
+            aUI1Evt keycode: getUnsignedParam: parameters keyCode Type: types uint32 IfFail: 0.
+            aUI1Evt lookupString: cc = 0 ifTrue: '' False: [cc asCharacter asString].
+            aUI1Evt typeName:
+             case if: [k = kinds keyboard rawKeyDown  ] Then: 'keyPress'
+                  If: [k = kinds keyboard rawKeyRepeat] Then: 'keyPress'
+                  If: [k = kinds keyboard rawKeyUp    ] Then: 'keyRelease'
+                                                        Else: 'keyPress'.
+            self).
+        }  {
+         'Category: converting to ui1 events\x7fComment: ui1 close/resize/expose. configureNotify/expose bounds are filled by the source from the platformWindow (the native event carries no useful bounds here). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+
+         setUI1Window: aUI1Evt = ( | k |
+            k: getKind.
+            aUI1Evt typeName:
+             case if: [k = kinds window close         ] Then: 'clientMessage'
+                  If: [k = kinds window boundsChanged  ] Then: 'configureNotify'
+                  If: [k = kinds window drawContent    ] Then: 'expose'
+                                                         Else: 'otherEvent'.
+            k = kinds window close ifTrue: [ aUI1Evt deleteWindow: true ].
+            self).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
+         'Category: graphics (ui1)\x7fComment: an X-style input event for ui1, decoded from a native quartz event (which is then deleted). Plain Self object holding scalars, so it survives in the handlers message queue until the ui process dispatches it. Answers the xEvent protocol the queueingEventHandler reads. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         ui1Event = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1Event' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals quartz ui1Event.
+\x7fIsComplete: '.
+            | ) .
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
+         'Category: graphics (ui1)\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         ui1EventSource = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals quartz ui1EventSource.
+\x7fIsComplete: '.
+            | ) .
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1Event' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+
+         parent* = bootstrap stub -> 'traits' -> 'quartz' -> 'ui1Event' -> ().
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         typeName <- 'otherEvent'.
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         x <- 0.
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         y <- 0.
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         button <- 1.
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         state <- 0.
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         keycode <- 0.
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         lookupString <- ''.
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         width <- 0.
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         height <- 0.
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         count <- 0.
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         time <- 0.
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         deleteWindow <- bootstrap stub -> 'globals' -> 'false' -> ().
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1Event' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+
+         parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
+        }  {
+         'Comment: X button name from the button number, for the queueingEventHandler (leftButtonDownAt:Event: etc.). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         buttonName = ( |
+            |
+            button = 2 ifTrue: [^ 'middle'].
+            button = 3 ifTrue: [^ 'right'].
+            'left').
+        }  {
+         'Comment: X reports state-before-event and toggles the changed button; the Mac mouseChord we put in state is already the post-transition button set, so it serves directly as the cursors new state. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         newState = ( |
+            | state).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         isDeleteWindow = ( |
+            | deleteWindow).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         hasInputStateInfo = bootstrap stub -> 'globals' -> 'true' -> ().
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         hasLocationInfo = bootstrap stub -> 'globals' -> 'true' -> ().
+        }  {
+         'Comment: ui1 deletes events after processing; this is a plain Self object so there is nothing to free -- the GC handles it. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         delete = ( |
+            | self).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+
+         parent* = bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> ().
+        }  {
+         'Comment: the quartz platformWindow whose Cocoa event queue we drain. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
+
+         platformWindow.
+        }  {
+         'Comment: ms to sleep between polls when the queue is empty (ui2 uses 10). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         pollDelayMS <- 10.
+        }  {
+         'Comment: last cursor position seen on a mouse event. ui1 is point-to-type (ui keyDown:String:At:Event: routes to world componentContaining: pos), but keyboard events carry no location -- so we stamp key events with this. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         lastCursorX <- 0.
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         lastCursorY <- 0.
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+
+         parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         forPlatformWindow: pw = ( |
+            | copy platformWindow: pw).
+        }  {
+         'Comment: the X display nextEvent ui1s eventWatcher blocks on. Quartz has no fd, so sleep-poll the windows Cocoa event queue (the times delay also lets check_carbon_events pump Cocoa into the queue), then decode the native event into a ui1 X-style event and free the native one. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         nextEvent = ( | raw. e. tn |
+            [platformWindow eventsPending = 0] whileTrue: [ times delay: pollDelayMS ].
+            raw: platformWindow nextEvent.
+            e: raw setUI1Event: quartz ui1Event copy.
+            raw delete.
+            tn: e typeName.
+            "track the cursor on mouse events; stamp it onto keyboard events (point-to-type)"
+            ((tn = 'buttonPress') || [tn = 'buttonRelease'] || [tn = 'motionNotify'])
+              ifTrue: [ lastCursorX: e x. lastCursorY: e y ].
+            ((tn = 'keyPress') || [tn = 'keyRelease'])
+              ifTrue: [ e x: lastCursorX. e y: lastCursorY ].
+            ((tn = 'configureNotify') || [tn = 'expose']) ifTrue: [| sz |
+              sz: platformWindow size.
+              e width: sz x. e height: sz y.
+            ].
+            e).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         eventsPending = ( |
+            | platformWindow eventsPending).
+        }  {
+         'Comment: display protocol macWindow forwards here. We flush by converting the indexed shadow at the platformWindow; synchronize is a no-op (the indexed model has nothing to round-trip). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         synchronize: b = ( |
+            | self).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         syncDiscardingIf: b = ( |
+            | platformWindow sync. self).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         flush = ( |
+            | platformWindow flush. self).
+        }  {
+         'Comment: ui1 occasionally pushes an event back; the Cocoa queue has no putback, so drop it for now (rare path). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         xPutBackEvent: e = ( |
+            | self).
         } | )
 
 

@@ -687,6 +687,7 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
                BoundingBox: position ## size
                 WindowName: name.
             platformWindow makeShadow. "ui1-on-Quartz: 8-bit indexed shadow for direct window draws -- claude & dmu 5/26"
+            display: quartz ui1EventSource forPlatformWindow: platformWindow. "ui1-on-Quartz: feed the watcher Cocoa events (display defaults to the X connection) -- claude & dmu 5/26"
 
             createBitmap.
             createCursor.
@@ -722,8 +723,8 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
             watcher: eventWatcher copyForDisplay: display Handler: handler.
             watcherProcess: process copySend: message copy receiver: watcher
                                                            Selector: 'watch'.
-            "watcherProcess resume"
-            warning: 'spawnEventWatcherProcess nopped for now').
+            watcherProcess resume. "ui1-on-Quartz: events now flow via quartz ui1EventSource -- claude & dmu 5/26"
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
