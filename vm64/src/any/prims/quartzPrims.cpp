@@ -198,6 +198,118 @@ void CopyIndexedArea_wrap( CGContextRef src, CGContextRef dst,
   }
 }
 
+// The X11 GXfunction raster ops, on a single 8-bit palette-index byte.  ui1's
+// plane masking and acetate/arrow overlays drive these through the quartz GC
+// (function: gxClear/gxCopy/gxOr/...).  CG can't do raster ops or plane masks
+// on its own bytes, so we apply them ourselves when ui1 sets a non-default GC.
+// codes match traits quartz context (gxClear=0, gxAnd=1, gxCopy=3, gxOr=7,
+// gxXor=6); the full 16 are here for completeness.  -- claude & dmu 5/26
+static inline u_char xRasterOp(int32 func, u_char src, u_char dst) {
+  switch (func & 0xf) {
+    case 0x0: return 0;                 // GXclear
+    case 0x1: return src & dst;         // GXand
+    case 0x2: return src & ~dst;        // GXandReverse
+    case 0x3: return src;               // GXcopy
+    case 0x4: return ~src & dst;        // GXandInverted
+    case 0x5: return dst;               // GXnoop
+    case 0x6: return src ^ dst;         // GXxor
+    case 0x7: return src | dst;         // GXor
+    case 0x8: return ~(src | dst);      // GXnor
+    case 0x9: return ~(src ^ dst);      // GXequiv
+    case 0xa: return ~dst;              // GXinvert
+    case 0xb: return src | ~dst;        // GXorReverse
+    case 0xc: return ~src;              // GXcopyInverted
+    case 0xd: return ~src | dst;        // GXorInverted
+    case 0xe: return ~(src & dst);      // GXnand
+    default:  return 0xff;              // GXset
+  }
+}
+
+// Plane-masked, raster-op fill of a rectangle of palette indices -- the engine
+// for ui1's acetate/arrow overlays (eraseAcetate, clear:, prepareToDrawOn*).
+// Each affected byte becomes (xRasterOp(func, colorIndex, old) & planeMask) |
+// (old & ~planeMask): the plane mask restricts which bit-planes change, so
+// transient overlay drawing leaves the underlying image's planes intact (what X
+// gives free via the server's plane_mask, and CG cannot).  Coords are ui1/X
+// top-down logical pixels; the bitmap stores bottom-up, so logical row r maps to
+// physical row (h-1-r).  Only called when the GC is non-default (plane mask !=
+// all-ones or function != copy); the all-ones/copy case stays on the fast CG
+// path (fillRectX:).  -- claude & dmu 5/26
+void FillIndexedAreaMasked_wrap( CGContextRef ctx,
+                                 int32 x, int32 top, int32 w, int32 h,
+                                 int32 colorIndex, int32 planeMask, int32 func) {
+  if ((ctx == NULL) || (w <= 0) || (h <= 0))  return;
+  u_char* data = (u_char*)CGBitmapContextGetData(ctx);
+  if (data == NULL)  return;
+  int32 cw  = (int32)CGBitmapContextGetWidth(ctx);
+  int32 ch  = (int32)CGBitmapContextGetHeight(ctx);
+  int32 bpr = (int32)CGBitmapContextGetBytesPerRow(ctx);
+
+  int32 x0 = (x < 0) ? -x : 0;            // clip columns to [0, cw)
+  int32 x1 = (x + w > cw) ? (cw - x) : w;
+  int32 count = x1 - x0;
+  if (count <= 0)  return;
+  int32 r0 = (top < 0) ? -top : 0;        // clip rows to [0, ch)
+  int32 r1 = (top + h > ch) ? (ch - top) : h;
+
+  u_char src = (u_char)colorIndex;
+  u_char m   = (u_char)planeMask;
+  for (int32 r = r0;  r < r1;  ++r) {
+    int32 prow = ch - 1 - (top + r);      // flip top-down -> CG bottom-up
+    u_char* p  = data + (size_t)prow * bpr + (x + x0);
+    for (int32 c = 0;  c < count;  ++c, ++p)
+      *p = (u_char)((xRasterOp(func, src, *p) & m) | (*p & ~m));
+  }
+}
+
+// Plane-masked, raster-op variant of CopyIndexedArea_wrap: copies palette-index
+// bytes from src to dst applying xRasterOp(func, srcByte, dstByte) then the
+// plane mask, exactly like FillIndexedAreaMasked_wrap but with a per-pixel
+// source.  ui1 drives this when copying a moving body's graphic onto the acetate
+// (moving) plane during a drag (bod graphic copy:To:windowBitmap), and for
+// mask/stencil blits (copy:Mask: uses gxAnd then gxOr).  Same top-down logical
+// coords and both-ends clipping as the unmasked copy.  -- claude & dmu 5/26
+void CopyIndexedAreaMasked_wrap( CGContextRef src, CGContextRef dst,
+                                 int32 sx, int32 sy, int32 w, int32 h,
+                                 int32 dx, int32 dy, int32 planeMask, int32 func) {
+  if ((src == NULL) || (dst == NULL) || (w <= 0) || (h <= 0))  return;
+  u_char* sdata = (u_char*)CGBitmapContextGetData(src);
+  u_char* ddata = (u_char*)CGBitmapContextGetData(dst);
+  if ((sdata == NULL) || (ddata == NULL))  return;
+  int32 sw = (int32)CGBitmapContextGetWidth(src);
+  int32 sh = (int32)CGBitmapContextGetHeight(src);
+  int32 sbpr = (int32)CGBitmapContextGetBytesPerRow(src);
+  int32 dw = (int32)CGBitmapContextGetWidth(dst);
+  int32 dh = (int32)CGBitmapContextGetHeight(dst);
+  int32 dbpr = (int32)CGBitmapContextGetBytesPerRow(dst);
+
+  int32 x0 = 0;                           // clip cols against both ends
+  if (-sx > x0)  x0 = -sx;
+  if (-dx > x0)  x0 = -dx;
+  int32 x1 = w;
+  if (sw - sx < x1)  x1 = sw - sx;
+  if (dw - dx < x1)  x1 = dw - dx;
+  int32 count = x1 - x0;
+  if (count <= 0)  return;
+
+  int32 r0 = 0;                           // clip rows against both ends
+  if (-sy > r0)  r0 = -sy;
+  if (-dy > r0)  r0 = -dy;
+  int32 r1 = h;
+  if (sh - sy < r1)  r1 = sh - sy;
+  if (dh - dy < r1)  r1 = dh - dy;
+
+  u_char m = (u_char)planeMask;
+  for (int32 r = r0;  r < r1;  ++r) {
+    int32 srow = sh - 1 - (sy + r);       // flip top-down -> CG bottom-up
+    int32 drow = dh - 1 - (dy + r);
+    u_char* sp = sdata + (size_t)srow * sbpr + (sx + x0);
+    u_char* dp = ddata + (size_t)drow * dbpr + (dx + x0);
+    for (int32 c = 0;  c < count;  ++c, ++sp, ++dp)
+      *dp = (u_char)((xRasterOp(func, *sp, *dp) & m) | (*dp & ~m));
+  }
+}
+
 
 void CGContextSelectFont_wrap(CGContext* c, const char* s, float siz) {
   // CGContextSelectFont is deprecated since macOS 10.9 but still functional.

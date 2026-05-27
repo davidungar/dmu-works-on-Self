@@ -3263,6 +3263,77 @@ traits quartz context _AddSlots: ( |
     self).
 
 
+" plane-masked / raster-op fill + copy for ui1 acetate/arrow overlays (plane_mask + function). -- claude & dmu 5/26  "
+
+  fillIndexedMaskedX: t0 Y: t1 Width: t2 Height: t3 Index: t4 
+    Mask: t5 Function: t6  = (
+
+       fillIndexedMaskedX: t0 Y: t1 Width: t2 Height: t3 Index: t4 
+        Mask: t5 Function: t6 IfFail: 
+        [|:e| ^error: 'fillIndexedMaskedX:Y:Width:Height:Index:Mask:Function: failed: ', e] ).
+
+  fillIndexedMaskedX: t0 Y: t1 Width: t2 Height: t3 Index: t4 
+    Mask: t5 Function: t6 IfFail: fb = (
+    |
+
+    |
+
+       _FillIndexedAreaMasked_wrapfillIndexedMaskedX: t0 Y: t1 
+        Width: t2 Height: t3 Index: t4 Mask: t5 Function: 
+        t6 IfFail: 
+        
+      [|:e| ('badTypeError'   isPrefixOf: e)
+        ||  ['deadProxyError' isPrefixOf: e]
+           ifFalse: [^fb value: e] 
+              True: [
+                  ( reviveIfFail: [|:e| ^ fb value: e]) _FillIndexedAreaMasked_wrapfillIndexedMaskedX: 
+                    t0 asSmallInteger Y: t1 asSmallInteger 
+                    Width: t2 asSmallInteger Height: 
+                    t3 asSmallInteger Index: 
+                    t4 asSmallInteger Mask: 
+                    t5 asSmallInteger Function: 
+                    t6 asSmallInteger IfFail: fb 
+           ]] .
+    self).
+
+
+  copyIndexedMaskedAreaTo: t0 SrcX: t1 SrcY: t2 Width: t3 
+    Height: t4 DestX: t5 DestY: t6 Mask: t7 Function: t8  = (
+
+       copyIndexedMaskedAreaTo: t0 SrcX: t1 SrcY: t2 Width: t3 
+        Height: t4 DestX: t5 DestY: t6 Mask: t7 Function: 
+        t8 IfFail: 
+        [|:e| ^error: 'copyIndexedMaskedAreaTo:SrcX:SrcY:Width:Height:DestX:DestY:Mask:Function: failed: ', e] ).
+
+  copyIndexedMaskedAreaTo: t0 SrcX: t1 SrcY: t2 Width: t3 
+    Height: t4 DestX: t5 DestY: t6 Mask: t7 Function: t8 
+    IfFail: fb = (
+    |
+
+    |
+
+       _CopyIndexedAreaMasked_wrapcopyIndexedMaskedAreaTo: t0 
+        SrcX: t1 SrcY: t2 Width: t3 Height: t4 DestX: t5 
+        DestY: t6 Mask: t7 Function: t8 IfFail: 
+        
+      [|:e| ('badTypeError'   isPrefixOf: e)
+        ||  ['deadProxyError' isPrefixOf: e]
+           ifFalse: [^fb value: e] 
+              True: [
+                  ( reviveIfFail: [|:e| ^ fb value: e]) _CopyIndexedAreaMasked_wrapcopyIndexedMaskedAreaTo: 
+                    (t0 reviveIfFail: [|:e| ^ fb value: e]) 
+                    SrcX: t1 asSmallInteger SrcY: 
+                    t2 asSmallInteger Width: 
+                    t3 asSmallInteger Height: 
+                    t4 asSmallInteger DestX: 
+                    t5 asSmallInteger DestY: 
+                    t6 asSmallInteger Mask: 
+                    t7 asSmallInteger Function: 
+                    t8 asSmallInteger IfFail: fb 
+           ]] .
+    self).
+
+
   setShadowOffsetX: t0 OffsetY: t1 Blur: t2 Color: t3  = (
 
        setShadowOffsetX: t0 OffsetY: t1 Blur: t2 Color: t3 IfFail: 

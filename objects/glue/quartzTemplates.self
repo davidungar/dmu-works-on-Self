@@ -283,6 +283,9 @@ primitiveMaker reader copy beNoisy staticLinking create: 'quartz' Flag: 'quartz_
    CGContext indexedPixelAtX: int Y: int = int call OffscreenPixelAt_wrap
    -- index-preserving bitblt between two indexed offscreens (double-buffer flush + scrolling). -- claude & dmu 5/26
    CGContext copyIndexedAreaTo: CGContext SrcX: int SrcY: int Width: int Height: int DestX: int DestY: int = void call CopyIndexedArea_wrap
+   -- plane-masked / raster-op fill + copy for ui1 acetate/arrow overlays (plane_mask + function). -- claude & dmu 5/26
+   CGContext fillIndexedMaskedX: int Y: int Width: int Height: int Index: int Mask: int Function: int = void call FillIndexedAreaMasked_wrap
+   CGContext copyIndexedMaskedAreaTo: CGContext SrcX: int SrcY: int Width: int Height: int DestX: int DestY: int Mask: int Function: int = void call CopyIndexedAreaMasked_wrap
 
    CGContext setShadowOffsetX: float OffsetY: float Blur: float Color: CGColor = void call CGContextSetShadowWithColor_wrap
    CGContext setShadowOffsetX: float OffsetY: float Blur: float Red: float Green: float Blue: float Alpha: float \
