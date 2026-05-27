@@ -6800,10 +6800,21 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
          blitShadowWithCLUT: clut = ( |
             | shadow gc blitIndexedTo: quartzWindow gc CLUT: clut X: 0 Y: 0. self).
         }  {
-         'Comment: the indexed CGContext that receives bytes when this window is a copyArea destination (ui1 update copies the worlds offScreen here through windowBitmap). That is the shadow. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: the indexed CGContext that receives bytes when this window is a copyArea destination (ui1 update copies the worlds offScreen here through windowBitmap). That is the shadow. On a window resize the shadow must track the new size first (ui1 resizes its graphic/offScreen and redraws, then update copies into here), else the blit cant cover the window. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          indexedContext = ( |
-            | shadow gc).
+            | ensureShadowSize. shadow gc).
+        }  {
+         'Comment: recreate the shadow at the current window size if it has changed (window resize). Frees the old offscreens CGContext. No-op for ui2 (no shadow). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         ensureShadowSize = ( |
+            | shadow ifNil: [^ self].
+              (shadow size = size) ifFalse: [
+                shadow delete. makeShadow.
+                "the true-colour windows gc (and its IOSurface) is cached at open; re-initialize it so beginContext/ensureBitmapContext rebuilds the IOSurface at the new size -- else the shadow blit lands in the old-size surface and the resized view never updates. -- claude & dmu 5/26"
+                quartzWindow initialize.
+              ].
+              self).
         }  {
          'Comment: convert the indexed shadow to the true-colour window through the currently-installed colormap. No-op until a colormap is installed (currentCLUT nil). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
