@@ -630,7 +630,7 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
          'Category: portable accessing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
         
          flush = ( |
-            | [xxx]. self).
+            | platformWindow flush. self). "ui1-on-Quartz: convert the indexed shadow to the true-colour window. -- claude & dmu 5/26"
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
@@ -730,7 +730,7 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
          'Category: portable accessing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
         
          sync = ( |
-            | [todo ui1 dmu experimental]. self).
+            | platformWindow sync. self). "ui1-on-Quartz: convert the indexed shadow to the true-colour window. -- claude & dmu 5/26"
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindow' -> () From: ( | {

@@ -3229,6 +3229,40 @@ traits quartz context _AddSlots: ( |
            ]] ).
 
 
+" index-preserving bitblt between two indexed offscreens (double-buffer flush + scrolling). -- claude & dmu 5/26  "
+
+  copyIndexedAreaTo: t0 SrcX: t1 SrcY: t2 Width: t3 Height: 
+    t4 DestX: t5 DestY: t6  = (
+
+       copyIndexedAreaTo: t0 SrcX: t1 SrcY: t2 Width: t3 Height: 
+        t4 DestX: t5 DestY: t6 IfFail: 
+        [|:e| ^error: 'copyIndexedAreaTo:SrcX:SrcY:Width:Height:DestX:DestY: failed: ', e] ).
+
+  copyIndexedAreaTo: t0 SrcX: t1 SrcY: t2 Width: t3 Height: 
+    t4 DestX: t5 DestY: t6 IfFail: fb = (
+    |
+
+    |
+
+       _CopyIndexedArea_wrapcopyIndexedAreaTo: t0 SrcX: t1 SrcY: 
+        t2 Width: t3 Height: t4 DestX: t5 DestY: t6 IfFail: 
+        
+      [|:e| ('badTypeError'   isPrefixOf: e)
+        ||  ['deadProxyError' isPrefixOf: e]
+           ifFalse: [^fb value: e] 
+              True: [
+                  ( reviveIfFail: [|:e| ^ fb value: e]) _CopyIndexedArea_wrapcopyIndexedAreaTo: 
+                    (t0 reviveIfFail: [|:e| ^ fb value: e]) 
+                    SrcX: t1 asSmallInteger SrcY: 
+                    t2 asSmallInteger Width: 
+                    t3 asSmallInteger Height: 
+                    t4 asSmallInteger DestX: 
+                    t5 asSmallInteger DestY: 
+                    t6 asSmallInteger IfFail: fb 
+           ]] .
+    self).
+
+
   setShadowOffsetX: t0 OffsetY: t1 Blur: t2 Color: t3  = (
 
        setShadowOffsetX: t0 OffsetY: t1 Blur: t2 Color: t3 IfFail: 

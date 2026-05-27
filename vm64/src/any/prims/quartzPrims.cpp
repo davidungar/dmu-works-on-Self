@@ -149,6 +149,55 @@ int32 OffscreenPixelAt_wrap(CGContextRef ctx, int32 x, int32 y) {
   return (int32)data[row * bpr + (size_t)x];
 }
 
+// Index-preserving bitblt between two 8-bit indexed offscreens (the X path got
+// this free from the server's XCopyArea; CG has no equivalent that leaves the
+// palette-index bytes untouched, so we copy the backing bytes ourselves).  This
+// is the engine for ui1's double-buffer flush (graphic->offScreen->window-shadow)
+// and for scrolling.  Coords are ui1/X top-down logical pixels; both contexts
+// store bottom-up, so each logical row r maps to physical row (h-1-r).  The copy
+// region is clipped against both src and dst, so partial/off-edge blits are safe.
+// -- claude & dmu 5/26
+void CopyIndexedArea_wrap( CGContextRef src, CGContextRef dst,
+                           int32 sx, int32 sy, int32 w, int32 h,
+                           int32 dx, int32 dy) {
+  if ((src == NULL) || (dst == NULL) || (w <= 0) || (h <= 0))  return;
+  u_char* sdata = (u_char*)CGBitmapContextGetData(src);
+  u_char* ddata = (u_char*)CGBitmapContextGetData(dst);
+  if ((sdata == NULL) || (ddata == NULL))  return;
+  int32 sw = (int32)CGBitmapContextGetWidth(src);
+  int32 sh = (int32)CGBitmapContextGetHeight(src);
+  int32 sbpr = (int32)CGBitmapContextGetBytesPerRow(src);
+  int32 dw = (int32)CGBitmapContextGetWidth(dst);
+  int32 dh = (int32)CGBitmapContextGetHeight(dst);
+  int32 dbpr = (int32)CGBitmapContextGetBytesPerRow(dst);
+
+  // Clip the column range [x0,x1) so sx+x in [0,sw) and dx+x in [0,dw).
+  int32 x0 = 0;
+  if (-sx > x0)  x0 = -sx;
+  if (-dx > x0)  x0 = -dx;
+  int32 x1 = w;
+  if (sw - sx < x1)  x1 = sw - sx;
+  if (dw - dx < x1)  x1 = dw - dx;
+  int32 count = x1 - x0;
+  if (count <= 0)  return;
+
+  // Clip the row range [r0,r1) so sy+r in [0,sh) and dy+r in [0,dh).
+  int32 r0 = 0;
+  if (-sy > r0)  r0 = -sy;
+  if (-dy > r0)  r0 = -dy;
+  int32 r1 = h;
+  if (sh - sy < r1)  r1 = sh - sy;
+  if (dh - dy < r1)  r1 = dh - dy;
+
+  for (int32 r = r0;  r < r1;  ++r) {
+    int32 srow = sh - 1 - (sy + r);   // flip top-down -> CG bottom-up
+    int32 drow = dh - 1 - (dy + r);
+    memcpy( ddata + (size_t)drow * dbpr + (dx + x0),
+            sdata + (size_t)srow * sbpr + (sx + x0),
+            (size_t)count);
+  }
+}
+
 
 void CGContextSelectFont_wrap(CGContext* c, const char* s, float siz) {
   // CGContextSelectFont is deprecated since macOS 10.9 but still functional.

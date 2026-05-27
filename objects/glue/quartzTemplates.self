@@ -281,6 +281,8 @@ primitiveMaker reader copy beNoisy staticLinking create: 'quartz' Flag: 'quartz_
    void makeIndexedOffscreenWidth: int Height: int = CGContext { quartz context deadCopy } call MakeIndexedOffscreen_wrap
    CGContext blitIndexedTo: CGContext CLUT: cbv_len u_char* X: float Y: float = void call BlitIndexedToContext_wrap
    CGContext indexedPixelAtX: int Y: int = int call OffscreenPixelAt_wrap
+   -- index-preserving bitblt between two indexed offscreens (double-buffer flush + scrolling). -- claude & dmu 5/26
+   CGContext copyIndexedAreaTo: CGContext SrcX: int SrcY: int Width: int Height: int DestX: int DestY: int = void call CopyIndexedArea_wrap
 
    CGContext setShadowOffsetX: float OffsetY: float Blur: float Color: CGColor = void call CGContextSetShadowWithColor_wrap
    CGContext setShadowOffsetX: float OffsetY: float Blur: float Red: float Green: float Blue: float Alpha: float \

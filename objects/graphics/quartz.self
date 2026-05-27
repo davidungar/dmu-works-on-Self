@@ -4069,6 +4069,10 @@ SlotsToOmit: parent.
          'Comment: ui1 8-bit indexed shadow (a quartz indexedPixmap). When set (makeShadow, ui1 only), gc routes drawing here so direct window draws (caret, etc.) are indexed like the offscreens; blit shadow->trueColour window at display. nil for ui2 windows (which draw true colour directly). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
 
          shadow.
+        }  {
+         'Comment: the index->RGB palette (256*3 bytes) the display blit feeds to blitShadowWithCLUT:. Set when ui1 installs a colormap into this window (quartz colormap install), mirroring X xSetWindow:Colormap:. nil until then -> sync/flush paint nothing. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
+
+         currentCLUT.
         } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
@@ -6786,6 +6790,26 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
 
          blitShadowWithCLUT: clut = ( |
             | shadow gc blitIndexedTo: quartzWindow gc CLUT: clut X: 0 Y: 0. self).
+        }  {
+         'Comment: the indexed CGContext that receives bytes when this window is a copyArea destination (ui1 update copies the worlds offScreen here through windowBitmap). That is the shadow. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         indexedContext = ( |
+            | shadow gc).
+        }  {
+         'Comment: convert the indexed shadow to the true-colour window through the currently-installed colormap. No-op until a colormap is installed (currentCLUT nil). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         displayShadow = ( |
+            | currentCLUT isNil ifFalse: [ blitShadowWithCLUT: currentCLUT ]. self).
+        }  {
+         'Comment: ui1s screenOperations flush (uiWorld syncGraphics -> macWindow sync) and double-buffer flush (macWindow flush) both land here: convert the indexed shadow to the true-colour window and push it to the IOSurface so the next event-pump cycle blits it to the view. The X path mapped these to XSync/XFlush; here they are the indexed->trueColour display. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         sync = ( |
+            | displayShadow. quartzWindow gc flush. self).
+        }  {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         flush = ( |
+            | displayShadow. quartzWindow gc flush. self).
         } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
@@ -7026,6 +7050,8 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
             width:  sz x.
             height: sz y.
             context: (quartz context makeIndexedOffscreenWidth: sz x Height: sz y).
+            "The offscreen is a bottom-up CGBitmapContext; the display blit (blitIndexedTo: into the flipped window) flips the whole buffer vertically, which lands fills/lines at the right top-down spot but would render glyphs upside down. Pre-invert the text matrix (D:-1) so glyphs are drawn mirrored here and come out upright after that flip -- the indexed-offscreen analogue of what setCTMForZeroAtTopHeight: does for the true-colour window gc. Persists across font changes (like the ui2 path). -- claude & dmu 5/26"
+            context setTextMatrix_A: 1 B: 0 C: 0 D: -1 TX: 0 TY: 0.
             self).
         }  {
          'Comment: ui1 draws through this objects own context, which answers the X11-GC protocol. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
@@ -7053,10 +7079,23 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
          delete = ( |
             | context release. self).
         }  {
-         'Comment: bitblt between indexed offscreens (used for scrolling and the double-buffer flush). Deferred -- needs an index-preserving byte copy primitive. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: index-preserving bitblt between indexed offscreens -- the engine for ui1s double-buffer flush (graphic->offScreen->window-shadow) and for scrolling. destImage is another indexedPixmap or, when copying to the screen via windowBitmap, the platformWindow (whose indexedContext is its shadow). The CopyIndexedArea_wrap prim copies the raw palette-index bytes, so no colour conversion happens here; index->trueColour is deferred to the shadow->window blit. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          copyArea: srcRect To: destImage At: destPt GC: gc = ( |
-            | self).
+            |
+            context copyIndexedAreaTo: destImage indexedContext
+                                 SrcX: srcRect left
+                                 SrcY: srcRect top
+                                Width: srcRect width
+                               Height: srcRect height
+                                DestX: destPt x
+                                DestY: destPt y.
+            self).
+        }  {
+         'Comment: the CGContext that holds this drawables index bytes (the bitblt destination). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         indexedContext = ( |
+            | context).
         } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
@@ -7137,15 +7176,15 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
          allocColor: xc = ( |
             | storeOne: xc. self).
         }  {
-         'Comment: install/installAndSync push the CLUT to the display. The window flush reads this CLUT at blit time, so for now installing is a no-op (colour-map animation will re-blit here once the flush hook lands). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: install this colormap into its window: record the CLUT on the platformWindow (where the display blit reads it) and re-convert the shadow, so a CLUT change repaints without ui1 redrawing -- this is colour-map animation. Mirrors X xSetWindow:Colormap:; install does not flush (matches the X warning that install without sync is suspect), installAndSync does. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          install = ( |
-            | self).
+            | win isNil ifFalse: [ win currentCLUT: clut. win displayShadow ]. self).
         }  {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          installAndSync = ( |
-            | install).
+            | install. win isNil ifFalse: [ win flush ]. self).
         }  {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
