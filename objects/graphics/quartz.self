@@ -266,17 +266,9 @@ SlotsToOmit: parent.
         } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'context' -> () From: ( | {
-         'Category: ui1 GC state\x7fComment: ui1 drives a quartz context as an X GC. These hold the GC state CG cannot represent on its 8-bit indexed bytes: the raw palette index of the last foreground8Bit:, the plane mask (which bit-planes draws may change; all-ones = no restriction), and the X raster function (gxCopy = 3 by default). fillRectangle:/copyArea: read these to choose the fast CG path (mask all-ones + copy) or the masked byte-level prim (acetate/arrow overlays). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: ui1 GC state\x7fComment: per-context GC state CG cannot represent on its 8-bit indexed bytes: the raw palette index of the last foreground8Bit: (the fill colour, always set on the same context it draws into). The plane mask + raster function are SHARED, not per-context (see globals quartz gcPlaneMask/gcRasterFn) because ui1/X use one display gc. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
 
          indexFG <- 0.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         planeMaskByte <- 255.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         rasterFn <- 3.
         }  {
          'Comment: effective CG line width (0 normalised to 1), tracked so drawLine: can render thin axis-aligned lines as exact 1px rects (crisp bevels) while thick lines still stroke. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
 
@@ -292,8 +284,18 @@ SlotsToOmit: parent.
         } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
+         'Category: ui1 GC state\x7fComment: ui1/X share ONE display gc, so plane_mask:/function: set via any drawables gc affect the next op regardless of which drawable it targets -- e.g. copy:Mask: sets gxAnd via the SOURCE image gc, then the mask+image copies run through OTHER contexts. On Quartz each context is a separate object, so this shared raster-function + plane-mask state must live GLOBALLY to mirror display gc; otherwise the masked stencil blit (box shape mask -> 3-D corners, drag acetate) is silently ignored. foreground/font stay per-context (always set on the same context they draw into). -- claude & dmu 5/27\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         gcPlaneMask <- 255.
+        }  {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-        
+
+         gcRasterFn <- 3.
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
          dataProvider = bootstrap define: bootstrap stub -> 'globals' -> 'quartz' -> 'dataProvider' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
              globals proxy deadCopy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'dataProvider' -> () From: ( |
@@ -4687,12 +4689,12 @@ SlotsToOmit: parent.
 
          fillRectIntegerX: ix Y: iy Width: iw Height: ih = ( |
             |
-            ((planeMaskByte = 255) && [rasterFn = 3])
+            ((quartz gcPlaneMask = 255) && [quartz gcRasterFn = 3])
               ifTrue: [ fillRectX: ix Y: iy Width: iw Height: ih ]
               False:  [ fillIndexedMaskedX: ix Y: iy Width: iw Height: ih
                                       Index: indexFG
-                                       Mask: planeMaskByte
-                                   Function: rasterFn ].
+                                       Mask: quartz gcPlaneMask
+                                   Function: quartz gcRasterFn ].
             self).
         } | )
 
@@ -6997,7 +6999,7 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          function: f = ( |
-            | rasterFn: f. self).
+            | quartz gcRasterFn: f. self).
         }  {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
@@ -7027,7 +7029,7 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          plane_mask: m = ( |
-            | planeMaskByte: m. self).
+            | quartz gcPlaneMask: m. self).
         }  {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
@@ -7178,7 +7180,7 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
          'Comment: run a CG shape draw under the gcs plane mask + raster function. CG cannot plane-mask its own path fills, so when the gc is non-default we preload the scratch with our bytes, let drawBlock draw the shape into it (foreground gray preset from the gcs indexFG), then merge scratch -> self through the mask -- untouched scratch pixels equal our bytes so the merge is a no-op there. The all-ones/copy case draws straight into our context (the fast path). drawBlock takes the context to draw into. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          withMaskedGC: gc Do: drawBlock = ( | sc. g |
-            ((gc planeMaskByte = 255) && [gc rasterFn = 3]) ifTrue: [
+            ((quartz gcPlaneMask = 255) && [quartz gcRasterFn = 3]) ifTrue: [
               drawBlock value: context.
               ^ self ].
             g: gc indexFG asFloat / 255.0.
@@ -7191,8 +7193,8 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
                                   SrcX: 0 SrcY: 0
                                  Width: width Height: height
                                  DestX: 0 DestY: 0
-                                  Mask: gc planeMaskByte
-                              Function: gc rasterFn.
+                                  Mask: quartz gcPlaneMask
+                              Function: quartz gcRasterFn.
             self).
         }  {
          'Comment: plane-masked polygon fill. ui1s motion blur (and other acetate shapes) fill polygons under a plane mask; CG path fills ignore the mask, so route through withMaskedGC:Do: -- otherwise the swept polygon clobbers the whole byte every frame (a permanent body-colour trail). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
@@ -7203,11 +7205,13 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
          'Comment: index-preserving bitblt between indexed offscreens -- the engine for ui1s double-buffer flush (graphic->offScreen->window-shadow) and for scrolling. destImage is another indexedPixmap or, when copying to the screen via windowBitmap, the platformWindow (whose indexedContext is its shadow). The CopyIndexedArea_wrap prim copies the raw palette-index bytes, so no colour conversion happens here; index->trueColour is deferred to the shadow->window blit. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          copyArea: srcRect To: destImage At: destPt GC: gc = ( | dc |
-            "ui1 shares one X GC, so its plane_mask/function live on the
-             destination (set via windowBitmap planeMask:); the gc arg here is
-             the source drawables context. Read the GC state off the dest. -- claude & dmu 5/26"
+            "ui1/X share ONE display gc, so plane_mask/function are GLOBAL (quartz
+             gcPlaneMask/gcRasterFn) -- they may be set via a context other than the
+             one this copy runs through (e.g. copy:Mask: sets gxAnd via the source
+             image gc; windowBitmap planeMask: via the window). Read the shared state,
+             not any per-context slot. -- claude & dmu 5/27"
             dc: destImage indexedContext.
-            ((dc planeMaskByte = 255) && [dc rasterFn = 3])
+            ((quartz gcPlaneMask = 255) && [quartz gcRasterFn = 3])
               ifTrue: [
                 context copyIndexedAreaTo: dc
                                      SrcX: srcRect left
@@ -7224,8 +7228,8 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
                                          Height: srcRect height
                                           DestX: destPt x
                                           DestY: destPt y
-                                           Mask: dc planeMaskByte
-                                       Function: dc rasterFn ].
+                                           Mask: quartz gcPlaneMask
+                                       Function: quartz gcRasterFn ].
             self).
         }  {
          'Comment: the CGContext that holds this drawables index bytes (the bitblt destination). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
