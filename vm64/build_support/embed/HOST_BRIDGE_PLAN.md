@@ -459,6 +459,188 @@ fds 3/6, and the `watch` process forked and waiting in `suspendForIO`.
   on disk (desyncs CMake) — use `name` display attr instead; a synchronized root group needs
   `path = Foo` (not bare `name = Foo`) or it sweeps sibling folders into the target.
 
+## RealityKit vocabulary — DECIDED (2026-05-27)
+
+Goal: write **Self** code that drives RealityKit — create/position/style entities,
+handle 3D interaction, query the scene. This is a **new vocabulary above the
+unchanged transport**, exactly the case the Core decision anticipated ("RealityKit
+entities … display-lists, scene-diffs" are replaceable vocabularies). The two-pipe
+length-prefixed frame transport and `hostBridge.self`'s `present:`/`nextEvent` do not
+change. It is **additive** to the `IOSurface` present path, not a replacement — and
+it is how the deferred "truly spatial" milestone finally arrives.
+
+**Imperative command vocabulary — not scene-diff, not reflection.** RealityKit is an
+imperative retained-mode scene graph; in Swift you write `let e = ModelEntity(…); e.position
+= …; parent.addChild(e)`. The Self vocabulary mirrors that line-for-line: each method on an
+entity proxy encodes **one command frame**. Rejected: (a) declarative scene-diff — a diffing
+pass + a retained shadow tree on both sides; *further* from how RealityKit is actually
+written and more overhead for incremental mutation (the common case); (b) reflective
+name-a-selector invoke — RealityKit's value-type components/transforms aren't dynamically
+dispatchable. **This deliberately inverts the 2D "serialize the surface, not the ops" rule:**
+scene-graph mutations are coarse + low-frequency, the opposite regime from per-pixel
+`CGContext` chatter, so shipping ops here is right.
+
+**Object identity = Self-allocated opaque handles.** A RealityKit `Entity` is a main-actor
+Swift object; the threading invariant forbids Self from touching it. So Self holds integer
+entity IDs; the Swift main actor keeps an `[ID: Entity]` registry (the stateful analog of the
+present-side `DispatchSource` consumer). **Self owns the ID namespace** (a local counter): a
+constructor like `reality boxEntityOfSize:` returns a usable proxy **immediately** and fires
+the create command async — *no per-create round-trip*. FIFO frame ordering guarantees no later
+command outruns its create. Lifetime is **explicit from Self** (`entity remove`); Self GC does
+**not** reclaim the host entity — don't tie a finalizer to teardown in v1 (the distributed-GC
+trap).
+
+**Request/response is in scope (v1).** Queries that return data (raycast, hit-test,
+world-space bounds) **park the calling Self green thread** on a reply — cooperative, never
+blocks the OS thread. This is the one **structural change to `hostBridge.self`**: the pump
+becomes a **demultiplexer**.
+- Each inbound frame carries a tag: *reply-to-request-N* vs *input-event*. (Replies are
+  host→VM, so they ride the **same inbound channel** as input events.)
+- A query method allocates a request ID, registers a promise in an **outstanding-requests
+  table**, writes the request frame, and parks its green thread on the promise.
+- `watch`/`nextEvent` (`objects/hostBridge.self:80-83`) decode the tag: a reply fulfills the
+  matching promise (resuming the parked requester); an input event goes to `handleEvent:` as
+  today.
+- The pump is still the *only* reader doing `suspendForIO` on the fd — no fd contention; the
+  requester waits on a Self promise, not on the fd.
+Mutations and creates stay **fire-and-forget**; only genuine queries round-trip.
+
+**Events grow, channel unchanged.** 3D taps, collision begin/end, gesture transforms,
+animation-complete, ARKit anchor updates ride the same inbound event channel — a richer
+`handleEvent:` decode, no new pipe.
+
+**Don't animate per-frame from the VM.** Pushing transforms at 90 fps × N entities is
+frame-traffic suicide. Self expresses *intent* ("move to X over 2 s"); RealityKit interpolates.
+Same principle as the present path: the VM only signals; the GPU does the work.
+
+**Composition with the present path.** A Self window = a RealityKit entity whose material is
+the `IOSurface` texture: the scene-graph vocabulary positions/manages the entity, the surface
+vocabulary fills its texture. The surface contract doesn't change when we get there.
+
+Artifacts (all **above** the transport — no transport change):
+- Self: an entity-proxy family (a `reality` factory + a `realityEntity` clonable wrapping an
+  ID; methods encode frames), a command/request codec, and the demuxing pump +
+  outstanding-requests table folded into `hostBridge.self`.
+- Swift: a main-actor **command executor** — frame → `[ID: Entity]` lookup → RealityKit call —
+  plus a reply encoder for queries (see "Dispatching a command into Swift").
+- Outbound transport: a frame on the present pipe **or**, once the workspace is in-process, a
+  thin **generic** primitive (`enqueueCommand: bytes`, `awaitReply: id`, `registerFd:` — ~3
+  prims, *not* per-API) that hands the command to the main-actor queue at function-call speed.
+  Either way the **vocabulary stays in Self + Swift** above a frozen `libSelfVM.a`; keeping a
+  frame format buys serializable/loggable/replayable commands. Inbound stays fd + `suspendForIO`
+  regardless (a generic primitive can't cooperatively wake the green scheduler; the fd can).
+
+Self ↔ Swift, line-for-line:
+```
+let box = ModelEntity(mesh: .generateBox(size: 0.1))
+   box: reality boxEntityOfSize: 0.1.
+box.position = [0, 0, -1]
+   box position: (0 & 0 & -1) asVector3.
+box.components.set(InputTargetComponent())
+   box enableInputTarget.
+parent.addChild(box)
+   parent addChild: box.
+let hit = scene.raycast(from: a, to: b).first       // returns a value
+   hit: reality raycastFrom: a To: b.    "parks the green thread on the reply"
+```
+
+### Dispatching a command into Swift — no free dynamic dispatch (the irreducible cost)
+
+There is **no runtime invoke** into RealityKit from a string name: Swift's `Mirror` is
+read-only (inspect, not call); `@objc`/`perform(selector:)` reaches only ObjC-exposed methods
+and **cannot carry RealityKit's argument types** (`SIMD3<Float>`, `Transform`) — and
+`Entity`/`ModelEntity` aren't `@objc dynamic`. A Python-style "look up the method by name and
+call it" is therefore **not implementable** for RealityKit. (This is the hard reason the
+reflective-invoke vocabulary was rejected — not a stylistic preference.)
+
+So **something hand-written must name the RealityKit types and methods. This is true in *every*
+design**, including "generate primitives" (the C++ glue + Swift shim names them too). Hard-coding
+the surface is a property of FFI into a static, non-reflective Swift API — *not* a cost the
+bridge adds, so it cannot decide between approaches; it is a constant.
+
+What you write is a **command executor**: a `switch` over an opcode → the concrete typed
+RealityKit call against the `[ID: Entity]` registry. You enumerate **the operations you choose to
+expose**, not "every Swift type" — pay-for-what-you-use; the untouched RealityKit tail costs
+nothing. Keep the count low with **coarse, well-typed ops**: `setTransform(id, mat4)` subsumes
+all positioning/rotation/scale; `setComponent(id, typeTag, blob)` and `setFloatProperty(id,
+propTag, value)` fold whole setter families behind one per-type/per-property switch. Generality
+bottoms out at the type boundary — irreducible.
+
+**Single-source the enumeration — generate it from Apple's symbol graph.** Hand-writing both
+sides per op (Self proxy method *and* Swift case) is duplicative; drive both from a
+machine-readable **op description**. The cheapest source is one we don't write: **RealityKit's
+symbol graph** (the DocC JSON dump of a module's public surface) or its `.swiftinterface` — point
+a generator at it and emit the Self proxy method **and** the Swift executor case. This is the
+correct home for the "just generate it" instinct from the rejected-primitives alternative:
+generate the **app-side** executor + proxies (fast app recompile, vocabulary stays in Self + Swift
+and live in the image), **not** VM glue (slow/fragile VM rebuild, vocabulary frozen in compiled
+C++). A small hand-written op manifest is the bootstrap; symbol-graph generation is where it goes.
+
+**Prior art — SwiftScript (Cocoanetics / bitrig), May 2026.** A tree-walking interpreter for real
+Swift, described by its author as *"more of a glorified foreign function interface — from dynamic
+Swift to compiled Swift"* — i.e. exactly this bridging problem, and it confirms the conclusion. It
+**rejects runtime reflection** (no by-name invoke into compiled Swift) and instead uses a
+**generated bridge table keyed by a string signature** (`"var URL.absoluteString: String"`), with
+the registrations **machine-generated from Apple's symbol graphs / `.swiftinterface`** (~13,500
+Foundation entries). Values cross via opaque box/unbox (`boxOpaque`/`unboxOpaque` → a unified
+`enum InterpreterValue { case nativeValue(Any); … }`); the reverse direction (compiled code
+wanting a protocol conformer) uses generated **stub types** that delegate back into the
+interpreter. Two problems it never has to solve that we do: (1) **threading** — it runs the
+interpreter *and* the native calls on one in-process thread, so there is no main-actor hop and no
+cooperative scheduler to freeze; our generated bridge still sits **behind the main-actor command
+queue** (generation removes the *enumeration* cost, not the *hop*). (2) **the oop boundary** — it
+holds a native value inline as `Any`; Self can't, so we keep the integer-handle + `[ID: Entity]`
+registry indirection. Refs: `bitrig.com/blog/swift-interpreter`,
+`cocoanetics.com/2026/05/an-interpreter-for-swift/`, `github.com/Cocoanetics/SwiftScript`.
+
+**Liftable from SwiftScript (audited 2026-05-27 — MIT © Oliver Drobnik; app-side only, never the
+VM tree).** Concretely reusable: (1) **`BridgeGeneratorTool/SymbolGraph.swift`** (~3 KB) — a
+generic `Decodable` for Apple's symbol-graph JSON (v0.6); lift ~verbatim **with its MIT header**,
+point it at RealityKit. (2) The **`API/Bridge.swift` table *pattern*** — a flat `[String: Bridge]`
+dict keyed by a readable decl (`"func String.uppercased()"`, `"var URL.absoluteString"`) with a
+kind-tagged `enum Bridge { case method/computed/setter/init/staticValue/staticMethod }`. **Adopt
+the shape, re-author the bodies:** their closures are `async throws` over the interpreter's own
+`Value`, running same-thread; ours carry handle/command types and route through the main-actor
+queue. The 128 KB `main.swift` generator is Foundation-tuned + interpreter-coupled — a worked
+**reference**, not a drop-in; write a slim generator (reusing `SymbolGraph.swift`) that emits
+*both* the Swift executor cases **and** the Self proxy methods. The 204-file `FoundationBridge/`
+output is ignorable (our analog is generated RealityKit output). Two confirmations for our design:
+SwiftScript explicitly puts **struct-typed mutable properties "out of scope (writeback through the
+opaque payload)"** — exactly our `SIMD3`/`Transform` case, validating coarse value-set ops (set
+the whole `Transform`, never `entity.position.x =`); and its dispatch is **same-thread
+in-process**, so the only thing we add is the **main-actor hop + handle/registry** (generation
+solves the enumeration; the hop is ours).
+
+### Rejected alternative — generate RealityKit primitives ("call RealityKit directly")
+
+Tempting (the VM already has `primitiveMaker.self` + `glueDefs.hh`), but it fails on the
+threading model and the build coupling, and saves nothing on the hard parts:
+
+- **"Direct" is unavailable.** RealityKit/SwiftUI are **main-actor isolated**; a primitive runs
+  synchronously on the VM's *one* scheduler OS thread, so it cannot touch RealityKit without a
+  hop. Every RealityKit primitive must hop to main → either **async** (`DispatchQueue.main.async`:
+  a scattered command queue with no return values) or **sync** (`.main.sync`: blocks the OS
+  thread, freezing the *entire* green scheduler — the cardinal sin the whole `suspendForIO`
+  design exists to avoid). The only correct sync-feeling version yields the green thread until
+  main signals back — which **reconstructs the fd + `select` inbound path** anyway.
+- **No savings on the hard parts.** Opaque handles + the `[ID: Entity]` registry, events-back
+  inbound wakeup, and cross-boundary lifetime are all needed **identically** either way.
+- **Marshalling cuts the other way.** `primitiveMaker`/`glueDefs` automate C++ glue for
+  *scalar/buffer* signatures (`smi`, `bv`, `bool`); RealityKit is Swift **value types/generics**
+  with **no C ABI**, so each primitive is hand-written C++→Swift-interop + per-type conversions +
+  main-dispatch + registry lookup. *Less* automatable than a uniform byte frame.
+- **Decisive cost — re-coupling the vocabulary to the VM build.** Generated primitives bake the
+  RealityKit surface into `libSelfVM.a`: every new call ⇒ glue regen ⇒ a slow, fragile VM rebuild
+  (heap-above-24GB, arm64-only slices, `config.hh` shadowing, scheme-clobbering regen). The whole
+  point of "vocabulary above a frozen transport" is that the vocabulary is **pure Self + Swift
+  against an unchanged `libSelfVM.a`** — it evolves without VM rebuilds and stays live/overridable
+  in the image.
+- **Where it's partly right (already folded in).** Outbound per-call frame+`write()` overhead is
+  real. The answer is **not** per-API primitives but a **few generic** ones — `enqueueCommand: bytes`,
+  `awaitReply: id`, `registerFd:` (~3 prims) — that hand a command to the main-actor queue with
+  no pipe, once the workspace is in-process. A few generic prims = good (function-call-speed
+  outbound, vocabulary still in Self/Swift); hundreds of RealityKit-specific prims = bad.
+
 ## Sequencing (2026-05-26)
 
 Explicit order — the two new decisions reinforce, not replace, test ladder E:
@@ -472,23 +654,30 @@ Explicit order — the two new decisions reinforce, not replace, test ladder E:
    and present path need them. Not before E.1: E.1 gains nothing from it.
 3. **Then the `IOSurface` present path** (the new true-colour pixmap-canvas leaf +
    the `MakeIOSurfaceOffscreen` prim).
+4. **Then the RealityKit command vocabulary** (entity proxies + the demuxing pump +
+   the Swift main-actor executor — see "RealityKit vocabulary"). Additive above the
+   transport; composes with the present path (an entity's material = its `IOSurface`
+   texture). The request/response demux is the one structural change to the pump.
 
 Principles that hold throughout:
 - The pipe stays the event/doorbell transport (low-volume; the `suspendForIO` design
   is right).
 - Graphics serialize the *surface*, never the ops (in-process pixmap → `IOSurface` →
   texture).
+- Scene-graph control is a *vocabulary above the same transport* (imperative commands +
+  request/response), never a transport change.
 - SwiftUI/RealityKit stay on the app's main actor, displaying a texture; the VM only
   signals.
 
 ## Open decisions (deferred, reversible)
 
-- **AVP destination — first cut decided, spatial deferred:** the present-path
+- **AVP destination — flat panel first, spatial now designed:** the present-path
   decision (in-process pixmap → `IOSurface` → texture) lands on the **flat panel**
   first (reuse Morphic via `abstractPixmapCanvas`, render offscreen → texture on a
-  RealityKit plane or a SwiftUI `Image`/`Canvas`). Truly spatial 3D morphs
-  (RealityKit entities + Morphic draw-model rewrite) stay deferred until the textured
-  panel works — the surface contract doesn't change when we get there.
+  RealityKit plane or a SwiftUI `Image`/`Canvas`). Truly spatial content now has a
+  decided shape — the **RealityKit vocabulary** section (Self-driven entity proxies),
+  which composes with the present path rather than replacing it. The Morphic
+  draw-model rewrite remains the deferred/open part of "spatial".
 - **macOS path:** unify on the new canvas (retire X11/Quartz) vs keep old macOS UI
   and build new for AVP only. Still open.
 - **First implementation scope (proposed):** A + B + E.1 only — VM-side bridge
