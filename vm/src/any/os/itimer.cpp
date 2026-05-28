@@ -15,13 +15,15 @@ IntervalTimer* IntervalTimer::_CPU_timer  = NULL;
 
 bool IntervalTimer::dont_use_real_timer = false;
 bool IntervalTimer::dont_use_any_timer  = false;
-// On the embedded host (visionOS), run only ONE 100Hz timer: drop the CPU timer
+// On any host-EMBEDDED VM (visionOS, or the macOS libSelfVM linked into a
+// SwiftUI app -- SELF_AS_LIBRARY), run only ONE 100Hz timer: drop the CPU timer
 // so all its tasks ride the real timer.  Halves the per-tick signal load
 // (~100/s not ~200/s) that competes with the SwiftUI/RealityKit renderer --
 // A/B test for the ~0.5s host scheduling hangs seen without `-t`.  CPU-time
-// accounting becomes wall-clock, which is fine for preemption.
+// accounting becomes wall-clock, which is fine for preemption.  (The macOS CLI
+// keeps both timers: SELF_AS_LIBRARY=OFF, single-threaded, no contention.)
 // -- claude & dmu 5/2026
-# if defined(TARGET_IS_EMBEDDED)
+# if defined(TARGET_IS_EMBEDDED) || defined(SELF_AS_LIBRARY)
 bool IntervalTimer::use_real_instead_of_cpu_timer = true;
 # else
 bool IntervalTimer::use_real_instead_of_cpu_timer = false;
