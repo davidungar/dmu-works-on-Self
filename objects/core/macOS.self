@@ -302,7 +302,11 @@ Result is a vector of byte vectors (each byte vector is an IP address).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macOSGlobals' -> 'os' -> () From: ( | {
-         'Category: file operations\x7fCategory: select\x7fComment: Was a stdin-only stub (dmu 6/99: ignored every fd and reported only stdin ready). Now delegates to the real select primitive (basicSelectInto:), like the generic unix selectInto:, so any wrapped fd -- e.g. a host-bridge socketpair/pipe -- can wake suspendForIO, not just stdin. Pairs with the all-valid-fds read set in select_wrap (unixPrims.cpp). -- claude & dmu 5/26\x7fModuleInfo: Module: macOS InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: file operations\x7fCategory: select\x7fComment: Was a stdin-only stub (dmu 6/99: ignored every fd and reported only stdin
+ready). Now delegates to the real select primitive (basicSelectInto:), like
+the generic unix selectInto:, so any wrapped fd -- e.g. a host-bridge
+socketpair/pipe -- can wake suspendForIO, not just stdin. Pairs with the
+all-valid-fds read set in select_wrap (unixPrims.cpp). -- claude & dmu 5/26\x7fModuleInfo: Module: macOS InitialContents: FollowSlot\x7fVisibility: public'
 
          selectInto: selectVector MaxFiles: maxFiles IfFail: errBlk = ( |
             |

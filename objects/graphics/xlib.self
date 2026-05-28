@@ -3328,7 +3328,8 @@ to empty.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
-         'Category: clipboard\x7fComment: use the native Mac pasteboard; X cut buffers (xFetchBytes) aren\'t bridged by XQuartz -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
+         'Category: clipboard\x7fComment: use the native Mac pasteboard; X cut buffers (xFetchBytes) aren\'t bridged by
+XQuartz -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          fetchFromClipboard = ( |
             |
@@ -3599,7 +3600,8 @@ to empty.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
-         'Category: clipboard\x7fComment: use the native Mac pasteboard; X cut buffers (xStoreBytes) aren\'t bridged by XQuartz -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
+         'Category: clipboard\x7fComment: use the native Mac pasteboard; X cut buffers (xStoreBytes) aren\'t bridged by
+XQuartz -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
         
          storeToClipboard: aString = ( |
             |

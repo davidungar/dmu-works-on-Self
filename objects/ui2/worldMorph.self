@@ -1803,7 +1803,8 @@ oldGlobalBounds. \x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot'
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
-         'Category: window management\x7fComment: The first time per session that an X open fails and we drop to Quartz, point the user at the readme. -- claude & dmu 5/2026\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: window management\x7fComment: The first time per session that an X open fails and we drop to Quartz, point
+the user at the readme. -- claude & dmu 5/2026\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
         
          noteXFallbackToReadmeOnce = ( |
             | 
@@ -2473,7 +2474,8 @@ the arrow that is furthest back.\x7fModuleInfo: Module: worldMorph InitialConten
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
-         'Category: window management\x7fComment: macOS backup for launchd on-demand start: print a short notice, launch XQuartz, then retry opening dispName for a few seconds. Skipped when headless. Returns whether X became openable. -- claude & dmu 5/2026\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: window management\x7fComment: macOS backup for launchd on-demand start: print a short notice, launch XQuartz, then retry opening dispName for a few seconds. Skipped when headless.
+Returns whether X became openable. -- claude & dmu 5/2026\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
         
          startXQuartzAndCanOpen: dispName = ( |
             | 

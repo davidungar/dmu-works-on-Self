@@ -266,7 +266,11 @@ SlotsToOmit: parent.
         } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'context' -> () From: ( | {
-         'Category: ui1 GC state\x7fComment: per-context GC state CG cannot represent on its 8-bit indexed bytes: the raw palette index of the last foreground8Bit: (the fill colour, always set on the same context it draws into). The plane mask + raster function are SHARED, not per-context (see globals quartz gcPlaneMask/gcRasterFn) because ui1/X use one display gc. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: ui1 GC state\x7fComment: per-context GC state CG cannot represent on its 8-bit indexed bytes: the raw
+palette index of the last foreground8Bit: (the fill colour, always set on the
+same context it draws into). The plane mask + raster function are SHARED, not
+per-context (see globals quartz gcPlaneMask/gcRasterFn) because ui1/X use one
+display gc. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
 
          indexFG <- 0.
         }  {
@@ -284,7 +288,14 @@ SlotsToOmit: parent.
         } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: ui1 GC state\x7fComment: ui1/X share ONE display gc, so plane_mask:/function: set via any drawables gc affect the next op regardless of which drawable it targets -- e.g. copy:Mask: sets gxAnd via the SOURCE image gc, then the mask+image copies run through OTHER contexts. On Quartz each context is a separate object, so this shared raster-function + plane-mask state must live GLOBALLY to mirror display gc; otherwise the masked stencil blit (box shape mask -> 3-D corners, drag acetate) is silently ignored. foreground/font stay per-context (always set on the same context they draw into). -- claude & dmu 5/27\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: ui1 GC state\x7fComment: ui1/X share ONE display gc, so plane_mask:/function: set via any drawables gc
+affect the next op regardless of which drawable it targets -- e.g. copy:Mask:
+sets gxAnd via the SOURCE image gc, then the mask+image copies run through
+OTHER contexts. On Quartz each context is a separate object, so this shared
+raster-function + plane-mask state must live GLOBALLY to mirror display gc;
+otherwise the masked stencil blit (box shape mask -> 3-D corners, drag
+acetate) is silently ignored. foreground/font stay per-context (always set on
+the same context they draw into). -- claude & dmu 5/27\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          gcPlaneMask <- 255.
         }  {
@@ -3755,7 +3766,10 @@ and the X font struct object (used to measure text).\x7fModuleInfo: Module: quar
         } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'drawable' -> () From: ( | {
-         'Category: drawing\x7fComment: ui1 draws single pixels (cursor/caret feedback, scatter plots) via drawPoint:GC:; the X drawable has it as a primitive. Realise it as a 1x1 fill so the index byte is written with the gcs foreground8Bit colour, same as fillRectangle:. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: drawing\x7fComment: ui1 draws single pixels (cursor/caret feedback, scatter plots) via
+drawPoint:GC:; the X drawable has it as a primitive. Realise it as a 1x1 fill
+so the index byte is written with the gcs foreground8Bit colour, same as
+fillRectangle:. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          drawPoint: pt GC: gc = ( |
             |
@@ -4685,7 +4699,11 @@ SlotsToOmit: parent.
         } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
-         'Category: drawing\x7fComment: rectangle fill honouring the ui1 GC plane mask + raster function. The common case (no plane mask, copy mode) takes the fast CG path; otherwise the masked byte-level prim applies the raster op + plane mask on the indexed bytes, so acetate/arrow overlays do not clobber the underlying planes. Coords are integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: drawing\x7fComment: rectangle fill honouring the ui1 GC plane mask + raster function. The common
+case (no plane mask, copy mode) takes the fast CG path; otherwise the masked
+byte-level prim applies the raster op + plane mask on the indexed bytes, so
+acetate/arrow overlays do not clobber the underlying planes. Coords are
+integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          fillRectIntegerX: ix Y: iy Width: iw Height: ih = ( |
             |
@@ -7081,7 +7099,10 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
         } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: graphics (ui1)\x7fComment: ui1 offscreen pixmap on Quartz: an 8-bit indexed drawable backed by a grayscale CGBitmapContext (gray byte = palette index). createForSameScreenAs:Size:Depth: builds one; bitmap.self drives it like any drawable, passing this objects own gc. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics (ui1)\x7fComment: ui1 offscreen pixmap on Quartz: an 8-bit indexed drawable backed by a
+grayscale CGBitmapContext (gray byte = palette index).
+createForSameScreenAs:Size:Depth: builds one; bitmap.self drives it like any
+drawable, passing this objects own gc. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          indexedPixmap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'indexedPixmap' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals quartz indexedPixmap.
@@ -7239,7 +7260,11 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
         } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: graphics (ui1)\x7fComment: ui1 platform colormap on Quartz. The X path installs an 8-bit CLUT in the server; here the CLUT is a 256*3 software byte table that the window flush feeds to blitIndexedTo: (index -> RGB). storeOne:/queryOne: use xlib xColor (16-bit components) as the carrier, matching colormap.self. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics (ui1)\x7fComment: ui1 platform colormap on Quartz. The X path installs an 8-bit CLUT in the
+server; here the CLUT is a 256*3 software byte table that the window flush
+feeds to blitIndexedTo: (index -> RGB). storeOne:/queryOne: use xlib xColor
+(16-bit components) as the carrier, matching colormap.self. -- claude & dmu
+5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          colormap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'colormap' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals quartz colormap.
@@ -7333,7 +7358,11 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
         } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: graphics (ui1)\x7fComment: ui1 fetches its blur/acetate stipple patterns (gray/lightGray/...) from macToolbox qdGlobals. Stippled fills are currently degraded to solid (see traits quartz context fillStippled), so these pattern images are inert; return nullImage placeholders so pattern creation does not crash. A real CG-pattern stipple is a later refinement. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics (ui1)\x7fComment: ui1 fetches its blur/acetate stipple patterns (gray/lightGray/...) from
+macToolbox qdGlobals. Stippled fills are currently degraded to solid (see
+traits quartz context fillStippled), so these pattern images are inert; return
+nullImage placeholders so pattern creation does not crash. A real CG-pattern
+stipple is a later refinement. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          qdGlobals = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'qdGlobals' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals quartz qdGlobals.
@@ -7377,7 +7406,9 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
  '-- ui1 input on Quartz: ui1s eventWatcher pulls X-style events from display nextEvent and the queueingEventHandler dispatches by typeName. Quartz delivers Cocoa events into a per-window VM queue (no fd to block on), so we decode each quartz event into a ui1 X-style event (quartz ui1Event) and a quartz ui1EventSource plays the display role, sleep-polling the queue like ui2 does (the times-delay heartbeat is also what lets check_carbon_events pump Cocoa events at all). -- claude & dmu 5/26'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
-         'Category: converting to ui1 events\x7fComment: fill aUI1Evt (a quartz ui1Event) from this native event, X-style: typeName + x/y/button/state/keycode/lookupString. Mirrors setUI2Event: but targets ui1s xEvent protocol. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: converting to ui1 events\x7fComment: fill aUI1Evt (a quartz ui1Event) from this native event, X-style: typeName +
+x/y/button/state/keycode/lookupString. Mirrors setUI2Event: but targets ui1s
+xEvent protocol. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          setUI1Event: aUI1Evt = ( | cls |
             cls: getClass.
@@ -7405,7 +7436,9 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
                                              Else: 'motionNotify'.
             self).
         }  {
-         'Category: converting to ui1 events\x7fComment: a Mac one-button mouse fakes the middle/right button with option/control/command, the same mapping ui2s whichButton uses. Returns the X button number 1/2/3. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: converting to ui1 events\x7fComment: a Mac one-button mouse fakes the middle/right button with
+option/control/command, the same mapping ui2s whichButton uses. Returns the X
+button number 1/2/3. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
 
          ui1ButtonNumber = ( | b. m |
             b: getUnsignedShortParam: parameters mouseButton Type: types mouseButton.
@@ -7418,7 +7451,13 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
             ].
             b).
         }  {
-         'Category: converting to ui1 events\x7fComment: ui1 reads the event `state` as an X11 state mask (cursor leftButtonDown = state && button1Mask, shiftKeyDown = state && shiftMask, ...). Translate the Mac mouse chord (bit0 left, bit1 right, bit2 middle) and Carbon modifiers into that mask. X11 constants: button1=256 button2=512 button3=1024, shift=1 lock=2 control=4 mod1=8. (&&/|| are bitwise on Self integers.) Without this, drag failed -- the raw Mac chord bit (left=1) ANDed with button1Mask (256) is 0, so the modal drag loop saw the button as up. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: converting to ui1 events\x7fComment: ui1 reads the event `state` as an X11 state mask (cursor leftButtonDown =
+state && button1Mask, shiftKeyDown = state && shiftMask, ...). Translate the
+Mac mouse chord (bit0 left, bit1 right, bit2 middle) and Carbon modifiers into
+that mask. X11 constants: button1=256 button2=512 button3=1024, shift=1 lock=2
+control=4 mod1=8. (&&/|| are bitwise on Self integers.) Without this, drag
+failed -- the raw Mac chord bit (left=1) ANDed with button1Mask (256) is 0, so
+the modal drag loop saw the button as up. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
 
          xStateMaskFromChord: chord Modifiers: mods = ( | s |
             s: 0.
@@ -7448,7 +7487,9 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
                                                         Else: 'keyPress'.
             self).
         }  {
-         'Category: converting to ui1 events\x7fComment: ui1 close/resize/expose. configureNotify/expose bounds are filled by the source from the platformWindow (the native event carries no useful bounds here). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: converting to ui1 events\x7fComment: ui1 close/resize/expose. configureNotify/expose bounds are filled by the
+source from the platformWindow (the native event carries no useful bounds
+here). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
 
          setUI1Window: aUI1Evt = ( | k |
             k: getKind.
@@ -7462,7 +7503,10 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
         } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: graphics (ui1)\x7fComment: an X-style input event for ui1, decoded from a native quartz event (which is then deleted). Plain Self object holding scalars, so it survives in the handlers message queue until the ui process dispatches it. Answers the xEvent protocol the queueingEventHandler reads. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics (ui1)\x7fComment: an X-style input event for ui1, decoded from a native quartz event (which is
+then deleted). Plain Self object holding scalars, so it survives in the
+handlers message queue until the ui process dispatches it. Answers the xEvent
+protocol the queueingEventHandler reads. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          ui1Event = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1Event' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals quartz ui1Event.
