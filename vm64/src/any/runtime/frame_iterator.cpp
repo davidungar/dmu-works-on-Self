@@ -22,6 +22,16 @@ void FrameIterator::do_all() {
   
   
 void FrameIterator::do_interpreted() {
+  // During a full-GC mark / unmark / switch_pointers frame walk, interpreters
+  // are visited exactly once via the authoritative per-process active_interp_list
+  // (see Process::gc_mark_contents et al.). Processing them here too would
+  // double-visit -- fatal for the destructive mark template (DERIVED_MARK_TEMPLATE
+  // asserts each location is seen once). The C-frame-chain walk is unreliable for
+  // interps anyway, so the list is the sole authority for those phases. Scavenge
+  // does not set this flag; it is idempotent and stays frame-walk + list.
+  // -- claude & dmu 5/2026
+  extern bool gc_walks_interps_via_list;
+  if (gc_walks_interps_via_list) return;
   interpreter* interp = f->get_interpreter();
   // Never build an iterator on a NULL interpreter: do_all() entered here because
   // is_interpreted_self_frame() (an earlier get_interpreter() call) was non-NULL,

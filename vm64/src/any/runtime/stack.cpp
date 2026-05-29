@@ -393,6 +393,17 @@ void print_stack() {
   currentProcess->stack()->print();
 }
 
+// 64-bit only: set while a full-GC frame walk (mark / unmark / switch_pointers)
+// is in progress, so FrameIterator::do_interpreted skips interpreted frames.
+// During those phases the authoritative per-process active_interp_list (walked
+// in Process::gc_mark_contents / gc_unmark_contents / switch_pointers) visits
+// every interpreter exactly once; the C-frame-chain walk here is unreliable for
+// interps AND would double-visit -- fatal for the destructive mark template
+// (DERIVED_MARK_TEMPLATE asserts each location is seen once). Scavenge is left
+// alone: it is idempotent (forwarding pointers) and stays frame-walk + list.
+// -- claude & dmu 5/2026
+bool gc_walks_interps_via_list = false;
+
 static void frame_scavenge_contents(frame* f, RegisterLocator* rl) { f->scavenge_contents(rl); }
 static void frame_gc_mark_contents(frame* f, RegisterLocator* rl) { f->gc_mark_contents(rl); }
 static void frame_gc_unmark_contents(frame* f, RegisterLocator* rl) { f->gc_unmark_contents(rl); }
@@ -409,8 +420,8 @@ static void check_scavenge(PrimDesc* pd) {
   }
 }
 void Stack::scavenge_contents()  { ResourceMark rm;  frames_do(frame_scavenge_contents, check_scavenge); }
-void Stack::gc_mark_contents()   { ResourceMark rm;  frames_do(frame_gc_mark_contents); }
-void Stack::gc_unmark_contents() { ResourceMark rm;  frames_do(frame_gc_unmark_contents); }
+void Stack::gc_mark_contents()   { ResourceMark rm;  gc_walks_interps_via_list = true;  frames_do(frame_gc_mark_contents);   gc_walks_interps_via_list = false; }
+void Stack::gc_unmark_contents() { ResourceMark rm;  gc_walks_interps_via_list = true;  frames_do(frame_gc_unmark_contents); gc_walks_interps_via_list = false; }
 bool Stack::verify()             {
   bool r = true;
   ResourceMark rm;  
@@ -426,8 +437,10 @@ bool Stack::verify()             {
 void Stack::switch_pointers(oop f, oop t) {
   from = f;
   to = t;
-  ResourceMark rm;  
+  ResourceMark rm;
+  gc_walks_interps_via_list = true;
   frames_do(frame_switch_pointers, check_scavenge);
+  gc_walks_interps_via_list = false;
 }
 
 

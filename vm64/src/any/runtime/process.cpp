@@ -748,6 +748,19 @@ void Process::gc_mark_contents() {
   assert(zombie, "shouldn't visit twice");
   if (!markingFromZombies) zombie= false;
   if (state != aborting) stack()->gc_mark_contents();
+# if TARGET_IS_64BIT
+  // Same frame-chain unreliability as in scavenge_contents (see the comment
+  // there): the stack walk above misses live interpreter activations, so any
+  // object reachable ONLY through an interp (its receiver/self/locals/stack/
+  // cloned_blocks) would go unmarked and be swept by the full GC. Mark every
+  // interpreter in the authoritative per-process list. (This crash surfaced as
+  // a dangling cloned_blocks block oop whose map had itself been compacted
+  // away -- a mark/compact-only failure the scavenge-only fix didn't cover.)
+  // -- claude & dmu 5/2026
+  if (state != aborting)
+    for (interpreter* i = active_interp_list; i != NULL; i = i->_prev_interp)
+      InterpreterIterator(i, OopGCMarker().a(), CheckAssertions, false);
+# endif
   MARK_TEMPLATE(&procObj);
   MARK_TEMPLATE(&method);
   MARK_TEMPLATE(&stopActivation);
@@ -757,6 +770,13 @@ void Process::gc_mark_contents() {
 
 void Process::gc_unmark_contents() {
   if (state != aborting) stack()->gc_unmark_contents();
+# if TARGET_IS_64BIT
+  // Mirror gc_mark_contents so the marks we set on interpreter-reachable oops
+  // get cleared. -- claude & dmu 5/2026
+  if (state != aborting)
+    for (interpreter* i = active_interp_list; i != NULL; i = i->_prev_interp)
+      InterpreterIterator(i, OopGCUnmarker().a(), false, true);
+# endif
   UNMARK_TEMPLATE(&procObj);
   UNMARK_TEMPLATE(&method);
   UNMARK_TEMPLATE(&stopActivation);
@@ -766,6 +786,14 @@ void Process::gc_unmark_contents() {
 
 void Process::switch_pointers() {
   if (state != aborting) stack()->switch_pointers(from, to);
+# if TARGET_IS_64BIT
+  // After compaction relocates objects, interpreter-reachable slots must be
+  // updated too, or they dangle exactly like the scavenge case. Walk the
+  // authoritative per-process list. -- claude & dmu 5/2026
+  if (state != aborting)
+    for (interpreter* i = active_interp_list; i != NULL; i = i->_prev_interp)
+      InterpreterIterator(i, OopSwitcher(from, to).a(), false, true);
+# endif
   SWITCH_POINTERS_TEMPLATE(&procObj);
   SWITCH_POINTERS_TEMPLATE(&method);
   SWITCH_POINTERS_TEMPLATE(&stopActivation);
