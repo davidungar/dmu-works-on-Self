@@ -340,9 +340,9 @@ class InterpreterIterator: public StackObj {
   }
  private:
   void do_all() {
-    ABSTRACT_INTERPRETER_ITERATOR(interp, oop_closure->do_oop(p), zap, reinit) 
-    
-    oop* p; 
+    ABSTRACT_INTERPRETER_ITERATOR(interp, oop_closure->do_oop(p), zap, reinit)
+
+    oop* p;
     
     p =       &(interp)->receiver;             oop_closure->do_oop(p); 
     p = (oop*)&(interp)->selector;             oop_closure->do_oop(p); 

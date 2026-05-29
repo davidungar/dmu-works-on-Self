@@ -722,6 +722,21 @@ static bool markingFromZombies;
 
 void Process::scavenge_contents() {
   if (state != aborting) stack()->scavenge_contents();
+# if TARGET_IS_64BIT
+  // The frame-chain walk above (Stack::frames_do via sender()) does NOT reliably
+  // reach every interpreter activation on this interpreter-only port -- frame-based
+  // interpreter lookup is unreliable here, which is the whole reason
+  // active_interp_list exists. Interpreters it misses never get their oops
+  // forwarded, so their receiver/self/locals/stack/cloned_blocks slots dangle into
+  // freed space after a scavenge (BADOOP_DIAG showed lastWalked=-1 for live,
+  // findable interps -- including the currently-executing one). Scavenge every
+  // interpreter in the authoritative per-process list; re-walking one the frame
+  // chain already covered is idempotent (scavenge uses forwarding pointers).
+  // -- claude & dmu 5/2026
+  if (state != aborting)
+    for (interpreter* i = active_interp_list; i != NULL; i = i->_prev_interp)
+      InterpreterIterator(i, OopScavenger().a(), CheckAssertions, true);
+# endif
   SCAVENGE_TEMPLATE(&procObj);
   SCAVENGE_TEMPLATE(&method);
   SCAVENGE_TEMPLATE(&stopActivation);

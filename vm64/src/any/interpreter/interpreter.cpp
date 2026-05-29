@@ -392,27 +392,6 @@ void interpreter::interpret_method() {
         cb < cloned_blocks + mi.length_literals;
         cb++ ) {
     if (*cb != NULL) {
-      // -- instrumentation (claude & dmu 5/2026): catch a STALE cloned_blocks oop
-      // (an un-forwarded block: the slot still points at the old from-space copy,
-      // whose mark was zeroed when the scavenge cleared from-space, so map() is
-      // garbage) BEFORE assert_block dereferences it. verify_oop() detects the
-      // bad mark safely (returns false, no fault) -- guard the tiny-pointer case
-      // first so we never call it on a wild address. The decisive datum: is THIS
-      // interpreter findable for its own frame? If find_interpreter_for_frame
-      // (_my_frame) != this, a scavenge would have skipped this frame, leaving
-      // cloned_blocks stale = root cause confirmed.
-      bool bogus = (char*)*cb < (char*)0x100000 || !(*cb)->verify_oop();
-      if (bogus) {
-        interpreter* fr = find_interpreter_for_frame(_my_frame);
-        lprintf("STALE_CLONED_BLOCK: interp=%p _my_frame=%p idx=%ld val=%p "
-                "find(_my_frame)=%p findIsThis=%d currentProcess=%p hint=%p "
-                "length_literals=%ld\n",
-                (void*)this, (void*)_my_frame, (long)(cb - cloned_blocks),
-                (void*)*cb, (void*)fr, (int)(fr == this),
-                (void*)currentProcess, (void*)interp_lookup_hint_process,
-                (long)mi.length_literals);
-        continue;                                // don't deref the bogus oop
-      }
       assert_block(*cb, "must be a block");
       blockOop(*cb)->kill_block();
     }
