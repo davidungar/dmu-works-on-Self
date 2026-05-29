@@ -23,6 +23,12 @@ void FrameIterator::do_all() {
   
 void FrameIterator::do_interpreted() {
   interpreter* interp = f->get_interpreter();
+  // Never build an iterator on a NULL interpreter: do_all() entered here because
+  // is_interpreted_self_frame() (an earlier get_interpreter() call) was non-NULL,
+  // but if this lookup disagrees we would iterate &interp->mi._map_oop == 0x20 and
+  // crash the scavenger. A NULL here means no live activation to walk. Belt to the
+  // find_interpreter_for_frame() fix. -- claude & dmu 5/2026
+  if (interp == NULL) return;
   InterpreterIterator ii(interp, oop_closure, zap, reinit);
 }
 

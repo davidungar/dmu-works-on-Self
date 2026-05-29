@@ -178,8 +178,16 @@ static int frame_count;
 
 void Stack::frames_do(framesDoFn fn, primDoFn pfn) {
   // use true for PPC: need to catch OOPS even if first self frame called interrupt check from its prologue
-  if (!process->inSelf(true)) return; 
-  
+  if (!process->inSelf(true)) return;
+
+  // Tell find_interpreter_for_frame() which process owns the frames we are about
+  // to walk, so it can resolve each frame's interpreter from THIS process's list
+  // (the frames are on this process's stack) rather than scanning everyone or
+  // trusting stackFor()'s guess. Save/restore for nested walks. -- claude & dmu 5/2026
+  extern Process* interp_lookup_hint_process;
+  Process* savedInterpHint = interp_lookup_hint_process;
+  interp_lookup_hint_process = process;
+
   frame* f = first_VM_frame();
   RegisterLocator* reg_locs = RegisterLocator::for_sender_of(f); // RegisterLocators only work for Self frames
   
@@ -212,6 +220,7 @@ void Stack::frames_do(framesDoFn fn, primDoFn pfn) {
       }
 #   endif
   }
+  interp_lookup_hint_process = savedInterpHint;
 }
 
 void Stack::vframes_do(vframesDoFn fn, frame* fr) {

@@ -8,6 +8,8 @@
 
 # include <stdarg.h>
 # include <execinfo.h>
+# include <signal.h>
+# include <pthread.h>
 
 static FILE* logFile = NULL;
 static char fname[80];
@@ -135,6 +137,17 @@ volatile void fatal_handler() {
   }
   else
     return;
+  // Silence the interval timer for the duration of the crash dump.  A tick
+  // arriving mid-backtrace re-enters the signal machinery (set(), async tasks,
+  // preemption) and interleaves / clobbers the trace -- we saw a nested
+  // must_be_in_self_thread fatal spliced into a dump this way.  Block delivery
+  // on this thread; we never return from here (we terminate below).
+  // -- claude & dmu 5/2026
+  sigset_t fatal_block;
+  sigemptyset(&fatal_block);
+  sigaddset(&fatal_block, SIGALRM);
+  sigaddset(&fatal_block, SIGVTALRM);
+  pthread_sigmask(SIG_BLOCK, &fatal_block, NULL);
   // Print native backtrace for post-mortem diagnosis (raw + demangled).
   fprintf(stderr, "\nFatal:");
   print_native_backtrace_hybrid();

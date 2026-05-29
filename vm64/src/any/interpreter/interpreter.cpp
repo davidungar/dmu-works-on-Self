@@ -11,22 +11,31 @@ oop sneaky_method_argument_to_interpret;
 
 interpreter* interpreter::_active_interp_list = NULL;
 
+// The process whose stack is currently being walked (set by Stack::frames_do).
+// Lets find_interpreter_for_frame() locate a frame's interpreter in the owning
+// process's list directly -- O(list) -- instead of an O(processes) scan or the
+// broken stackFor() heuristic. NULL outside a walk. -- claude & dmu 5/2026
+Process* interp_lookup_hint_process = NULL;
+
 interpreter* interpreter::find_interpreter_for_frame(frame* f) {
 # if TARGET_IS_64BIT
-  // On x86_64, interpreter lists are per-process. First check the
-  // current process, then find which process owns the frame.
-  for (interpreter* i = currentProcess->active_interp_list; i != NULL; i = i->_prev_interp) {
+  // Per-process interpreter lists. A frame's interpreter lives in the
+  // active_interp_list of the process whose stack the frame is on. Search the
+  // current process, then -- during a stack walk -- the process being walked.
+  // We must NOT use processes->stackFor() to find the owner: it classifies by
+  // stack *address range*, but interpreter activations live on C-stack regions
+  // it cannot map (its isOnVMStack() is literally "just a guess"), so it returned
+  // NULL for live interpreted frames of other processes -- a spurious NULL the
+  // scavenger then dereferenced (do_oop at 0x20) / tripped consistencyCheck on.
+  // Matching by _my_frame identity in the owning process's list is authoritative.
+  // -- claude & dmu 5/2026
+  for (interpreter* i = currentProcess->active_interp_list; i != NULL; i = i->_prev_interp)
     if (i->_my_frame == f)
       return i;
-  }
-  // Frame not found in current process — find its owning process
-  Stack* stk = processes->stackFor(f);
-  if (stk && stk->process != currentProcess) {
-    for (interpreter* i = stk->process->active_interp_list; i != NULL; i = i->_prev_interp) {
+  if (interp_lookup_hint_process != NULL && interp_lookup_hint_process != currentProcess)
+    for (interpreter* i = interp_lookup_hint_process->active_interp_list; i != NULL; i = i->_prev_interp)
       if (i->_my_frame == f)
         return i;
-    }
-  }
   return NULL;
 # else
   for (interpreter* i = _active_interp_list; i != NULL; i = i->_prev_interp) {
@@ -383,6 +392,27 @@ void interpreter::interpret_method() {
         cb < cloned_blocks + mi.length_literals;
         cb++ ) {
     if (*cb != NULL) {
+      // -- instrumentation (claude & dmu 5/2026): catch a STALE cloned_blocks oop
+      // (an un-forwarded block: the slot still points at the old from-space copy,
+      // whose mark was zeroed when the scavenge cleared from-space, so map() is
+      // garbage) BEFORE assert_block dereferences it. verify_oop() detects the
+      // bad mark safely (returns false, no fault) -- guard the tiny-pointer case
+      // first so we never call it on a wild address. The decisive datum: is THIS
+      // interpreter findable for its own frame? If find_interpreter_for_frame
+      // (_my_frame) != this, a scavenge would have skipped this frame, leaving
+      // cloned_blocks stale = root cause confirmed.
+      bool bogus = (char*)*cb < (char*)0x100000 || !(*cb)->verify_oop();
+      if (bogus) {
+        interpreter* fr = find_interpreter_for_frame(_my_frame);
+        lprintf("STALE_CLONED_BLOCK: interp=%p _my_frame=%p idx=%ld val=%p "
+                "find(_my_frame)=%p findIsThis=%d currentProcess=%p hint=%p "
+                "length_literals=%ld\n",
+                (void*)this, (void*)_my_frame, (long)(cb - cloned_blocks),
+                (void*)*cb, (void*)fr, (int)(fr == this),
+                (void*)currentProcess, (void*)interp_lookup_hint_process,
+                (long)mi.length_literals);
+        continue;                                // don't deref the bogus oop
+      }
       assert_block(*cb, "must be a block");
       blockOop(*cb)->kill_block();
     }

@@ -28,7 +28,20 @@ void InterruptedContext::set_the_self_thread() {
 }
 
 bool InterruptedContext::is_in_self_thread() {
+# if TARGET_OS_VERSION == MACOSX_VERSION
+  // Identity check must agree with forwarded_to_self_thread()'s Mach-port test
+  // (above): pthread_self() is unreliable in signal context, and this is
+  // reached from the timer signal handler via set() -> must_be_in_self_thread().
+  // A pthread compare here disagreed with the Mach check that had just let the
+  // tick through, firing a bogus nested fatal that clobbered crash dumps.
+  // -- claude & dmu 5/2026
+  mach_port_t mt = mach_thread_self();
+  bool on_self_thread = (mt == the_self_mach_thread);
+  mach_port_deallocate(mach_task_self(), mt);
+  return on_self_thread;
+# else
   return pthread_self() == the_self_thread;
+# endif
 }
 
 void InterruptedContext::must_be_in_self_thread() {
