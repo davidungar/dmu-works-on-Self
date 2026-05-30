@@ -9,6 +9,8 @@
 # include <pthread.h>
 # if TARGET_OS_VERSION == MACOSX_VERSION
 #   include <mach/mach.h>
+#   include <mach/mach_time.h>
+#   include <mach/thread_policy.h>
 #   include <time.h>
 # endif
 
@@ -149,6 +151,13 @@ static void record_vm_thread() {
   self_vm_timer_thread = pthread_self();        // pthread_kill target (both platforms)
 # if TARGET_OS_VERSION == MACOSX_VERSION
   self_vm_mach_thread  = mach_thread_self();     // macOS identity check
+  // Bump the VM thread to USER_INTERACTIVE QoS so it gets prompt CPU when the
+  // ticker pthread_kill()s it: at the default USER_INITIATED, heavy I/O on the
+  // VM thread itself (e.g. world file-out) lets the scheduler delay our signal
+  // delivery enough to register as SELFTIMER stalls.  Pairs with the ticker
+  // thread's own USER_INTERACTIVE/TIME_CONSTRAINT promotion below.
+  // -- claude & dmu 5/2026
+  pthread_set_qos_class_self_np(QOS_CLASS_USER_INTERACTIVE, 0);
 # endif
   self_vm_timer_thread_known = true;
 }
@@ -390,6 +399,31 @@ void* IntervalTimer::ticker_main(void* arg) {
   // animation.  This thread is a pure sleeper, so high QoS costs ~no CPU.
   // -- claude & dmu 5/2026
   pthread_set_qos_class_self_np(QOS_CLASS_USER_INTERACTIVE, 0);
+  // Belt-and-suspenders: ask the Mach scheduler to honor a 10ms-period,
+  // 10ms-deadline contract (same mechanism CoreAudio uses to stay punctual).
+  // QoS alone is advisory; under heavy load the scheduler still slips ticks by
+  // 50-100ms (the SELFTIMER stalls seen during world file-out).  A
+  // time-constraint policy promises the thread a budget within each period;
+  // it is preemptible (preemptible=TRUE) so it never starves the VM thread
+  // itself.  Cheap for a pure sleeper.  -- claude & dmu 5/2026
+  {
+    mach_timebase_info_data_t tb;
+    mach_timebase_info(&tb);
+    // Convert nanoseconds -> mach abs-time ticks: abs = ns * tb.denom / tb.numer.
+    uint64_t period_ns      = (uint64_t)self->ticker_interval_usec * 1000ULL;
+    uint64_t computation_ns = 500ULL * 1000ULL;     // ~500us of CPU per tick
+    uint64_t period_abs      = period_ns      * tb.denom / tb.numer;
+    uint64_t computation_abs = computation_ns * tb.denom / tb.numer;
+    thread_time_constraint_policy_data_t pol;
+    pol.period      = (uint32_t)period_abs;
+    pol.computation = (uint32_t)computation_abs;
+    pol.constraint  = (uint32_t)period_abs;          // deadline == period
+    pol.preemptible = TRUE;
+    thread_policy_set(mach_thread_self(),
+                      THREAD_TIME_CONSTRAINT_POLICY,
+                      (thread_policy_t)&pol,
+                      THREAD_TIME_CONSTRAINT_POLICY_COUNT);
+  }
   // This thread only *sends* the tick; it must never be chosen to handle a
   // VM signal, so block everything but the fatal (synchronous) signals.
   sigset_t block;
@@ -420,7 +454,14 @@ void* IntervalTimer::ticker_main(void* arg) {
       clock_gettime(CLOCK_MONOTONIC, &after);
       long iter_usec = (after.tv_sec - before.tv_sec) * 1000000L
                      + (after.tv_nsec - before.tv_nsec) / 1000;
-      if (iter_usec > usec * 5 + 1000)   // asked for `usec`, slept far longer
+      // Suppress sleep/wake artifacts: CLOCK_MONOTONIC advances across some
+      // macOS sleep states, so a nanosleep spanning lid-close -> lunch -> wake
+      // reports a multi-second "stall" that isn't a scheduling problem we can
+      // fix.  Anything beyond ~1s is the laptop having been asleep, not host
+      // scheduling contention -- the symptom we actually care about.
+      // -- claude & dmu 5/2026
+      const long absurd_us = 1000000;     // 1s
+      if (iter_usec > usec * 5 + 1000 && iter_usec < absurd_us)
         lprintf("SELFTIMER stall: ticker slept %ld us (asked %ld); "
                 "vm_ticks=%d nonvm_ticks=%d\n",
                 iter_usec, usec, (int)itt_vm_ticks, (int)itt_nonvm_ticks);
