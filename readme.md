@@ -144,6 +144,16 @@ from it, fully interoperating with native Mac apps. XQuartz's own
 Pasteboard-sync preferences only affect X-selection interop between *other* X
 clients and the Mac pasteboard; they have no effect on Self.
 
+### A note on Arial
+
+The ui2 outliner asks for "arial Bold" as its preferred font (see
+`objects/ui2/outliner/generalModel.self`). XQuartz registers Apple's Arial
+TTFs in `fonts.dir` but its core-X server can only actually serve
+`-monotype-arial-medium-r-normal--`; the bold/italic variants don't load.
+Rather than wedge a no-op font-path setup into your XQuartz config, the
+`arial*` slots in `objects/ui2/scalableFont.self` simply alias to helvetica,
+which XQuartz serves reliably in all four weights.
+
 
 AI Disclosure Statement
 =======================
