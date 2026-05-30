@@ -6029,6 +6029,13 @@ the watcher pulls events through this source. -- claude & dmu 5/2026\x7fModuleIn
          pollDelayMS <- 10.
         } | )
 
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xlib' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: last cursor position seen on a mouse event; stamped onto key events
+(point-to-type) by copyFrom:LastCursor:. -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+
+         lastCursor <- (0) @ (0).
+        } | )
+
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'ui1EventSource' -> () From: ( | {
          'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: private'
 
@@ -6067,41 +6074,20 @@ fd-blocking. -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents:
         } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'ui1EventSource' -> () From: ( | {
-         'Comment: ui1EventSource hook: convert one native X event into the single ui1Event
-family (whose slots are the visible contract). The native X event already
-answers the whole protocol by duck-typing, so copy the fields per event type.
-Store X computed newState (post-transition modifier+button bitmask) into state
--- that is what the cursor reads. Window events get hasInputStateInfo/
-hasLocationInfo false (native X xEvent default) so cursor getInfo: ignores
-their fields. Frees the native event. -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: ui1EventSource hook: convert one native X event into the shared uiEvent
+family (x11Globals ui2Event) by REUSING ui2s proven X converter
+(copyFrom:LastCursor: -> the native events setUI2Event: -> setFromButtonPress:
+etc.). ui1 reads it through the ui1-view aliases (typeName/x/y/newState/...).
+copyFrom:LastCursor: stamps key events (no native location) with the last
+cursor, so ui1s point-to-type works; we track that from mouse events. Frees the
+native event. -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
 
          convert: raw = ( |
              e.
-             tn.
             |
-            e: ui1Event copy.
-            tn: raw typeName.
-            e typeName: tn.
-            case
-             if: [(tn = 'buttonPress') || [tn = 'buttonRelease']] Then: [
-                 e x: raw x. e y: raw y. e state: raw newState. e button: raw button ]
-             If: [tn = 'motionNotify'] Then: [
-                 e x: raw x. e y: raw y. e state: raw newState ]
-             If: [(tn = 'keyPress') || [tn = 'keyRelease']] Then: [
-                 e x: raw x. e y: raw y. e state: raw newState.
-                 e keycode: raw keycode. e lookupString: raw lookupString ]
-             If: [tn = 'configureNotify'] Then: [
-                 e x: raw x. e y: raw y. e width: raw width. e height: raw height.
-                 e hasInputStateInfo: false. e hasLocationInfo: false ]
-             If: [tn = 'expose'] Then: [
-                 e x: raw x. e y: raw y. e width: raw width. e height: raw height.
-                 e count: raw count.
-                 e hasInputStateInfo: false. e hasLocationInfo: false ]
-             If: [tn = 'clientMessage'] Then: [
-                 e deleteWindow: raw isDeleteWindow.
-                 e hasInputStateInfo: false. e hasLocationInfo: false ]
-             Else: [ e hasInputStateInfo: false. e hasLocationInfo: false ].
+            e: x11Globals ui2Event copyFrom: raw LastCursor: lastCursor.
             raw delete.
+            (e mouseDown || [e mouseUp] || [e mouseMotion]) ifTrue: [ lastCursor: e cursorPoint ].
             e).
         } | )
 

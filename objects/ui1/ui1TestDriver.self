@@ -83,9 +83,9 @@ ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
          moveTo: pt = ( |
              e.
             |
-            e: ui1Event copy.
-            e typeName: 'motionNotify'.
-            e x: pt x. e y: pt y. e state: 0.
+            e: x11Globals ui2Event copy.
+            e type: 'mouseMotion'.
+            e cursorPoint: pt. e state: 0.
             lastPt: pt.
             source inject: e.
             self).
@@ -98,9 +98,9 @@ ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
          pressAt: pt = ( |
              e.
             |
-            e: ui1Event copy.
-            e typeName: 'buttonPress'.
-            e x: pt x. e y: pt y. e button: 1. e state: 256.
+            e: x11Globals ui2Event copy.
+            e type: 'leftMouseDown'.
+            e cursorPoint: pt. e state: 256.
             lastPt: pt.
             source inject: e.
             self).
@@ -112,9 +112,9 @@ ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
          releaseAt: pt = ( |
              e.
             |
-            e: ui1Event copy.
-            e typeName: 'buttonRelease'.
-            e x: pt x. e y: pt y. e button: 1. e state: 0.
+            e: x11Globals ui2Event copy.
+            e type: 'leftMouseUp'.
+            e cursorPoint: pt. e state: 0.
             lastPt: pt.
             source inject: e.
             self).
@@ -139,10 +139,10 @@ ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
          key: s = ( |
              e.
             |
-            e: ui1Event copy.
-            e typeName: 'keyPress'.
-            e x: lastPt x. e y: lastPt y.
-            e keycode: 0. e lookupString: s.
+            e: x11Globals ui2Event copy.
+            e type: 'keyDown'.
+            e cursorPoint: lastPt.
+            e keycode: 0. e keystrokes: s.
             source inject: e.
             self).
         } | )

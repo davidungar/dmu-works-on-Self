@@ -3063,21 +3063,22 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
-         'Category: converting to ui1 events\x7fComment: fill aUI1Evt (a ui1Event) from this native event, X-style: typeName +
-x/y/button/state/keycode/lookupString. Mirrors setUI2Event: but targets ui1s
-xEvent protocol. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-        
+         'Category: converting to ui1 events\x7fComment: fill a shared uiEvent (the ui2 abstractUI2Event family) for ui1 from this
+native Cocoa event, using ui1s proven Quartz decode: ui2-canonical type/
+cursorPoint/keystrokes + X-style state (xStateMaskFromChord:), so the X-masked
+x11Globals ui2Event ui1 builds reads correctly and ui1s cursor (X masks) works
+via the events X-canonical newState. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
          setUI1Event: aUI1Evt = ( |
              cls.
-            | 
+            |
             cls: getClass.
             case if: [cls = classes mouse   ] Then: [ setUI1Mouse:  aUI1Evt ]
                  If: [cls = classes keyboard ] Then: [ setUI1Key:    aUI1Evt ]
                  If: [cls = classes window   ] Then: [ setUI1Window: aUI1Evt ]
-                Else: [ aUI1Evt typeName: 'otherEvent' ].
-            aUI1Evt time: getSecondsSinceBoot * 1000.0.
+                Else: [ ].
             aUI1Evt).
-        } | ) 
+        } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
          'Category: converting to ui1 events\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
@@ -3085,19 +3086,19 @@ xEvent protocol. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialConte
          setUI1Key: aUI1Evt = ( |
              cc.
              k.
-            | 
+            |
             k: getKind.
             "the .mm stores keyMacCharCodes as a uint32 char code (not utf8Text), so read it as uint32"
             cc: getUnsignedParam: parameters keyMacCharCodes Type: types uint32 IfFail: 0.
             aUI1Evt state: xStateMaskFromChord: 0 Modifiers:
                              (getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0).
             aUI1Evt keycode: getUnsignedParam: parameters keyCode Type: types uint32 IfFail: 0.
-            aUI1Evt lookupString: cc = 0 ifTrue: '' False: [cc asCharacter asString].
-            aUI1Evt typeName:
-             case if: [k = kinds keyboard rawKeyDown  ] Then: 'keyPress'
-                  If: [k = kinds keyboard rawKeyRepeat] Then: 'keyPress'
-                  If: [k = kinds keyboard rawKeyUp    ] Then: 'keyRelease'
-                                                        Else: 'keyPress'.
+            aUI1Evt keystrokes: cc = 0 ifTrue: '' False: [cc asCharacter asString].
+            aUI1Evt type:
+             case if: [k = kinds keyboard rawKeyDown  ] Then: 'keyDown'
+                  If: [k = kinds keyboard rawKeyRepeat] Then: 'keyDown'
+                  If: [k = kinds keyboard rawKeyUp    ] Then: 'keyUp'
+                                                        Else: 'keyDown'.
             self).
         } | ) 
 
@@ -3107,19 +3108,22 @@ xEvent protocol. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialConte
          setUI1Mouse: aUI1Evt = ( |
              k.
              pt.
-            | 
+             bn.
+            |
             k: getKind.
             pt: getPointParam: parameters windowMouseLocation IfFail: [0@0].
-            aUI1Evt x: pt x. aUI1Evt y: pt y.
+            aUI1Evt cursorPoint: pt.
             aUI1Evt state: xStateMaskFromChord:
                              (getUnsignedParam: parameters mouseChord   Type: types uint32 IfFail: 0)
                                        Modifiers:
                              (getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0).
-            aUI1Evt button: ui1ButtonNumber.
-            aUI1Evt typeName:
-             case if: [k = kinds mouse down] Then: 'buttonPress'
-                  If: [k = kinds mouse up  ] Then: 'buttonRelease'
-                                             Else: 'motionNotify'.
+            bn: case if: [ui1ButtonNumber = 2] Then: 'middle'
+                     If: [ui1ButtonNumber = 3] Then: 'right'
+                                               Else: 'left'.
+            aUI1Evt type:
+             case if: [k = kinds mouse down] Then: [bn, 'MouseDown']
+                  If: [k = kinds mouse up  ] Then: [bn, 'MouseUp']
+                                             Else: 'mouseMotion'.
             self).
         } | ) 
 
@@ -3130,17 +3134,16 @@ here). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: Follo
         
          setUI1Window: aUI1Evt = ( |
              k.
-            | 
+            |
             k: getKind.
-            aUI1Evt typeName:
-             case if: [k = kinds window close         ] Then: 'clientMessage'
-                  If: [k = kinds window boundsChanged  ] Then: 'configureNotify'
-                  If: [k = kinds window drawContent    ] Then: 'expose'
-                                                         Else: 'otherEvent'.
-            k = kinds window close ifTrue: [ aUI1Evt deleteWindow: true ].
-            "window events carry no cursor state/location; mark so cursor getInfo: ignores them (matches native X) -- claude & dmu 5/2026"
-            aUI1Evt hasInputStateInfo: false.
-            aUI1Evt hasLocationInfo: false.
+            "ui2 window vocab; ui1 reads typeName (windowDelete->clientMessage etc.) and
+             isDeleteWindow (=windowDelete). bounds filled by the source from the
+             platformWindow. -- claude & dmu 5/2026"
+            aUI1Evt type:
+             case if: [k = kinds window close         ] Then: 'windowDelete'
+                  If: [k = kinds window boundsChanged  ] Then: 'windowResize'
+                  If: [k = kinds window drawContent    ] Then: 'windowExpose'
+                                                         Else: [ aUI1Evt type ].
             self).
         } | ) 
 
@@ -4508,16 +4511,10 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
-         'Comment: last cursor position seen on a mouse event. ui1 is point-to-type (ui keyDown:String:At:Event: routes to world componentContaining: pos), but keyboard events carry no location -- so we stamp key events with this. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-        
-         lastCursorX <- 0.
-        } | ) 
+         'Comment: last cursor position seen on a mouse event. ui1 is point-to-type (ui keyDown:String:At:Event: routes to world componentContaining: pos), but keyboard events carry no location -- so we stamp key events with this. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-        
-         lastCursorY <- 0.
-        } | ) 
+         lastCursor <- (0) @ (0).
+        } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot'
@@ -7035,34 +7032,20 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
-         'Comment: ui1EventSource hook: decode the next native Cocoa event into one ui1Event (the visible-contract family) and free the native one. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: ui1EventSource hook: decode the next native Cocoa event into one shared
+uiEvent for ui1 -- the X-masked x11Globals ui2Event, populated by ui1s proven
+Quartz decode (setUI1Event:, X-style state). Cocoa key events carry no location,
+so stamp them with the last cursor (point-to-type); the native window event
+carries no bounds, so fill resize/expose from the platformWindow. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          convert: raw = ( |
              e.
             |
-            e: raw setUI1Event: ui1Event copy.
+            e: raw setUI1Event: x11Globals ui2Event copy.
             raw delete.
-            e).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
-         'Comment: ui1EventSource hook: Cocoa keyboard events carry no location, so track the
-cursor on mouse events and stamp key events with it (point-to-type); and the
-native window event carries no useful bounds, so fill configure/expose from the
-platformWindow. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         finishEvent: e = ( |
-             tn.
-            |
-            tn: e typeName.
-            ((tn = 'buttonPress') || [tn = 'buttonRelease'] || [tn = 'motionNotify'])
-              ifTrue: [ lastCursorX: e x. lastCursorY: e y ].
-            ((tn = 'keyPress') || [tn = 'keyRelease'])
-              ifTrue: [ e x: lastCursorX. e y: lastCursorY ].
-            ((tn = 'configureNotify') || [tn = 'expose']) ifTrue: [| sz |
-              sz: platformWindow size.
-              e width: sz x. e height: sz y.
-            ].
+            e keyEvent    ifTrue: [ e cursorPoint: lastCursor ].
+            e windowEvent ifTrue: [ e bounds: (0@0) ## platformWindow size ].
+            (e mouseDown || [e mouseUp] || [e mouseMotion]) ifTrue: [ lastCursor: e cursorPoint ].
             e).
         } | )
 
