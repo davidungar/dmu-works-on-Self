@@ -65,7 +65,7 @@ classes stream methodDict_iv _Define: ( |
 		next: anInteger Put: anObject  = ( 
 			"Put anObject into the next anInteger elements of the receiver. 
 			Answer anObject."
-			anInteger timesRepeat: [ nextPut: anObject].
+			anInteger do: [ nextPut: anObject].
 			anObject).
 
 
@@ -252,7 +252,7 @@ classes stream methodDict_iv _Define: ( |
 			"Append a return character, followed by anInteger tab characters, 
 			to the receiver."
 			 nextPut: smalltalk classes character cr.
-			anInteger timesRepeat: [ nextPut: smalltalk classes character tab].
+			anInteger do: [ nextPut: smalltalk classes character tab].
 			self).
 
 
