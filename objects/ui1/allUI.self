@@ -57,6 +57,8 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'ModuleInfo: Module: allUI InitialContents: FollowSlot\x7fVisibility: private'
         
          subpartNames <- '
+	 ui1Event
+
 	 enumResult
 
 	 slab
@@ -129,6 +131,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
 
  '-- Sub parts'
 
+ bootstrap read: 'ui1Event' From: 'ui1'
  bootstrap read: 'enumResult' From: 'ui1'
  bootstrap read: 'slab' From: 'ui1'
  bootstrap read: 'uiColormap' From: 'ui1'

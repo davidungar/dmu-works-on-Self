@@ -874,15 +874,20 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindow' -> () From: ( | {
-         'Category: creating\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: private'
-        
+         'Category: creating\x7fComment: ui1-on-X (Option A): the watcher pulls events through an xlib ui1EventSource
+that sleep-polls and converts each native X event into one ui1Event (matching
+Quartz, and so synthetic events can be injected for the test harness). display
+stays the raw xlib connection for colour/gc/font/setup queries. -- claude & dmu 5/2026\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: private'
+
          spawnEventWatcherProcess = ( |
-            | 
-            watcher: eventWatcher copyForDisplay: display Handler: handler.
+             source.
+            |
+            source: xlib ui1EventSource forDisplay: display.
+            watcher: eventWatcher copyForDisplay: source Handler: handler.
             watcherProcess: process copySend: message copy receiver: watcher
                                                            Selector: 'watch'.
             watcherProcess resume).
-        } | ) 
+        } | )
 
 
 

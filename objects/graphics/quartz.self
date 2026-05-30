@@ -1,6 +1,6 @@
  '$Revision: 30.5 $'
  '
-Copyright 1992-2016 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -235,6 +235,46 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
+         'Category: graphics (ui1)\x7fComment: ui1 platform colormap on Quartz. The X path installs an 8-bit CLUT in the
+server; here the CLUT is a 256*3 software byte table that the window flush
+feeds to blitIndexedTo: (index -> RGB). storeOne:/queryOne: use xlib xColor
+(16-bit components) as the carrier, matching colormap.self. -- claude & dmu
+5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         colormap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'colormap' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals quartz colormap.
+\x7fIsComplete: '.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'colormap' -> () From: ( | {
+         'Comment: 256*3 bytes, RGB per index; consumed by the window flush as the blitIndexedTo: CLUT. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
+        
+         clut.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> () From: ( | {
+         'Category: graphics (ui1)\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         colormap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'quartz' -> 'colormap' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits quartz colormap.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'colormap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'quartz' -> 'colormap' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'colormap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
+        
+         win.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          context = bootstrap define: bootstrap stub -> 'globals' -> 'quartz' -> 'context' -> () ToBe: bootstrap addSlotsTo: (
@@ -250,6 +290,34 @@ SlotsToOmit: parent.
             | ) .
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'context' -> () From: ( | {
+         'Comment: current font name + size, recorded by font: so drawString: can lay the text out with CoreText (drawCTText:) -- the CGContextSelectFont/ShowText legacy path gives tight per-glyph advances. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         curFontName <- ''.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'context' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         curFontSize <- 12.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'context' -> () From: ( | {
+         'Category: ui1 GC state\x7fComment: per-context GC state CG cannot represent on its 8-bit indexed bytes: the raw
+palette index of the last foreground8Bit: (the fill colour, always set on the
+same context it draws into). The plane mask + raster function are SHARED, not
+per-context (see globals quartz gcPlaneMask/gcRasterFn) because ui1/X use one
+display gc. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         indexFG <- 0.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'context' -> () From: ( | {
+         'Comment: effective CG line width (0 normalised to 1), tracked so drawLine: can render thin axis-aligned lines as exact 1px rects (crisp bevels) while thick lines still stroke. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         lineWidthValue <- 1.
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -261,52 +329,13 @@ SlotsToOmit: parent.
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'context' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
+        
          parent* = bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> ().
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'context' -> () From: ( | {
-         'Category: ui1 GC state\x7fComment: per-context GC state CG cannot represent on its 8-bit indexed bytes: the raw
-palette index of the last foreground8Bit: (the fill colour, always set on the
-same context it draws into). The plane mask + raster function are SHARED, not
-per-context (see globals quartz gcPlaneMask/gcRasterFn) because ui1/X use one
-display gc. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         indexFG <- 0.
-        }  {
-         'Comment: effective CG line width (0 normalised to 1), tracked so drawLine: can render thin axis-aligned lines as exact 1px rects (crisp bevels) while thick lines still stroke. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         lineWidthValue <- 1.
-        }  {
-         'Comment: current font name + size, recorded by font: so drawString: can lay the text out with CoreText (drawCTText:) -- the CGContextSelectFont/ShowText legacy path gives tight per-glyph advances. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         curFontName <- ''.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         curFontSize <- 12.
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: ui1 GC state\x7fComment: ui1/X share ONE display gc, so plane_mask:/function: set via any drawables gc
-affect the next op regardless of which drawable it targets -- e.g. copy:Mask:
-sets gxAnd via the SOURCE image gc, then the mask+image copies run through
-OTHER contexts. On Quartz each context is a separate object, so this shared
-raster-function + plane-mask state must live GLOBALLY to mirror display gc;
-otherwise the masked stencil blit (box shape mask -> 3-D corners, drag
-acetate) is silently ignored. foreground/font stay per-context (always set on
-the same context they draw into). -- claude & dmu 5/27\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         gcPlaneMask <- 255.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         gcRasterFn <- 3.
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
+        
          dataProvider = bootstrap define: bootstrap stub -> 'globals' -> 'quartz' -> 'dataProvider' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
              globals proxy deadCopy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'dataProvider' -> () From: ( |
@@ -3034,6 +3063,88 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
+         'Category: converting to ui1 events\x7fComment: fill aUI1Evt (a ui1Event) from this native event, X-style: typeName +
+x/y/button/state/keycode/lookupString. Mirrors setUI2Event: but targets ui1s
+xEvent protocol. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         setUI1Event: aUI1Evt = ( |
+             cls.
+            | 
+            cls: getClass.
+            case if: [cls = classes mouse   ] Then: [ setUI1Mouse:  aUI1Evt ]
+                 If: [cls = classes keyboard ] Then: [ setUI1Key:    aUI1Evt ]
+                 If: [cls = classes window   ] Then: [ setUI1Window: aUI1Evt ]
+                Else: [ aUI1Evt typeName: 'otherEvent' ].
+            aUI1Evt time: getSecondsSinceBoot * 1000.0.
+            aUI1Evt).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
+         'Category: converting to ui1 events\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         setUI1Key: aUI1Evt = ( |
+             cc.
+             k.
+            | 
+            k: getKind.
+            "the .mm stores keyMacCharCodes as a uint32 char code (not utf8Text), so read it as uint32"
+            cc: getUnsignedParam: parameters keyMacCharCodes Type: types uint32 IfFail: 0.
+            aUI1Evt state: xStateMaskFromChord: 0 Modifiers:
+                             (getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0).
+            aUI1Evt keycode: getUnsignedParam: parameters keyCode Type: types uint32 IfFail: 0.
+            aUI1Evt lookupString: cc = 0 ifTrue: '' False: [cc asCharacter asString].
+            aUI1Evt typeName:
+             case if: [k = kinds keyboard rawKeyDown  ] Then: 'keyPress'
+                  If: [k = kinds keyboard rawKeyRepeat] Then: 'keyPress'
+                  If: [k = kinds keyboard rawKeyUp    ] Then: 'keyRelease'
+                                                        Else: 'keyPress'.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
+         'Category: converting to ui1 events\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         setUI1Mouse: aUI1Evt = ( |
+             k.
+             pt.
+            | 
+            k: getKind.
+            pt: getPointParam: parameters windowMouseLocation IfFail: [0@0].
+            aUI1Evt x: pt x. aUI1Evt y: pt y.
+            aUI1Evt state: xStateMaskFromChord:
+                             (getUnsignedParam: parameters mouseChord   Type: types uint32 IfFail: 0)
+                                       Modifiers:
+                             (getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0).
+            aUI1Evt button: ui1ButtonNumber.
+            aUI1Evt typeName:
+             case if: [k = kinds mouse down] Then: 'buttonPress'
+                  If: [k = kinds mouse up  ] Then: 'buttonRelease'
+                                             Else: 'motionNotify'.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
+         'Category: converting to ui1 events\x7fComment: ui1 close/resize/expose. configureNotify/expose bounds are filled by the
+source from the platformWindow (the native event carries no useful bounds
+here). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         setUI1Window: aUI1Evt = ( |
+             k.
+            | 
+            k: getKind.
+            aUI1Evt typeName:
+             case if: [k = kinds window close         ] Then: 'clientMessage'
+                  If: [k = kinds window boundsChanged  ] Then: 'configureNotify'
+                  If: [k = kinds window drawContent    ] Then: 'expose'
+                                                         Else: 'otherEvent'.
+            k = kinds window close ifTrue: [ aUI1Evt deleteWindow: true ].
+            "window events carry no cursor state/location; mark so cursor getInfo: ignores them (matches native X) -- claude & dmu 5/2026"
+            aUI1Evt hasInputStateInfo: false.
+            aUI1Evt hasLocationInfo: false.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
          'Category: converting to ui2 events\x7fModuleInfo: Module: quartz InitialContents: FollowSlot'
         
          setUI2Event: ui2Evt = ( |
@@ -3537,6 +3648,26 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
+         'Category: converting to ui1 events\x7fComment: a Mac one-button mouse fakes the middle/right button with
+option/control/command, the same mapping ui2s whichButton uses. Returns the X
+button number 1/2/3. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         ui1ButtonNumber = ( |
+             b.
+             m.
+            | 
+            b: getUnsignedShortParam: parameters mouseButton Type: types mouseButton.
+            b = 1 ifTrue: [
+              m: getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0.
+              b: case if: [(m && modifierMasks option ) != 0] Then: 2
+                      If: [(m && modifierMasks command) != 0] Then: 3
+                      If: [(m && modifierMasks control) != 0] Then: 2
+                                                              Else: 1.
+            ].
+            b).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
          'Category: converting to ui2 events\x7fModuleInfo: Module: quartz InitialContents: FollowSlot'
         
          undefinedSelector: sel Type: t Delegatee: d MethodHolder: mh Arguments: args = ( |
@@ -3569,6 +3700,29 @@ SlotsToOmit: parent.
                                                                Else: 1.
             ].
             buttonNames at: 0 max: buttonNames size pred min: b pred).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
+         'Category: converting to ui1 events\x7fComment: ui1 reads the event `state` as an X11 state mask (cursor leftButtonDown =
+state && button1Mask, shiftKeyDown = state && shiftMask, ...). Translate the
+Mac mouse chord (bit0 left, bit1 right, bit2 middle) and Carbon modifiers into
+that mask. X11 constants: button1=256 button2=512 button3=1024, shift=1 lock=2
+control=4 mod1=8. (&&/|| are bitwise on Self integers.) Without this, drag
+failed -- the raw Mac chord bit (left=1) ANDed with button1Mask (256) is 0, so
+the modal drag loop saw the button as up. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         xStateMaskFromChord: chord Modifiers: mods = ( |
+             s.
+            | 
+            s: 0.
+            (chord && 1) != 0 ifTrue: [s: s || 256].   "Mac left   -> button1Mask"
+            (chord && 4) != 0 ifTrue: [s: s || 512].   "Mac middle -> button2Mask"
+            (chord && 2) != 0 ifTrue: [s: s || 1024].  "Mac right  -> button3Mask"
+            (mods && modifierMasks shift)    != 0 ifTrue: [s: s || 1].  "shiftMask"
+            (mods && modifierMasks control)  != 0 ifTrue: [s: s || 4].  "controlMask"
+            (mods && modifierMasks option)   != 0 ifTrue: [s: s || 8].  "mod1Mask (meta/alt)"
+            (mods && modifierMasks capsLock) != 0 ifTrue: [s: s || 2].  "lockMask"
+            s).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
@@ -3746,7 +3900,7 @@ and the X font struct object (used to measure text).\x7fModuleInfo: Module: quar
          'Category: drawing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          drawLine: pt1 To: pt2 GC: gc = ( |
-            |
+            | 
             "Crisp 1px bevels: ui1 draws box edges/highlights/sunken-frames as horizontal or vertical 1px lines. A CG strokePath at integer coords (antialiasing off) lands a 1px stroke between pixel rows AND the +1 nudge below shifts it off the filled faces -- so corners gap and the sunken type-area bevel vanishes. Render a thin axis-aligned line as an exact 1px filled rect in the same logical (top-down) coords the faces use; only thick or truly diagonal lines still stroke. -- claude & dmu 5/26"
             (gc lineWidthValue <= 1) ifTrue: [
               pt1 y = pt2 y ifTrue: [
@@ -3763,30 +3917,30 @@ and the X font struct object (used to measure text).\x7fModuleInfo: Module: quar
             gc addLineToPointX: pt2 x succ Y: pt2 y succ.
             gc strokePath.
             self).
-        } | )
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'drawable' -> () From: ( | {
+         'Category: drawing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         drawLines: ptlist GC: gc = ( |
+            | 
+            gc beginPath.
+            ptlist    doFirst: [|:p| gc moveTo: p]
+                   MiddleLast: [|:p| gc addLineTo: p].
+            gc closePath.
+            gc strokePath.
+            self).
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'drawable' -> () From: ( | {
          'Category: drawing\x7fComment: ui1 draws single pixels (cursor/caret feedback, scatter plots) via
 drawPoint:GC:; the X drawable has it as a primitive. Realise it as a 1x1 fill
 so the index byte is written with the gcs foreground8Bit colour, same as
 fillRectangle:. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         drawPoint: pt GC: gc = ( |
-            |
-            gc fillRectIntegerX: pt x Y: pt y Width: 1 Height: 1.
-            self).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'drawable' -> () From: ( | {
-         'Category: drawing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
-         drawLines: ptlist GC: gc = ( |
-            |
-            gc beginPath.
-            ptlist    doFirst: [|:p| gc moveTo: p]
-                   MiddleLast: [|:p| gc addLineTo: p].
-            gc closePath.
-            gc strokePath.
+         drawPoint: pt GC: gc = ( |
+            | 
+            gc fillRectIntegerX: pt x Y: pt y Width: 1 Height: 1.
             self).
         } | ) 
 
@@ -3835,6 +3989,23 @@ fillRectangle:. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialConten
               gc fillPath.
             ].
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'drawable' -> () From: ( | {
+         'Comment: ui1 fills polygons by point list; quartz.self only had the IntegerXs:Ys: form. Convert the point list to x/y vectors (same as the X path) and delegate. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fillPolygon: ptlist GC: gc = ( |
+             i <- 0.
+             xv.
+             yv.
+            | 
+            xv: vector copySize: ptlist size.
+            yv: vector copySize: ptlist size.
+            ptlist do: [| :p |
+               xv at: i Put: p x asSmallInteger.
+               yv at: i Put: p y asSmallInteger.
+               i: i + 1. ].
+            fillPolygonIntegerXs: xv Ys: yv GC: gc).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'drawable' -> () From: ( | {
@@ -3941,6 +4112,25 @@ SlotsToOmit: parent.
          port <- bootstrap stub -> 'globals' -> 'quartz' -> 'graf' -> ().
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
+         'Category: ui1 GC state\x7fComment: ui1/X share ONE display gc, so plane_mask:/function: set via any drawables gc
+affect the next op regardless of which drawable it targets -- e.g. copy:Mask:
+sets gxAnd via the SOURCE image gc, then the mask+image copies run through
+OTHER contexts. On Quartz each context is a separate object, so this shared
+raster-function + plane-mask state must live GLOBALLY to mirror display gc;
+otherwise the masked stencil blit (box shape mask -> 3-D corners, drag
+acetate) is silently ignored. foreground/font stay per-context (always set on
+the same context they draw into). -- claude & dmu 5/27\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         gcPlaneMask <- 255.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         gcRasterFn <- 3.
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'graf' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
@@ -4022,6 +4212,57 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'quartz' -> 'imageSource' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
+         'Category: graphics (ui1)\x7fComment: ui1 offscreen pixmap on Quartz: an 8-bit indexed drawable backed by a
+grayscale CGBitmapContext (gray byte = palette index).
+createForSameScreenAs:Size:Depth: builds one; bitmap.self drives it like any
+drawable, passing this objects own gc. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         indexedPixmap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'indexedPixmap' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals quartz indexedPixmap.
+\x7fIsComplete: '.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
+        
+         context.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         height <- 0.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> () From: ( | {
+         'Category: graphics (ui1)\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         indexedPixmap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits quartz indexedPixmap.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'Comment: same-size indexed scratch buffer for plane-masked CG shape draws (fillPolygon/lines/text). CG cannot plane-mask its own path fills, so a masked shape is drawn into this scratch (preloaded with the dest bytes) then merged back through the plane mask. Lazily created by maskedScratch; nil for unmasked drawables (ui2). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
+        
+         scratch.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         width <- 0.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
@@ -4108,6 +4349,12 @@ SlotsToOmit: parent.
             | ) .
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'Comment: the index->RGB palette (256*3 bytes) the display blit feeds to blitShadowWithCLUT:. Set when ui1 installs a colormap into this window (quartz colormap install), mirroring X xSetWindow:Colormap:. nil until then -> sync/flush paint nothing. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
+        
+         currentCLUT.
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -4125,17 +4372,69 @@ SlotsToOmit: parent.
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'platformWindow' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
-
+        
          quartzWindow.
-        }  {
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'platformWindow' -> () From: ( | {
          'Comment: ui1 8-bit indexed shadow (a quartz indexedPixmap). When set (makeShadow, ui1 only), gc routes drawing here so direct window draws (caret, etc.) are indexed like the offscreens; blit shadow->trueColour window at display. nil for ui2 windows (which draw true colour directly). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
-
+        
          shadow.
-        }  {
-         'Comment: the index->RGB palette (256*3 bytes) the display blit feeds to blitShadowWithCLUT:. Set when ui1 installs a colormap into this window (quartz colormap install), mirroring X xSetWindow:Colormap:. nil until then -> sync/flush paint nothing. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
+        } | ) 
 
-         currentCLUT.
-        } | )
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
+         'Category: graphics (ui1)\x7fComment: ui1 fetches its blur/acetate stipple patterns (gray/lightGray/...) from
+macToolbox qdGlobals. Stippled fills are currently degraded to solid (see
+traits quartz context fillStippled), so these pattern images are inert; return
+nullImage placeholders so pattern creation does not crash. A real CG-pattern
+stipple is a later refinement. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         qdGlobals = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'qdGlobals' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals quartz qdGlobals.
+\x7fIsComplete: '.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'qdGlobals' -> () From: ( | {
+         'Comment: every standard QD pattern name returns the null image placeholder (stippling is solid for now). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         black = ( |
+            | nullImage).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'qdGlobals' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         darkGray = ( |
+            | nullImage).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'qdGlobals' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         gray = ( |
+            | nullImage).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'qdGlobals' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         lightGray = ( |
+            | nullImage).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'qdGlobals' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'qdGlobals' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         white = ( |
+            | nullImage).
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
@@ -4197,6 +4496,60 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'quartz' -> 'textStyle' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
+         'Category: graphics (ui1)\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         ui1EventSource = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals quartz ui1EventSource.
+\x7fIsComplete: '.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: last cursor position seen on a mouse event. ui1 is point-to-type (ui keyDown:String:At:Event: routes to world componentContaining: pos), but keyboard events carry no location -- so we stamp key events with this. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         lastCursorX <- 0.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         lastCursorY <- 0.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot'
+        
+         ui1EventSource = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits quartz ui1EventSource.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: the quartz platformWindow whose Cocoa event queue we drain. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
+        
+         platformWindow.
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot'
+
+         injectedEvents <- bootstrap stub -> 'globals' -> 'sharedQueue' -> ().
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: ms to sleep between polls when the queue is empty (ui2 uses 10). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         pollDelayMS <- 10.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
@@ -4450,6 +4803,90 @@ SlotsToOmit: parent.
          parent* = bootstrap stub -> 'traits' -> 'proxy' -> ().
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'colormap' -> () From: ( | {
+         'Comment: private colormap, so allocation just stores the requested colour. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         allocColor: xc = ( |
+            | storeOne: xc. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'colormap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         createFor: w Depth: d = ( |
+            | copy initForWindow: w).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'colormap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         delete = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'colormap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         initForWindow: w = ( |
+            | 
+            win: w.
+            clut: byteVector copySize: 768.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'colormap' -> () From: ( | {
+         'Comment: install this colormap into its window: record the CLUT on the platformWindow (where the display blit reads it) and re-convert the shadow, so a CLUT change repaints without ui1 redrawing -- this is colour-map animation. Mirrors X xSetWindow:Colormap:; install does not flush (matches the X warning that install without sync is suspect), installAndSync does. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         install = ( |
+            | win isNil ifFalse: [ win currentCLUT: clut. win displayShadow ]. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'colormap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         installAndSync = ( |
+            | install. win isNil ifFalse: [ win flush ]. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'colormap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'colormap' -> () From: ( | {
+         'Comment: read one entry back into xc (16-bit components). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         queryOne: xc = ( |
+             p.
+            | 
+            p: xc pixel.
+            xc red:   ((clut at: (p * 3))       << 8).
+            xc green: ((clut at: ((p * 3) + 1)) << 8).
+            xc blue:  ((clut at: ((p * 3) + 2)) << 8).
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'colormap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         store: colors = ( |
+            | colors do: [| :c | storeOne: c]. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'colormap' -> () From: ( | {
+         'Comment: store one entry: xc carries pixel + 16-bit r/g/b; keep the high byte. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         storeOne: xc = ( |
+             p.
+            | 
+            p: xc pixel.
+            clut at: (p * 3)       Put: (xc red   >> 8).
+            clut at: ((p * 3) + 1) Put: (xc green >> 8).
+            clut at: ((p * 3) + 2) Put: (xc blue  >> 8).
+            self).
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
          'Category: pts, rcts -> scalars\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -4471,6 +4908,13 @@ SlotsToOmit: parent.
         
          addLineTo: pt = ( |
             | addLineToPointX: pt x Y: pt y).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'Comment: background colour only matters for stippled/opaque fills, which are deferred; record nothing for now. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         background8Bit: i = ( |
+            | self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
@@ -4590,11 +5034,17 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
-         'Category: dashed lines\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          dashedLineWidth: w = ( |
-            | 
-            setLineWidth: w = 0 ifTrue: 1 False: w).
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         dashes: d = ( |
+            | self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
@@ -4660,7 +5110,7 @@ SlotsToOmit: parent.
          'Category: drawing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          drawString: s At: pt = ( |
-            |
+            | 
             setTextDrawingMode: textMode fill.
             "CoreText layout (proper advances) instead of the deprecated showTextAtPoint; paints with the current fill colour (= palette index in the indexed offscreen) via kCTForegroundColorFromContextAttribute in the prim. -- claude & dmu 5/26"
             drawCTText: s FontName: curFontName Size: curFontSize asFloat
@@ -4673,6 +5123,13 @@ SlotsToOmit: parent.
          fillEllipseIn: r = ( |
             | 
             fillEllipseX: r left Y: r top Width: r width Height: r height).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fillOpaqueStippled = ( |
+            | self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
@@ -4691,22 +5148,14 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
-         'Category: drawing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-        
-         fillRectangle: r = ( |
-            |
-            fillRectIntegerX: r left Y: r top Width: r width Height: r height).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
          'Category: drawing\x7fComment: rectangle fill honouring the ui1 GC plane mask + raster function. The common
 case (no plane mask, copy mode) takes the fast CG path; otherwise the masked
 byte-level prim applies the raster op + plane mask on the indexed bytes, so
 acetate/arrow overlays do not clobber the underlying planes. Coords are
 integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
+        
          fillRectIntegerX: ix Y: iy Width: iw Height: ih = ( |
-            |
+            | 
             ((quartz gcPlaneMask = 255) && [quartz gcRasterFn = 3])
               ifTrue: [ fillRectX: ix Y: iy Width: iw Height: ih ]
               False:  [ fillIndexedMaskedX: ix Y: iy Width: iw Height: ih
@@ -4714,16 +5163,51 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
                                        Mask: quartz gcPlaneMask
                                    Function: quartz gcRasterFn ].
             self).
-        } | )
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'Category: drawing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fillRectangle: r = ( |
+            | 
+            fillRectIntegerX: r left Y: r top Width: r width Height: r height).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'Comment: Remaining X11-GC protocol for ui1. Colour/line/clip map to live CGContext state (foreground8Bit:/lineWidth:/font: already do). The raster-op functions (gx*) return the real X11 GXfunction codes but function: is a no-op for now (everything draws in copy mode -- XOR rubber-banding deferred); plane_mask:, stipple/stippled fills, clipping and dashes are likewise deferred to self so a basic ui1 draw runs without error. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fillSolid = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fillStippled = ( |
+            | self).
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
          'Category: drawing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          font: aQuartzFontIDAndStruct = ( |
-            |
+            | 
             curFontName: aQuartzFontIDAndStruct postScriptName.
             curFontSize: aQuartzFontIDAndStruct fontSize.
             selectFont: curFontName Size: curFontSize).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'Comment: ui1 drives its drawable through an X11-style GC; teach a quartz context that protocol by translating to CGContext state. The arg is a colormapEntry (cme); its `index` is the 8-bit palette index (the X GC does `foreground: cme index`). Write it as the gray byte -- the indexed offscreen is 8-bit grayscale with antialiasing off, so the byte survives intact (verified: fill 137 -> pixelValueAt: = 137). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         foreground8Bit: cme = ( |
+             gray.
+            | 
+            indexFG: cme index.
+            gray: cme index asFloat / 255.0.
+            setGrayFillColorGray:   gray Alpha: 1.0.
+            setGrayStrokeColorGray: gray Alpha: 1.0.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
@@ -4733,6 +5217,13 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
             | 
               setFillColorRed: aPaint red Green: aPaint green Blue: aPaint blue Alpha: aPaint alpha.
             setStrokeColorRed: aPaint red Green: aPaint green Blue: aPaint blue Alpha: aPaint alpha).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         function: f = ( |
+            | quartz gcRasterFn: f. self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
@@ -4913,6 +5404,41 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         gxAnd = ( |
+            | 1).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         gxClear = ( |
+            | 0).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         gxCopy = ( |
+            | 3).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         gxOr = ( |
+            | 7).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         gxXor = ( |
+            | 6).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
          'Category: constants\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          lineCap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> 'lineCap' -> () From: ( |
@@ -4970,7 +5496,7 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
          'Category: drawing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          lineWidth: w = ( |
-            |
+            | 
             "other systems use line width 0 for fine lines, not Quartz"
             lineWidthValue: w = 0 ifTrue: 1 False: w.
             setLineWidth: lineWidthValue.
@@ -5031,6 +5557,13 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         plane_mask: m = ( |
+            | quartz gcPlaneMask: m. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
          'Category: CTM\x7fModuleInfo: Module: quartz InitialContents: FollowSlot'
         
          printCTM = ( |
@@ -5054,12 +5587,24 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
-         'Category: clipping\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         setClipMask: m = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         setClipOrigin: p = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          setClipRectangle: r = ( |
-            | 
-            r ifNil: [ ^ self ].
-            clipToRectX: r left Y: r top Width: r width Height: r height).
+            | self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
@@ -5077,12 +5622,10 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
-         'Category: clipping\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          setNoClipMask = ( |
-            | 
-            error: 'impossible on quartz; use withClip:Do:'.
-            self).
+            | self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
@@ -5095,6 +5638,13 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
             ].
             setTextMatrix_A: 1 B: 0 C: 0 D: -1
                          TX: 0 TY: 0).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         stipple: s = ( |
+            | self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
@@ -5311,7 +5861,7 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          heightOfString: s = ( |
-            |
+            | 
             (sizeOfString: s) y).
         } | ) 
 
@@ -5327,16 +5877,9 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          maxCharHeight = ( |
-            |
+            | 
             ascent + descent  + leading).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
-         'Comment: max char advance in font units (normalized by size, like ascent/descent); `width` = widMax * fontSize. Was referenced by width but never defined. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         widMax = ( |
-            | metrics maxAdvanceWidth).
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
@@ -5359,11 +5902,13 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
          'Comment: must return a POINT (width@height) per the font contract (font.self sizeOfString:); ui1 layout does `aSize x`. Returning a rectangle broke boxSize. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         sizeOfString: s = ( | r |
+        
+         sizeOfString: s = ( |
+             r.
+            | 
             r: (0@0)# (boundsOfString: s) corner.
             (r width) @ (r height)).
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot'
@@ -5381,6 +5926,13 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
+         'Comment: max char advance in font units (normalized by size, like ascent/descent); `width` = widMax * fontSize. Was referenced by width but never defined. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         widMax = ( |
+            | metrics maxAdvanceWidth).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          width = ( |
@@ -5392,7 +5944,7 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          widthOfString: s = ( |
-            |
+            | 
             (sizeOfString: s) x).
         } | ) 
 
@@ -5685,6 +6237,153 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
          parent* = bootstrap stub -> 'traits' -> 'proxy' -> ().
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'Comment: index-preserving bitblt between indexed offscreens -- the engine for ui1s double-buffer flush (graphic->offScreen->window-shadow) and for scrolling. destImage is another indexedPixmap or, when copying to the screen via windowBitmap, the platformWindow (whose indexedContext is its shadow). The CopyIndexedArea_wrap prim copies the raw palette-index bytes, so no colour conversion happens here; index->trueColour is deferred to the shadow->window blit. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         copyArea: srcRect To: destImage At: destPt GC: gc = ( |
+             dc.
+            | 
+            "ui1/X share ONE display gc, so plane_mask/function are GLOBAL (quartz
+             gcPlaneMask/gcRasterFn) -- they may be set via a context other than the
+             one this copy runs through (e.g. copy:Mask: sets gxAnd via the source
+             image gc; windowBitmap planeMask: via the window). Read the shared state,
+             not any per-context slot. -- claude & dmu 5/27"
+            dc: destImage indexedContext.
+            ((quartz gcPlaneMask = 255) && [quartz gcRasterFn = 3])
+              ifTrue: [
+                context copyIndexedAreaTo: dc
+                                     SrcX: srcRect left
+                                     SrcY: srcRect top
+                                    Width: srcRect width
+                                   Height: srcRect height
+                                    DestX: destPt x
+                                    DestY: destPt y ]
+              False: [
+                context copyIndexedMaskedAreaTo: dc
+                                           SrcX: srcRect left
+                                           SrcY: srcRect top
+                                          Width: srcRect width
+                                         Height: srcRect height
+                                          DestX: destPt x
+                                          DestY: destPt y
+                                           Mask: quartz gcPlaneMask
+                                       Function: quartz gcRasterFn ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'Comment: build an 8-bit indexed offscreen of the given size. The source drawable and depth are accepted for protocol compatibility with the X path; the offscreen is always 8-bit grayscale (the only indexed depth ui1 uses; a 32-bit display buffer is a separate concern handled at blit time). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         createForSameScreenAs: db Size: sz Depth: dp = ( |
+            | 
+            copy initOffscreenSize: sz).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         delete = ( |
+            | context release. scratch isNil ifFalse: [ scratch release ]. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         depth = ( |
+            | 8).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'Comment: plane-masked polygon fill. ui1s motion blur (and other acetate shapes) fill polygons under a plane mask; CG path fills ignore the mask, so route through withMaskedGC:Do: -- otherwise the swept polygon clobbers the whole byte every frame (a permanent body-colour trail). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fillPolygonIntegerXs: xs Ys: ys GC: gc = ( |
+            | withMaskedGC: gc Do: [| :c | c fillPolygonIntegerXs: xs Ys: ys]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'Comment: ui1 draws through this objects own context, which answers the X11-GC protocol. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         gc = ( |
+            | context).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'Comment: the CGContext that holds this drawables index bytes (the bitblt destination). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         indexedContext = ( |
+            | context).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         initOffscreenSize: sz = ( |
+            | 
+            width:  sz x.
+            height: sz y.
+            context: (quartz context makeIndexedOffscreenWidth: sz x Height: sz y).
+            "The offscreen is a bottom-up CGBitmapContext; the display blit (blitIndexedTo: into the flipped window) flips the whole buffer vertically, which lands fills/lines at the right top-down spot but would render glyphs upside down. Pre-invert the text matrix (D:-1) so glyphs are drawn mirrored here and come out upright after that flip -- the indexed-offscreen analogue of what setCTMForZeroAtTopHeight: does for the true-colour window gc. Persists across font changes (like the ui2 path). -- claude & dmu 5/26"
+            context setTextMatrix_A: 1 B: 0 C: 0 D: -1 TX: 0 TY: 0.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'Comment: lazily build the same-size scratch context for plane-masked CG shape draws (preset like the real offscreen: AA off via the prim, text matrix inverted for upright glyphs). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         maskedScratch = ( |
+            | 
+            scratch isNil ifTrue: [
+              scratch: quartz context makeIndexedOffscreenWidth: width Height: height.
+              scratch setTextMatrix_A: 1 B: 0 C: 0 D: -1 TX: 0 TY: 0.
+            ].
+            scratch).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'quartz' -> 'drawable' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         pixelValueAt: pt = ( |
+            | context indexedPixelAtX: pt x Y: pt y).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         size = ( |
+            | width @ height).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'Comment: run a CG shape draw under the gcs plane mask + raster function. CG cannot plane-mask its own path fills, so when the gc is non-default we preload the scratch with our bytes, let drawBlock draw the shape into it (foreground gray preset from the gcs indexFG), then merge scratch -> self through the mask -- untouched scratch pixels equal our bytes so the merge is a no-op there. The all-ones/copy case draws straight into our context (the fast path). drawBlock takes the context to draw into. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         withMaskedGC: gc Do: drawBlock = ( |
+             g.
+             sc.
+            | 
+            ((quartz gcPlaneMask = 255) && [quartz gcRasterFn = 3]) ifTrue: [
+              drawBlock value: context.
+              ^ self ].
+            g: gc indexFG asFloat / 255.0.
+            sc: maskedScratch.
+            context copyIndexedAreaTo: sc SrcX: 0 SrcY: 0 Width: width Height: height DestX: 0 DestY: 0.
+            sc setGrayFillColorGray:   g Alpha: 1.0.
+            sc setGrayStrokeColorGray: g Alpha: 1.0.
+            drawBlock value: sc.
+            sc copyIndexedMaskedAreaTo: context
+                                  SrcX: 0 SrcY: 0
+                                 Width: width Height: height
+                                 DestX: 0 DestY: 0
+                                  Mask: quartz gcPlaneMask
+                              Function: quartz gcRasterFn.
+            self).
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'layer' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -5732,6 +6431,13 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'Comment: blit the indexed shadow to the true-colour window through the given CLUT (256*3 bytes). Used by the display/flush. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         blitShadowWithCLUT: clut = ( |
+            | shadow gc blitIndexedTo: quartzWindow gc CLUT: clut X: 0 Y: 0. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
          'Category: opening and closing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot'
         
          catchEvents = ( |
@@ -5752,8 +6458,133 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
+         copyArea: srcRect To: destImage At: destPt GC: g = ( |
+            | shadow copyArea: srcRect To: destImage At: destPt GC: g. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'Comment: ui1 asks the platform window for its bit depth (macWindow isColor8 = platformWindow depth = 8). Report 8 so ui1 takes its indexed-colour path (plain uiWorld, drawing into 8-bit indexed offscreens). The window is really true colour; the 8->trueColour conversion happens at the offscreen->window flush (blitIndexedTo:). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         depth = ( |
+            | 8).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
          display = ( |
             | quartzWindow).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'Comment: convert the indexed shadow to the true-colour window through the currently-installed colormap. No-op until a colormap is installed (currentCLUT nil). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         displayShadow = ( |
+            | currentCLUT isNil ifFalse: [ blitShadowWithCLUT: currentCLUT ]. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         drawArcWithin: r From: sa Spanning: spa GC: g = ( |
+            | shadow drawArcWithin: r From: sa Spanning: spa GC: g. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         drawArcWithin: r From: sa Spanning: spa Width: w GC: g = ( |
+            | shadow drawArcWithin: r From: sa Spanning: spa Width: w GC: g. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'Comment: ui1 draws the caret and other direct-to-window graphics through the drawable protocol; forward them to the 8-bit shadow (which is a quartz drawable). The gc passed in is already the shadow gc (see gc above). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         drawLine: a To: b GC: g = ( |
+            | shadow drawLine: a To: b GC: g. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         drawLines: ptlist GC: g = ( |
+            | shadow drawLines: ptlist GC: g. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         drawPoint: pt GC: g = ( |
+            | shadow drawPoint: pt GC: g. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         drawPolygonIntegerXs: xs Ys: ys GC: g = ( |
+            | shadow drawPolygonIntegerXs: xs Ys: ys GC: g. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         drawRectangle: r GC: g = ( |
+            | shadow drawRectangle: r GC: g. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         drawString: str At: pt GC: g = ( |
+            | shadow drawString: str At: pt GC: g. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'Comment: recreate the shadow at the current window size if it has changed (window resize). Frees the old offscreens CGContext. No-op for ui2 (no shadow). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         ensureShadowSize = ( |
+            | shadow ifNil: [^ self].
+            (shadow size = size) ifFalse: [
+              shadow delete. makeShadow.
+              "the true-colour windows gc (and its IOSurface) is cached at open; re-initialize it so beginContext/ensureBitmapContext rebuilds the IOSurface at the new size -- else the shadow blit lands in the old-size surface and the resized view never updates. -- claude & dmu 5/26"
+              quartzWindow initialize.
+            ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fillArcWithin: r From: sa Spanning: spa GC: g = ( |
+            | shadow fillArcWithin: r From: sa Spanning: spa GC: g. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fillPolygon: ptlist GC: g = ( |
+            | shadow fillPolygon: ptlist GC: g. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fillPolygonIntegerXs: xs Ys: ys GC: g = ( |
+            | shadow fillPolygonIntegerXs: xs Ys: ys GC: g. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fillRectangle: r GC: g = ( |
+            | shadow fillRectangle: r GC: g. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         flush = ( |
+            | displayShadow. quartzWindow gc flush. self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
@@ -5791,6 +6622,13 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'Comment: the indexed CGContext that receives bytes when this window is a copyArea destination (ui1 update copies the worlds offScreen here through windowBitmap). That is the shadow. On a window resize the shadow must track the new size first (ui1 resizes its graphic/offScreen and redraws, then update copies into here), else the blit cant cover the window. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         indexedContext = ( |
+            | ensureShadowSize. shadow gc).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
          'Category: window size & position based on outer frame pos & size\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          innerOriginOffsetFromBorder = ( |
@@ -5811,6 +6649,13 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
          localToGlobal: pt = ( |
             | 
             pt + (globalToLocal: 0@0) negate + position).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'Comment: create the 8-bit indexed shadow for a ui1 window (called once at window open). Direct window draws (caret etc.) and the world flush both target the shadow; display blits shadow->trueColour. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         makeShadow = ( |
+            | shadow: quartz indexedPixmap createForSameScreenAs: self Size: size Depth: 8. self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
@@ -5869,6 +6714,13 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'Comment: pixel read goes to the shadow. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         pixelValueAt: pt = ( |
+            | shadow pixelValueAt: pt).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
          'Category: window size & position based on outer frame pos & size\x7fComment: The outer position\x7fModuleInfo: Module: quartz InitialContents: FollowSlot'
         
          position = ( |
@@ -5913,6 +6765,13 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
             quartzWindow close. "just to do the endContext"
             quartzWindow: getAndInitWindow. 
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'Comment: ui1s screenOperations flush (uiWorld syncGraphics -> macWindow sync) and double-buffer flush (macWindow flush) both land here: convert the indexed shadow to the true-colour window and push it to the IOSurface so the next event-pump cycle blits it to the view. The X path mapped these to XSync/XFlush; here they are the indexed->trueColour display. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         sync = ( |
+            | displayShadow. quartzWindow gc flush. self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
@@ -6140,6 +6999,112 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'proxy' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         eventsPending = ( |
+            | platformWindow eventsPending).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         flush = ( |
+            | platformWindow flush. self).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot'
+
+         inject: e = ( |
+            | injectedEvents add: e. self).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         forPlatformWindow: pw = ( |
+             c.
+            |
+            c: copy.
+            c platformWindow: pw.
+            c injectedEvents: sharedQueue copy.
+            c).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: ui1EventSource hook: decode the next native Cocoa event into one ui1Event (the visible-contract family) and free the native one. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         convert: raw = ( |
+             e.
+            |
+            e: raw setUI1Event: ui1Event copy.
+            raw delete.
+            e).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: ui1EventSource hook: Cocoa keyboard events carry no location, so track the
+cursor on mouse events and stamp key events with it (point-to-type); and the
+native window event carries no useful bounds, so fill configure/expose from the
+platformWindow. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         finishEvent: e = ( |
+             tn.
+            |
+            tn: e typeName.
+            ((tn = 'buttonPress') || [tn = 'buttonRelease'] || [tn = 'motionNotify'])
+              ifTrue: [ lastCursorX: e x. lastCursorY: e y ].
+            ((tn = 'keyPress') || [tn = 'keyRelease'])
+              ifTrue: [ e x: lastCursorX. e y: lastCursorY ].
+            ((tn = 'configureNotify') || [tn = 'expose']) ifTrue: [| sz |
+              sz: platformWindow size.
+              e width: sz x. e height: sz y.
+            ].
+            e).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: ui1EventSource hook: no fd to block on, so the shared nextEvent sleep-polls this. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         rawEventsPending = ( |
+            | platformWindow eventsPending).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: ui1EventSource hook: fetch the next native Cocoa event (only called once the shared nextEvent has confirmed one is pending). -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         rawNextEvent = ( |
+            | platformWindow nextEvent).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'ui1EventSource' -> ().
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         syncDiscardingIf: b = ( |
+            | platformWindow sync. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: display protocol macWindow forwards here. We flush by converting the indexed shadow at the platformWindow; synchronize is a no-op (the indexed model has nothing to round-trip). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         synchronize: b = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: ui1 occasionally pushes an event back; the Cocoa queue has no putback, so drop it for now (rare path). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         xPutBackEvent: e = ( |
+            | self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'window' -> () From: ( | {
@@ -6853,843 +7818,6 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
             "on mac, one struct does both"
             idAndFontFor: fSpec WindowCanvas: wc).
         } | ) 
-
-
-
- '-- ui1 graphics on Quartz: the Quartz implementation of the ui1 (X11-style) drawable/GC/colormap protocol. ui1OnQuartzHacks then just wires ui1 graphics-globals to these. -- claude & dmu 5/26'
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
-         'Comment: ui1 asks the platform window for its bit depth (macWindow isColor8 = platformWindow depth = 8). Report 8 so ui1 takes its indexed-colour path (plain uiWorld, drawing into 8-bit indexed offscreens). The window is really true colour; the 8->trueColour conversion happens at the offscreen->window flush (blitIndexedTo:). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         depth = ( |
-            | 8).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
-         'Comment: create the 8-bit indexed shadow for a ui1 window (called once at window open). Direct window draws (caret etc.) and the world flush both target the shadow; display blits shadow->trueColour. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         makeShadow = ( |
-            | shadow: quartz indexedPixmap createForSameScreenAs: self Size: size Depth: 8. self).
-        }  {
-         'Comment: blit the indexed shadow to the true-colour window through the given CLUT (256*3 bytes). Used by the display/flush. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         blitShadowWithCLUT: clut = ( |
-            | shadow gc blitIndexedTo: quartzWindow gc CLUT: clut X: 0 Y: 0. self).
-        }  {
-         'Comment: the indexed CGContext that receives bytes when this window is a copyArea destination (ui1 update copies the worlds offScreen here through windowBitmap). That is the shadow. On a window resize the shadow must track the new size first (ui1 resizes its graphic/offScreen and redraws, then update copies into here), else the blit cant cover the window. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         indexedContext = ( |
-            | ensureShadowSize. shadow gc).
-        }  {
-         'Comment: recreate the shadow at the current window size if it has changed (window resize). Frees the old offscreens CGContext. No-op for ui2 (no shadow). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         ensureShadowSize = ( |
-            | shadow ifNil: [^ self].
-              (shadow size = size) ifFalse: [
-                shadow delete. makeShadow.
-                "the true-colour windows gc (and its IOSurface) is cached at open; re-initialize it so beginContext/ensureBitmapContext rebuilds the IOSurface at the new size -- else the shadow blit lands in the old-size surface and the resized view never updates. -- claude & dmu 5/26"
-                quartzWindow initialize.
-              ].
-              self).
-        }  {
-         'Comment: convert the indexed shadow to the true-colour window through the currently-installed colormap. No-op until a colormap is installed (currentCLUT nil). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         displayShadow = ( |
-            | currentCLUT isNil ifFalse: [ blitShadowWithCLUT: currentCLUT ]. self).
-        }  {
-         'Comment: ui1s screenOperations flush (uiWorld syncGraphics -> macWindow sync) and double-buffer flush (macWindow flush) both land here: convert the indexed shadow to the true-colour window and push it to the IOSurface so the next event-pump cycle blits it to the view. The X path mapped these to XSync/XFlush; here they are the indexed->trueColour display. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         sync = ( |
-            | displayShadow. quartzWindow gc flush. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         flush = ( |
-            | displayShadow. quartzWindow gc flush. self).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
-         'Comment: ui1 draws the caret and other direct-to-window graphics through the drawable protocol; forward them to the 8-bit shadow (which is a quartz drawable). The gc passed in is already the shadow gc (see gc above). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         drawLine: a To: b GC: g = ( |
-            | shadow drawLine: a To: b GC: g. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         drawPoint: pt GC: g = ( |
-            | shadow drawPoint: pt GC: g. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         drawLines: ptlist GC: g = ( |
-            | shadow drawLines: ptlist GC: g. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         drawRectangle: r GC: g = ( |
-            | shadow drawRectangle: r GC: g. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         drawString: str At: pt GC: g = ( |
-            | shadow drawString: str At: pt GC: g. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         drawPolygonIntegerXs: xs Ys: ys GC: g = ( |
-            | shadow drawPolygonIntegerXs: xs Ys: ys GC: g. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         fillPolygon: ptlist GC: g = ( |
-            | shadow fillPolygon: ptlist GC: g. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         fillPolygonIntegerXs: xs Ys: ys GC: g = ( |
-            | shadow fillPolygonIntegerXs: xs Ys: ys GC: g. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         fillRectangle: r GC: g = ( |
-            | shadow fillRectangle: r GC: g. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         drawArcWithin: r From: sa Spanning: spa GC: g = ( |
-            | shadow drawArcWithin: r From: sa Spanning: spa GC: g. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         drawArcWithin: r From: sa Spanning: spa Width: w GC: g = ( |
-            | shadow drawArcWithin: r From: sa Spanning: spa Width: w GC: g. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         fillArcWithin: r From: sa Spanning: spa GC: g = ( |
-            | shadow fillArcWithin: r From: sa Spanning: spa GC: g. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         copyArea: srcRect To: destImage At: destPt GC: g = ( |
-            | shadow copyArea: srcRect To: destImage At: destPt GC: g. self).
-        }  {
-         'Comment: pixel read goes to the shadow. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         pixelValueAt: pt = ( |
-            | shadow pixelValueAt: pt).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
-         'Comment: ui1 drives its drawable through an X11-style GC; teach a quartz context that protocol by translating to CGContext state. The arg is a colormapEntry (cme); its `index` is the 8-bit palette index (the X GC does `foreground: cme index`). Write it as the gray byte -- the indexed offscreen is 8-bit grayscale with antialiasing off, so the byte survives intact (verified: fill 137 -> pixelValueAt: = 137). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         foreground8Bit: cme = ( | gray |
-            indexFG: cme index.
-            gray: cme index asFloat / 255.0.
-            setGrayFillColorGray:   gray Alpha: 1.0.
-            setGrayStrokeColorGray: gray Alpha: 1.0.
-            self).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
-         'Comment: background colour only matters for stippled/opaque fills, which are deferred; record nothing for now. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         background8Bit: i = ( |
-            | self).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
-         'Comment: Remaining X11-GC protocol for ui1. Colour/line/clip map to live CGContext state (foreground8Bit:/lineWidth:/font: already do). The raster-op functions (gx*) return the real X11 GXfunction codes but function: is a no-op for now (everything draws in copy mode -- XOR rubber-banding deferred); plane_mask:, stipple/stippled fills, clipping and dashes are likewise deferred to self so a basic ui1 draw runs without error. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         fillSolid = ( |
-            | self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         fillStippled = ( |
-            | self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         fillOpaqueStippled = ( |
-            | self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         function: f = ( |
-            | quartz gcRasterFn: f. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         gxClear = ( |
-            | 0).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         gxAnd = ( |
-            | 1).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         gxCopy = ( |
-            | 3).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         gxOr = ( |
-            | 7).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         gxXor = ( |
-            | 6).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         plane_mask: m = ( |
-            | quartz gcPlaneMask: m. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         setNoClipMask = ( |
-            | self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         setClipRectangle: r = ( |
-            | self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         setClipMask: m = ( |
-            | self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         setClipOrigin: p = ( |
-            | self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         stipple: s = ( |
-            | self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         dashes: d = ( |
-            | self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         dashedLineWidth: w = ( |
-            | self).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'drawable' -> () From: ( | {
-         'Comment: ui1 fills polygons by point list; quartz.self only had the IntegerXs:Ys: form. Convert the point list to x/y vectors (same as the X path) and delegate. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         fillPolygon: ptlist GC: gc = ( | i <- 0. xv. yv. |
-            xv: vector copySize: ptlist size.
-            yv: vector copySize: ptlist size.
-            ptlist do: [| :p |
-               xv at: i Put: p x asSmallInteger.
-               yv at: i Put: p y asSmallInteger.
-               i: i + 1. ].
-            fillPolygonIntegerXs: xv Ys: yv GC: gc).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: graphics (ui1)\x7fComment: ui1 offscreen pixmap on Quartz: an 8-bit indexed drawable backed by a
-grayscale CGBitmapContext (gray byte = palette index).
-createForSameScreenAs:Size:Depth: builds one; bitmap.self drives it like any
-drawable, passing this objects own gc. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         indexedPixmap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'indexedPixmap' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals quartz indexedPixmap.
-\x7fIsComplete: '.
-            | ) .
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> () From: ( | {
-         'Category: graphics (ui1)\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         indexedPixmap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits quartz indexedPixmap.
-'.
-            | ) .
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         parent* = bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> ().
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
-
-         context.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         height <- 0.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         width <- 0.
-        }  {
-         'Comment: same-size indexed scratch buffer for plane-masked CG shape draws (fillPolygon/lines/text). CG cannot plane-mask its own path fills, so a masked shape is drawn into this scratch (preloaded with the dest bytes) then merged back through the plane mask. Lazily created by maskedScratch; nil for unmasked drawables (ui2). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
-
-         scratch.
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         parent* = bootstrap stub -> 'traits' -> 'quartz' -> 'drawable' -> ().
-        }  {
-         'Comment: build an 8-bit indexed offscreen of the given size. The source drawable and depth are accepted for protocol compatibility with the X path; the offscreen is always 8-bit grayscale (the only indexed depth ui1 uses; a 32-bit display buffer is a separate concern handled at blit time). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         createForSameScreenAs: db Size: sz Depth: dp = ( |
-            |
-            copy initOffscreenSize: sz).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         initOffscreenSize: sz = ( |
-            |
-            width:  sz x.
-            height: sz y.
-            context: (quartz context makeIndexedOffscreenWidth: sz x Height: sz y).
-            "The offscreen is a bottom-up CGBitmapContext; the display blit (blitIndexedTo: into the flipped window) flips the whole buffer vertically, which lands fills/lines at the right top-down spot but would render glyphs upside down. Pre-invert the text matrix (D:-1) so glyphs are drawn mirrored here and come out upright after that flip -- the indexed-offscreen analogue of what setCTMForZeroAtTopHeight: does for the true-colour window gc. Persists across font changes (like the ui2 path). -- claude & dmu 5/26"
-            context setTextMatrix_A: 1 B: 0 C: 0 D: -1 TX: 0 TY: 0.
-            self).
-        }  {
-         'Comment: ui1 draws through this objects own context, which answers the X11-GC protocol. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         gc = ( |
-            | context).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         size = ( |
-            | width @ height).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         depth = ( |
-            | 8).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         pixelValueAt: pt = ( |
-            | context indexedPixelAtX: pt x Y: pt y).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         delete = ( |
-            | context release. scratch isNil ifFalse: [ scratch release ]. self).
-        }  {
-         'Comment: lazily build the same-size scratch context for plane-masked CG shape draws (preset like the real offscreen: AA off via the prim, text matrix inverted for upright glyphs). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         maskedScratch = ( |
-            |
-            scratch isNil ifTrue: [
-              scratch: quartz context makeIndexedOffscreenWidth: width Height: height.
-              scratch setTextMatrix_A: 1 B: 0 C: 0 D: -1 TX: 0 TY: 0.
-            ].
-            scratch).
-        }  {
-         'Comment: run a CG shape draw under the gcs plane mask + raster function. CG cannot plane-mask its own path fills, so when the gc is non-default we preload the scratch with our bytes, let drawBlock draw the shape into it (foreground gray preset from the gcs indexFG), then merge scratch -> self through the mask -- untouched scratch pixels equal our bytes so the merge is a no-op there. The all-ones/copy case draws straight into our context (the fast path). drawBlock takes the context to draw into. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         withMaskedGC: gc Do: drawBlock = ( | sc. g |
-            ((quartz gcPlaneMask = 255) && [quartz gcRasterFn = 3]) ifTrue: [
-              drawBlock value: context.
-              ^ self ].
-            g: gc indexFG asFloat / 255.0.
-            sc: maskedScratch.
-            context copyIndexedAreaTo: sc SrcX: 0 SrcY: 0 Width: width Height: height DestX: 0 DestY: 0.
-            sc setGrayFillColorGray:   g Alpha: 1.0.
-            sc setGrayStrokeColorGray: g Alpha: 1.0.
-            drawBlock value: sc.
-            sc copyIndexedMaskedAreaTo: context
-                                  SrcX: 0 SrcY: 0
-                                 Width: width Height: height
-                                 DestX: 0 DestY: 0
-                                  Mask: quartz gcPlaneMask
-                              Function: quartz gcRasterFn.
-            self).
-        }  {
-         'Comment: plane-masked polygon fill. ui1s motion blur (and other acetate shapes) fill polygons under a plane mask; CG path fills ignore the mask, so route through withMaskedGC:Do: -- otherwise the swept polygon clobbers the whole byte every frame (a permanent body-colour trail). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         fillPolygonIntegerXs: xs Ys: ys GC: gc = ( |
-            | withMaskedGC: gc Do: [| :c | c fillPolygonIntegerXs: xs Ys: ys]).
-        }  {
-         'Comment: index-preserving bitblt between indexed offscreens -- the engine for ui1s double-buffer flush (graphic->offScreen->window-shadow) and for scrolling. destImage is another indexedPixmap or, when copying to the screen via windowBitmap, the platformWindow (whose indexedContext is its shadow). The CopyIndexedArea_wrap prim copies the raw palette-index bytes, so no colour conversion happens here; index->trueColour is deferred to the shadow->window blit. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         copyArea: srcRect To: destImage At: destPt GC: gc = ( | dc |
-            "ui1/X share ONE display gc, so plane_mask/function are GLOBAL (quartz
-             gcPlaneMask/gcRasterFn) -- they may be set via a context other than the
-             one this copy runs through (e.g. copy:Mask: sets gxAnd via the source
-             image gc; windowBitmap planeMask: via the window). Read the shared state,
-             not any per-context slot. -- claude & dmu 5/27"
-            dc: destImage indexedContext.
-            ((quartz gcPlaneMask = 255) && [quartz gcRasterFn = 3])
-              ifTrue: [
-                context copyIndexedAreaTo: dc
-                                     SrcX: srcRect left
-                                     SrcY: srcRect top
-                                    Width: srcRect width
-                                   Height: srcRect height
-                                    DestX: destPt x
-                                    DestY: destPt y ]
-              False: [
-                context copyIndexedMaskedAreaTo: dc
-                                           SrcX: srcRect left
-                                           SrcY: srcRect top
-                                          Width: srcRect width
-                                         Height: srcRect height
-                                          DestX: destPt x
-                                          DestY: destPt y
-                                           Mask: quartz gcPlaneMask
-                                       Function: quartz gcRasterFn ].
-            self).
-        }  {
-         'Comment: the CGContext that holds this drawables index bytes (the bitblt destination). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         indexedContext = ( |
-            | context).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: graphics (ui1)\x7fComment: ui1 platform colormap on Quartz. The X path installs an 8-bit CLUT in the
-server; here the CLUT is a 256*3 software byte table that the window flush
-feeds to blitIndexedTo: (index -> RGB). storeOne:/queryOne: use xlib xColor
-(16-bit components) as the carrier, matching colormap.self. -- claude & dmu
-5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         colormap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'colormap' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals quartz colormap.
-\x7fIsComplete: '.
-            | ) .
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> () From: ( | {
-         'Category: graphics (ui1)\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         colormap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'quartz' -> 'colormap' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits quartz colormap.
-'.
-            | ) .
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'colormap' -> () From: ( | {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         parent* = bootstrap stub -> 'traits' -> 'quartz' -> 'colormap' -> ().
-        }  {
-         'Comment: 256*3 bytes, RGB per index; consumed by the window flush as the blitIndexedTo: CLUT. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
-
-         clut.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
-
-         win.
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'colormap' -> () From: ( | {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         createFor: w Depth: d = ( |
-            | copy initForWindow: w).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         initForWindow: w = ( |
-            |
-            win: w.
-            clut: byteVector copySize: 768.
-            self).
-        }  {
-         'Comment: store one entry: xc carries pixel + 16-bit r/g/b; keep the high byte. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         storeOne: xc = ( | p |
-            p: xc pixel.
-            clut at: (p * 3)       Put: (xc red   >> 8).
-            clut at: ((p * 3) + 1) Put: (xc green >> 8).
-            clut at: ((p * 3) + 2) Put: (xc blue  >> 8).
-            self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         store: colors = ( |
-            | colors do: [| :c | storeOne: c]. self).
-        }  {
-         'Comment: read one entry back into xc (16-bit components). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         queryOne: xc = ( | p |
-            p: xc pixel.
-            xc red:   ((clut at: (p * 3))       << 8).
-            xc green: ((clut at: ((p * 3) + 1)) << 8).
-            xc blue:  ((clut at: ((p * 3) + 2)) << 8).
-            self).
-        }  {
-         'Comment: private colormap, so allocation just stores the requested colour. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         allocColor: xc = ( |
-            | storeOne: xc. self).
-        }  {
-         'Comment: install this colormap into its window: record the CLUT on the platformWindow (where the display blit reads it) and re-convert the shadow, so a CLUT change repaints without ui1 redrawing -- this is colour-map animation. Mirrors X xSetWindow:Colormap:; install does not flush (matches the X warning that install without sync is suspect), installAndSync does. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         install = ( |
-            | win isNil ifFalse: [ win currentCLUT: clut. win displayShadow ]. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         installAndSync = ( |
-            | install. win isNil ifFalse: [ win flush ]. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         delete = ( |
-            | self).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: graphics (ui1)\x7fComment: ui1 fetches its blur/acetate stipple patterns (gray/lightGray/...) from
-macToolbox qdGlobals. Stippled fills are currently degraded to solid (see
-traits quartz context fillStippled), so these pattern images are inert; return
-nullImage placeholders so pattern creation does not crash. A real CG-pattern
-stipple is a later refinement. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         qdGlobals = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'qdGlobals' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals quartz qdGlobals.
-\x7fIsComplete: '.
-            | ) .
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'qdGlobals' -> () From: ( | {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
-        }  {
-         'Comment: every standard QD pattern name returns the null image placeholder (stippling is solid for now). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         black = ( |
-            | nullImage).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         white = ( |
-            | nullImage).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         gray = ( |
-            | nullImage).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         lightGray = ( |
-            | nullImage).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         darkGray = ( |
-            | nullImage).
-        } | )
-
-
-
- '-- ui1 input on Quartz: ui1s eventWatcher pulls X-style events from display nextEvent and the queueingEventHandler dispatches by typeName. Quartz delivers Cocoa events into a per-window VM queue (no fd to block on), so we decode each quartz event into a ui1 X-style event (quartz ui1Event) and a quartz ui1EventSource plays the display role, sleep-polling the queue like ui2 does (the times-delay heartbeat is also what lets check_carbon_events pump Cocoa events at all). -- claude & dmu 5/26'
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
-         'Category: converting to ui1 events\x7fComment: fill aUI1Evt (a quartz ui1Event) from this native event, X-style: typeName +
-x/y/button/state/keycode/lookupString. Mirrors setUI2Event: but targets ui1s
-xEvent protocol. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         setUI1Event: aUI1Evt = ( | cls |
-            cls: getClass.
-            case if: [cls = classes mouse   ] Then: [ setUI1Mouse:  aUI1Evt ]
-                 If: [cls = classes keyboard ] Then: [ setUI1Key:    aUI1Evt ]
-                 If: [cls = classes window   ] Then: [ setUI1Window: aUI1Evt ]
-                Else: [ aUI1Evt typeName: 'otherEvent' ].
-            aUI1Evt time: getSecondsSinceBoot * 1000.0.
-            aUI1Evt).
-        }  {
-         'Category: converting to ui1 events\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         setUI1Mouse: aUI1Evt = ( | k. pt |
-            k: getKind.
-            pt: getPointParam: parameters windowMouseLocation IfFail: [0@0].
-            aUI1Evt x: pt x. aUI1Evt y: pt y.
-            aUI1Evt state: xStateMaskFromChord:
-                             (getUnsignedParam: parameters mouseChord   Type: types uint32 IfFail: 0)
-                                       Modifiers:
-                             (getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0).
-            aUI1Evt button: ui1ButtonNumber.
-            aUI1Evt typeName:
-             case if: [k = kinds mouse down] Then: 'buttonPress'
-                  If: [k = kinds mouse up  ] Then: 'buttonRelease'
-                                             Else: 'motionNotify'.
-            self).
-        }  {
-         'Category: converting to ui1 events\x7fComment: a Mac one-button mouse fakes the middle/right button with
-option/control/command, the same mapping ui2s whichButton uses. Returns the X
-button number 1/2/3. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         ui1ButtonNumber = ( | b. m |
-            b: getUnsignedShortParam: parameters mouseButton Type: types mouseButton.
-            b = 1 ifTrue: [
-              m: getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0.
-              b: case if: [(m && modifierMasks option ) != 0] Then: 2
-                      If: [(m && modifierMasks command) != 0] Then: 3
-                      If: [(m && modifierMasks control) != 0] Then: 2
-                                                              Else: 1.
-            ].
-            b).
-        }  {
-         'Category: converting to ui1 events\x7fComment: ui1 reads the event `state` as an X11 state mask (cursor leftButtonDown =
-state && button1Mask, shiftKeyDown = state && shiftMask, ...). Translate the
-Mac mouse chord (bit0 left, bit1 right, bit2 middle) and Carbon modifiers into
-that mask. X11 constants: button1=256 button2=512 button3=1024, shift=1 lock=2
-control=4 mod1=8. (&&/|| are bitwise on Self integers.) Without this, drag
-failed -- the raw Mac chord bit (left=1) ANDed with button1Mask (256) is 0, so
-the modal drag loop saw the button as up. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         xStateMaskFromChord: chord Modifiers: mods = ( | s |
-            s: 0.
-            (chord && 1) != 0 ifTrue: [s: s || 256].   "Mac left   -> button1Mask"
-            (chord && 4) != 0 ifTrue: [s: s || 512].   "Mac middle -> button2Mask"
-            (chord && 2) != 0 ifTrue: [s: s || 1024].  "Mac right  -> button3Mask"
-            (mods && modifierMasks shift)    != 0 ifTrue: [s: s || 1].  "shiftMask"
-            (mods && modifierMasks control)  != 0 ifTrue: [s: s || 4].  "controlMask"
-            (mods && modifierMasks option)   != 0 ifTrue: [s: s || 8].  "mod1Mask (meta/alt)"
-            (mods && modifierMasks capsLock) != 0 ifTrue: [s: s || 2].  "lockMask"
-            s).
-        }  {
-         'Category: converting to ui1 events\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         setUI1Key: aUI1Evt = ( | k. cc |
-            k: getKind.
-            "the .mm stores keyMacCharCodes as a uint32 char code (not utf8Text), so read it as uint32"
-            cc: getUnsignedParam: parameters keyMacCharCodes Type: types uint32 IfFail: 0.
-            aUI1Evt state: xStateMaskFromChord: 0 Modifiers:
-                             (getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0).
-            aUI1Evt keycode: getUnsignedParam: parameters keyCode Type: types uint32 IfFail: 0.
-            aUI1Evt lookupString: cc = 0 ifTrue: '' False: [cc asCharacter asString].
-            aUI1Evt typeName:
-             case if: [k = kinds keyboard rawKeyDown  ] Then: 'keyPress'
-                  If: [k = kinds keyboard rawKeyRepeat] Then: 'keyPress'
-                  If: [k = kinds keyboard rawKeyUp    ] Then: 'keyRelease'
-                                                        Else: 'keyPress'.
-            self).
-        }  {
-         'Category: converting to ui1 events\x7fComment: ui1 close/resize/expose. configureNotify/expose bounds are filled by the
-source from the platformWindow (the native event carries no useful bounds
-here). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         setUI1Window: aUI1Evt = ( | k |
-            k: getKind.
-            aUI1Evt typeName:
-             case if: [k = kinds window close         ] Then: 'clientMessage'
-                  If: [k = kinds window boundsChanged  ] Then: 'configureNotify'
-                  If: [k = kinds window drawContent    ] Then: 'expose'
-                                                         Else: 'otherEvent'.
-            k = kinds window close ifTrue: [ aUI1Evt deleteWindow: true ].
-            self).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: graphics (ui1)\x7fComment: an X-style input event for ui1, decoded from a native quartz event (which is
-then deleted). Plain Self object holding scalars, so it survives in the
-handlers message queue until the ui process dispatches it. Answers the xEvent
-protocol the queueingEventHandler reads. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         ui1Event = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1Event' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals quartz ui1Event.
-\x7fIsComplete: '.
-            | ) .
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: graphics (ui1)\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         ui1EventSource = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals quartz ui1EventSource.
-\x7fIsComplete: '.
-            | ) .
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1Event' -> () From: ( | {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         parent* = bootstrap stub -> 'traits' -> 'quartz' -> 'ui1Event' -> ().
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         typeName <- 'otherEvent'.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         x <- 0.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         y <- 0.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         button <- 1.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         state <- 0.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         keycode <- 0.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         lookupString <- ''.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         width <- 0.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         height <- 0.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         count <- 0.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         time <- 0.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         deleteWindow <- bootstrap stub -> 'globals' -> 'false' -> ().
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1Event' -> () From: ( | {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
-        }  {
-         'Comment: X button name from the button number, for the queueingEventHandler (leftButtonDownAt:Event: etc.). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         buttonName = ( |
-            |
-            button = 2 ifTrue: [^ 'middle'].
-            button = 3 ifTrue: [^ 'right'].
-            'left').
-        }  {
-         'Comment: X reports state-before-event and toggles the changed button; the Mac mouseChord we put in state is already the post-transition button set, so it serves directly as the cursors new state. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         newState = ( |
-            | state).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         isDeleteWindow = ( |
-            | deleteWindow).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         hasInputStateInfo = bootstrap stub -> 'globals' -> 'true' -> ().
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         hasLocationInfo = bootstrap stub -> 'globals' -> 'true' -> ().
-        }  {
-         'Comment: ui1 deletes events after processing; this is a plain Self object so there is nothing to free -- the GC handles it. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         delete = ( |
-            | self).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         parent* = bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> ().
-        }  {
-         'Comment: the quartz platformWindow whose Cocoa event queue we drain. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
-
-         platformWindow.
-        }  {
-         'Comment: ms to sleep between polls when the queue is empty (ui2 uses 10). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         pollDelayMS <- 10.
-        }  {
-         'Comment: last cursor position seen on a mouse event. ui1 is point-to-type (ui keyDown:String:At:Event: routes to world componentContaining: pos), but keyboard events carry no location -- so we stamp key events with this. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         lastCursorX <- 0.
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         lastCursorY <- 0.
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
-
-         parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         forPlatformWindow: pw = ( |
-            | copy platformWindow: pw).
-        }  {
-         'Comment: the X display nextEvent ui1s eventWatcher blocks on. Quartz has no fd, so sleep-poll the windows Cocoa event queue (the times delay also lets check_carbon_events pump Cocoa into the queue), then decode the native event into a ui1 X-style event and free the native one. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         nextEvent = ( | raw. e. tn |
-            [platformWindow eventsPending = 0] whileTrue: [ times delay: pollDelayMS ].
-            raw: platformWindow nextEvent.
-            e: raw setUI1Event: quartz ui1Event copy.
-            raw delete.
-            tn: e typeName.
-            "track the cursor on mouse events; stamp it onto keyboard events (point-to-type)"
-            ((tn = 'buttonPress') || [tn = 'buttonRelease'] || [tn = 'motionNotify'])
-              ifTrue: [ lastCursorX: e x. lastCursorY: e y ].
-            ((tn = 'keyPress') || [tn = 'keyRelease'])
-              ifTrue: [ e x: lastCursorX. e y: lastCursorY ].
-            ((tn = 'configureNotify') || [tn = 'expose']) ifTrue: [| sz |
-              sz: platformWindow size.
-              e width: sz x. e height: sz y.
-            ].
-            e).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         eventsPending = ( |
-            | platformWindow eventsPending).
-        }  {
-         'Comment: display protocol macWindow forwards here. We flush by converting the indexed shadow at the platformWindow; synchronize is a no-op (the indexed model has nothing to round-trip). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         synchronize: b = ( |
-            | self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         syncDiscardingIf: b = ( |
-            | platformWindow sync. self).
-        }  {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         flush = ( |
-            | platformWindow flush. self).
-        }  {
-         'Comment: ui1 occasionally pushes an event back; the Cocoa queue has no putback, so drop it for now (rare path). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         xPutBackEvent: e = ( |
-            | self).
-        } | )
 
 
 

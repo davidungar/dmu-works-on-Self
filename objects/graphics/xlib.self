@@ -5983,7 +5983,127 @@ an object with these slots:
          'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'proxy' -> ().
-        } | ) 
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xlib' -> () From: ( | {
+         'Category: ui1 input\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+
+         ui1EventSource = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'xlib' -> 'ui1EventSource' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals xlib ui1EventSource.
+\x7fIsComplete: '.
+            | ) .
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> () From: ( | {
+         'ModuleInfo: Module: xlib InitialContents: FollowSlot'
+
+         ui1EventSource = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'xlib' -> 'ui1EventSource' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits xlib ui1EventSource.
+'.
+            | ) .
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xlib' -> 'ui1EventSource' -> () From: ( | {
+         'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: private'
+
+         parent* = bootstrap stub -> 'traits' -> 'xlib' -> 'ui1EventSource' -> ().
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xlib' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: the open xlib display whose event queue this source polls. The window
+keeps the same display as window.display for colour/gc/font/setup queries; only
+the watcher pulls events through this source. -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
+
+         xdisplay.
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xlib' -> 'ui1EventSource' -> () From: ( | {
+         'ModuleInfo: Module: xlib InitialContents: FollowSlot'
+
+         injectedEvents <- bootstrap stub -> 'globals' -> 'sharedQueue' -> ().
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xlib' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: ms to sleep between polls when the queue is empty (matches ui2/Quartz). -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+
+         pollDelayMS <- 10.
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'ui1EventSource' -> () From: ( | {
+         'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: private'
+
+         parent* = bootstrap stub -> 'traits' -> 'ui1EventSource' -> ().
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: build the source wrapping an open xlib display. -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+
+         forDisplay: d = ( |
+             c.
+            |
+            c: copy.
+            c xdisplay: d.
+            c injectedEvents: sharedQueue copy.
+            c).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: ui1EventSource hook: how many native X events are queued. XPending also
+pumps the fd, so the shared nextEvent sleep-polling this sees newly-arrived
+events (Option A: X no longer fd-blocks, so injected synthetic events are
+noticed too). -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+
+         rawEventsPending = ( |
+            | xdisplay eventsPending).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: ui1EventSource hook: fetch the next native X event. Only called once the
+shared nextEvent has confirmed one is pending, so it returns without
+fd-blocking. -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+
+         rawNextEvent = ( |
+            | xdisplay nextEvent).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: ui1EventSource hook: convert one native X event into the single ui1Event
+family (whose slots are the visible contract). The native X event already
+answers the whole protocol by duck-typing, so copy the fields per event type.
+Store X computed newState (post-transition modifier+button bitmask) into state
+-- that is what the cursor reads. Window events get hasInputStateInfo/
+hasLocationInfo false (native X xEvent default) so cursor getInfo: ignores
+their fields. Frees the native event. -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+
+         convert: raw = ( |
+             e.
+             tn.
+            |
+            e: ui1Event copy.
+            tn: raw typeName.
+            e typeName: tn.
+            case
+             if: [(tn = 'buttonPress') || [tn = 'buttonRelease']] Then: [
+                 e x: raw x. e y: raw y. e state: raw newState. e button: raw button ]
+             If: [tn = 'motionNotify'] Then: [
+                 e x: raw x. e y: raw y. e state: raw newState ]
+             If: [(tn = 'keyPress') || [tn = 'keyRelease']] Then: [
+                 e x: raw x. e y: raw y. e state: raw newState.
+                 e keycode: raw keycode. e lookupString: raw lookupString ]
+             If: [tn = 'configureNotify'] Then: [
+                 e x: raw x. e y: raw y. e width: raw width. e height: raw height.
+                 e hasInputStateInfo: false. e hasLocationInfo: false ]
+             If: [tn = 'expose'] Then: [
+                 e x: raw x. e y: raw y. e width: raw width. e height: raw height.
+                 e count: raw count.
+                 e hasInputStateInfo: false. e hasLocationInfo: false ]
+             If: [tn = 'clientMessage'] Then: [
+                 e deleteWindow: raw isDeleteWindow.
+                 e hasInputStateInfo: false. e hasLocationInfo: false ]
+             Else: [ e hasInputStateInfo: false. e hasLocationInfo: false ].
+            raw delete.
+            e).
+        } | )
 
 
 

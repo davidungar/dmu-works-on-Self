@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.15 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -262,7 +262,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
-         window.
+         window <- bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
@@ -1070,6 +1070,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+        
+         isDisplayNameForQuartz: dn = ( |
+            | dn isEmpty || [dn = 'quartz']).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: windowEvents\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          keyDown: keycode String: str At: pos Event: event = ( |
@@ -1310,7 +1317,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          openWindowOn: disp = ( |
              rect.
             | 
-            ui1GraphicsGlobals: disp isEmpty ifTrue: [macToolboxGlobals] False: [x11Globals].
+            ui1GraphicsGlobals: (isDisplayNameForQuartz: disp) ifTrue: [macToolboxGlobals] False: [x11Globals].
             rect: getInitialRectFrom: ui1GraphicsGlobals window.
             [todo ui1 dmu experimental].
             window: ui1GraphicsGlobals window copy.
@@ -1338,7 +1345,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          optimalNameForDisplay: disp = ( |
              myhost.
             | 
-            disp isEmpty  ifTrue: [^'']. "Carbon"
+            (isDisplayNameForQuartz: disp) ifTrue: [^ ''].
             myhost: os nodename , ':'.
             (myhost isPrefixOf: disp) ifTrue: [ 
                "use :0 rather than name:0 -- much faster"
@@ -2135,7 +2142,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             | 
             window displayName:  optimalNameForDisplay: disp.
             [todo ui1 dmu experimental].
-            disp isEmpty "hack" 
+            (isDisplayNameForQuartz: disp)
                 ifTrue: [window openIfFail: fblock]
                  False: [window openDepth: 8 IfFail: fblock].
             self).
