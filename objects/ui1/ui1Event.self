@@ -65,6 +65,59 @@ if any, else convert the next native event into one shared uiEvent and finish it
 
 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
+         'ModuleInfo: Module: ui1Event InitialContents: FollowSlot'
+
+         ui1Event = bootstrap define: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'directory' From:
+             bootstrap remove: 'fileInTimeString' From:
+             bootstrap remove: 'myComment' From:
+             bootstrap remove: 'postFileIn' From:
+             bootstrap remove: 'revision' From:
+             bootstrap remove: 'subpartNames' From:
+             globals modules init copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals modules ui1Event.
+
+CopyDowns:
+globals modules init. copy
+SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNames.
+
+\x7fIsComplete: '.
+            | ) .
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
+         'ModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: public'
+
+         directory <- 'ui1'.
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
+         'ModuleInfo: Module: ui1Event InitialContents: InitializeToExpression: (_CurrentTimeString)\x7fVisibility: public'
+
+         fileInTimeString <- _CurrentTimeString.
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
+         'ModuleInfo: Module: ui1Event InitialContents: FollowSlot'
+
+         myComment <- 'ui1 input-event source contract (shared traits ui1EventSource).'.
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
+         'ModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: public'
+
+         revision <- 'Sun-$Revision: 30.0 $'.
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
+         'ModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: private'
+
+         subpartNames <- ''.
+        } | )
+
+
+
  '-- Side effects'
 
  globals modules ui1Event postFileIn
