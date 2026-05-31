@@ -22,6 +22,19 @@
       }
     },
     {
+      "name": "_ios",
+      "hidden": true,
+      "inherits": "_xcode",
+      "description": "Common base for the headless iOS VM (libSelfVM-ios.a, no Quartz/X11). SELF_AS_LIBRARY defaults ON for iOS in CMakeLists; the OSX_SYSROOT (iphoneos vs iphonesimulator) is set by the leaf preset.",
+      "cacheVariables": {
+        "CMAKE_SYSTEM_NAME": "iOS",
+        "CMAKE_OSX_ARCHITECTURES": "arm64",
+        "CMAKE_OSX_DEPLOYMENT_TARGET": "18.0",
+        "SELF_QUARTZ": { "type": "BOOL", "value": "OFF" },
+        "SELF_X11": { "type": "BOOL", "value": "OFF" }
+      }
+    },
+    {
       "name": "macos",
       "inherits": "_xcode",
       "displayName": "macOS (Quartz + X11 app)",
@@ -49,6 +62,14 @@
       "description": "The visionOS VM Xcode project. SpatialSelf links THIS generated project as a cross-project dependency (its libSelfVM.a / Self target), so run `configure.sh visionos` to (re)create cmake-build-AVP-compilation-check/Self.xcodeproj before building SpatialSelf -- it is generated, not checked in. SDKROOT=xros but Xcode builds the xrsimulator slice too on demand (sysroot is not baked into the flags). Also fine for fast Debug compile-checks. (binaryDir name is historical -- 'compile-check' predates the SpatialSelf coupling.) -- claude & dmu 5/26",
       "binaryDir": "${sourceDir}/../cmake-build-AVP-compilation-check",
       "cacheVariables": { "CMAKE_OSX_SYSROOT": "xros", "SELF_LIB_NAME": "SelfVM-visionos" }
+    },
+    {
+      "name": "ios-lib",
+      "inherits": "_ios",
+      "displayName": "iOS VM project (editable; linked by iOSSpatialSelf)",
+      "description": "The iOS VM Xcode project. iOSSpatialSelf links THIS generated project (its libSelfVM-ios.a / Self target). SDKROOT=iphoneos but Xcode builds the iphonesimulator slice too on demand (sysroot not baked into the flags), so the iOS Simulator build works. Run `configure.sh ios-lib` to (re)create cmake-build-ios-lib/Self.xcodeproj -- generated, not checked in. -- claude & dmu 5/31",
+      "binaryDir": "${sourceDir}/../cmake-build-ios-lib",
+      "cacheVariables": { "CMAKE_OSX_SYSROOT": "iphoneos", "SELF_LIB_NAME": "SelfVM-ios" }
     },
     {
       "name": "xcframework-device",

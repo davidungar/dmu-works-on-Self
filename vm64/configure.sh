@@ -10,6 +10,7 @@
 #   vm64/configure.sh macos        # editable macOS Self.app project
 #   vm64/configure.sh macos-lib    # macOS headless libSelfVM.a (link into a host app)
 #   vm64/configure.sh visionos     # visionOS VM project (libSelfVM.a) -- SpatialSelf links this; regen before building it
+#   vm64/configure.sh ios-lib      # iOS VM project (libSelfVM-ios.a) -- iOSSpatialSelf links this
 #   vm64/configure.sh xcframework  # build device+sim slices -> SelfVM.xcframework
 # Extra args after the subcommand are forwarded to cmake (macos/visionos only).
 # Set CONFIG=Debug for a faster, unoptimized xcframework (default RelWithDebInfo
@@ -40,6 +41,9 @@ case "$cmd" in
   visionos)
     configure_one visionos "$HERE/../cmake-build-AVP-compilation-check" "$@"
     ;;
+  ios-lib)
+    configure_one ios-lib "$HERE/../cmake-build-ios-lib" "$@"
+    ;;
   xcframework)
     CONFIG="${CONFIG:-RelWithDebInfo}"
     OUT="$HERE/../cmake-build-AVP-framework"
@@ -61,7 +65,7 @@ case "$cmd" in
     echo "Built $XCFRAMEWORK"
     ;;
   *)
-    echo "usage: $0 {macos|macos-lib|visionos|xcframework} [extra cmake args]" >&2
+    echo "usage: $0 {macos|macos-lib|visionos|ios-lib|xcframework} [extra cmake args]" >&2
     echo "  CONFIG=Debug $0 xcframework  # faster, unoptimized slices" >&2
     exit 2
     ;;
