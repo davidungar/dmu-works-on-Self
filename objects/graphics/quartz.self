@@ -6295,7 +6295,28 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         
          fillPolygonIntegerXs: xs Ys: ys GC: gc = ( |
             | withMaskedGC: gc Do: [| :c | c fillPolygonIntegerXs: xs Ys: ys]).
-        } | ) 
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'Comment: plane-masked polyline. CG strokePath ignores the plane mask + raster function, so route through withMaskedGC:Do: -- needed for arrow polylines/control-points and XOR rubber-banding under a plane/arrow mask. Fast path (mask 255 / copy) strokes straight into our context (unchanged from the inherited drawable). -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         drawLines: ptlist GC: gc = ( |
+            | withMaskedGC: gc Do: [| :c | c drawLines: ptlist]).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'Comment: plane-masked line. Thin axis-aligned lines use the inherited drawLine:To:GC: (its fillRectIntegerX path already honours the plane mask AND keeps the crisp 1px bevel); diagonal/thick lines stroke a CG path that ignores the mask, so route those through withMaskedGC:Do: -- arrow shafts (line:To:Width:) and XOR rubber-banding. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+
+         drawLine: pt1 To: pt2 GC: gc = ( |
+            |
+            ((gc lineWidthValue <= 1) && [(pt1 x = pt2 x) || [pt1 y = pt2 y]]) ifTrue: [
+              ^ resend.drawLine: pt1 To: pt2 GC: gc ].
+            withMaskedGC: gc Do: [| :c |
+              c beginPath.
+              c moveToPointX: pt1 x succ Y: pt1 y succ.
+              c addLineToPointX: pt2 x succ Y: pt2 y succ.
+              c strokePath]).
+        } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
          'Comment: ui1 draws through this objects own context, which answers the X11-GC protocol. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
