@@ -126,12 +126,9 @@ static void setCrossingLocation(OpaqueEventRef* e, NSWindow* nsWin, QuartzWindow
     e->setParam_point(kEventParamMouseLocation, globalX, globalY);
     NSPoint loc = [nsWin convertPointFromScreen:screenPt];
     NSRect  b   = [[nsWin contentView] bounds];
-    // windowMouseLocation must be CONTENT-relative (0 at the content top-left): the
-    // world is drawn into the content view, so adding inset_top here made clicks land
-    // a title-bar (~28px) too low. -- claude & dmu 5/2026
     e->setParam_point(kEventParamWindowMouseLocation,
                       qw->inset_left() + loc.x,
-                      b.size.height - loc.y);
+                      qw->inset_top()  + (b.size.height - loc.y));
     e->setParam_ptr(kEventParamWindowRef, typeWindowRef, qw->my_window());
 }
 
@@ -232,10 +229,10 @@ static NSInteger destinationSelfWindow(
     // Window-local coordinates (structure-relative, top-left origin)
     NSRect contentBounds = [self bounds];
     int insetLeft = _quartzWindow->inset_left();
-    // content-relative (see the mouse-down helper above) -- claude & dmu 5/2026
+    int insetTop  = _quartzWindow->inset_top();
     evt->setParam_point(kEventParamWindowMouseLocation,
                         insetLeft + locInWindow.x,
-                        contentBounds.size.height - locInWindow.y);
+                        insetTop + (contentBounds.size.height - locInWindow.y));
 
     // Wheel axis and delta
     // Carbon convention: kEventMouseWheelAxisX = 0, kEventMouseWheelAxisY = 1
@@ -371,10 +368,9 @@ static NSInteger destinationSelfWindow(
     // claude & dmu, 5/26
     NSPoint destLoc    = [destNS convertPointFromScreen:locOnScreen];
     NSRect  destBounds = [[destNS contentView] bounds];
-    // content-relative (see the mouse-down helper above) -- claude & dmu 5/2026
     evt->setParam_point(kEventParamWindowMouseLocation,
                         destQW->inset_left() + destLoc.x,
-                        destBounds.size.height - destLoc.y);
+                        destQW->inset_top()  + (destBounds.size.height - destLoc.y));
     evt->setParam_ptr(kEventParamWindowRef, typeWindowRef, destQW->my_window());
     evt->setParam_uint32(kEventParamWindowDefPart, typeUInt32, kPartInContent);
 
