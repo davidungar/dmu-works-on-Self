@@ -5107,7 +5107,7 @@ SlotsToOmit: parent.
          'Category: drawing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          drawString: s At: pt = ( |
-            | 
+            |
             setTextDrawingMode: textMode fill.
             "CoreText layout (proper advances) instead of the deprecated showTextAtPoint; paints with the current fill colour (= palette index in the indexed offscreen) via kCTForegroundColorFromContextAttribute in the prim. -- claude & dmu 5/26"
             drawCTText: s FontName: curFontName Size: curFontSize asFloat

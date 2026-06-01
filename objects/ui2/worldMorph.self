@@ -1168,7 +1168,7 @@ read and process input events, and update the display.\x7fModuleInfo: Module: wo
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
          'Category: running\x7fCategory: options\x7fComment: Quartz works either way, but X needs this to be true.
   -- dmu 1/08\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
-        
+
          doubleBuffering <- bootstrap stub -> 'globals' -> 'true' -> ().
         } | ) 
 
