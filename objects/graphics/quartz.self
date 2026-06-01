@@ -7057,7 +7057,12 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
 uiEvent for ui1 -- the X-masked x11Globals ui2Event, populated by ui1s proven
 Quartz decode (setUI1Event:, X-style state). Cocoa key events carry no location,
 so stamp them with the last cursor (point-to-type); the native window event
-carries no bounds, so fill resize/expose from the platformWindow. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+carries no bounds, so fill resize/expose from the platformWindow. Mouse events: the
+VM delivers windowMouseLocation structure-relative (Carbon-standard, includes the
+title bar), but ui1 draws content-relative (0 at the content top) and uses no
+inset_top in any draw path, so we subtract platformWindow insetTop to make input
+match drawing. Quartz-only (X has its own convert:); ui1-only (ui2 has its own
+converters). -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
 
          convert: raw = ( |
              e.
@@ -7066,7 +7071,9 @@ carries no bounds, so fill resize/expose from the platformWindow. -- claude & dm
             raw delete.
             e keyEvent    ifTrue: [ e cursorPoint: lastCursor ].
             e windowEvent ifTrue: [ e bounds: (0@0) ## platformWindow size ].
-            (e mouseDown || [e mouseUp] || [e mouseMotion]) ifTrue: [ lastCursor: e cursorPoint ].
+            (e mouseDown || [e mouseUp] || [e mouseMotion]) ifTrue: [
+              e cursorPoint: e cursorPoint - (0 @ platformWindow insetTop).
+              lastCursor: e cursorPoint ].
             e).
         } | )
 
