@@ -5601,7 +5601,9 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          setClipRectangle: r = ( |
-            | self).
+            | 
+            r ifNil: [ ^ self ].
+            clipToRectX: r left Y: r top Width: r width Height: r height).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
