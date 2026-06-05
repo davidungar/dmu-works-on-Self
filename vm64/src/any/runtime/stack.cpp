@@ -144,6 +144,16 @@ void Stack::consistencyCheck(primDoFn pfn, frame* lastSelfFrame) {
     lastSelfFrame = last_self_frame(true);
   }
  
+  // The process may have unwound past every real Self frame, leaving only the
+  // bottom-of-process sentinel above, in which case last_self_frame returns
+  // NULL. This is a documented state -- e.g. the first frame calls
+  // interruptCheck and the process is then killed (see Process::kill, whose
+  // own loop below also tolerates a NULL last self frame). With no Self frame
+  // there is no primitive call to validate, so skip the check rather than
+  // dereference a NULL frame in is_self_frame just below.
+  // -- claude & dmu 6/26
+  if (lastSelfFrame == NULL) return;
+
   assert(lastSelfFrame->is_self_frame(), "should be a self frame");
   PrimDesc* pd;
   if ( lastSelfFrame->is_compiled_self_frame() ) {
