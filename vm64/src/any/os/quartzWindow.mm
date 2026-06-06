@@ -1183,12 +1183,12 @@ void QuartzWindow::draw_rectangle_black(int x, int y, int w, int h) {
 
 void QuartzWindow::clear_rectangle(int x, int y, int w, int h) {
   set_color(white());
-  CGContextFillRect(myContext, CGRectMake(x-1, y-1, w+1, h+1));
+  CGContextFillRect(myContext, CGRectMake(x/*-1*/, y/*-1*/, w/*+1*/, h/*+1*/));
   set_color(black());
 }
 
 void QuartzWindow::fill_rectangle(int x, int y, int w, int h) {
-  CGContextFillRect(myContext, CGRectMake(x, y-1, w, h+1));
+  CGContextFillRect(myContext, CGRectMake(x, y/*-1*/, w, h/*+1*/));
 }
 
 void QuartzWindow::set_color(long int c) {
