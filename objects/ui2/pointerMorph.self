@@ -1,6 +1,6 @@
  '$Revision: 30.15 $'
  '
-Copyright 1992-2016 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -432,7 +432,7 @@ SlotsToOmit: parent prototype.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'leafPointerButton' -> () From: ( | {
          'ModuleInfo: Module: pointerMorph InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
         
-         defaultButtonHolder <- bootstrap stub -> 'globals' -> 'nil' -> ().
+         defaultButtonHolder.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'leafPointerButton' -> () From: ( | {

@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2016 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -172,7 +172,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'carpetMorph' -> () From: ( | {
          'Category: menu operations\x7fModuleInfo: Module: carpetMorph InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
         
-         defaultButtonHolder <- bootstrap stub -> 'globals' -> 'nil' -> ().
+         defaultButtonHolder.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'carpetMorph' -> () From: ( | {

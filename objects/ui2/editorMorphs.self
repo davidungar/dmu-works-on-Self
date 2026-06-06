@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.33 $'
  '
-Copyright 1992-2016 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -250,7 +250,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractEditorMorph' -> () From: ( | {
          'Category: mouse\x7fModuleInfo: Module: editorMorphs InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
         
-         defaultButtonHolder <- bootstrap stub -> 'globals' -> 'nil' -> ().
+         defaultButtonHolder.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractEditorMorph' -> () From: ( | {
@@ -1827,9 +1827,9 @@ the face of this editor? -- Randy, 1/6/95\x7fModuleInfo: Module: editorMorphs In
          'Category: copying and pasting\x7fComment: store through this editor\'s own world, not the global desktop, so the Mac
 pasteboard is updated even when editing in an X world whose desktop is closed
 -- claude & dmu 5/2026\x7fModuleInfo: Module: editorMorphs InitialContents: FollowSlot\x7fVisibility: public'
-
+        
          copy_cmd = ( |
-            |
+            | 
             (isInWorld && [firstRow hasSelection]) ifTrue: [ ui2_textBuffer setContentsTo: firstRow textInSelection ForWorld: world ].
             self).
         } | ) 
@@ -2430,9 +2430,9 @@ selection?-- Randy, 2/6/95\x7fModuleInfo: Module: editorMorphs InitialContents: 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'editorRowMorph' -> () From: ( | {
          'Category: copying and pasting\x7fComment: read through this editor\'s own world (see copy_cmd) so paste pulls from the
 Mac pasteboard even when the global desktop is closed -- claude & dmu 5/2026\x7fModuleInfo: Module: editorMorphs InitialContents: FollowSlot\x7fVisibility: public'
-
+        
          paste_cmd = ( |
-            |
+            | 
             firstRow hasSelection ifTrue: [firstRow deleteSelection].
             (ui2_textBuffer contentsForWorld: world) do: [|:c|
               typer emitCharInEditor: c.

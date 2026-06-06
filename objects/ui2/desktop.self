@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2016 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -122,60 +122,18 @@ be invoked from within ui2.\x7fModuleInfo: Module: desktop InitialContents: Foll
          'Category: opening and closing\x7fComment: Open the main ui2 desktop, preferring X11 (Self starts XQuartz if needed);
 falls back to Quartz only if X cannot be opened. Use openOnQuartz to force
 Quartz. -- Randy 2/9/95; X by default -- claude & dmu 5/2026\x7fModuleInfo: Module: desktop InitialContents: FollowSlot\x7fVisibility: public'
-
+        
          open = ( |
             | openOnX11).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
-         'Category: opening and closing\x7fComment: The X display to open by default: the live $DISPLAY (XQuartz sets it, and
-connecting auto-starts XQuartz), or \':0\' if $DISPLAY is unset. -- claude &
-dmu 5/2026\x7fModuleInfo: Module: desktop InitialContents: FollowSlot\x7fVisibility: public'
-
-         xDisplayName = ( |
-            | os environmentAt: 'DISPLAY' IfFail: ':0').
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
-         'Category: opening and closing\x7fComment: Open the main desktop, forcing the native Quartz backend. -- claude & dmu
-5/2026\x7fModuleInfo: Module: desktop InitialContents: FollowSlot\x7fVisibility: public'
-
-         openOnQuartz = ( |
-            | openOnDisplay: 'quartz').
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
-         'Category: opening and closing\x7fComment: Open the main desktop under X11 on xDisplayName; Self starts XQuartz if
-needed, and only falls back to Quartz if X still cannot be opened. -- claude &
-dmu 5/2026\x7fModuleInfo: Module: desktop InitialContents: FollowSlot\x7fVisibility: public'
-
-         openOnX11 = ( |
-            | openOnDisplay: xDisplayName).
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
          'Category: opening and closing\x7fModuleInfo: Module: desktop InitialContents: FollowSlot\x7fVisibility: public'
         
          openNewWorld = ( |
-            |
+            | 
             worldMorph openNew).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
-         'Category: opening and closing\x7fComment: Open an additional world, forcing the native Quartz backend. -- claude & dmu
-5/2026\x7fModuleInfo: Module: desktop InitialContents: FollowSlot\x7fVisibility: public'
-
-         openNewWorldOnQuartz = ( |
-            | openNewWorldOnDisplay: 'quartz').
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
-         'Category: opening and closing\x7fComment: Open an additional world under X11 on xDisplayName (Self starts XQuartz if
-needed). -- claude & dmu 5/2026\x7fModuleInfo: Module: desktop InitialContents: FollowSlot\x7fVisibility: public'
-
-         openNewWorldOnX11 = ( |
-            | openNewWorldOnDisplay: xDisplayName).
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
          'Category: opening and closing\x7fModuleInfo: Module: desktop InitialContents: FollowSlot\x7fVisibility: public'
@@ -191,6 +149,22 @@ needed). -- claude & dmu 5/2026\x7fModuleInfo: Module: desktop InitialContents: 
          openNewWorldOnDisplay: dispName Bounds: b = ( |
             | 
             (worldMorph copyOpenOnDisplay: dispName Bounds: b) go).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
+         'Category: opening and closing\x7fComment: Open an additional world, forcing the native Quartz backend. -- claude & dmu
+5/2026\x7fModuleInfo: Module: desktop InitialContents: FollowSlot\x7fVisibility: public'
+        
+         openNewWorldOnQuartz = ( |
+            | openNewWorldOnDisplay: 'quartz').
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
+         'Category: opening and closing\x7fComment: Open an additional world under X11 on xDisplayName (Self starts XQuartz if
+needed). -- claude & dmu 5/2026\x7fModuleInfo: Module: desktop InitialContents: FollowSlot\x7fVisibility: public'
+        
+         openNewWorldOnX11 = ( |
+            | openNewWorldOnDisplay: xDisplayName).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
@@ -221,6 +195,23 @@ performance tuning to the system.\x7fModuleInfo: Module: desktop InitialContents
                 "desktop close" to close it.
             ' printLine.
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
+         'Category: opening and closing\x7fComment: Open the main desktop, forcing the native Quartz backend. -- claude & dmu
+5/2026\x7fModuleInfo: Module: desktop InitialContents: FollowSlot\x7fVisibility: public'
+        
+         openOnQuartz = ( |
+            | openOnDisplay: 'quartz').
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
+         'Category: opening and closing\x7fComment: Open the main desktop under X11 on xDisplayName; Self starts XQuartz if
+needed, and only falls back to Quartz if X still cannot be opened. -- claude &
+dmu 5/2026\x7fModuleInfo: Module: desktop InitialContents: FollowSlot\x7fVisibility: public'
+        
+         openOnX11 = ( |
+            | openOnDisplay: xDisplayName).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
@@ -262,16 +253,9 @@ performance tuning to the system.\x7fModuleInfo: Module: desktop InitialContents
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
          'Category: state\x7fComment: Set to true if the -headless commandline option is set.\x7fModuleInfo: Module: desktop InitialContents: InitializeToExpression: (false)'
-
+        
          restartSuppressedFlag <- bootstrap stub -> 'globals' -> 'false' -> ().
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
-         'Category: state\x7fComment: True once the X11-unavailable (see readme) notice has been shown this session.
--- claude & dmu 5/2026\x7fModuleInfo: Module: desktop InitialContents: InitializeToExpression: (false)'
-
-         xFallbackNoticeShown <- bootstrap stub -> 'globals' -> 'false' -> ().
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
          'Category: opening and closing\x7fComment: Reopen the ui2 window(s) after returning from a snapshot,
@@ -405,6 +389,22 @@ and its use is deprecated. --Mario, 2/4/95\x7fModuleInfo: Module: desktop Initia
             | 
             "Use a copy, to avoid problems if the block alters the list."
             worlds copy do: aBlock).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
+         'Category: opening and closing\x7fComment: The X display to open by default: the live $DISPLAY (XQuartz sets it, and
+connecting auto-starts XQuartz), or \':0\' if $DISPLAY is unset. -- claude &
+dmu 5/2026\x7fModuleInfo: Module: desktop InitialContents: FollowSlot\x7fVisibility: public'
+        
+         xDisplayName = ( |
+            | os environmentAt: 'DISPLAY' IfFail: ':0').
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
+         'Category: state\x7fComment: True once the X11-unavailable (see readme) notice has been shown this session.
+-- claude & dmu 5/2026\x7fModuleInfo: Module: desktop InitialContents: InitializeToExpression: (false)'
+        
+         xFallbackNoticeShown <- bootstrap stub -> 'globals' -> 'false' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {

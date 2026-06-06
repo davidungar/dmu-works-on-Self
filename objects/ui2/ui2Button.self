@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.12 $'
  '
-Copyright 1992-2016 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -351,7 +351,7 @@ SlotsToOmit: baseMinHeight baseMinWidth parent prototype.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui2Button' -> () From: ( | {
          'Category: events\x7fModuleInfo: Module: ui2Button InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
         
-         defaultButtonHolder <- bootstrap stub -> 'globals' -> 'nil' -> ().
+         defaultButtonHolder.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui2Button' -> () From: ( | {

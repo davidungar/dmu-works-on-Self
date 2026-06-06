@@ -7,6 +7,57 @@ See the LICENSE file for license information.
 
  '-- Module body'
 
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
+         'ModuleInfo: Module: ui1Event InitialContents: FollowSlot'
+        
+         ui1Event = bootstrap define: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'directory' From:
+             bootstrap remove: 'fileInTimeString' From:
+             bootstrap remove: 'myComment' From:
+             bootstrap remove: 'postFileIn' From:
+             bootstrap remove: 'revision' From:
+             bootstrap remove: 'subpartNames' From:
+             globals modules init copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals modules ui1Event.
+
+CopyDowns:
+globals modules init. copy 
+SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNames.
+
+\x7fIsComplete: '.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
+         'ModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: public'
+        
+         directory <- 'ui1'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
+         'ModuleInfo: Module: ui1Event InitialContents: InitializeToExpression: (_CurrentTimeString)\x7fVisibility: public'
+        
+         fileInTimeString <- _CurrentTimeString.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
+         'ModuleInfo: Module: ui1Event InitialContents: FollowSlot'
+        
+         myComment <- 'ui1 input-event source contract (shared traits ui1EventSource).'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
+         'ModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: public'
+        
+         revision <- 'Sun-$Revision: 30.0 $'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
+         'ModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: private'
+        
+         subpartNames <- ''.
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
          'Category: userInterface\x7fCategory: Events\x7fComment: Shared event-source contract: the object ui1s eventWatcher pulls events from
 (eventWatcher watch = handler event: display nextEvent). Both backends inherit
@@ -19,29 +70,29 @@ finishEvent: it. Backends supply rawEventsPending / rawNextEvent / convert:, and
 may override finishEvent:. X source: traits xlib ui1EventSource (graphics/
 xlib.self). Quartz source: traits quartz ui1EventSource (graphics/quartz.self).
 -- claude & dmu 5/2026\x7fModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: public'
-
+        
          ui1EventSource = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1EventSource' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits ui1EventSource.
 '.
             | ) .
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1EventSource' -> () From: ( | {
          'Comment: post-conversion fixup hook; default returns the event unchanged. A backend
 may override it (e.g. to track the cursor or fill bounds). -- claude & dmu 5/2026\x7fModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: public'
-
+        
          finishEvent: e = ( |
             | e).
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1EventSource' -> () From: ( | {
          'Comment: synthetic events (the ui1TestDriver harness) jump the native queue so the
 watcher drains them through the real handler -- no OS input, works on both
 backends. -- claude & dmu 5/2026\x7fModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: public'
-
+        
          inject: e = ( |
             | injectedEvents add: e. self).
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1EventSource' -> () From: ( | {
          'Comment: the seam eventWatcher blocks on. Sleep-poll the native queue (no fd to
@@ -49,72 +100,19 @@ block on for Quartz; X is polled too so injected events are seen and the
 times-delay lets check_carbon_events pump Cocoa), then return an injected event
 if any, else convert the next native event into one shared uiEvent and finish it.
 -- claude & dmu 5/2026\x7fModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: public'
-
+        
          nextEvent = ( |
-            |
+            | 
             [(rawEventsPending = 0) && [injectedEvents isEmpty]] whileTrue: [ times delay: pollDelayMS ].
             injectedEvents isEmpty ifFalse: [ ^ injectedEvents removeFirst ].
             finishEvent: convert: rawNextEvent).
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1EventSource' -> () From: ( | {
          'ModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: private'
-
+        
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
-        } | )
-
-
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
-         'ModuleInfo: Module: ui1Event InitialContents: FollowSlot'
-
-         ui1Event = bootstrap define: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () ToBe: bootstrap addSlotsTo: (
-             bootstrap remove: 'directory' From:
-             bootstrap remove: 'fileInTimeString' From:
-             bootstrap remove: 'myComment' From:
-             bootstrap remove: 'postFileIn' From:
-             bootstrap remove: 'revision' From:
-             bootstrap remove: 'subpartNames' From:
-             globals modules init copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals modules ui1Event.
-
-CopyDowns:
-globals modules init. copy
-SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNames.
-
-\x7fIsComplete: '.
-            | ) .
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
-         'ModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: public'
-
-         directory <- 'ui1'.
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
-         'ModuleInfo: Module: ui1Event InitialContents: InitializeToExpression: (_CurrentTimeString)\x7fVisibility: public'
-
-         fileInTimeString <- _CurrentTimeString.
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
-         'ModuleInfo: Module: ui1Event InitialContents: FollowSlot'
-
-         myComment <- 'ui1 input-event source contract (shared traits ui1EventSource).'.
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
-         'ModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: public'
-
-         revision <- 'Sun-$Revision: 30.0 $'.
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
-         'ModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: private'
-
-         subpartNames <- ''.
-        } | )
+        } | ) 
 
 
 

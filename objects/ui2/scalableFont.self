@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2016 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -141,51 +141,44 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+        
+         arial = ( |
+            | noteArialFallback. helvetica).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+        
+         arialBold = ( |
+            | noteArialFallback. helveticaBold).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+        
+         arialBoldItalic = ( |
+            | noteArialFallback. helveticaBoldItalic).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
+         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
+        
+         arialItalic = ( |
+            | noteArialFallback. helveticaItalic).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
          'Category: font substituion\x7fModuleInfo: Module: scalableFont InitialContents: InitializeToExpression: (false)\x7fVisibility: private'
-
-         arialKvetched <- false.
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'Category: font substituion\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot\x7fVisibility: private'
-
-         noteArialFallback = ( |
-            |
-            arialKvetched ifFalse: [
-              arialKvetched: true.
-              'Substituting helvetica for arial (XQuartz cannot serve arial bold/italic).' printLine.
-            ]).
-        } | )
+        
+         arialKvetched <- bootstrap stub -> 'globals' -> 'false' -> ().
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
          'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
-
-         arial = ( | | noteArialFallback. helvetica).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
-
-         arialBold = ( | | noteArialFallback. helveticaBold).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
-
-         arialBoldItalic = ( | | noteArialFallback. helveticaBoldItalic).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
-
-         arialItalic = ( | | noteArialFallback. helveticaItalic).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
-         'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
-
+        
          avantgarde = '-*-avantgarde-book-r-normal--'.
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
          'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
@@ -451,6 +444,17 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'ModuleInfo: Module: scalableFont InitialContents: FollowSlot'
         
          newCenturySchoolbookItalic = '-*-new century schoolbook-medium-i-normal--'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
+         'Category: font substituion\x7fModuleInfo: Module: scalableFont InitialContents: FollowSlot\x7fVisibility: private'
+        
+         noteArialFallback = ( |
+            | 
+            arialKvetched ifFalse: [
+              arialKvetched: true.
+              'Substituting helvetica for arial (XQuartz cannot serve arial bold/italic).' printLine.
+            ]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'fontFamily' -> () From: ( | {
