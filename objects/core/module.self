@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.19 $'
  '
-Copyright 1992-2016 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -389,6 +389,23 @@ It becomes the last submodule. \x7fModuleInfo: Module: module InitialContents: F
          fileOut = ( |
             | 
             transporter fileOut fileOutModule: name).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'init' -> 'parent' -> () From: ( | {
+         'Category: reading and writing files\x7fModuleInfo: Module: module InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fileOutAll = ( |
+            | 
+            fileOutSubparts. fileOut).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'init' -> 'parent' -> () From: ( | {
+         'Category: reading and writing files\x7fModuleInfo: Module: module InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fileOutSubparts = ( |
+            | 
+            subparts do: [|:m| m fileOut].
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'init' -> 'parent' -> () From: ( | {
