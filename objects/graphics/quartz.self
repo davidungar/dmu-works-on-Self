@@ -3068,17 +3068,17 @@ native Cocoa event, using ui1s proven Quartz decode: ui2-canonical type/
 cursorPoint/keystrokes + X-style state (xStateMaskFromChord:), so the X-masked
 x11Globals ui2Event ui1 builds reads correctly and ui1s cursor (X masks) works
 via the events X-canonical newState. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
+        
          setUI1Event: aUI1Evt = ( |
              cls.
-            |
+            | 
             cls: getClass.
             case if: [cls = classes mouse   ] Then: [ setUI1Mouse:  aUI1Evt ]
                  If: [cls = classes keyboard ] Then: [ setUI1Key:    aUI1Evt ]
                  If: [cls = classes window   ] Then: [ setUI1Window: aUI1Evt ]
                 Else: [ ].
             aUI1Evt).
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
          'Category: converting to ui1 events\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
@@ -3086,7 +3086,7 @@ via the events X-canonical newState. -- claude & dmu 5/2026\x7fModuleInfo: Modul
          setUI1Key: aUI1Evt = ( |
              cc.
              k.
-            |
+            | 
             k: getKind.
             "the .mm stores keyMacCharCodes as a uint32 char code (not utf8Text), so read it as uint32"
             cc: getUnsignedParam: parameters keyMacCharCodes Type: types uint32 IfFail: 0.
@@ -3106,10 +3106,10 @@ via the events X-canonical newState. -- claude & dmu 5/2026\x7fModuleInfo: Modul
          'Category: converting to ui1 events\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
         
          setUI1Mouse: aUI1Evt = ( |
+             bn.
              k.
              pt.
-             bn.
-            |
+            | 
             k: getKind.
             pt: getPointParam: parameters windowMouseLocation IfFail: [0@0].
             aUI1Evt cursorPoint: pt.
@@ -3134,7 +3134,7 @@ here). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: Follo
         
          setUI1Window: aUI1Evt = ( |
              k.
-            |
+            | 
             k: getKind.
             "ui2 window vocab; ui1 reads typeName (windowDelete->clientMessage etc.) and
              isDeleteWindow (=windowDelete). bounds filled by the source from the
@@ -3690,7 +3690,6 @@ button number 1/2/3. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialC
             b: getUnsignedShortParam: parameters mouseButton Type: types mouseButton.
             [ "does not work"
               c: getUnsignedParam: parameters mouseChord Type: types uint32 IfFail: -1.
-              c printLine.
               c = 3 ifTrue: [b: 3]. "left + mid = right"
             ]. 
             b = 1 ifTrue: [|m|
@@ -4511,10 +4510,16 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
-         'Comment: last cursor position seen on a mouse event. ui1 is point-to-type (ui keyDown:String:At:Event: routes to world componentContaining: pos), but keyboard events carry no location -- so we stamp key events with this. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot'
+        
+         injectedEvents <- bootstrap stub -> 'globals' -> 'sharedQueue' -> ().
+        } | ) 
 
-         lastCursor <- (0) @ (0).
-        } | )
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: last cursor position seen on a mouse event. ui1 is point-to-type (ui keyDown:String:At:Event: routes to world componentContaining: pos), but keyboard events carry no location -- so we stamp key events with this. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         lastCursor <- (0)@(0).
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot'
@@ -4535,13 +4540,7 @@ SlotsToOmit: parent.
          'Comment: the quartz platformWindow whose Cocoa event queue we drain. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
          platformWindow.
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot'
-
-         injectedEvents <- bootstrap stub -> 'globals' -> 'sharedQueue' -> ().
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
          'Comment: ms to sleep between polls when the queue is empty (ui2 uses 10). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
@@ -5107,7 +5106,7 @@ SlotsToOmit: parent.
          'Category: drawing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          drawString: s At: pt = ( |
-            |
+            | 
             setTextDrawingMode: textMode fill.
             "CoreText layout (proper advances) instead of the deprecated showTextAtPoint; paints with the current fill colour (= palette index in the indexed offscreen) via kCTForegroundColorFromContextAttribute in the prim. -- claude & dmu 5/26"
             drawCTText: s FontName: curFontName Size: curFontSize asFloat
@@ -6293,24 +6292,10 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
-         'Comment: plane-masked polygon fill. ui1s motion blur (and other acetate shapes) fill polygons under a plane mask; CG path fills ignore the mask, so route through withMaskedGC:Do: -- otherwise the swept polygon clobbers the whole byte every frame (a permanent body-colour trail). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-        
-         fillPolygonIntegerXs: xs Ys: ys GC: gc = ( |
-            | withMaskedGC: gc Do: [| :c | c fillPolygonIntegerXs: xs Ys: ys]).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
-         'Comment: plane-masked polyline. CG strokePath ignores the plane mask + raster function, so route through withMaskedGC:Do: -- needed for arrow polylines/control-points and XOR rubber-banding under a plane/arrow mask. Fast path (mask 255 / copy) strokes straight into our context (unchanged from the inherited drawable). -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         drawLines: ptlist GC: gc = ( |
-            | withMaskedGC: gc Do: [| :c | c drawLines: ptlist]).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
          'Comment: plane-masked line. Thin axis-aligned lines use the inherited drawLine:To:GC: (its fillRectIntegerX path already honours the plane mask AND keeps the crisp 1px bevel); diagonal/thick lines stroke a CG path that ignores the mask, so route those through withMaskedGC:Do: -- arrow shafts (line:To:Width:) and XOR rubber-banding. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
+        
          drawLine: pt1 To: pt2 GC: gc = ( |
-            |
+            | 
             ((gc lineWidthValue <= 1) && [(pt1 x = pt2 x) || [pt1 y = pt2 y]]) ifTrue: [
               ^ resend.drawLine: pt1 To: pt2 GC: gc ].
             withMaskedGC: gc Do: [| :c |
@@ -6318,7 +6303,21 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
               c moveToPointX: pt1 x succ Y: pt1 y succ.
               c addLineToPointX: pt2 x succ Y: pt2 y succ.
               c strokePath]).
-        } | )
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'Comment: plane-masked polyline. CG strokePath ignores the plane mask + raster function, so route through withMaskedGC:Do: -- needed for arrow polylines/control-points and XOR rubber-banding under a plane/arrow mask. Fast path (mask 255 / copy) strokes straight into our context (unchanged from the inherited drawable). -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         drawLines: ptlist GC: gc = ( |
+            | withMaskedGC: gc Do: [| :c | c drawLines: ptlist]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'Comment: plane-masked polygon fill. ui1s motion blur (and other acetate shapes) fill polygons under a plane mask; CG path fills ignore the mask, so route through withMaskedGC:Do: -- otherwise the swept polygon clobbers the whole byte every frame (a permanent body-colour trail). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fillPolygonIntegerXs: xs Ys: ys GC: gc = ( |
+            | withMaskedGC: gc Do: [| :c | c fillPolygonIntegerXs: xs Ys: ys]).
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
          'Comment: ui1 draws through this objects own context, which answers the X11-GC protocol. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
@@ -7022,6 +7021,31 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: ui1EventSource hook: decode the next native Cocoa event into one shared
+uiEvent for ui1 -- the X-masked x11Globals ui2Event, populated by ui1s proven
+Quartz decode (setUI1Event:, X-style state). Cocoa key events carry no location,
+so stamp them with the last cursor (point-to-type); the native window event
+carries no bounds, so fill resize/expose from the platformWindow. Mouse events: the
+VM delivers windowMouseLocation structure-relative (Carbon-standard, includes the
+title bar), but ui1 draws content-relative (0 at the content top) and uses no
+inset_top in any draw path, so we subtract platformWindow insetTop to make input
+match drawing. Quartz-only (X has its own convert:); ui1-only (ui2 has its own
+converters). -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         convert: raw = ( |
+             e.
+            | 
+            e: raw setUI1Event: x11Globals ui2Event copy.
+            raw delete.
+            e keyEvent    ifTrue: [ e cursorPoint: lastCursor ].
+            e windowEvent ifTrue: [ e bounds: (0@0) ## platformWindow size ].
+            (e mouseDown || [e mouseUp] || [e mouseMotion]) ifTrue: [
+              e cursorPoint: e cursorPoint - (0 @ platformWindow insetTop).
+              lastCursor: e cursorPoint ].
+            e).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          eventsPending = ( |
@@ -7033,21 +7057,14 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
         
          flush = ( |
             | platformWindow flush. self).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot'
-
-         inject: e = ( |
-            | injectedEvents add: e. self).
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          forPlatformWindow: pw = ( |
              c.
-            |
+            | 
             c: copy.
             c platformWindow: pw.
             c injectedEvents: sharedQueue copy.
@@ -7055,53 +7072,35 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
-         'Comment: ui1EventSource hook: decode the next native Cocoa event into one shared
-uiEvent for ui1 -- the X-masked x11Globals ui2Event, populated by ui1s proven
-Quartz decode (setUI1Event:, X-style state). Cocoa key events carry no location,
-so stamp them with the last cursor (point-to-type); the native window event
-carries no bounds, so fill resize/expose from the platformWindow. Mouse events: the
-VM delivers windowMouseLocation structure-relative (Carbon-standard, includes the
-title bar), but ui1 draws content-relative (0 at the content top) and uses no
-inset_top in any draw path, so we subtract platformWindow insetTop to make input
-match drawing. Quartz-only (X has its own convert:); ui1-only (ui2 has its own
-converters). -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         convert: raw = ( |
-             e.
-            |
-            e: raw setUI1Event: x11Globals ui2Event copy.
-            raw delete.
-            e keyEvent    ifTrue: [ e cursorPoint: lastCursor ].
-            e windowEvent ifTrue: [ e bounds: (0@0) ## platformWindow size ].
-            (e mouseDown || [e mouseUp] || [e mouseMotion]) ifTrue: [
-              e cursorPoint: e cursorPoint - (0 @ platformWindow insetTop).
-              lastCursor: e cursorPoint ].
-            e).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
-         'Comment: ui1EventSource hook: no fd to block on, so the shared nextEvent sleep-polls this. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         rawEventsPending = ( |
-            | platformWindow eventsPending).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
-         'Comment: ui1EventSource hook: fetch the next native Cocoa event (only called once the shared nextEvent has confirmed one is pending). -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
-         rawNextEvent = ( |
-            | platformWindow nextEvent).
-        } | )
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot'
+        
+         inject: e = ( |
+            | injectedEvents add: e. self).
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'ui1EventSource' -> ().
-        } | )
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: ui1EventSource hook: no fd to block on, so the shared nextEvent sleep-polls this. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         rawEventsPending = ( |
+            | platformWindow eventsPending).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
+         'Comment: ui1EventSource hook: fetch the next native Cocoa event (only called once the shared nextEvent has confirmed one is pending). -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         rawNextEvent = ( |
+            | platformWindow nextEvent).
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-
+        
          syncDiscardingIf: b = ( |
             | platformWindow sync. self).
         } | ) 

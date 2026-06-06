@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.14 $'
  '
-Copyright 1992-2016 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -630,7 +630,7 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
          'Category: portable accessing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
         
          flush = ( |
-            | platformWindow flush. self). "ui1-on-Quartz: convert the indexed shadow to the true-colour window. -- claude & dmu 5/26"
+            | platformWindow flush. self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
@@ -731,7 +731,7 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
          'Category: portable accessing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
         
          sync = ( |
-            | platformWindow sync. self). "ui1-on-Quartz: convert the indexed shadow to the true-colour window. -- claude & dmu 5/26"
+            | platformWindow sync. self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindow' -> () From: ( | {
@@ -878,16 +878,16 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
 that sleep-polls and converts each native X event into one ui1Event (matching
 Quartz, and so synthetic events can be injected for the test harness). display
 stays the raw xlib connection for colour/gc/font/setup queries. -- claude & dmu 5/2026\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: private'
-
+        
          spawnEventWatcherProcess = ( |
              source.
-            |
+            | 
             source: xlib ui1EventSource forDisplay: display.
             watcher: eventWatcher copyForDisplay: source Handler: handler.
             watcherProcess: process copySend: message copy receiver: watcher
                                                            Selector: 'watch'.
             watcherProcess resume).
-        } | )
+        } | ) 
 
 
 
