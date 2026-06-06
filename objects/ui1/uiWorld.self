@@ -1278,27 +1278,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
          'Category: bodyMoving\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
-         moveLoop: bod Offset: offset Doing: block = ( | {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 blurRect <- ((-1)@(-1)) #! ((0)@(0)).
-                }  {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 flip <- bootstrap stub -> 'globals' -> 'true' -> ().
-                }  {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 newRect.
-                }  {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 oldRect.
-                }  {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 winRect.
-                } 
+         moveLoop: bod Offset: offset Doing: block = ( |
+             blurRect <- ((-1)@(-1)) # ((-1)@(-1)).
+             flip <- bootstrap stub -> 'globals' -> 'true' -> ().
+             newRect.
+             oldRect.
+             winRect.
             | 
             oldRect: bod absoluteBound.
             newRect: oldRect.
