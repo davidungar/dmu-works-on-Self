@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -161,7 +161,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          bound = ( |
             | 
-            location ##! (footerRight bottomRight - headerLeft topLeft)).
+            location ## (footerRight bottomRight - headerLeft topLeft)).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
@@ -218,7 +218,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                             p: p addX: footerCenter width.
                             bod graphic copy: footerRight To: bm At: p.
                     debug ifTrue: [ xdrawBody: bod To: bm At: pt. ].
-                    (pt #! (p + footerRight size))).
+                    pt # ((p + footerRight size) + (1@1))).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
@@ -252,8 +252,8 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             bodyRegions do: [ | :br |
                 (br top < y1) && [(y1 <= br bottom) &&
                 [(br top < y2) && [y2 <= br bottom]]] ifTrue: [
-                    newRegions add: br topLeft #! (br right @ y1).
-                    newRegions add: (br left @ y2 succ) #! br bottomRight.
+                    newRegions add: br topLeft # ((br right @ y1) + (1@1)).
+                    newRegions add: (br left @ y2 succ) # (br bottomRight + (1@1)).
                 ] False: [
                     newRegions add: br.
                 ].
@@ -283,8 +283,8 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             newRegions: list copyRemoveAll.
             bodyRegions do: [ | :br |
                 (br top < y) && [y <= br bottom] ifTrue: [
-                    newRegions add: br topLeft #! (br right @ y).
-                    newRegions add: (br left @ y succ) #! br bottomRight.
+                    newRegions add: br topLeft # ((br right @ y) + (1@1)).
+                    newRegions add: (br left @ y succ) # (br bottomRight + (1@1)).
                 ] False: [
                     newRegions add: br.
                 ].

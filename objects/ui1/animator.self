@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.8 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -1982,8 +1982,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
 
                         tweener: tweenProto copyFrom: 0 To: d Steps: steps.
 
-                        b1: bod bound topLeft #! (bod bound right @ y1).
-                        b2: (bod bound left @ y2) #! bod bound bottomRight.
+                        b1: bod bound topLeft # ((bod bound right @ y1) + (1@1)).
+                        b2: (bod bound left @ y2) # (bod bound bottomRight + (1@1)).
+
                         b2size: b2 size.
 
                         l1: bod location.
@@ -1994,17 +1995,15 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                         tweener do: [ | :n. p1. p2. botRt. |
                             p1: l1 addY: n.
                             p2: l2 subtractY: n.
-                            world eraseAcetate:
-                                prevBound topLeft #! (prevBound right @ p1 y).
+                            world eraseAcetate: prevBound topLeft # ((prevBound right @ p1 y) + (1@1)).
                             "the 8 below is baseTopFaceHeight + baseDepthSkew,
                              to ensure that the bottom corner is erased"
                             botRt: p2 + b2size + (1@1).
-                            world eraseAcetate:
-                                (prevBound left @ (botRt y - 8)) #! prevBound bottomRight.
+                            world eraseAcetate: (prevBound left @ (botRt y - 8)) # (prevBound bottomRight + (1@1)).
                             bod graphic copy: b1 To: world windowBitmap At: p1.
                             bod graphic copy: b2 To: world windowBitmap At: p2.
                             world syncGraphics.
-                            prevBound: p1 #! botRt.
+                            prevBound: p1 # (botRt + (1@1)).
                         ].
             "in case y2 - y1 is odd, you need to have one more nudge."
             "alternatively, maybe determine y2 - y1 based on the different sizes

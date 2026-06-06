@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -119,19 +119,17 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'ModuleInfo: Module: slab InitialContents: FollowSlot'
         
          bound = ( |
-            | (front left @ back top) #! (back right @ front bottom)).
+            | 
+            (front left @ back top) # ((back right @ front bottom) + (1@1))).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
-         copyFromPoint: pt = ( | {
-                 'ModuleInfo: Module: slab InitialContents: FollowSlot'
-                
-                 r.
-                } 
+         copyFromPoint: pt = ( |
+             r.
             | 
-            r: pt #! pt.
+            r: pt # (pt + (1@1)).
             copyFront: r Back: r).
         } | ) 
 

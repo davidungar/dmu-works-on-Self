@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -81,7 +81,7 @@ See the LICENSE file for license information.
         
          drawFrame = ( |
             | 
-            drawBodySunkenRectangle: bound topLeft #! (bound bottomRight + (1@1))).
+            drawBodySunkenRectangle: bound topLeft # (bound bottomRight + (1@1))).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'windowContext' -> () From: ( | {

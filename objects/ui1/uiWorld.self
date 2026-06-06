@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -1645,42 +1645,18 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
          'Category: bodyMoving\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
-         slideOutRegion: origrect OfBody: bod Changing: changeBlock Setup: setupBlock AfterSlide: afterSlideBlock = ( | {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 arect.
-                }  {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 blurRect <- ((-1)@(-1)) #! ((0)@(0)).
-                }  {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 leftB.
-                }  {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 leftLoc.
-                }  {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 oldRect.
-                }  {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 rect.
-                }  {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 sliver.
-                }  {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 steps = 8.
-                } 
+         slideOutRegion: origrect OfBody: bod Changing: changeBlock Setup: setupBlock AfterSlide: afterSlideBlock = ( |
+             arect.
+             blurRect <- ((0)@(0)) # ((1)@(1)).
+             leftB.
+             leftLoc.
+             oldRect.
+             rect.
+             sliver.
+             steps = 8.
             | 
 
-            rect: (0 @ origrect top) #! (bod size x pred @ origrect bottom).
+            rect: (0 @ origrect top) # ((bod size x pred @ origrect bottom) + (1@1)).
             arect: rect translateBy: bod absoluteLocation.
             prepareForAnimation: bod IncludeArrows: false.
             bod displayThru.

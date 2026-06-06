@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -284,26 +284,17 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiArrow' -> () From: ( | {
          'Category: bounding\x7fModuleInfo: Module: uiArrow InitialContents: FollowSlot\x7fVisibility: public'
         
-         bound = ( | {
-                 'ModuleInfo: Module: uiArrow InitialContents: FollowSlot'
-                
-                 ah.
-                }  {
-                 'ModuleInfo: Module: uiArrow InitialContents: FollowSlot'
-                
-                 corner.
-                }  {
-                 'ModuleInfo: Module: uiArrow InitialContents: FollowSlot'
-                
-                 origin.
-                } 
+         bound = ( |
+             ah.
+             corner.
+             origin.
             | 
             ah: arrowhead.
             origin: tail min: head
                          min: (ah at: 0) min: (ah at: 1) min: (ah at: 2).
             corner: tail max: head
                          max: (ah at: 0) max: (ah at: 1) max: (ah at: 2).
-            origin #! corner).
+            origin # (corner + (1@1))).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiArrow' -> () From: ( | {

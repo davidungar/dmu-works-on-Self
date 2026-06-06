@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -155,22 +155,14 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'boxBitmap' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: boxBitmap InitialContents: FollowSlot\x7fVisibility: private'
         
-         bounds: size Depth: depth Skew: skew = ( | {
-                 'ModuleInfo: Module: boxBitmap InitialContents: FollowSlot'
-                
-                 corner.
-                }  {
-                 'ModuleInfo: Module: boxBitmap InitialContents: FollowSlot'
-                
-                 depthPt.
-                } 
+         bounds: size Depth: depth Skew: skew = ( |
+             corner.
+             depthPt.
             | 
             corner: size maxPoint.
             depthPt: depth maxPoint.
-            frontBound:  (0 @ depthPt y)
-                         #! ((corner x - depthPt x) @ corner y).
-            backBound:   ((depthPt x + skew) @ 0)
-                         #! (corner x @ (corner y - depthPt y - skew)).
+            frontBound:   (0                 @ depthPt y)  # (((corner x - depthPt x) @ corner y                     ) + (1@1)).
+             backBound:  ((depthPt x + skew) @ 0        )  # ( (corner x              @ (corner y - depthPt y - skew)) + (1@1)).
             self).
         } | ) 
 
