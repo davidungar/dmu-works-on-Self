@@ -1181,6 +1181,39 @@ void QuartzWindow::draw_rectangle_black(int x, int y, int w, int h) {
   CGContextStrokeRectWithWidth(myContext, CGRectMake(x, y, w, h), 1.0);
 }
 
+// What Claude says about the +-1's I am getting rid of while I am working on ui1 on Quartz: (dmu, 6/26)
+// 
+// Who & when — not you, and not the recent ui1-on-Quartz work. The +1/-1s are original classic-Self Quartz code:
+//
+//   - They first appear in vm/src/any/os/quartzWindow.cpp in commit 2d10d299 — Russell Allen's 2008 "Initial commit of 4.3 CVS tree" (the repo root; the code itself is older still, from
+//   the classic Mac OS X Self 4.3 Quartz layer).
+//   - Russell copied them verbatim into the new vm64/src/any/os/quartzWindow.mm in cf3a27a7 (2026-02-27, "Port Quartz graphics layer to ARM64 macOS with Cocoa/CoreText"). Blame confirms
+//   lines 1184–1192 are his port, untouched except for your comment-out.
+//   - You commented them out in f7c8a0bd (2026-06-05). That's committed and matches the working tree — no uncommitted changes.
+//
+//   Precision note: only two prims ever had them — clear_rectangle (x-1, y-1, w+1, h+1) and fill_rectangle (x, y-1, w, h+1). draw_rectangle_black uses x,y,w,h straight, so there's
+//   nothing to remove there.
+//
+//   Why they were there. The context is y-flipped (lines 1075–1076: TranslateCTM(0, height()) + ScaleCTM(1,-1), plus isFlipped → YES). Working out the pixel coverage, the fudge expands
+//   the painted region by exactly one pixel on the top (and, for clear_rectangle, one on the left) — not right/bottom. They're empirical "over-erase the top/left seam" guards tuned
+//   against 2008-era Quartz, where the flipped CTM left a faint 1px edge artifact. Crude pixel-alignment hacks, not load-bearing logic.
+//   
+//   Is it safe to comment them out? Yes — and it's the right direction.
+//
+//   - Mechanically safe: pure geometry on two fill calls; worst case is a 1px visual artifact, never a crash/corruption. And you kept them as /*-1*/ so they're self-documenting and
+//   trivially restorable. Good way to run an experiment.
+//   - Why it's correct now: you're fixing the convention properly elsewhere in the same session — 64ff82e8 ("cleaning up oldStyle rectangle") reworks the Self-level rect/point model,
+//   and d0dc5cdb ("Turd prevention") replaces truncating asSmallInteger with floor (origin) / ceil (size) at the float→int boundary in quartz_wrappers.self. That floor/ceil is the
+//   principled version of what the crude -1/+1 was groping at. With the convention fixed at the Self level, the VM-level fudge is redundant and now additive — the extra left/top pixel
+//   becomes a turd instead of preventing one. That left-column over-clear matches the memory's residual symptom (the bodyLight on left 1px strip).
+//   - The one real risk: the fudge over-erased. If any Self drawing still bleeds 1px above/left of its nominal rect, removing the expanded clear can leave the opposite turd (a stale 1px
+//   strip). The call sites are full-window clear (clear_rectangle(0,0,width,height), line 1112), text-line clear (line 1136), and the Self clearRectangle/fillRectangle prims — so it's
+//   exactly the drag/redraw paths you're tuning.
+//
+//   So: keep it commented out, but the verdict is visual, not analytic — drag a window and watch the left/top edges. Given 64ff82e8 + d0dc5cdb, I'd expect it to be cleaner now, not
+//   worse. If a 1px stale strip reappears on bottom/right, that's a different edge than the fudge guarded, so the culprit is the Self-side bevel/deltaList coverage, not these two lines.
+
+
 void QuartzWindow::clear_rectangle(int x, int y, int w, int h) {
   set_color(white());
   CGContextFillRect(myContext, CGRectMake(x/*-1*/, y/*-1*/, w/*+1*/, h/*+1*/));
