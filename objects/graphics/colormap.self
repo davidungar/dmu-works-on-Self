@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.11 $'
  '
-Copyright 1992-2016 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -99,19 +99,11 @@ See the LICENSE file for license information.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> () From: ( | {
-         'Category: graphics (ui1)\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: ui1 colour for an index, carried by xlib xColor (as the X path does). The 0-receiver reaches the lobby from this parentless globals object. -- claude & dmu 5/26
+( The Quartz colormap deliberately speaks xColor)\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
         
          newPlatformColorForPixel: i = ( |
-            | 
-            0 macToolbox colorSpec new value: i).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> () From: ( | {
-         'Category: graphics (ui1)\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
-        
-         platformColormap = ( |
-            | 
-            0 macToolbox colorTable).
+            | 0 xlib xColor new allComponents pixel: i).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
