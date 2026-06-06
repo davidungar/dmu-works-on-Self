@@ -448,7 +448,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: slidingRegion\x7fModuleInfo: Module: animator InitialContents: FollowSlot'
         
          animateSliver: sliver With: tweener StartingAt: pt = ( |
-             blurRect <- ((-1)@(-1)) #! ((0)@(0)).
+             blurRect <- ((-1)@(-1)) # ((1)@(1)).
              newRect.
              oldRect.
             | 

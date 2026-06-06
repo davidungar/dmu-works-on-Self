@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.8 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -76,7 +76,7 @@ See the LICENSE file for license information.
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'menu' -> () From: ( | {
          'ModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
-         sourceBound <- ((0)@(0)) #! ((1)@(1)).
+         sourceBound <- ((0)@(0)) # ((2)@(2)).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'menu' -> () From: ( | {

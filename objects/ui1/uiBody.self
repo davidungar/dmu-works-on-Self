@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -839,7 +839,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                 }  {
                  'ModuleInfo: Module: uiBody InitialContents: FollowSlot'
                 
-                 ok = ((-1)@(-1)) #! ((1)@(1)).
+                 ok = ((-1)@(-1)) # ((2)@(2)).
                 } 
             | 
             "try adding to location to see which way to go"
