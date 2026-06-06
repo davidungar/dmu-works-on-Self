@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2016 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -51,14 +51,6 @@ See the LICENSE file for license information.
         
          statePrintString = ( |
             | size printString).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> () From: ( | {
-         'Category: graphics (ui1)\x7fModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
-        
-         platformPixmap = ( |
-            | 
-            0  macToolbox pixMap).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {

@@ -7,6 +7,24 @@ See the LICENSE file for license information.
 
  '-- Module body'
 
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
+         'Category: graphics (ui1)\x7fComment: ui1 offscreen pixmap on Quartz: an 8-bit indexed drawable backed by a
+grayscale CGBitmapContext (gray byte = palette index).
+createForSameScreenAs:Size:Depth: builds one; bitmap.self drives it like any
+drawable, passing this objects own gc. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         indexedPixmap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'indexedPixmap' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals quartz indexedPixmap.
+\x7fIsComplete: '.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> () From: ( | {
+         'Comment: ui1 gets its offscreen pixmaps from platformPixmap; redirect from the dead Carbon macToolbox pixMap to the Quartz indexed pixmap prototype. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         platformPixmap = bootstrap stub -> 'globals' -> 'quartz' -> 'indexedPixmap' -> ().
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot'
         
@@ -4214,18 +4232,6 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'quartz' -> 'imageSource' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: graphics (ui1)\x7fComment: ui1 offscreen pixmap on Quartz: an 8-bit indexed drawable backed by a
-grayscale CGBitmapContext (gray byte = palette index).
-createForSameScreenAs:Size:Depth: builds one; bitmap.self drives it like any
-drawable, passing this objects own gc. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-        
-         indexedPixmap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'indexedPixmap' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals quartz indexedPixmap.
-\x7fIsComplete: '.
-            | ) .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
