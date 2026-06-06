@@ -3287,9 +3287,9 @@ traits quartz context _AddSlots: ( |
            ifFalse: [^fb value: e] 
               True: [
                   ( reviveIfFail: [|:e| ^ fb value: e]) _FillIndexedAreaMasked_wrapfillIndexedMaskedX: 
-                    t0 asSmallInteger Y: t1 asSmallInteger 
-                    Width: t2 asSmallInteger Height: 
-                    t3 asSmallInteger Index: 
+                    t0 floor asSmallInteger Y: t1 floor asSmallInteger
+                    Width: t2 ceil asSmallInteger Height:
+                    t3 ceil asSmallInteger Index: 
                     t4 asSmallInteger Mask: 
                     t5 asSmallInteger Function: 
                     t6 asSmallInteger IfFail: fb 
