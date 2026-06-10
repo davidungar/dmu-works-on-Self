@@ -235,6 +235,8 @@ static inline u_char xRasterOp(int32 func, u_char src, u_char dst) {
 // physical row (h-1-r).  Only called when the GC is non-default (plane mask !=
 // all-ones or function != copy); the all-ones/copy case stays on the fast CG
 // path (fillRectX:).  -- claude & dmu 5/26
+
+// Debugging ui1 quartz turds: w and h are number of pixels to fill?
 void FillIndexedAreaMasked_wrap( CGContextRef ctx,
                                  int32 x, int32 top, int32 w, int32 h,
                                  int32 colorIndex, int32 planeMask, int32 func) {
@@ -260,6 +262,7 @@ void FillIndexedAreaMasked_wrap( CGContextRef ctx,
     for (int32 c = 0;  c < count;  ++c, ++p)
       *p = (u_char)((xRasterOp(func, src, *p) & m) | (*p & ~m));
   }
+  lprintf("did %d cols, %d rows\n", count, r1 - r0);
 }
 
 // Plane-masked, raster-op variant of CopyIndexedArea_wrap: copies palette-index
@@ -308,6 +311,48 @@ void CopyIndexedAreaMasked_wrap( CGContextRef src, CGContextRef dst,
     for (int32 c = 0;  c < count;  ++c, ++sp, ++dp)
       *dp = (u_char)((xRasterOp(func, *sp, *dp) & m) | (*dp & ~m));
   }
+}
+
+
+// ----------------------------------------------------------------------
+// ui1-on-Quartz TRUE-COLOUR offscreens (RGBA rewrite, Phase 1).
+// ----------------------------------------------------------------------
+// The indexed prims above realise ui1's old 8-bit palette world.  The RGBA
+// rewrite instead gives ui1 32-bit BGRA offscreens drawn with antialiasing ON:
+// a base (opaque) layer and an acetate / arrow overlay (transparent) layer,
+// composited source-over into the window.  No palette, no plane mask, no
+// integer raster-op path -- all rasterisation is native CG.  Both paths coexist
+// during the dual-backend A/B phase (see ui startOn: 'newQuartz').  -- claude & dmu 6/10
+
+// Make a 32-bit BGRA CGBitmapContext for an RGBA layer.  `opaque` picks BGRX
+// (kCGImageAlphaNoneSkipFirst -- the base layer, matching the window's
+// IOSurface) vs premultiplied BGRA (kCGImageAlphaPremultipliedFirst -- the
+// acetate / arrow overlay layers, which composite with transparency).  Byte
+// order is little-endian 32-bit (= B,G,R,A in memory).  bytesPerRow 0 lets CG
+// choose an optimally aligned stride; CG owns the backing store.  Antialiasing
+// is left ON (the whole point of the rewrite).  -- claude & dmu 6/10
+CGContextRef MakeRGBAOffscreen_wrap(int32 w, int32 h, bool opaque) {
+  if (w <= 0 || h <= 0)  return NULL;
+  CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
+  CGBitmapInfo info = (CGBitmapInfo)(kCGBitmapByteOrder32Little |
+                        (opaque ? kCGImageAlphaNoneSkipFirst        // BGRX
+                                : kCGImageAlphaPremultipliedFirst)); // BGRA
+  CGContextRef ctx = CGBitmapContextCreate( NULL, (size_t)w, (size_t)h,
+                                            8, 0, rgb, info);
+  CGColorSpaceRelease(rgb);
+  if (ctx) {
+    CGContextSetShouldAntialias(ctx, true);
+    CGContextSetAllowsAntialiasing(ctx, true);
+  }
+  return ctx;
+}
+
+// Snapshot an RGBA offscreen as a CGImage for the Self-side composite (draw base
+// into the window, then acetate / arrows source-over).  The caller owns the
+// returned image and must release it after drawing.  -- claude & dmu 6/10
+CGImageRef CGImageFromOffscreen_wrap(CGContextRef ctx) {
+  if (ctx == NULL)  return NULL;
+  return CGBitmapContextCreateImage(ctx);
 }
 
 

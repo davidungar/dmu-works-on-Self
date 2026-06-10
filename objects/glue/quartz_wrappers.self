@@ -3286,11 +3286,11 @@ traits quartz context _AddSlots: ( |
         ||  ['deadProxyError' isPrefixOf: e]
            ifFalse: [^fb value: e] 
               True: [
-                  ( reviveIfFail: [|:e| ^ fb value: e]) _FillIndexedAreaMasked_wrapfillIndexedMaskedX: 
+                  ( reviveIfFail: [|:e| ^ fb value: e]) _FillIndexedAreaMasked_wrapfillIndexedMaskedX:
                     t0 floor asSmallInteger Y: t1 floor asSmallInteger
                     Width: t2 ceil asSmallInteger Height:
-                    t3 ceil asSmallInteger Index: 
-                    t4 asSmallInteger Mask: 
+                    t3 ceil asSmallInteger Index:
+                    t4 asSmallInteger Mask:
                     t5 asSmallInteger Function: 
                     t6 asSmallInteger IfFail: fb 
            ]] .
@@ -3359,6 +3359,57 @@ traits quartz context _AddSlots: ( |
                     IfFail: fb 
            ]] .
     self).
+
+
+" ui1-on-Quartz TRUE-COLOUR offscreen (RGBA rewrite): 32-bit BGRA bitmap context, antialiasing ON, for the base (Opaque: true) + acetate/arrow overlay (Opaque: false) layers composited into the window. Acetate erase reuses clearRectX:Y:Width:Height: above. -- claude & dmu 6/10  "
+
+  makeRGBAOffscreenWidth: t0 Height: t1 Opaque: t2  = (
+
+       makeRGBAOffscreenWidth: t0 Height: t1 Opaque: t2 IfFail: 
+        [|:e| ^error: 'makeRGBAOffscreenWidth:Height:Opaque: failed: ', e] ).
+
+  makeRGBAOffscreenWidth: t0 Height: t1 Opaque: t2 IfFail: fb = (
+    |
+
+    |
+
+      t0 _MakeRGBAOffscreen_wrapmakeRGBAOffscreenWidthHeight: t1 
+        Opaque: t2 ResultProxy:  quartz context deadCopy  
+        IfFail: 
+        
+      [|:e| ('badTypeError'   isPrefixOf: e)
+        ||  ['deadProxyError' isPrefixOf: e]
+           ifFalse: [^fb value: e] 
+              True: [
+                  t0 asSmallInteger _MakeRGBAOffscreen_wrapmakeRGBAOffscreenWidthHeight: 
+                    t1 asSmallInteger Opaque: t2 
+                    ResultProxy:  quartz context deadCopy  
+                    IfFail: fb 
+           ]] ).
+
+
+" snapshot an RGBA offscreen to a CGImage for the Self-side source-over composite (caller releases). -- claude & dmu 6/10  "
+
+  createImageSnapshot = (
+
+       createImageSnapshotIfFail: 
+        [|:e| ^error: 'createImageSnapshot failed: ', e] ).
+
+  createImageSnapshotIfFail: fb = (
+    |
+
+    |
+
+       _CGImageFromOffscreen_wrapcreateImageSnapshotResultProxy: 
+         quartz image deadCopy  IfFail: 
+        
+      [|:e| ('badTypeError'   isPrefixOf: e)
+        ||  ['deadProxyError' isPrefixOf: e]
+           ifFalse: [^fb value: e] 
+              True: [
+                  ( reviveIfFail: [|:e| ^ fb value: e]) _CGImageFromOffscreen_wrapcreateImageSnapshotResultProxy: 
+                     quartz image deadCopy  IfFail: fb 
+           ]] ).
 
 
   setShadowOffsetX: t0 OffsetY: t1 Blur: t2 Color: t3  = (

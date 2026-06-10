@@ -1925,11 +1925,25 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fComment: name of the selected graphics backend (Phase 1.5 dual-backend A/B). quartz = the original 8-bit indexed path; newQuartz = the true-colour RGBA path. Selected via ui startOn: aName; defaults to the old path so behaviour is unchanged until a backend is chosen.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+
+         graphicsBackendName <- 'quartz'.
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fComment: is x one of the registry-known graphics-backend names? startOn: gates on this (value-equality against the known names) so a display argument -- including a string display name -- still routes to the legacy display path.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+
+         isKnownGraphicsBackendName: x = ( |
+            |
+            (x = 'quartz') || [ x = 'newQuartz' ]).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
+
          start = ( |
             | startOn: preferences xDisplay).
-        } | ) 
+        } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
@@ -1938,11 +1952,15 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         startOn: disp = ( |
-            | startOn: disp With: startObj).
-        } | ) 
+         'Category: starting\x7fComment: Phase 1.5 dual-backend A/B switch: if the argument is a registry-known graphics-backend name (e.g. quartz / newQuartz) select that backend and start on the default display; otherwise treat it as a display, exactly as before.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+
+         startOn: dispOrBackend = ( |
+            |
+            (isKnownGraphicsBackendName: dispOrBackend) ifTrue: [
+                graphicsBackendName: dispOrBackend.
+                ^ startOn: preferences xDisplay With: startObj ].
+            startOn: dispOrBackend With: startObj).
+        } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
