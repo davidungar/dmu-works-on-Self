@@ -80,7 +80,7 @@ elseif(CMAKE_OSX_VARS_NEED_INITIALIZATION)
       FORCE)
     set(_sdk_list "macosx10.5")
   elseif(${platform_processor} STREQUAL "aarch64" OR ${platform_processor} STREQUAL "amd64")
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0" CACHE STRING
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "12.0" CACHE STRING
       "Minimum OS X version to target for deployment (at runtime); newer APIs weak linked. Set to empty string for default value."
       FORCE)
     # Use xcrun to find the SDK (works with Command Line Tools or Xcode)
