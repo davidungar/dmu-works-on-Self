@@ -686,7 +686,7 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
                openDisplay: displayName
                BoundingBox: position ## size
                 WindowName: name.
-            platformWindow makeShadow. "ui1-on-Quartz: 8-bit indexed shadow for direct window draws -- claude & dmu 5/26"
+            ui graphicsBackend installShadowOn: platformWindow. "ui1-on-Quartz: the indexed (quartz) backend installs an 8-bit shadow for direct window draws; the RGBA (newQuartz) backend skips it so the window draws true colour. -- claude & dmu 5/26, 6/10"
             display: quartz ui1EventSource forPlatformWindow: platformWindow. "ui1-on-Quartz: feed the watcher Cocoa events (display defaults to the X connection) -- claude & dmu 5/26"
 
             createBitmap.

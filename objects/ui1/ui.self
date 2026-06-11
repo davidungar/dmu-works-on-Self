@@ -262,7 +262,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
-         window.
+         window <- bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
@@ -871,6 +871,29 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fComment: the selected graphics backend object, resolved from graphicsBackendName. Phase 1.5 increment 2 (seam rerouting) will snapshot this into an assignable slot at setUpOn: time so the choice is fixed at world-open (shared global GC); for now it is a computed accessor.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         graphicsBackend = ( |
+            | 
+            graphicsBackendNamed: graphicsBackendName).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fComment: name of the selected graphics backend (Phase 1.5 dual-backend A/B). quartz = the original 8-bit indexed path; newQuartz = the true-colour RGBA path. Selected via ui startOn: aName; defaults to the old path so behaviour is unchanged until a backend is chosen.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         graphicsBackendName <- 'newQuartz'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fComment: registry: map a backend name to its backend object. Unknown names fall back to the indexed quartz backend.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+        
+         graphicsBackendNamed: nm = ( |
+            | 
+            nm = 'newQuartz' ifTrue: [ ^ newQuartzGraphicsBackend ].
+            quartzGraphicsBackend).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: forwarded\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          handler = ( |
@@ -1074,6 +1097,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          isDisplayNameForQuartz: dn = ( |
             | dn isEmpty || [dn = 'quartz']).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fComment: is x one of the registry-known graphics-backend names? startOn: gates on this (value-equality against the known names) so a display argument -- including a string display name -- still routes to the legacy display path.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+        
+         isKnownGraphicsBackendName: x = ( |
+            | 
+            (x = 'quartz') || [ x = 'newQuartz' ]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1359,6 +1390,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fComment: the original 8-bit indexed graphics backend (Phase 1.5 dual-backend). Its factory methods reproduce setGraphicAndOffScreen exactly (bitmap copyFor:Size:), so selecting it changes no behaviour. parent* = lobby so the factory bodies can see the bitmap global.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         quartzGraphicsBackend = bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1925,75 +1962,11 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fComment: name of the selected graphics backend (Phase 1.5 dual-backend A/B). quartz = the original 8-bit indexed path; newQuartz = the true-colour RGBA path. Selected via ui startOn: aName; defaults to the old path so behaviour is unchanged until a backend is chosen.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-
-         graphicsBackendName <- 'quartz'.
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fComment: is x one of the registry-known graphics-backend names? startOn: gates on this (value-equality against the known names) so a display argument -- including a string display name -- still routes to the legacy display path.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-
-         isKnownGraphicsBackendName: x = ( |
-            |
-            (x = 'quartz') || [ x = 'newQuartz' ]).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fComment: the original 8-bit indexed graphics backend (Phase 1.5 dual-backend). Its factory methods reproduce setGraphicAndOffScreen exactly (bitmap copyFor:Size:), so selecting it changes no behaviour. parent* = lobby so the factory bodies can see the bitmap global.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-
-         quartzGraphicsBackend = ( |
-            parent* = bootstrap stub -> 'lobby' -> ().
-            name = 'quartz'.
-            makeOffscreenFor: win Size: sz = ( bitmap copyFor: win Size: sz ).
-            makeWindowBitmapFor: win Size: sz = ( bitmap copyFor: win Size: sz ).
-            "draw-target selection: indexed plane masks, read from the world w. Identical to the old uiWorld prepareToDrawOn*/erase* bodies."
-            prepareToDrawOnBackground: w = ( w windowBitmap planeMask: w stationaryPlaneMask ).
-            prepareToDrawOnAcetate: w = ( w windowBitmap planeMask: w movingPlaneMask ).
-            prepareToDrawOnAll: w = ( w windowBitmap useAllBitplanes ).
-            prepareToDrawOnAllButArrow0: w = ( w windowBitmap planeMask: 8r777 ^^ w arrow0Mask ).
-            prepareToDrawOnArrow0: w = ( w windowBitmap planeMask: w arrow0Mask. w myUI colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo ).
-            prepareToDrawOnArrow1: w = ( w windowBitmap planeMask: w arrow1Mask. w myUI colormap1 installAndFixMultiprocessorColormapBugIfPreferencesSaySo ).
-            prepareToDrawOnArrow0InstallingBoth: w = ( w windowBitmap planeMask: w arrow0Mask. w myUI colormapBothArrowPlanes installAndFixMultiprocessorColormapBugIfPreferencesSaySo ).
-            eraseAcetate: rect On: w = ( w windowBitmap planeMask: w movingPlaneMask. w windowBitmap fillRectangle: rect Color: w uiColors transparent ).
-            eraseArrow0: rect On: w = ( w windowBitmap planeMask: w arrow0Mask. w windowBitmap fillRectangle: rect Color: w uiColors transparent ).
-            eraseArrow1: rect On: w = ( w windowBitmap planeMask: w arrow1Mask. w windowBitmap fillRectangle: rect Color: w uiColors transparent ).
-            "full-frame composite/present: the indexed double-buffer flush. newQuartz will snapshot base+acetate+arrows to CGImages and drawImage source-over instead."
-            present: w = ( w displayNoUpdate. w update. w syncGraphics ).
-            | ).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fComment: the true-colour RGBA graphics backend (Phase 1.5 dual-backend). Factory methods are STUBBED to the indexed path for now; Phase 2 replaces them with real RGBA base+acetate+arrow layers + the windowBitmap facade. parent* = lobby for global access.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-
-         newQuartzGraphicsBackend = ( |
-            parent* = ui quartzGraphicsBackend.
-            name = 'newQuartz'.
-            | ).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fComment: registry: map a backend name to its backend object. Unknown names fall back to the indexed quartz backend.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-
-         graphicsBackendNamed: nm = ( |
-            |
-            nm = 'newQuartz' ifTrue: [ ^ newQuartzGraphicsBackend ].
-            quartzGraphicsBackend ).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fComment: the selected graphics backend object, resolved from graphicsBackendName. Phase 1.5 increment 2 (seam rerouting) will snapshot this into an assignable slot at setUpOn: time so the choice is fixed at world-open (shared global GC); for now it is a computed accessor.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-
-         graphicsBackend = ( |
-            |
-            graphicsBackendNamed: graphicsBackendName ).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-
+        
          start = ( |
             | startOn: preferences xDisplay).
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
@@ -2003,14 +1976,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: starting\x7fComment: Phase 1.5 dual-backend A/B switch: if the argument is a registry-known graphics-backend name (e.g. quartz / newQuartz) select that backend and start on the default display; otherwise treat it as a display, exactly as before.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-
+        
          startOn: dispOrBackend = ( |
-            |
+            | 
             (isKnownGraphicsBackendName: dispOrBackend) ifTrue: [
-                graphicsBackendName: dispOrBackend.
-                ^ startOn: preferences xDisplay With: startObj ].
-            startOn: dispOrBackend With: startObj).
-        } | )
+                    graphicsBackendName: dispOrBackend.
+                    ^ startOn: 'quartz' With: startObj ].   "<-- was: preferences xDisplay"
+                startOn: dispOrBackend With: startObj).
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
