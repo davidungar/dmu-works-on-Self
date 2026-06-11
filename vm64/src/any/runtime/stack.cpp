@@ -234,14 +234,24 @@ void Stack::frames_do(framesDoFn fn, primDoFn pfn) {
 }
 
 void Stack::vframes_do(vframesDoFn fn, frame* fr) {
-  if (!process->inSelf()) return;
-  abstract_vframe* vf = new_vframe(fr ? fr : last_self_frame(false));
-  assert(vf->real_bci() != PrologueBCI && vf->real_bci() != EpilogueBCI,
-         "bottom most activation must be a valid vframe");
-  do {
-    (*fn)(vf);
-    vf = vf->sender();
-  } while (vf);
+  // Publish the walked process for find_interpreter_for_frame(), as frames_do
+  // does: _ActivationStack walks suspended processes through here, and without
+  // the hint every interpreted-frame lookup falls to the all-process scan.
+  // -- claude & dmu 6/2026
+  extern Process* interp_lookup_hint_process;
+  Process* savedInterpHint = interp_lookup_hint_process;
+  interp_lookup_hint_process = process;
+
+  if (process->inSelf()) {
+    abstract_vframe* vf = new_vframe(fr ? fr : last_self_frame(false));
+    assert(vf->real_bci() != PrologueBCI && vf->real_bci() != EpilogueBCI,
+           "bottom most activation must be a valid vframe");
+    do {
+      (*fn)(vf);
+      vf = vf->sender();
+    } while (vf);
+  }
+  interp_lookup_hint_process = savedInterpHint;
 }
 
 static int32 d;
