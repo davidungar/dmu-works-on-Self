@@ -196,7 +196,6 @@ SlotsToOmit: parent.
          copyArea: srcRect To: destImage At: destPt GC: g = ( |
              img.
             | 
-            ('copyArea dest=', destPt printString, ' srcWH=', width printString, 'x', height printString) printLine.
             img: context createImageSnapshot.
             destImage gc drawImage: img X: destPt x Y: destPt y Width: width Height: height.
             img release.

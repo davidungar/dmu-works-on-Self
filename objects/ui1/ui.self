@@ -68,7 +68,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
-         subpartNames <- ''.
+         subpartNames <- 'uiOnX11
+'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
@@ -161,7 +162,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
-         graphicsBackend.
+         graphicsBackend <- bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
@@ -1859,12 +1860,16 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: starting\x7fComment: route the X display path to xGraphicsBackend; it used to fall through to (preferences xDisplay) -- a display, not a graphics backend -- which broke ui start on X11. -- claude & dmu 6/2026\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          setUpOn: disp Initial: createObjBlock = ( |
             | 
-            graphicsBackend: disp = 'quartz' ifTrue: quartzGraphicsBackend
-             False: [disp = 'newQuartz' ifTrue: newQuartzGraphicsBackend False: preferences xDisplay ].
+            graphicsBackend:
+                disp = 'quartz' ifTrue: [ quartzGraphicsBackend ]
+                False: [ disp = 'newQuartz' ifTrue: [ newQuartzGraphicsBackend ]
+                False: [ (isDisplayNameForQuartz: disp)
+                            ifTrue: [ newQuartzGraphicsBackend ]
+                            False: [ xGraphicsBackend ] ] ].
 
             openWindowOn: disp.
 
@@ -1982,7 +1987,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          startOn: disp With: obj = ( |
             | 
-            isCacheValid: false. [xxx]. "debugging"
             setUpOn: disp Initial: [ createRoot: reflect: obj ].
             beginRun.
             self).
@@ -2260,6 +2264,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             resend.windowQuit: win Event: event.
             quit).
         } | ) 
+
+
+
+ '-- Sub parts'
+
+ bootstrap read: 'uiOnX11' From: 'ui1'
 
 
 
