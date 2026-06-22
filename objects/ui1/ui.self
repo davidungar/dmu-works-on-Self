@@ -159,6 +159,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
+        
+         graphicsBackend.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (dictionary copyRemoveAll)\x7fVisibility: public'
         
          hiddenSlotDict <- dictionary copyRemoveAll.
@@ -868,20 +874,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             protoRect: ui1GraphicsGlobals window position ##! ui1GraphicsGlobals window size.
             lastRect = protoRect ifTrue: [ preferences initialWindowRect ]
                                   False: [ window position ##! window size ]).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fComment: the selected graphics backend object, resolved from graphicsBackendName. Phase 1.5 increment 2 (seam rerouting) will snapshot this into an assignable slot at setUpOn: time so the choice is fixed at world-open (shared global GC); for now it is a computed accessor.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         graphicsBackend = ( |
-            | 
-            graphicsBackendNamed: graphicsBackendName).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fComment: name of the selected graphics backend (Phase 1.5 dual-backend A/B). quartz = the original 8-bit indexed path; newQuartz = the true-colour RGBA path. Selected via ui startOn: aName; defaults to the old path so behaviour is unchanged until a backend is chosen.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         graphicsBackendName <- 'newQuartz'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1871,6 +1863,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          setUpOn: disp Initial: createObjBlock = ( |
             | 
+            graphicsBackend: disp = 'quartz' ifTrue: quartzGraphicsBackend
+             False: [disp = 'newQuartz' ifTrue: newQuartzGraphicsBackend False: preferences xDisplay ].
+
             openWindowOn: disp.
 
             setBoxSizing.
@@ -1979,10 +1974,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          startOn: dispOrBackend = ( |
             | 
-            (isKnownGraphicsBackendName: dispOrBackend) ifTrue: [
-                    graphicsBackendName: dispOrBackend.
-                    ^ startOn: 'quartz' With: startObj ].   "<-- was: preferences xDisplay"
-                startOn: dispOrBackend With: startObj).
+            startOn: dispOrBackend With: startObj).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1990,6 +1982,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          startOn: disp With: obj = ( |
             | 
+            isCacheValid: false. [xxx]. "debugging"
             setUpOn: disp Initial: [ createRoot: reflect: obj ].
             beginRun.
             self).

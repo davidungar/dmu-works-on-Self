@@ -6385,6 +6385,14 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
+         'ModuleInfo: Module: quartz InitialContents: FollowSlot'
+        
+         presentToWindow: pw = ( |
+            | 
+            pw currentCLUT isNil ifFalse: [ pw blitShadowWithCLUT: pw currentCLUT ]. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'indexedPixmap' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          size = ( |
@@ -6512,7 +6520,8 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
          'Comment: convert the indexed shadow to the true-colour window through the currently-installed colormap. No-op until a colormap is installed (currentCLUT nil). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          displayShadow = ( |
-            | currentCLUT isNil ifFalse: [ blitShadowWithCLUT: currentCLUT ]. self).
+            | 
+            shadow ifNotNil: [| :s | s presentToWindow: self ]. self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {

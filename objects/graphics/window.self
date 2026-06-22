@@ -26,7 +26,7 @@ So annotate this one slot as module window.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> () From: ( | {
-         'Category: windowing\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: windowing\x7fComment: ui1 only\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
         
          window = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'window' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals macToolboxGlobals window.

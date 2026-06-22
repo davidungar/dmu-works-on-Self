@@ -485,7 +485,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: screenOperations\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          display = ( |
-            |
+            | 
             myUI graphicsBackend present: self.
             self).
         } | ) 
@@ -604,7 +604,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseAcetate: rect = ( |
-            |
+            | 
             myUI graphicsBackend eraseAcetate: rect On: self.
             self).
         } | ) 
@@ -620,7 +620,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseArrow0: rect = ( |
-            |
+            | 
             myUI graphicsBackend eraseArrow0: rect On: self.
             self).
         } | ) 
@@ -636,7 +636,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseArrow1: rect = ( |
-            |
+            | 
             myUI graphicsBackend eraseArrow1: rect On: self.
             self).
         } | ) 
@@ -1390,7 +1390,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAcetate = ( |
-            |
+            | 
             myUI graphicsBackend prepareToDrawOnAcetate: self.
             self).
         } | ) 
@@ -1399,7 +1399,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAll = ( |
-            |
+            | 
             myUI graphicsBackend prepareToDrawOnAll: self.
             self).
         } | ) 
@@ -1408,7 +1408,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAllButArrow0 = ( |
-            |
+            | 
             myUI graphicsBackend prepareToDrawOnAllButArrow0: self.
             self).
         } | ) 
@@ -1417,7 +1417,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow0 = ( |
-            |
+            | 
             myUI graphicsBackend prepareToDrawOnArrow0: self.
             self).
         } | ) 
@@ -1426,7 +1426,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow0InstallingBoth = ( |
-            |
+            | 
             myUI graphicsBackend prepareToDrawOnArrow0InstallingBoth: self.
             self).
         } | ) 
@@ -1435,7 +1435,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow1 = ( |
-            |
+            | 
             myUI graphicsBackend prepareToDrawOnArrow1: self.
             self).
         } | ) 
@@ -1444,7 +1444,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnBackground = ( |
-            |
+            | 
             myUI graphicsBackend prepareToDrawOnBackground: self.
             self).
         } | ) 
@@ -1605,12 +1605,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
          'Category: creating\x7fComment: Phase 1.5 increment 2: the two offscreens are created via the selected graphics backend factory (myUI graphicsBackend makeOffscreenFor:Size:) instead of bitmap copyFor:Size: directly. For the quartz (indexed) backend the factory IS bitmap copyFor:Size:, so behaviour is unchanged; the newQuartz backend will return RGBA offscreens.\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
-
+        
          setGraphicAndOffScreen = ( |
-            |
+            | 
             graphic: myUI graphicsBackend makeOffscreenFor: window Size: window size.
             offScreen: myUI graphicsBackend makeOffscreenFor: window Size: window size).
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
          'Category: accessing\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'

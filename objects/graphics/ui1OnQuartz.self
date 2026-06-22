@@ -149,6 +149,7 @@ SlotsToOmit: parent.
         
          makeRGBAShadow = ( |
             | 
+            shadow ifNotNil: [ shadow delete ].
             shadow: quartz rgbaPixmap createForSameScreenAs: self Size: size Depth: 32.
             self).
         } | ) 
@@ -195,6 +196,7 @@ SlotsToOmit: parent.
          copyArea: srcRect To: destImage At: destPt GC: g = ( |
              img.
             | 
+            ('copyArea dest=', destPt printString, ' srcWH=', width printString, 'x', height printString) printLine.
             img: context createImageSnapshot.
             destImage gc drawImage: img X: destPt x Y: destPt y Width: width Height: height.
             img release.
@@ -277,6 +279,17 @@ SlotsToOmit: parent.
         
          pixelValueAt: pt = ( |
             | 0).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         presentToWindow: pw = ( |
+             g.
+            | 
+            g: pw quartzWindow gc.
+            g drawImage: createImageSnapshot X: 0 Y: 0 Width: width * 2 Height: height * 2.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
@@ -451,9 +464,9 @@ SlotsToOmit: parent.
         
          present: w = ( |
             | 
-            w displayNoUpdate.            "graphic -> offScreen + arrows/top planes"
-            w update.                     "offScreen -> shadow (now the RGBA back-buffer)"
-            blitShadowToWindowFor: w.     "shadow -> true-colour window"
+            w window platformWindow makeRGBAShadow.
+            w displayNoUpdate.
+            w update.
             w syncGraphics.
             self).
         } | ) 
