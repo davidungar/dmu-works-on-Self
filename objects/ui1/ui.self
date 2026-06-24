@@ -198,6 +198,20 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          parent* = bootstrap stub -> 'traits' -> 'ui' -> ().
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+        
+         ui1GraphicsGlobals = ( |
+            | graphicsBackend ifNil: [
+                "Default for early ui copy (during init/resetInitialRect) and when no
+                 explicit backend has been chosen via setUpOn:. Prefer macToolboxGlobals
+                 for Quartz/AVP ui1; fall back to x11Globals on X11 platforms."
+                (host osForThisHost name = 'macOS' or: [host osForThisHost name = 'macOSX'])
+                  ifTrue: [macToolboxGlobals]
+                   False: [x11Globals]
+              ] IfNotNil: [|:b| b graphicsGlobals]).
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (\'\')\x7fVisibility: private'
         
@@ -2151,9 +2165,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'testUI' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (ui copy)\x7fVisibility: private'
+         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (traits ui)\x7fVisibility: private'
         
-         parent* <- ui copy.
+         parent* <- traits ui.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'testUI' -> () From: ( | {
@@ -2186,13 +2200,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 ifTrue: [window openIfFail: fblock]
                  False: [window openDepth: 8 IfFail: fblock].
             self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot'
-        
-         ui1GraphicsGlobals = ( |
-            | graphicsBackend ifNil: [x11Globals] IfNotNil: [|:b| b graphicsGlobals]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
