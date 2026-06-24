@@ -5194,71 +5194,30 @@ fd-blocking. -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents:
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
-         'Category: creating\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
-        
-         catchWMDelete = ( |
-            |
-            xlib wmProtocols:    display internAtom: 'WM_PROTOCOLS'.
-            xlib wmDeleteWindow: display internAtom: 'WM_DELETE_WINDOW'.
-            display xSetWMProtocolOfWindow: self Protocol: xlib wmDeleteWindow.
-            self).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
-         'Category: creating\x7fComment: Register as a normal, focusable WM top-level: WM_HINTS state+input (input:true => a click activates the app and assigns keyboard focus, like xterm; XQuartz/quartz-wm will NOT focus a window that omits this), plus the WM_DELETE_WINDOW protocol so the close box routes back to us. -- claude & dmu 6/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
-
-         registerAsWMTopLevel = ( |
-            |
-            iconified: false Input: true.
-            catchWMDelete.
-            self).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
-         'Category: creating\x7fComment: see registerAsWMTopLevel -- this variant also sets the icon pixmap -- claude & dmu 6/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
-
-         registerAsWMTopLevelIcon: icon = ( |
-            |
-            iconified: false Icon: icon Input: true.
-            catchWMDelete.
-            self).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
-         'Category: creating\x7fComment: Full bring-up of a freshly-created managed top-level window: name it, register with the WM (focusable + delete protocol), then begin listening with the given event mask and map it. -- claude & dmu 6/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
-
-         configureAsTopLevelNamed: nm EventMask: em = ( |
-            |
-            name: nm.
-            registerAsWMTopLevel.
-            beginEventsWithMask: em).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
-         'Category: creating\x7fComment: see configureAsTopLevelNamed:EventMask: -- this variant also sets the icon name and pixmap -- claude & dmu 6/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
-
-         configureAsTopLevelNamed: nm IconName: inm Icon: icon EventMask: em = ( |
-            |
-            name: nm.
-            iconName: inm.
-            registerAsWMTopLevelIcon: icon.
-            beginEventsWithMask: em).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
          'Category: creating\x7fComment: shared tail of configureAsTopLevel...: set the event mask, start listening, and map the window. -- claude & dmu 6/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: private'
-
+        
          beginEventsWithMask: em = ( |
-            |
+            | 
             eventMask: em.
             selectInput.
             map.
             self).
-        } | )
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
+         'Category: creating\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+        
+         catchWMDelete = ( |
+            | 
+            xlib wmProtocols:    display internAtom: 'WM_PROTOCOLS'.
+            xlib wmDeleteWindow: display internAtom: 'WM_DELETE_WINDOW'.
+            display xSetWMProtocolOfWindow: self Protocol: xlib wmDeleteWindow.
+            self).
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
          'Category: manipulating\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
-
+        
          clear = ( |
             | 
             "The following call is equivalent to a call of XClearWindow.
@@ -5266,6 +5225,27 @@ fd-blocking. -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents:
              when the 'xClearArea...' was added.   Ole Agesen, July 1996."
             display xClearAreaIn: self X: 0 Y: 0 Width: 0 Height: 0 Exposures: false.
             doAutoFlush).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
+         'Category: creating\x7fComment: Full bring-up of a freshly-created managed top-level window: name it, register with the WM (focusable + delete protocol), then begin listening with the given event mask and map it. -- claude & dmu 6/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+        
+         configureAsTopLevelNamed: nm EventMask: em = ( |
+            | 
+            name: nm.
+            registerAsWMTopLevel.
+            beginEventsWithMask: em).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
+         'Category: creating\x7fComment: see configureAsTopLevelNamed:EventMask: -- this variant also sets the icon name and pixmap -- claude & dmu 6/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+        
+         configureAsTopLevelNamed: nm IconName: inm Icon: icon EventMask: em = ( |
+            | 
+            name: nm.
+            iconName: inm.
+            registerAsWMTopLevelIcon: icon.
+            beginEventsWithMask: em).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
@@ -5582,6 +5562,26 @@ fd-blocking. -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents:
             | 
             display xRaiseWindow: self.
             doAutoFlush).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
+         'Category: creating\x7fComment: Register as a normal, focusable WM top-level: WM_HINTS state+input (input:true => a click activates the app and assigns keyboard focus, like xterm; XQuartz/quartz-wm will NOT focus a window that omits this), plus the WM_DELETE_WINDOW protocol so the close box routes back to us. -- claude & dmu 6/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+        
+         registerAsWMTopLevel = ( |
+            | 
+            iconified: false Input: true.
+            catchWMDelete.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
+         'Category: creating\x7fComment: see registerAsWMTopLevel -- this variant also sets the icon pixmap -- claude & dmu 6/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+        
+         registerAsWMTopLevelIcon: icon = ( |
+            | 
+            iconified: false Icon: icon Input: true.
+            catchWMDelete.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
