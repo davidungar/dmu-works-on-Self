@@ -407,6 +407,12 @@ dmu 5/2026\x7fModuleInfo: Module: desktop InitialContents: FollowSlot\x7fVisibil
          xFallbackNoticeShown <- bootstrap stub -> 'globals' -> 'false' -> ().
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
+         'Category: state\x7fModuleInfo: Module: desktop InitialContents: InitializeToExpression: (false)'
+        
+         xKeyEquivCheckDone <- bootstrap stub -> 'globals' -> 'false' -> ().
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
          'ModuleInfo: Module: desktop InitialContents: FollowSlot'
         
