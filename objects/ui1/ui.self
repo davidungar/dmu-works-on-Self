@@ -1160,7 +1160,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             colormapNoAcetate:
               uiColormap copyWithRep:
                             cachedColormapNoAcetate convertForWindow: window PlatformColormap: ui1GraphicsGlobals platformColormap.
-            ranimator makeAndConvertColormapsFor: window.
+            ranimator makeAndConvertColormapsFor: window  PlatformColormap: ui1GraphicsGlobals platformColormap.
             self).
         } | ) 
 
@@ -2192,7 +2192,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          ui1GraphicsGlobals = ( |
-            | graphicsBackend graphicsGlobals).
+            | graphicsBackend ifNil: [x11Globals] IfNotNil: [|:b| b graphicsGlobals]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {

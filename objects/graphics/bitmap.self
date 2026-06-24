@@ -321,12 +321,11 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'bitmap' -> () From: ( | {
          'Category: creating\x7fComment: resizes the bitmap in place, but loses all pixel information\x7fModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
         
-         resize: size = ( |
+         resize: size PlatformPixmap: pp = ( |
              oldImage.
             | 
             oldImage: image.
-            image: ui1GraphicsGlobals
-                   platformPixmap createForSameScreenAs: oldImage
+            image: pp createForSameScreenAs: oldImage
                                                    Size: size
                                                   Depth: oldImage depth.
             oldImage delete.
