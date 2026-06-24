@@ -279,8 +279,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          initializeForPixmap: pix Size: size Depth: depth = ( |
             | 
-            image: ui1GraphicsGlobals
-                   platformPixmap createForSameScreenAs: pix
+            image: x11Globals platformPixmap createForSameScreenAs: pix
                                                    Size: size
                                                   Depth: depth).
         } | ) 

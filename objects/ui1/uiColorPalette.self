@@ -357,10 +357,10 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiPatternPalette' -> () From: ( | {
          'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         initializeFor: win = ( |
+         initializeFor: win GraphicsGlobals: gg = ( |
             | 
-            blurBody:  ui1GraphicsGlobals patterns      gray createFor: win.
-            blurArrow: ui1GraphicsGlobals patterns lightGray createFor: win.
+            blurBody:  gg patterns      gray createFor: win.
+            blurArrow: gg patterns lightGray createFor: win.
             self).
         } | ) 
 

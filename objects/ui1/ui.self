@@ -584,12 +584,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          createCachedColormaps = ( |
             | 
             deleteCachedColormaps.
-            cachedColormap0: uiColormap copyWithRep: cachedColormap copy.
-            cachedColormap1: uiColormap copyWithRep: cachedColormap copy.
+            cachedColormap0: uiColormap copyWithRep: cachedColormap copyGraphicsGlobals: ui1GraphicsGlobals.
+            cachedColormap1: uiColormap copyWithRep: cachedColormap copyGraphicsGlobals: ui1GraphicsGlobals.
+
             cachedColormapBothArrowPlanes:
-                             uiColormap copyWithRep: cachedColormap copy.
+                             uiColormap copyWithRep: cachedColormap copyGraphicsGlobals: ui1GraphicsGlobals.
             cachedColormapNoAcetate:
-                             uiColormap copyWithRep: cachedColormap copy.
+                             uiColormap copyWithRep: cachedColormap copyGraphicsGlobals: ui1GraphicsGlobals.
             fillCachedColormaps.
             self).
         } | ) 
@@ -991,7 +992,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          initializePatterns = ( |
-            | uiPatterns initializeFor: window).
+            | 
+            uiPatterns initializeFor: window GraphicsGlobals: ui1GraphicsGlobals).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1150,14 +1152,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          makeAndConvertColormaps = ( |
             | 
             colormap0: uiColormap copyWithRep:
-                                     cachedColormap0 convertForWindow: window.
+                                     cachedColormap0 convertForWindow: window PlatformColormap: ui1GraphicsGlobals platformColormap.
             colormap1: uiColormap copyWithRep:
-                                     cachedColormap1 convertForWindow: window.
+                                     cachedColormap1 convertForWindow: window PlatformColormap: ui1GraphicsGlobals platformColormap.
             colormapBothArrowPlanes: uiColormap copyWithRep:
-                       cachedColormapBothArrowPlanes convertForWindow: window.
+                       cachedColormapBothArrowPlanes convertForWindow: window PlatformColormap: ui1GraphicsGlobals platformColormap.
             colormapNoAcetate:
               uiColormap copyWithRep:
-                            cachedColormapNoAcetate convertForWindow: window.
+                            cachedColormapNoAcetate convertForWindow: window PlatformColormap: ui1GraphicsGlobals platformColormap.
             ranimator makeAndConvertColormapsFor: window.
             self).
         } | ) 
@@ -1341,7 +1343,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          openWindowOn: disp = ( |
              rect.
             | 
-            ui1GraphicsGlobals: (isDisplayNameForQuartz: disp) ifTrue: [macToolboxGlobals] False: [x11Globals].
             rect: getInitialRectFrom: ui1GraphicsGlobals window.
             [todo ui1 dmu experimental].
             window: ui1GraphicsGlobals window copy.
@@ -1856,7 +1857,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          setBoxSizing = ( |
-            | boxSizing: boxSize copyFor: window).
+            | 
+            boxSizing: boxSize copyFor: window GraphicsGlobals: ui1GraphicsGlobals).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -2184,6 +2186,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 ifTrue: [window openIfFail: fblock]
                  False: [window openDepth: 8 IfFail: fblock].
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         ui1GraphicsGlobals = ( |
+            | graphicsBackend graphicsGlobals).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {

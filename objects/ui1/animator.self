@@ -333,7 +333,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
-         makeAndConvertColormapsFor: x = ( |
+         makeAndConvertColormapsFor: x PlatformColormap: pc = ( |
             | self).
         } | ) 
 
@@ -981,51 +981,32 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
-         createCachedColormapsUI: ui = ( | {
-                 'ModuleInfo: Module: animator InitialContents: FollowSlot'
-                
-                 ncm.
-                }  {
-                 'ModuleInfo: Module: animator InitialContents: FollowSlot'
-                
-                 ocm.
-                } 
+         createCachedColormapsUI: ui = ( |
+             ncm.
+             ocm.
             | 
             ocm: ui cachedColormap0.
             ncm: ui cachedColormapNoAcetate.
             cachedAcetateFadeOutMaps: createMapSeriesFrom: ocm
                                                        To: ncm
-                                                    Steps: dissolveSteps.
+                                                    Steps: dissolveSteps
+            GraphicsGlobals: ui ui1GraphicsGlobals.
             cachedAcetateFadeOutMapsFast: createMapSeriesFrom: ocm
                                                            To: ncm
-                                                       Steps: fastDissolveSteps.
+                                                       Steps: fastDissolveSteps
+            GraphicsGlobals: ui ui1GraphicsGlobals.
             self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
-         createMapSeriesFrom: f To: t Steps: s = ( | {
-                 'ModuleInfo: Module: animator InitialContents: FollowSlot'
-                
-                 fastF.
-                }  {
-                 'ModuleInfo: Module: animator InitialContents: FollowSlot'
-                
-                 fastT.
-                }  {
-                 'ModuleInfo: Module: animator InitialContents: FollowSlot'
-                
-                 ib.
-                }  {
-                 'ModuleInfo: Module: animator InitialContents: FollowSlot'
-                
-                 r.
-                }  {
-                 'ModuleInfo: Module: animator InitialContents: FollowSlot'
-                
-                 scale = 1000000.
-                } 
+         createMapSeriesFrom: f To: t Steps: s GraphicsGlobals: gg = ( |
+             fastF.
+             fastT.
+             ib.
+             r.
+             scale = 1000000.
             | 
             'creating colormap series . . . ' print.
             r: vector copySize: s succ. "one extra for endpoint"
@@ -1037,7 +1018,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
 
             r size do: [| :i. v. cm. |
                 v: fastF interpolate: ib value /= scale From: fastT.
-                cm: f copyWithRep: cachedColormap copy.
+                cm: f copyWithRep: cachedColormap copyGraphicsGlobals: gg.
                 256 do: [|:i| cm at: i Put: (v at: i) asRGB].
                 r at: i Put: cm.
                 ib step.
@@ -1450,16 +1431,16 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
-         makeAndConvertColormapsFor: win = ( |
+         makeAndConvertColormapsFor: win PlatformColormap: platformColormap = ( |
             | 
             acetateFadeOutMaps: cachedAcetateFadeOutMaps copy.
             cachedAcetateFadeOutMaps do: [ | :cm. :i. |
                 acetateFadeOutMaps at: i Put: uiColormap copyWithRep:
-                                              cm convertForWindow: win ].
+                                              cm convertForWindow: win PlatformColormap: platformColormap].
             acetateFadeOutMapsFast: cachedAcetateFadeOutMapsFast copy.
             cachedAcetateFadeOutMapsFast do: [ | :cm. :i. |
                 acetateFadeOutMapsFast at: i Put: uiColormap copyWithRep:
-                                              cm convertForWindow: win ].
+                                              cm convertForWindow: win PlatformColormap: platformColormap ].
             self).
         } | ) 
 

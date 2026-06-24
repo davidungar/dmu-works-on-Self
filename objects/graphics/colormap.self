@@ -213,13 +213,10 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'cachedColormap' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
         
-         convertForWindow: win = ( | {
-                 'ModuleInfo: Module: colormap InitialContents: FollowSlot'
-                
-                 cm.
-                } 
+         convertForWindow: win PlatformColormap: platformColormap = ( |
+             cm.
             | 
-            cm: colormap copyOn: win.
+            cm: colormap copyOn: win PlatformColormap: platformColormap.
             cm colorsFromCache: self.
             cm).
         } | ) 
@@ -227,14 +224,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'cachedColormap' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
         
-         copy = ( |
+         copyGraphicsGlobals: gg = ( |
              cm.
             | 
             cm: resend.copy platformColors: 
                 platformColors copy.
             cm platformColors size do: [ | :i |
                 cm platformColors at: i
-                          Put: ui1GraphicsGlobals newPlatformColorForPixel: i ].
+                          Put: gg newPlatformColorForPixel: i ].
             cm).
         } | ) 
 
@@ -1374,9 +1371,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'colormap' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
         
-         copyOn: win = ( |
+         copyOn: win PlatformColormap: platformColormap = ( |
             | 
-            clone xcm: ui1GraphicsGlobals platformColormap createFor: win platformWindow Depth: 8).
+            clone xcm: platformColormap createFor: win platformWindow Depth: 8).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'colormap' -> () From: ( | {

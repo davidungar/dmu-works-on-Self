@@ -484,10 +484,10 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'boxSize' -> () From: ( | {
          'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: public'
         
-         copyFor: win = ( |
+         copyFor: win GraphicsGlobals: gg = ( |
             | 
-            platformSpecificMixin: ui1GraphicsGlobals boxSizePlatformMixin. "have to do this somewhere"
-            copy initFontsFor: win).
+            (copy platformSpecificMixin: gg boxSizePlatformMixin) "have to do this somewhere"
+            initFontsFor: win).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'boxSize' -> () From: ( | {

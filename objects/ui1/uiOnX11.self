@@ -77,6 +77,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'xGraphicsBackend' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
         
+         graphicsGlobals = bootstrap stub -> 'globals' -> 'x11Globals' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'xGraphicsBackend' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
          installShadowOn: pw = ( |
             | self).
         } | ) 
@@ -102,6 +108,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             w update.
             w syncGraphics.
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindow' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         ui1GraphicsGlobals = bootstrap stub -> 'globals' -> 'x11Globals' -> ().
         } | ) 
 
 

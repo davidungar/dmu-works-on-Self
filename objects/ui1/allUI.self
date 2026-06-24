@@ -112,12 +112,6 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
 	 '.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: userInterface\x7fModuleInfo: Module: allUI InitialContents: InitializeToExpression: (x11Globals)\x7fVisibility: public'
-        
-         ui1GraphicsGlobals <- bootstrap stub -> 'globals' -> 'x11Globals' -> ().
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'mixins' -> () From: ( | {
          'ModuleInfo: Module: allUI InitialContents: FollowSlot\x7fVisibility: public'
         
