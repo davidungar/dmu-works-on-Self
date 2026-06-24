@@ -796,16 +796,10 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
                                           interpretedDisplayName,
                                           '\'.' ].
             xwin: xlib window createOnDisplay: display At: position Size: size Depth: d.
-            xwin name: name.
-            xwin iconName: iconName.
             icon: createIcon: iconFilename.
-            xwin iconified: false Icon: icon Input: true.
-            xwin catchWMDelete.
-            xwin eventMask: handler eventsToCatch.
+            xwin configureAsTopLevelNamed: name IconName: iconName Icon: icon EventMask: handler eventsToCatch.
 
             display gc graphics_exposures: false.
-            xwin selectInput.
-            xwin map.
 
             createBitmap.
             createCursor.
@@ -829,16 +823,10 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
                                           interpretedDisplayName,
                                           '\'.' ].
             xwin: xlib window createOnDisplay: display At: position Size: size.
-            xwin name: name.
-            xwin iconName: iconName.
             icon: createIcon: iconFilename.
-            xwin iconified: false Icon: icon Input: true.
-            xwin catchWMDelete.
-            xwin eventMask: handler eventsToCatch.
+            xwin configureAsTopLevelNamed: name IconName: iconName Icon: icon EventMask: handler eventsToCatch.
 
             display gc graphics_exposures: false.
-            xwin selectInput.
-            xwin map.
 
             createBitmap.
             createCursor.

@@ -2393,11 +2393,7 @@ the pixmapCache some day.
                      display screen depth printString,
                      ' are not currently supported.)'].
             platformWindow: xlib window createOnDisplay: display At: pt Size: w@h.
-            platformWindow name: wld name.
-            platformWindow catchWMDelete.
-            platformWindow eventMask: eventsToCatch.
-            platformWindow selectInput.
-            platformWindow map.
+            platformWindow configureAsTopLevelNamed: wld name EventMask: eventsToCatch.
             size: w@h.
             gc: xlib graphicsContext createForSameScreenAs: platformWindow.
             gc graphics_exposures: false.
