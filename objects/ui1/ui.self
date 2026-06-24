@@ -162,7 +162,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
-         graphicsBackend <- bootstrap stub -> 'globals' -> 'nil' -> ().
+         graphicsBackend.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
@@ -196,20 +196,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'ui' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
-         ui1GraphicsGlobals = ( |
-            | graphicsBackend ifNil: [
-                "Default for early ui copy (during init/resetInitialRect) and when no
-                 explicit backend has been chosen via setUpOn:. Prefer macToolboxGlobals
-                 for Quartz/AVP ui1; fall back to x11Globals on X11 platforms."
-                (host osForThisHost name = 'macOS' or: [host osForThisHost name = 'macOSX'])
-                  ifTrue: [macToolboxGlobals]
-                   False: [x11Globals]
-              ] IfNotNil: [|:b| b graphicsGlobals]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
@@ -283,7 +269,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
-         window <- bootstrap stub -> 'globals' -> 'nil' -> ().
+         window.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
@@ -2167,7 +2153,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'testUI' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (traits ui)\x7fVisibility: private'
         
-         parent* <- traits ui.
+         parent* <- bootstrap stub -> 'traits' -> 'ui' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'testUI' -> () From: ( | {
@@ -2200,6 +2186,20 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 ifTrue: [window openIfFail: fblock]
                  False: [window openDepth: 8 IfFail: fblock].
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+        
+         ui1GraphicsGlobals = ( |
+            | graphicsBackend ifNil: [
+              "Default for early ui copy (during init/resetInitialRect) and when no
+               explicit backend has been chosen via setUpOn:. Prefer macToolboxGlobals
+               for Quartz/AVP ui1; fall back to x11Globals on X11 platforms."
+              (host osForThisHost name = 'macOS' or: [host osForThisHost name = 'macOSX'])
+                ifTrue: [macToolboxGlobals]
+                 False: [x11Globals]
+            ] IfNotNil: [|:b| b graphicsGlobals]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
