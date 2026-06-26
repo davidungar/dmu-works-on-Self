@@ -90,6 +90,12 @@ be invoked from within ui2.\x7fModuleInfo: Module: desktop InitialContents: Foll
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
+         'Category: state\x7fModuleInfo: Module: desktop InitialContents: InitializeToExpression: (false)'
+        
+         haveXQuartzPreferencesBeenSet <- bootstrap stub -> 'globals' -> 'false' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
          'Category: misc\x7fModuleInfo: Module: desktop InitialContents: FollowSlot\x7fVisibility: public'
         
          inspect: obj = ( |
@@ -405,12 +411,6 @@ dmu 5/2026\x7fModuleInfo: Module: desktop InitialContents: FollowSlot\x7fVisibil
 -- claude & dmu 5/2026\x7fModuleInfo: Module: desktop InitialContents: InitializeToExpression: (false)'
         
          xFallbackNoticeShown <- bootstrap stub -> 'globals' -> 'false' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'desktop' -> () From: ( | {
-         'Category: state\x7fModuleInfo: Module: desktop InitialContents: InitializeToExpression: (false)'
-        
-         xKeyEquivCheckDone <- bootstrap stub -> 'globals' -> 'false' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {

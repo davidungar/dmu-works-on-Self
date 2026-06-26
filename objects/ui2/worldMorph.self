@@ -1217,35 +1217,6 @@ rectangle onto the given canvas.\x7fModuleInfo: Module: worldMorph InitialConten
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
-         'Category: window management\x7fComment: On macOS, the first time per session we are about to use the X11 backend,
-make sure XQuartz is not eating Command-key shortcuts, so Self menu shortcuts (Cmd-M,
-copy/paste) reach the UI instead of minimizing the window. Offer to fix the pref and
-restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
-        
-         ensureXQuartzKeyEquivalentsOffOnce = ( |
-             pref.
-            | 
-            desktop xKeyEquivCheckDone ifTrue: [^ self].
-            (host osName == 'macOSX') ifFalse: [^ self].
-            (snapshotAction commandLine includes: '-headless') ifTrue: [^ self].
-            desktop xKeyEquivCheckDone: true.
-            pref: os outputOfCommand: 'defaults read org.xquartz.X11 enable_key_equivalents'
-                     Delay: 200
-                     IfFail: [|:e| ''].
-            (pref includesSubstring: '0') ifTrue: [^ self].
-            (userQuery askYesNo: 'XQuartz is set to capture Command-key shortcuts, so Self menu shortcuts (Cmd-M, copy/paste) will not reach the UI. Turn that XQuartz preference off and restart XQuartz now?') ifFalse: [
-               ('Leaving XQuartz key equivalents on; Self menu shortcuts will not work under X11. ',
-                'See "Running the UI under X11 (XQuartz) on macOS" in readme.md. -- claude & dmu 6/2026') printLine.
-               ^ self
-            ].
-            os command: 'defaults write org.xquartz.X11 enable_key_equivalents -bool false'
-               IfFail: [|:e| 'Could not write XQuartz preference.' printLine. ^ self].
-            'Restarting XQuartz...' printLine.
-            os command: 'osascript -e \'tell application "XQuartz" to quit\'' IfFail: [ 'Could not quit XQuartz' printLine ].
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
          'Category: running\x7fCategory: private\x7fCategory: step process\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
         
          eventsPending = ( |
@@ -2388,6 +2359,36 @@ introducing inconsistencies or graphical glitches.\x7fModuleInfo: Module: worldM
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
+         'Category: window management\x7fComment: On macOS, the first time per session we are about to use the X11 backend,
+make sure XQuartz is not eating Command-key shortcuts, so Self menu shortcuts (Cmd-M,
+copy/paste) reach the UI instead of minimizing the window. Offer to fix the pref and
+restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
+        
+         setXQuartzPreferencesForSelfOnMac = ( |
+             pref.
+            | 
+            [xxxxx].
+            desktop haveXQuartzPreferencesBeenSet ifTrue: [^ self].
+            (host osName == 'macOSX') ifFalse: [^ self].
+            (snapshotAction commandLine includes: '-headless') ifTrue: [^ self].
+            desktop haveXQuartzPreferencesBeenSet true.
+            pref: os outputOfCommand: 'defaults read org.xquartz.X11 enable_key_equivalents'
+                     Delay: 200
+                     IfFail: [|:e| ''].
+            (pref includesSubstring: '0') ifTrue: [^ self].
+            (userQuery askYesNo: 'XQuartz is set to capture Command-key shortcuts, so Self menu shortcuts (Cmd-M, copy/paste) will not reach the UI. Turn that XQuartz preference off and restart XQuartz now?') ifFalse: [
+               ('Leaving XQuartz key equivalents on; Self menu shortcuts will not work under X11. ',
+                'See "Running the UI under X11 (XQuartz) on macOS" in readme.md. -- claude & dmu 6/2026') printLine.
+               ^ self
+            ].
+            os command: 'defaults write org.xquartz.X11 enable_key_equivalents -bool false'
+               IfFail: [|:e| 'Could not write XQuartz preference.' printLine. ^ self].
+            'Restarting XQuartz...' printLine.
+            os command: 'osascript -e \'tell application "XQuartz" to quit\'' IfFail: [ 'Could not quit XQuartz' printLine ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
          'Category: colormap management\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          showTrueColors = ( |
@@ -2725,10 +2726,11 @@ IfAbsent: argument if none.\x7fModuleInfo: Module: worldMorph InitialContents: F
         
          windowCanvasPrototypeForDisplay: dispName = ( |
             | 
+            [xxxxx].
             dispName = 'quartz' ifTrue: [^ quartzGlobals windowCanvas].
             (dispName isEmpty && [host osName == 'macOSX'])
               ifTrue: [^ quartzGlobals windowCanvas].
-            (host osName == 'macOSX') ifTrue: [ensureXQuartzKeyEquivalentsOffOnce].
+            (host osName == 'macOSX') ifTrue: [setXQuartzPreferencesForSelfOnMac].
             ((host osName == 'macOSX') && [(canOpenXDisplay: dispName) not]) ifTrue: [
                (startXQuartzAndCanOpen: dispName) ifFalse: [
                   noteXFallbackToReadmeOnce.
