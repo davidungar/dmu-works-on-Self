@@ -622,10 +622,9 @@ will also change the screen edges, but not the held objects.\x7fModuleInfo: Modu
         
          handleAndForward: e To: subscribers = ( |
             | 
-            e mouseDown ifTrue: ['handMorph got it' printLine. 
-            subscribers do: [|:s| s printLine].
-            isInWorld ifTrue: [world ensureXQuartzFrontmostForHand: self].
-            [xxxxx].].
+            e mouseDown ifTrue: [
+                isInWorld ifTrue: [world ensureFrontmostForHand: self].
+            ].
             eventBeingHandledAndForwarded: e.
             e mouseMotion ifTrue: [
                 subscribers do: [| :s | s mouseMove: e ].

@@ -1,6 +1,6 @@
  '$Revision: 30.1 $'
  '
-Copyright 1992-2016 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -209,31 +209,12 @@ SlotsToOmit: clip parent platformWindow.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartzWindowCanvas' -> () From: ( | {
-         'Category: accessing quartz objects\x7fModuleInfo: Module: quartzCanvas InitialContents: FollowSlot\x7fVisibility: public'
-        
-         isX11WindowCanvas = ( |
-            | false).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartzWindowCanvas' -> () From: ( | {
          'Category: accessing quartz objects\x7fComment: This window is drawn by Quartz, not XQuartz; xWindowCanvas answers true. Used to keep the XQuartz-activation nudge off the native-Quartz backend. -- claude & dmu 6/2026\x7fModuleInfo: Module: quartzCanvas InitialContents: FollowSlot\x7fVisibility: public'
-
+        
          displayName = ( |
-            |
+            | 
             display ifNil: 'quartz' IfNotNil: [ display name]).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartzWindowCanvas' -> () From: ( | {
-         'Category: accessing quartz objects\x7fComment: Backend-stable name for reopening after a snapshot: a Quartz window
- always reincarnates as Quartz, regardless of which screen it was on
- or whether its window proxy survived the snapshot.  (displayName
- returns the window proxy\'s title, so it can\'t be used here.)
- -- claude & dmu 5/2026\x7fModuleInfo: Module: quartzCanvas InitialContents: FollowSlot\x7fVisibility: public'
-
-         reincarnationDisplayName = ( |
-            |
-            'quartz').
-        } | )
+        } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartzWindowCanvas' -> () From: ( | {
          'Category: portable accessing\x7fModuleInfo: Module: quartzCanvas InitialContents: FollowSlot\x7fVisibility: public'
@@ -394,6 +375,18 @@ SlotsToOmit: clip parent platformWindow.
         
          quartzWindow = ( |
             | platformWindow quartzWindow).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartzWindowCanvas' -> () From: ( | {
+         'Category: accessing quartz objects\x7fComment: Backend-stable name for reopening after a snapshot: a Quartz window
+ always reincarnates as Quartz, regardless of which screen it was on
+ or whether its window proxy survived the snapshot.  (displayName
+ returns the window proxy\'s title, so it can\'t be used here.)
+ -- claude & dmu 5/2026\x7fModuleInfo: Module: quartzCanvas InitialContents: FollowSlot\x7fVisibility: public'
+        
+         reincarnationDisplayName = ( |
+            | 
+            'quartz').
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartzWindowCanvas' -> () From: ( | {

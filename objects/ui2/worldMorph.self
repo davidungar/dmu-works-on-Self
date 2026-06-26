@@ -1205,23 +1205,14 @@ rectangle onto the given canvas.\x7fModuleInfo: Module: worldMorph InitialConten
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
-         'Category: window management\x7fComment: When a text field becomes the typing focus on macOS+X11, nudge XQuartz to be the
-frontmost macOS app so keystrokes actually reach the X window. Clicking a background XQuartz window
-does NOT activate XQuartz -- X input focus and macOS app-front are decoupled -- so without this the
-caret blinks but typing lands in whatever app (e.g. Xcode) was front. Backgrounded (&) fire-and-forget:
-\"open\" is a cheap no-op when XQuartz is already frontmost, and we cannot cheaply tell whether it is.
-X11-only so we never launch XQuartz on the native Quartz backend; macOS-only; skipped headless.
--- claude & dmu 6/2026\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: window management\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
         
-         ensureXQuartzFrontmostForHand: sourceHand = ( |
+         ensureFrontmostForHand: sourceHand = ( |
              wc.
             | 
-            [xxxxx].
-            (host osName == 'macOSX') ifFalse: [^ self].
             (snapshotAction commandLine includes: '-headless') ifTrue: [^ self].
             wc: winCanvasForHand: sourceHand IfAbsent: [^ self].
-            wc isX11WindowCanvas ifFalse: [^ self].
-            os command: 'open -a XQuartz &' IfFail: [|:e| 'ensureXQuartzFrontmostForHand: open failed' printLine. ^ self].
+            wc ensureFrontmost.
             self).
         } | ) 
 
@@ -1594,7 +1585,6 @@ to each morph prototype after filing it in.\x7fModuleInfo: Module: worldMorph In
         
          leftMouseDown: e = ( |
             | 
-            ensureXQuartzFrontmostForHand: e sourceHand.
             carpetMorph copyHand: e sourceHand.
             self).
         } | ) 

@@ -1223,6 +1223,13 @@ in the world.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractWindowCanvas' -> () From: ( | {
+         'Category: portable accessing\x7fModuleInfo: Module: canvas InitialContents: FollowSlot\x7fVisibility: public'
+        
+         ensureFrontmost = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractWindowCanvas' -> () From: ( | {
          'Category: colors and fonts\x7fModuleInfo: Module: canvas InitialContents: FollowSlot\x7fVisibility: public'
         
          idForFontSpec: fSpec = ( |
@@ -2302,17 +2309,20 @@ the pixmapCache some day.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindowCanvas' -> () From: ( | {
-         'Category: portable access\x7fComment: This window is served by XQuartz (X11 backend); quartzWindowCanvas answers false. -- claude & dmu 6/2026\x7fModuleInfo: Module: canvas InitialContents: FollowSlot\x7fVisibility: public'
-
-         isX11WindowCanvas = ( |
-            | true).
-        } | )
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindowCanvas' -> () From: ( | {
          'Category: basics\x7fModuleInfo: Module: canvas InitialContents: FollowSlot\x7fVisibility: public'
         
          drawable = ( |
             | platformWindow).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindowCanvas' -> () From: ( | {
+         'Category: portable access\x7fComment: On MacOS27, aka GoldenGate, an XQuartz ui2 window does not receive keystrokes when you click on it
+unless the OS is told to frontmost the XQuartz app. -- dmu 6/26\x7fModuleInfo: Module: canvas InitialContents: FollowSlot\x7fVisibility: public'
+        
+         ensureFrontmost = ( |
+            | 
+            os command: 'open -a XQuartz &' IfFail: [|:e| 'ensureFrontmost, open failed' printLine. ^ self].
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindowCanvas' -> () From: ( | {
