@@ -211,6 +211,13 @@ SlotsToOmit: clip parent platformWindow.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartzWindowCanvas' -> () From: ( | {
          'Category: accessing quartz objects\x7fModuleInfo: Module: quartzCanvas InitialContents: FollowSlot\x7fVisibility: public'
         
+         isX11WindowCanvas = ( |
+            | false).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartzWindowCanvas' -> () From: ( | {
+         'Category: accessing quartz objects\x7fComment: This window is drawn by Quartz, not XQuartz; xWindowCanvas answers true. Used to keep the XQuartz-activation nudge off the native-Quartz backend. -- claude & dmu 6/2026\x7fModuleInfo: Module: quartzCanvas InitialContents: FollowSlot\x7fVisibility: public'
+
          displayName = ( |
             |
             display ifNil: 'quartz' IfNotNil: [ display name]).

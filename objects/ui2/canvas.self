@@ -2302,6 +2302,13 @@ the pixmapCache some day.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindowCanvas' -> () From: ( | {
+         'Category: portable access\x7fComment: This window is served by XQuartz (X11 backend); quartzWindowCanvas answers false. -- claude & dmu 6/2026\x7fModuleInfo: Module: canvas InitialContents: FollowSlot\x7fVisibility: public'
+
+         isX11WindowCanvas = ( |
+            | true).
+        } | )
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindowCanvas' -> () From: ( | {
          'Category: basics\x7fModuleInfo: Module: canvas InitialContents: FollowSlot\x7fVisibility: public'
         
          drawable = ( |
