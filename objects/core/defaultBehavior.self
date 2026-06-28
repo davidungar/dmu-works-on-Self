@@ -64,6 +64,13 @@ inherit from it. Most objects in the system inherit from the lobby.\x7fModuleInf
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'defaultBehavior' -> () From: ( | {
+         'Category: functional style\x7fModuleInfo: Module: defaultBehavior InitialContents: FollowSlot\x7fVisibility: public'
+        
+         apply: fn = ( |
+            | fn value: self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'defaultBehavior' -> () From: ( | {
          'Category: reflecting\x7fModuleInfo: Module: defaultBehavior InitialContents: FollowSlot\x7fVisibility: public'
         
          asMirror = ( |
@@ -466,6 +473,13 @@ arguments when only the first argument is of interest.\x7fModuleInfo: Module: de
         
          value: a With: b With: c With: d With: e With: f = ( |
             | value: a With: b With: c With: d With: e).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'defaultBehavior' -> () From: ( | {
+         'Category: functional style\x7fModuleInfo: Module: defaultBehavior InitialContents: FollowSlot\x7fVisibility: public'
+        
+         |> fn = ( |
+            | apply: fn).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {

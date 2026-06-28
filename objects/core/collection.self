@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.27 $'
  '
-Copyright 1992-2016 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -562,6 +562,13 @@ passing in previous value, next value, previous key, next key -- Adam, 11/03\x7f
             size = c size  ifFalse: [^ false].
             with: c Do: [|:e1. :e2|  e1 = e2 ifFalse: [^ false]].
             true).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'collection' -> () From: ( | {
+         'Category: searching\x7fModuleInfo: Module: collection InitialContents: FollowSlot\x7fVisibility: public'
+        
+         excludes: v = ( |
+            | (includes: v) not).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'collection' -> () From: ( | {
