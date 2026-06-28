@@ -78,7 +78,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          subpartNames <- 'xDrawable
 xlib_wrappers
-xPreferenceAdjuster
+xPreferencesAdjuster
 '.
         } | ) 
 
@@ -6142,7 +6142,7 @@ fd-blocking. -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents:
 
  bootstrap read: 'xDrawable' From: 'graphics'
  bootstrap read: 'xlib_wrappers' From: 'glue'
- bootstrap read: 'xPreferenceAdjuster' From: 'graphics'
+ bootstrap read: 'xPreferencesAdjuster' From: 'graphics'
 
 
 
