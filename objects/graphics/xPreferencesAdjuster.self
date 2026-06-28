@@ -10,7 +10,7 @@ See the LICENSE file for license information.
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
          'ModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot'
         
-       xPreferencesAdjuster = bootstrap define: bootstrap stub -> 'globals' -> 'modules' -> 'xPreferencesAdjuster' -> () ToBe: bootstrap addSlotsTo: (
+         xPreferencesAdjuster = bootstrap define: bootstrap stub -> 'globals' -> 'modules' -> 'xPreferencesAdjuster' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'directory' From:
              bootstrap remove: 'fileInTimeString' From:
              bootstrap remove: 'myComment' From:
@@ -98,18 +98,7 @@ restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: xPreferencesAdjus
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'ModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
-        
-         adjustOnce: how = ( |
-            | 
-            adjusted ifTrue: nil False: [
-                how value.
-                adjusted: true.
-            ]).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'Category: preference info\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot'
+         'Category: testing\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
         
          areAllOK = ( |
             | 
@@ -118,7 +107,7 @@ restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: xPreferencesAdjus
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'ModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot'
+         'Category: testing\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
         
          assertAllOK = ( |
             | 
@@ -126,7 +115,7 @@ restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: xPreferencesAdjus
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'ModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: adjusting\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
         
          canAdjust = ( |
             | 
@@ -135,7 +124,7 @@ restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: xPreferencesAdjus
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'Comment: for testing\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot'
+         'Category: adjusting\x7fComment: for testing\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
         
          deleteAllPreferences = ( |
             | 
@@ -143,7 +132,7 @@ restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: xPreferencesAdjus
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'Category: converting\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot'
+         'Category: setting\x7fCategory: converting\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
         
          flagForSetting: valueMirror = ( |
             | 
@@ -153,7 +142,7 @@ restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: xPreferencesAdjus
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'Category: getting\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot'
+         'Category: getting\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
         
          getPreference: prefName = ( |
             | 
@@ -172,7 +161,7 @@ restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: xPreferencesAdjus
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'Category: preference info\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot'
+         'Category: testing\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
         
          isOK: prefSlot = ( |
             | 
@@ -180,13 +169,13 @@ restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: xPreferencesAdjus
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'ModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot'
+         'ModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'oddball' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'Category: preference info\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot'
+         'Category: preference info\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
         
          preferenceSlots = ( |
             | reflect: prefsAndStringValues).
@@ -238,7 +227,7 @@ restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: xPreferencesAdjus
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'ModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot'
+         'Category: adjusting\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
         
          prompt = ( |
              effects.
@@ -254,7 +243,7 @@ restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: xPreferencesAdjus
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'Category: setting\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: adjusting\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
         
          restartXQuartz = ( |
             | 
@@ -264,7 +253,7 @@ restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: xPreferencesAdjus
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'Category: preference info\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot'
+         'Category: setting\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
         
          set: prefSlot = ( |
             | 
@@ -273,7 +262,7 @@ restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: xPreferencesAdjus
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'Category: preference info\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot'
+         'Category: setting\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
         
          setAll = ( |
             | 
@@ -291,7 +280,7 @@ restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: xPreferencesAdjus
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'Category: converting\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot'
+         'Category: setting\x7fCategory: converting\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
         
          stringForSetting: valueMirror = ( |
             | 
@@ -315,7 +304,7 @@ restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: xPreferencesAdjus
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'Category: converting\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot'
+         'Category: getting\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
         
          valueForGetting: s = ( |
             | 
@@ -326,7 +315,7 @@ restart XQuartz. -- claude & dmu 6/2026\x7fModuleInfo: Module: xPreferencesAdjus
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'xPreferencesAdjuster' -> () From: ( | {
-         'ModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot'
+         'Category: adjusting\x7fModuleInfo: Module: xPreferencesAdjuster InitialContents: FollowSlot\x7fVisibility: private'
         
          warning = bootstrap setObjectAnnotationOf: ( 'Leaving XQuartz preferences alone; Self IDE will not work under X11. See \"Running the UI under X11 (XQuartz) on macOS\" in readme.md. -- claude & dmu 6/2026' copyMutable) From: ( |
              {} = 'ModuleInfo: Creator: globals xPreferencesAdjuster warning.
