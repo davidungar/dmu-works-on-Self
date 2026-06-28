@@ -76,17 +76,10 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'xlib' -> () From: ( | {
          'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
-         subpartNames <- bootstrap setObjectAnnotationOf: ( 'xDrawable
+         subpartNames <- 'xDrawable
 xlib_wrappers
-' copyMutable) From: ( |
-             {} = 'ModuleInfo: Creator: globals modules xlib subpartNames.
-
-CopyDowns:
-globals byteVector. copy 
-SlotsToOmit: parent.
-
-\x7fIsComplete: '.
-            | ) .
+xPreferenceAdjuster
+'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
@@ -6149,6 +6142,7 @@ fd-blocking. -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents:
 
  bootstrap read: 'xDrawable' From: 'graphics'
  bootstrap read: 'xlib_wrappers' From: 'glue'
+ bootstrap read: 'xPreferenceAdjuster' From: 'graphics'
 
 
 
