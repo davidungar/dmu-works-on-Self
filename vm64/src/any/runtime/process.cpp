@@ -834,9 +834,34 @@ inline void handlePreemption() {
   frame* last = currentProcess->stack()->last_self_frame(true);
   currentProcess->killVFrameOopsAndSetWatermark(last);
   if (currentProcess->isKillingOrDeoptimizing()) {
-    // done killing frames / deoptimizing - return to caller of primitive
+    // done killing frames / deoptimizing - return to caller of primitive.
+    //
+    // The interpreter-only kill reaches its target via a per-send stack-limit
+    // safepoint (see interpreter::send) rather than a JIT return trap, so on
+    // the way out we must hand the killer a clean global VM state -- otherwise
+    // the leftovers below bite, since all of these are global / not restored by
+    // transfer() on a cooperative switch:  -- claude & dmu 6/2026
     currentProcess->resetKilling();
     currentProcess->resetDeoptimizing();
+    // (1) The kill ran through the single-step/stop machinery, which can leave
+    //     the process flagged to stop at every bytecode (+ a stale preemptCause).
+    //     Left set, on resume it yields to twains, twains re-runs it, it yields
+    //     again -- the scheduler spins in transfer:/twains:Result:SingleStep:Stop:.
+    currentProcess->resetStopping();
+    currentProcess->resetSingleStepping();
+    currentProcess->setStopPoint(NULL);
+    preemptCause = cNoCause;
+    // (2) The kill's fake NLR (re-armed by the convert's save_NLR_results) can
+    //     leave have_NLR_through_C set; the killer's next send would then see a
+    //     pending NLR and unwind its OWN doIt.  The kill is finished here, so
+    //     clear it.
+    NLRSupport::reset_have_NLR_through_C();
+    // (3) The kill armed preemption (SPLimit=stackEnd).  SPLimit is global and
+    //     transfer() does not restore it per-process, so disarm against the
+    //     stack we are about to resume (the killer, prevProcess) -- not
+    //     currentProcess (the killed process, a different stack) -- or the
+    //     killer trips fastPreemptionCheck at its next send and yields forever.
+    setSPLimit(prevProcess->spLimit());
     prevProcess->transfer();
   } else if (twainsProcess && preemptCause != cNoCause) {
     if (SignalInterface::are_self_signals_blocked()  &&  preemptCause == cSignal) {
@@ -1978,8 +2003,12 @@ void Process::prepare_to_return_to_self_after_conversion(
 }
 
 bool Process::is_done_with_killing_or_deoptimizing(frame* dest_self_fr) {
-  return  isDeoptimizing() // only used for goto bytecode primitive (only last stack frame)
-  ||      (isKilling()  &&  killVF()->as_vframe()->fr == dest_self_fr); // for killActivationsUpTo prim
-
+  if (isDeoptimizing()) return true; // only used for goto bytecode primitive (only last stack frame)
+  if (!isKilling()) return false;
+  // killVF can read dead during the interpreter unwind (a spurious convert pass
+  // after the kill has already reached its target); don't deref a dead vframeOop
+  // -- treat it as "not the target".  -- claude & dmu 6/2026
+  if (!killVF()->is_live()) return false;
+  return killVF()->as_vframe()->fr == dest_self_fr; // for killActivationsUpTo prim
 }
 
