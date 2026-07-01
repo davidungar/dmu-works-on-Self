@@ -238,6 +238,13 @@ class interpreter: public abstract_interpreter {
 
 private:
   oop handle_return_trap_after_send_if_needed(oop);
+#if TARGET_IS_64BIT && !defined(FAST_COMPILER) && !defined(SIC_COMPILER)
+  // Interpreter-only kill/retry: this frame is the kill target (restartSend was
+  // set by the convert).  Park + complete the kill; returns true if a later
+  // kill's NLR unwound into the parked frame (caller adopts res & propagates),
+  // false on a normal resume (caller re-dispatches).  -- claude & dmu 6/2026
+  bool park_at_kill_target(oop& res);
+#endif
   oop try_pic(LookupType, oop delOrNameToSend, int32 resSP);
   // If pic entry i matches rMap, produce its result, update the stack, and
   // return true; otherwise return false.  -- claude & dmu May 2026

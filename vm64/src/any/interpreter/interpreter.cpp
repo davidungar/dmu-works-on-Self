@@ -638,6 +638,43 @@ void interpreter::continue_NLR() {
 }
 
 
+#if TARGET_IS_64BIT && !defined(FAST_COMPILER) && !defined(SIC_COMPILER)
+// This frame's interpreter is the kill target: the convert set restartSend on
+// it (conversion.cpp return_to_interpreted_self).  Park here to COMPLETE the
+// kill -- suspend this process and hand control back to the killer -- with a
+// FRESH setjmp so a later kill's NLR has a live C frame to land on.
+//
+// Two things this fixes, both from the double-kill diagnosis:
+//  * A LATER kill unwinds via longjmp(active_interp()->nlr_jmpbuf) into this
+//    innermost, parked interp.  Completion suspends this process PAST
+//    lookup_and_send, so lookup_and_send's setjmp is dead; without a fresh
+//    setjmp the longjmp lands in that returned frame, reloads `this` from
+//    garbage and SIGBUSes.  Re-establishing setjmp in THIS live frame (which is
+//    frozen on the stack while suspended) gives that NLR a valid landing.
+//  * The C standard allows the longjmp because this function has not returned
+//    when it fires -- it is suspended inside SaveNonVolRegsAndCall0 below.
+//
+// Called from BOTH the PIC-hit fast path and the lookup_and_send loop in
+// send(), since either can be the send that lands on the target.  Returns true
+// if a later kill's NLR unwound into the parked frame (caller adopts res and
+// propagates it up), false on a normal resume (caller re-dispatches -- re-lookup
+// picks up an edited method).  -- claude & dmu 6/2026
+bool interpreter::park_at_kill_target(oop& res) {
+  restartSend = false;
+  NLRSupport::reset_have_NLR_through_C(); // target reached: stop the unwind
+  if (setjmp(_nlr_jmpbuf) == 0) {
+    // The kill armed preemption; servicing it runs handlePreemption, which
+    // resets the killing flag and transfers back to the killer, leaving this
+    // process suspended right here until an explicit resume/continue.
+    if (fastPreemptionCheck())
+      SaveNonVolRegsAndCall0(interruptCheck);
+    return false; // resumed normally
+  }
+  res = NLRSupport::have_NLR_through_C() ? NLRSupport::NLR_result_from_C() : res;
+  return true; // a later kill's NLR unwound in
+}
+#endif
+
 void interpreter::send(LookupType type, oop delOrNameToSend, fint arg_count ) {
   // Do NOT hoist methodHolder() here. _methodHolder is only required
   // to be valid on the lookup_and_send path; PIC-hit and send_prim paths
@@ -659,47 +696,62 @@ void interpreter::send(LookupType type, oop delOrNameToSend, fint arg_count ) {
 
 
   int32 resSP = sp - arg_count - (type == NormalLookupType);
-  
+
+  oop res;
   oop picRes = try_pic(type, delOrNameToSend, resSP);
   if (picRes != badOop) {
-    stack[resSP] = picRes;
-    sp = resSP + 1;
-    return;
+#if TARGET_IS_64BIT && !defined(FAST_COMPILER) && !defined(SIC_COMPILER)
+    // A PIC-cached method send can also land on the kill target: try_pic runs
+    // handle_return_trap, which sets restartSend when the convert marks this
+    // interp as the target.  Do NOT take the fast early return then -- park at
+    // the target (exactly as the lookup_and_send loop below does) so the kill
+    // completes and hands control back to the killer.  On a normal resume, fall
+    // into the loop to re-dispatch.  Missing this was the double-kill hang: the
+    // second kill's target was a PIC-cached send, so restartSend was set but the
+    // fast return skipped the loop that honors it.  -- claude & dmu 6/2026
+    if (restartSend) {
+      res = picRes;
+      if (park_at_kill_target(res)) { // a later kill's NLR unwound in
+        stack[resSP] = res;
+        sp = resSP + 1;
+        return;
+      }
+      // resumed normally: fall into the loop below to re-dispatch
+    } else
+#endif
+    {
+      stack[resSP] = picRes;
+      sp = resSP + 1;
+      return;
+    }
   }
- 
-  oop res;
+
   for (;;) {
       res =
       stringOop(selToSend)->is_prim_name()
       ? send_prim()
       : lookup_and_send( type, methodHolder(), delOrNameToSend);
-    
+
     oop res_after_trap = handle_return_trap_after_send_if_needed(res);
+#if TARGET_IS_64BIT && !defined(FAST_COMPILER) && !defined(SIC_COMPILER)
+    // Interpreter-only kill/retry.  `restartSend` (set only by the kill convert
+    // on this build) means "this frame is the kill target".  Honor it BEFORE the
+    // `res_after_trap == badOop` break: when the target is reached by unwinding a
+    // fake NLR (a second kill of an already-parked process) the payload is
+    // badOop, and breaking first would propagate the NLR past the target and
+    // unwind the whole stack (hang).  park_at_kill_target parks + completes the
+    // kill (see its definition); true = a later kill's NLR unwound in (propagate
+    // it), false = normal resume (re-dispatch by looping).  -- claude & dmu 6/2026
+    if (restartSend) {
+      if (park_at_kill_target(res))
+        break;    // propagate the incoming NLR to the new target
+      continue;   // resumed: re-dispatch this send
+    }
+#endif
     if (res_after_trap == badOop) {break;}
 
     if (!restartSend)
       break;
-#if TARGET_IS_64BIT && !defined(FAST_COMPILER) && !defined(SIC_COMPILER)
-    // Kill/retry on the interpreter-only build.  `restartSend` means "re-dispatch
-    // this send", and on this build it is set only by the kill convert (no
-    // recompilation).  Re-dispatch happens by simply looping back to re-run
-    // lookup_and_send below: rcvToSend/selToSend/arg_count and the expression-
-    // stack operands are all intact (sp is not adjusted until after this loop)
-    // and this C frame survives the green-thread suspend, so no bytecode is
-    // replayed -- no is.index/selector rebuild needed.
-    //
-    // But first mirror the compiled VM's per-send stack-limit safepoint: the
-    // kill armed preemption, so service it here, BEFORE re-running the send.
-    // interruptCheck -> handlePreemption is the completion that resets the
-    // killing flag and transfers control back to the killer process, leaving
-    // this process parked at this send.  A later `continue` resumes here and
-    // the loop re-runs lookup_and_send (re-lookup picks up an edited method).
-    // This sits past `if (!restartSend) break`, so normal sends never reach it
-    // -- zero cost off the kill path.  -- claude & dmu 6/2026
-    restartSend = false;
-    if (fastPreemptionCheck())
-      SaveNonVolRegsAndCall0(interruptCheck);
-#endif
   }
   stack[resSP] = res;
   sp = resSP + 1; // sp points one past top
@@ -771,7 +823,6 @@ oop interpreter::handle_return_trap_after_send_if_needed(oop res) {
   // Test for profiling because that is not implemented yet -- dmu 5/26
   if (!is_return_patched() || get_return_patch_reason() == patched_for_profiling)
     return badOop;
-  
   preserved p(res);
   // save non vol regs because HandleReturnTrap can call convert which
   //  can call continueNLRAfterReturnTrap which (I think) cuts back the stack
