@@ -2032,6 +2032,49 @@ frame conversion of all frames.\x7fModuleInfo: Module: tests InitialContents: Fo
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
          'Category: test suites\x7fComment: Tests of low-level operations\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
         
+         runInterpreterSuite = ( |
+             errorMessages.
+            | 
+            _Interpret: true.
+            errorMessages: list copyRemoveAll.
+            startOfTests.
+
+            [
+                immediateTest.
+                lookupTest.
+                parentInMethodTest.
+                inheritanceTest.
+                diTest.
+                unwindProtectTest.
+                nlrInliningTest.
+                lowLevelTest.
+                mirrorTest.
+                enumerationTest.
+                timeTest.
+                stackTest.
+                performTest.
+                branches runWithoutNicOrScheduler.
+                programming run.
+                diProgramming run.
+                programmingPrims run.
+                performConversionTest.
+                positionTableTest.
+                killTwiceTest.
+                sicAllocationTest.
+                divAndModTest.
+                [ messageTest        ] twiceWithInlineCacheFlushingBetween.
+                [ parserTest         ] twiceWithInlineCacheFlushingBetween.
+            ] value.
+            _Interpret ifFalse: [ browsingTest. sourceStringTest ]. "too slow for non-inlined"
+            snapshotWritingTest.        "no point in doing this twice"
+
+            endOfTests: errorMessages.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'tests' -> () From: ( | {
+         'Category: test suites\x7fComment: Tests of low-level operations\x7fModuleInfo: Module: tests InitialContents: FollowSlot\x7fVisibility: public'
+        
          runNICSuite = ( |
              errorMessages.
             | 
