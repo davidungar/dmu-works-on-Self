@@ -8,16 +8,18 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: system\x7fCategory: numbers\x7fComment: largest small integer\x7fModuleInfo: Module: smallInt InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: numbers\x7fComment: largest small integer\x7fModuleInfo: Module: smallInt InitialContents: InitializeToExpression: ( ( ((1 _IntArithmeticShiftLeft:  \'self_int\' _BitSize _IntSub: 2
+) _IntSub: 1) _IntMul: 2) _IntAdd: 1)\x7fVisibility: public'
         
-         maxSmallInt = 536870911.
-        } | ) 
+         maxSmallInt =  ( ((1 _IntArithmeticShiftLeft:  'self_int' _BitSize _IntSub: 2
+) _IntSub: 1) _IntMul: 2) _IntAdd: 1.
+        } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
-         'Category: system\x7fCategory: numbers\x7fComment: smallest small integer\x7fModuleInfo: Module: smallInt InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fCategory: numbers\x7fComment: smallest small integer\x7fModuleInfo: Module: smallInt InitialContents: InitializeToExpression: (-1 _IntArithmeticShiftLeft: \'self_int\' _BitSize _IntSub: 1)\x7fVisibility: public'
         
-         minSmallInt = -536870912.
-        } | ) 
+         minSmallInt =  -1 _IntArithmeticShiftLeft: 'self_int' _BitSize _IntSub: 1.
+        } | )
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
          'ModuleInfo: Module: smallInt InitialContents: FollowSlot'
