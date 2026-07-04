@@ -150,6 +150,8 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             paintNames at:   'lightGray'    Put: (paint copyRed: 0.87 Green: 0.87 Blue: 0.87).
             paintNames at:   'darkGray'     Put: (paint copyRed: 0.37 Green: 0.37 Blue: 0.37).
             paintNames at:   'offWhite'     Put: (paint named: 'gray') copyBrightness: 0.92.
+            "windowMorph's default chrome color (matches the GitHub-lineage world) -- claude & dmu 7/2026"
+            paintNames at:   'outlinerGray' Put: (paint copyRed: 0.839687 Green: 0.839687  Blue: 0.839687).
 
             "primary and secondary colors"
             paintNames at:   'red'          Put: (paint copyRed: 1.0 Green: 0.0 Blue: 0.0).
