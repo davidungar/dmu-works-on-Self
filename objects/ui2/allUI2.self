@@ -104,6 +104,8 @@ absAppMorph
 testMorphs
 qUI2Events
 tempPaints
+expanderMorph
+windowMorph
 '.
         } | ) 
 
@@ -167,6 +169,8 @@ tempPaints
  bootstrap read: 'testMorphs' From: 'ui2'
  bootstrap read: 'qUI2Events' From: 'ui2'
  bootstrap read: 'tempPaints' From: 'ui2'
+ bootstrap read: 'expanderMorph' From: 'ui2'
+ bootstrap read: 'windowMorph' From: 'ui2'
 
 
 

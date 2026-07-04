@@ -123,7 +123,10 @@ list(APPEND SRC ${SRC_VMDATE})
 
 # pre-compiled headers. (not for Xcode, has its own way)
 if(NOT CMAKE_GENERATOR MATCHES Xcode)
-  add_pch_rule(${SELF_PREFIX_HEADER} SRC)
+  # SIC experiment: skip the .gch so per-file compiles proceed past header
+  # errors; the prefix header is still generated and textually -include'd.
+  # add_pch_rule(${SELF_PREFIX_HEADER} SRC)
+  list(APPEND SRC ${SELF_PREFIX_HEADER})
 endif()
 
 # SELF_AS_LIBRARY: build the VM as a static library (libSelfVM.a) with

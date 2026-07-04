@@ -18,8 +18,16 @@ void   frame::set_nmethod_frame_chain(frame* f, nmethod* nm) {
   *nmethod_frame_chain_addr(nm) = f; }
   
 objVectorOop frame::patched_frame_saved_outgoing_args(nmethod* nm) {
+# if TARGET_ARCH == AARCH64_ARCH
+  // aarch64 saves the args at patch time despite the flag (see
+  // frame::save_outgoing_arguments), but only for compiled frames --
+  // an interpreter frame is a C++ frame with no such slot
+  if (is_interpreted_self_frame())
+    return NULL;
+# else
   if (!SaveOutgoingArgumentsOfPatchedFrames)
     return NULL;
+# endif
   assert(is_patched(), "saved outoing args only in patched frame");
   return *patched_frame_saved_outgoing_args_addr(nm); 
 }
@@ -173,7 +181,7 @@ bool frame::is_interpreted_self_frame(SelfFrameQuery q) {
   return false;
 # else
   if (get_interpreter() == NULL) return false;
-# if TARGET_IS_64BIT && !defined(FAST_COMPILER) && !defined(SIC_COMPILER)
+# if TARGET_IS_64BIT  // sentinel distinction exists whenever the interpreter does
   // The bottom-of-process sentinel has a non-NULL interpreter pointer (it IS
   // the first interpret() in the process — live receiver/args/locals/stack).
   // For unwind callers (return-trap patching, NLR, vframe killing), we must
@@ -303,6 +311,19 @@ void frame::patch_compiled_self_frame(returnTrapHandlerFn new_fn) {
   if ( ret == first_inst_addr((void*)firstSelfFrame_returnPC))
     return;
 
+  // Don't patch a compiled frame that returns into the interpreter (its caller
+  // is the interpreter's C++ send dispatch, not compiled code -- ret is native
+  // but outside the JIT zone).  The return-trap stash, set_currentPC below,
+  // writes to currentPC_addr() = caller_fp - 8, which on a compiled caller is a
+  // reserved currentPC hole but on an interpreter (C++) caller is a live
+  // saved-register slot (e.g. do_send_code's saved x19 = the interpreter
+  // pointer).  Patching would clobber it and corrupt the interpreter when the
+  // frame returns.  Single-stepping still stops via the rigged preemption at
+  // the next bytecode.  (A normal compiled-caller frame has ret in the zone and
+  // is patched as before.)  -- rca 6/26
+  if (!Memory->code->contains(ret))
+    return;
+
   assert(is_compiled_self_frame(), "must be compiled");
   assert( new_fn == (returnTrapHandlerFn)ReturnTrap  ||  
           new_fn == (returnTrapHandlerFn)PrimCallReturnTrap  ||
@@ -312,10 +333,10 @@ void frame::patch_compiled_self_frame(returnTrapHandlerFn new_fn) {
          "ret addr not in zone, already patched?");
 
   trace_patch(new_fn);
-  
+
   // must be before we set currentPC so following code can test it
   save_outgoing_arguments();
-  
+
   set_currentPC(ret);
   set_real_return_addr(first_inst_addr((void*)new_fn));
 }
@@ -330,6 +351,36 @@ void frame::patch_compiled_self_frame(returnTrapHandlerFn new_fn) {
 // which only currently works for PPC.
 
 void frame::save_outgoing_arguments() {
+# if TARGET_ARCH == AARCH64_ARCH
+  // No asm glue saves outgoing args on this port, but the restart path
+  // (the conversion's copyOutgoingArgs) needs their values from before a
+  // conversion rebuilds this part of the stack.  They are still in this
+  // frame's outgoing area -- rcvr+args just above the frame object -- so
+  // copy them to a heap vector now, while the frame is intact.  The slot
+  // is GC-visited by FrameIterator::do_patched_frame_saved_outgoing_args.
+  { fint nargs = outgoing_arg_count(NULL);
+    if (nargs < 0) { set_patched_frame_saved_outgoing_args(0); return; }
+    objVectorOop v = Memory->objVectorObj->cloneSize(nargs + 1 /* rcvr */);
+    for (fint i = 0;  i < nargs + 1;  ++i) {
+      oop e = *((oop*)this + ircvr_offset + i);
+      // A patched frame's outgoing-args area is not always a valid oop
+      // snapshot: for some frames these slots hold a non-object value (a
+      // collected/never-live arg, or a reused slot).  The i386 path asserts
+      // arg->verify_oop(); here we must not store a bogus new-space pointer,
+      // or the scavenger crashes when this GC-visited vector is later scanned
+      // (it would forward a pointer whose target has no valid map).  Substitute
+      // nil for anything that isn't a real oop.  -- rca 6/26
+      if (e->is_mem() && Memory->should_scavenge(memOop(e))
+          && !memOop(e)->is_forwarded()
+          && (memOop(e)->addr()->_map == NULL
+              || !oop(memOop(e)->addr()->_mark)->is_mark()))
+        e = Memory->nilObj;
+      v->obj_at_put(i, e);
+    }
+    set_patched_frame_saved_outgoing_args(v);
+    return;
+  }
+# endif
   if (!SaveOutgoingArgumentsOfPatchedFrames) {
     return;
   }
@@ -380,11 +431,30 @@ fint frame::outgoing_arg_count(frame* sendee) {
   // May return -1 of there is not even a receiver.
   sendDesc* sd = send_desc();
   if (sd == NULL) return -1; // no JIT, no sendDesc
+# if !defined(FAST_COMPILER) && !defined(SIC_COMPILER)
+  // Interpreter-only: send_desc() above always answers NULL (there are no
+  // compiled sends), and the classification below uses JIT-only interfaces.
+  return -1;
+# else
   fint r;
+  // A perform site's selector (and so its arg count) is dynamic -- registers
+  // only; the walk cannot size its outgoing area.
+  if (isPerformLookupType(sd->lookupType())) return -1;
+  // An unbound send still targets a runtime-stub trapdoor (it is mid-lookup;
+  // frame walks reach such in-flight sites now); count its args from the
+  // selector like any non-prim send rather than letting isPrimCall classify
+  // the trapdoor as a prim.
+  { char* target = (char*)sd->jump_addr();
+    if (target == (char*)Memory->code->trapdoors->SendMessage_stub_td()
+     || target == (char*)Memory->code->trapdoors->SendDIMessage_stub_td())
+      return sd->arg_count(); }
   if (sd->isPrimCall()) {
     char* addr = sd->jump_addr();
     PrimDesc* pd = getPrimDescOfFirstInstruction(addr, true);
-    assert(pd != NULL, "no primitive descriptor");
+    // Not every non-zone target is a prim (e.g. the recompile trapdoors are
+    // VM text); fall back to the selector-based count instead of crashing on
+    // a NULL descriptor -- frame walks now reach these in-flight sites.
+    if (pd == NULL) return sd->arg_count();
     r = pd->arg_count();
     if (traceOAC) lprintf("***** frame::outgoing_arg_count: pd = %s, r = %d\n", pd->name(), r);
   }
@@ -392,6 +462,7 @@ fint frame::outgoing_arg_count(frame* sendee) {
   else
     r = sd->arg_count();
   return r;
+# endif // !FAST_COMPILER && !SIC_COMPILER
 }
 
 
@@ -420,8 +491,16 @@ returnTrapHandlerFn frame::return_addr_for_patching( bool forceSelfFrame,
   if (!sendee_arg)
     sendee_arg = sendee();
   assert( sendee_arg->sender() == this, "incorrect sendee_arg");
-  assert( !sendee_arg->is_interpreted_self_frame(), "XXX not implemented yet");
 
+  // An INTERPRETED sendee is handled like the C/prim case: the interpreted
+  // callee returns into this compiled frame through the mixed-mode bridge
+  // (interpretSendForCompiledSender -> ReturnResult/ReturnNLR), a plain C
+  // return through the trapdoor-call record -- the same shape as a prim
+  // call's return.  PrimCallReturnTrap additionally disambiguates the
+  // {sp-16, sp-8} entry geometries by content, so a mismatch between this
+  // classification and the actual returner is tolerated (see the stub).
+  // This path was an unimplemented assert; post-bootstrap convert() reaches
+  // it whenever a compiled frame's callee is interpreted (tiered mode).
   return sendee_arg->is_compiled_self_frame()
     ?  (void (*)(...))         ReturnTrap
     :  (void (*)(...)) PrimCallReturnTrap;
@@ -604,7 +683,22 @@ void HandleReturnTrap(oop result, char* sp_of_patched_frame,
 
   // Remember, patched_self_frame is frame that would have been RETURNED INTO
   // had not the patching happened. -- dmu 1/03
-  frame* patched_self_frame = currentFrame()->get_patched_self_frame(sp_of_patched_frame);
+  frame* stub_record = currentFrame();  // the trap stub's hand-built record
+  frame* patched_self_frame = stub_record->get_patched_self_frame(sp_of_patched_frame);
+
+  // get_patched_self_frame may have disambiguated the trap stub's sp-16
+  // guess upward by one word or downward by a whole dead callee frame (see
+  // PrimCallReturnTrap and get_patched_self_frame); everything downstream
+  // (the conversion's sp, the resume's fp load) must use the real frame.
+  // -- rca
+  sp_of_patched_frame = (char*)patched_self_frame;
+
+  // The trap stub linked its record ([fp+0]) to the same sp-derived guess.
+  // Every stack walk below (last_self_frame in the unpatch, conversion)
+  // follows that link, so correct it in place before any walk runs; when
+  // the guess was right this is a no-op.
+  if (stub_record->sender() != patched_self_frame)
+    *(frame**)stub_record = patched_self_frame;
 
   char* selfPC;
   frame* convertFrame;
@@ -647,10 +741,14 @@ void  unpatch_the_convertFrame_and_get_returnTrap_info(
         frame*& convertFrame, 
         char* & selfPC) {
   selfPC = patched_self_frame->currentPC();
-  
+
   if ( Memory->code->contains(selfPC) ) {
     // aha! compiled code
-    assert(!Interpret, "interpreted code should not get here");
+    // Under tiering (Interpret + RouteToCompiled) patched compiled frames are
+    // normal: interpreted sends route into nmethods, and a routed frame can be
+    // patched like any eager-mode frame (same glue-caller shape as the
+    // firstSelfFrame), so the eager handling below applies unchanged.
+    assert(!Interpret || RouteToCompiled, "interpreted code should not get here");
     if (patched_self_frame->is_patched()) {
       // really is a return trap; outgoing args were saved when frame was patched
       OutgoingArgsOfReturnTrapOrRecompileFrame = patched_self_frame->patched_frame_saved_outgoing_args();
@@ -896,9 +994,15 @@ frame* frame::copy_frames_through(frame* last_frame_to_copy) {
   int32 size = copy_through_oop_count(last_frame_to_copy);
   int32 size_for_aligning = size + frame_word_alignment - 1 + frame_alignment_offset*BytesPerWord; // align copied frames for assertions
   oop* frame_area = NEW_RESOURCE_ARRAY( oop, size_for_aligning);
-  int frame_byte_alignment = frame_word_alignment << 2;
+  int frame_byte_alignment = frame_word_alignment * BytesPerWord;
+# if TARGET_ARCH == AARCH64_ARCH
+  // copies must satisfy is_aligned(): frame pointers are 8 mod 16 here
+  frame* first_copied_frame = (frame*)
+    (roundTo(smi(frame_area), frame_byte_alignment)  +  BytesPerWord);
+# else
   frame* first_copied_frame = (frame*) 
     roundTo(smi(frame_area), frame_byte_alignment)  +  frame_alignment_offset * BytesPerWord;
+# endif
   assert((oop*)first_copied_frame + size  <=  frame_area + size_for_aligning, 
          "make sure aligning does not cause overflow");
   copy_oops((oop*)this, (oop*)first_copied_frame, size);
@@ -935,8 +1039,15 @@ RegisterString frame::mask_if_present() {
 }
 
 bool frame::is_aligned() { 
+# if TARGET_ARCH == AARCH64_ARCH
+  // Self frame objects (callee records at running_sp - 8) are 8 mod 16, but
+  // this is also called on C frames from stack walks, which are 0 mod 16 per
+  // AAPCS64.  Accept word alignment; still rejects garbage pointers.
+  return (smi(this) & (BytesPerWord - 1)) == 0;
+# else
   return ((smi(this)  +  frame_alignment_offset * BytesPerWord)    &    (frame_word_alignment * BytesPerWord  -  1))
           == 0;
+# endif
 }
 
  

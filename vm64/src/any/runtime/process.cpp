@@ -327,7 +327,7 @@ void Process::kill() {
     { // It's possible that lsf is NULL (eg first frame calls interruptCheck
       // and the process is then killed).
       frame *lsf;
-      
+
       while (    lsf= last_self_frame(false),
                  lsf
              && !lsf->is_interpreted_self_frame()
@@ -835,14 +835,16 @@ inline void handlePreemption() {
   currentProcess->killVFrameOopsAndSetWatermark(last);
   if (currentProcess->isKillingOrDeoptimizing()) {
     // done killing frames / deoptimizing - return to caller of primitive.
-    //
+    currentProcess->resetKilling();
+    currentProcess->resetDeoptimizing();
+#if TARGET_IS_64BIT && !defined(FAST_COMPILER) && !defined(SIC_COMPILER)
     // The interpreter-only kill reaches its target via a per-send stack-limit
     // safepoint (see interpreter::send) rather than a JIT return trap, so on
     // the way out we must hand the killer a clean global VM state -- otherwise
     // the leftovers below bite, since all of these are global / not restored by
-    // transfer() on a cooperative switch:  -- claude & dmu 6/2026
-    currentProcess->resetKilling();
-    currentProcess->resetDeoptimizing();
+    // transfer() on a cooperative switch.  Guarded to the interpreter-only build
+    // (same as the send() safepoint); the JIT kill path is unaffected.
+    // -- claude & dmu 6/2026
     // (1) The kill ran through the single-step/stop machinery, which can leave
     //     the process flagged to stop at every bytecode (+ a stale preemptCause).
     //     Left set, on resume it yields to twains, twains re-runs it, it yields
@@ -862,6 +864,7 @@ inline void handlePreemption() {
     //     currentProcess (the killed process, a different stack) -- or the
     //     killer trips fastPreemptionCheck at its next send and yields forever.
     setSPLimit(prevProcess->spLimit());
+#endif
     prevProcess->transfer();
   } else if (twainsProcess && preemptCause != cNoCause) {
     if (SignalInterface::are_self_signals_blocked()  &&  preemptCause == cSignal) {
@@ -1094,7 +1097,7 @@ void Process::killVFrameOops(abstract_vframe* currentVF) {
   if (lastToKill != sentinel) {
     vframeOop l;
     for (l = sentinel->next(); l != lastToKill; l = l->next()) {
-      l->kill(); 
+      l->kill();
     }
     if (l) l->kill();
     sentinel->set_next(l ? l->next() : NULL);
@@ -1201,24 +1204,39 @@ frame* Process::frame_for_check_vfo_locals(abstract_vframe* currentVF) {
     return NULL;
   }
   if (second == NULL) {
-    Dl_info dl;
-    const char* sym = "?";
-    long off = 0;
-    if (dladdr((void*)first_pc, &dl) && dl.dli_sname) {
-      sym = dl.dli_sname;
-      off = (long)((char*)first_pc - (char*)dl.dli_saddr);
+    // first->selfSender() == NULL means first IS the bottom-most Self
+    // activation in the process (is_first_self_frame): there is no frame
+    // above it to check vfo locals against, so returning NULL is correct
+    // for every bottom shape.  Three legitimately occur:
+    //   - the bottom-of-process sentinel (pc == ReturnOffTopOfProcess,
+    //     already handled above);
+    //   - the bottom interpreter activation (Process::start's first
+    //     interpret() -- a single-stepped process run to completion);
+    //   - the bottom-most COMPILED frame, entered from EnterSelf: its only
+    //     sender is the C/EnterSelf boundary, so selfSender() is NULL.  Its
+    //     currPC slot reads garbage (caller_fp-8 lands in EnterSelf's C
+    //     frame) -- e.g. the compiled NIC suite tail.  -- dmu & rca 6/26
+    // All return NULL so callers (killVFrameOopsInCurrentFrame, etc.) skip
+    // the check cleanly.  Keep the detail under traceV for debugging.
+    if (traceV) {
+      Dl_info dl;
+      const char* sym = "?";
+      long off = 0;
+      if (dladdr((void*)first_pc, &dl) && dl.dli_sname) {
+        sym = dl.dli_sname;
+        off = (long)((char*)first_pc - (char*)dl.dli_saddr);
+      }
+      lprintf("frame_for_check_vfo_locals: bottom %s frame, returning NULL\n"
+              "  first = %p  pc = %p  %s + 0x%lx\n"
+              "  is_self=%d  is_interp=%d  is_compiled=%d  is_sentinel=%d\n",
+              first->is_interpreted_self_frame() ? "interpreter" : "compiled",
+              first, first_pc, sym, off,
+              first->is_self_frame(),
+              first->is_interpreted_self_frame(),
+              first->is_compiled_self_frame(),
+              first->is_bottom_of_process_sentinel());
+      first->print();
     }
-    lprintf("frame_for_check_vfo_locals: unexpected NULL selfSender\n"
-            "  first = %p  pc = %p  %s + 0x%lx (dladdr reports nearest *exported* symbol)\n"
-            "  is_self=%d  is_interp=%d  is_compiled=%d  is_sentinel=%d\n"
-            "  ReturnOffTopOfProcess = %p\n",
-            first, first_pc, sym, off,
-            first->is_self_frame(),
-            first->is_interpreted_self_frame(),
-            first->is_compiled_self_frame(),
-            first->is_bottom_of_process_sentinel(),
-            (void*)&ReturnOffTopOfProcess);
-    first->print();
     return NULL;
   }
   
@@ -1302,7 +1320,7 @@ void Process::convertVFrameOops( frame* fr,
   vframeOop l = procObj->vframeList()->next();
   clear_check_vfo_locals();
 
-  LOG_EVENT3("convertVFrameOops %#lx %#lx %d", fr, vfoLocals, vdepth);
+  LOG_EVENT3("convertVFrameOops %#lx %#lx %d", fr, vfoLocals, (long)vdepth);
   if (traceV) lprintf("*** converting vframeOop %#lx w/ locals 0x%x, descOffset %d\n",
                       l, l->locals(), l->descOffset()->value());
   
@@ -1364,10 +1382,9 @@ void Process::killVFrameOopsAndSetWatermark(frame* current) {
     clearWatermark();
     return;
   }
-
   ResourceMark rm;
 
-  if (current == NULL && inSelf()) current = stk.last_self_frame(true); 
+  if (current == NULL && inSelf()) current = stk.last_self_frame(true);
   assert(     !current
           ||  stack()->contains((char*)current )
           ||  (ConversionInProgress && isOnVMStack(current)),
@@ -1408,7 +1425,17 @@ void Process::setWatermark( abstract_vframe* currentVF ) {
   frame* current = currentVF->fr;
   vframeOop first = procObj->vframeList()->next();
 
-  if (first->is_above(currentVF->fr)) {
+  // aarch64: when the top compiled activation has an outstanding C call, the
+  // walk hands us the C callee's record P -- a content-perfect copy of the
+  // activation's object at P+8 (walks through P work; the object's own [+0]
+  // is clobbered by the C record's saved lr).  A vframeOop naming exactly
+  // P+8 is therefore THIS activation, not one above it: take the
+  // current-frame branch, whose walks start from P and stay safe.  No two
+  // real frames can be one word apart. -- rca
+  bool aliasedTop = (char*)first->locals() == (char*)current + oopSize
+                    &&  !current->is_interpreted_self_frame();
+
+  if (first->is_above(currentVF->fr) && !aliasedTop) {
 
     // the only live vframeOops are above the current frame - patch return
     // address
@@ -1416,8 +1443,18 @@ void Process::setWatermark( abstract_vframe* currentVF ) {
     frame* target = first->locals();
     frame* sender = current->sender();
     for ( ;
-         sender->vfo_locals_of_home_frame() != target;
+         sender && sender->vfo_locals_of_home_frame() != target;
          current = sender, sender = current->sender()) ;
+    if (!sender) {
+      // The current frame handle and the vframeOop's disagree about the
+      // same activation (seen when a stepping preemption fires inside a
+      // bridge stub whose linkage record masquerades as a Self frame, one
+      // word below the real activation).  Fail in an orderly way rather
+      // than dereferencing off the top of the stack. -- rca
+      fatal3("setWatermark: patch walk ran off the stack "
+             "(target=%#lx first=%#lx current=%#lx)",
+             (void*)first->locals(), (void*)first, (void*)currentVF->fr);
+    }
     sender->patch(current);
     clearWatermark();
   }
@@ -1427,8 +1464,8 @@ void Process::setWatermark( abstract_vframe* currentVF ) {
     // at next interrupt, we need to check if these are still live (even
     // if the frame isn't the current frame anymore)
 
-    assert( first->is_equal(current),  "cannot be below me");
-    assert( first->locals() == current->vfo_locals_of_home_frame(),
+    assert( aliasedTop || first->is_equal(current),  "cannot be below me");
+    assert( aliasedTop || first->locals() == current->vfo_locals_of_home_frame(),
             "must be the same");
 
     set_check_vfo_locals( currentVF );
@@ -1499,17 +1536,28 @@ bool Process::verifyVFrameList() {
         return false;
       }
       frame* f = last_self_frame(true);
-      while (l->is_above(f)) f = f->sender();
-      if (!l->is_equal(f)) {
+      // aarch64: a top frame with an outstanding C call appears on the
+      // chain as the C callee's record P, while the canonical vframeOop
+      // names the frame object at P+8 (same activation; see setWatermark's
+      // alias handling).  Accept that alias instead of stepping past it.
+      bool aliased = false;
+      while (l->is_above(f)) {
+        if ((char*)l->locals() == (char*)f + oopSize
+            &&  !f->is_interpreted_self_frame()) { aliased = true; break; }
+        f = f->sender();
+      }
+      if (!aliased && !l->is_equal(f)) {
         error2("invalid frame pointer %#lx in vframeOop %#lx", fr, l);
         return false;
-      } else if (f->vfo_locals_of_home_frame() != l->locals()) {
+      } else if (!aliased && f->vfo_locals_of_home_frame() != l->locals()) {
         error2("invalid locals pointer %#lx in vframeOop %#lx",
                l->locals(), l);
         return false;
       }
       // construct the vframe - will fail if we have a bogus vframeOop
-      l->as_vframe();
+      // (skip for the aliased-top case: its frame is mid-C-call and the
+      // patched-frame argument machinery is not ported)
+      if (!aliased) l->as_vframe();
     }
   }
   return true;
@@ -1836,7 +1884,7 @@ oop Process::runDoItMethod( oop rcv,
 
   if (!Interpret) {
 #   if defined(FAST_COMPILER) || defined(SIC_COMPILER)
-    EventMarker("entering self %d", (void*)nesting);
+    EventMarker("entering self %d", (void*)(long)nesting);
     res = EnterSelf( rcv, nm->insts(),  arg_count < 1  ?  badOop  : args[0]);
 #   else
     ShouldNotReachHere();
@@ -1972,7 +2020,7 @@ SWITCH_TO_VM_STACK(
   SwitchStack2( first_inst_addr(continuation),
                 vmStackEnd,
                 L,
-                (void*)arg_count ) )
+                (void*)(long)arg_count ) )
      
                    
 PROCESSES_DO_ALL(  discardAll, doDiscardAll)

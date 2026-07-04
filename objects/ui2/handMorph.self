@@ -738,6 +738,8 @@ will also change the screen edges, but not the held objects.\x7fModuleInfo: Modu
         
          handleKeyDown: e = ( |
             | 
+            jumpScrollEvent: e.
+            zoomEvent: e.
             testMetaEscape: e.  
             self).
         } | ) 
@@ -985,6 +987,76 @@ will also change the screen edges, but not the held objects.\x7fModuleInfo: Modu
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'handMorph' -> () From: ( | {
+         'Category: event handling\x7fModuleInfo: Module: handMorph InitialContents: FollowSlot'
+        
+         jumpScrollEvent: e = ( |
+             a.
+             b.
+             cs.
+             i <- 3.
+             pt <- (0)@(0).
+            | 
+            " Quick Exit "
+            (e commandIsDown || e metaIsDown) ifFalse: [^ self].
+
+            " Are we shift jumping? "
+            e shiftIsDown ifTrue: [i: 1].
+
+            " Setup "
+            cs: winCanvasForHand size.
+            b: e keyCapsPressed first. " Hmm. Assuming arrow press is first. RCA 2016-07-25 "
+            a: e keyCaps arrows.
+
+            " Set jump direction and distance "
+            b = a left  ifTrue: [pt: (cs x / i) negate @ 0                 ].
+            b = a right ifTrue: [pt: (cs x / i)        @ 0                 ].
+            b = a up    ifTrue: [pt: 0                 @ (cs y / i) negate ].
+            b = a down  ifTrue: [pt: 0                 @ (cs y / i)        ].
+
+            " Jump if we need to "
+            pt != (0@0) ifTrue: [world moveHand: self InWorldBy: pt].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'handMorph' -> () From: ( | {
+         'Category: event handling\x7fModuleInfo: Module: handMorph InitialContents: FollowSlot'
+        
+         zoomEvent: e = ( |
+             c.
+             ks.
+             nz.
+             wc.
+             z.
+            |
+            " Zoom the Kansas view: cmd-= / cmd-+ in, cmd-- out, cmd-0 reset. "
+            (e commandIsDown || e metaIsDown) ifFalse: [^ self].
+
+            wc: winCanvasForHand.
+            wc ifNil: [^ self].
+            wc zoomable ifFalse: [^ self].
+            z:  wc zoom.
+            ks: e keystrokes.
+
+            " Pick the new zoom factor from the typed key "
+            ((ks = '=') || (ks = '+')) ifTrue: [nz: z * 1.25].
+            ((ks = '-') || (ks = '_')) ifTrue: [nz: z / 1.25].
+             (ks = '0')                ifTrue: [nz: 1].
+            nz ifNil: [^ self]. " not a zoom key "
+
+            " Clamp to a sane range; ignore a no-op at the limits "
+            nz: (nz max: 0.25) min: 8.0.
+            nz = z ifTrue: [^ self].
+
+            " Keep the viewport centre fixed (magnifier feel), then force a full repaint "
+            c: wc size / 2.
+            wc zoom: nz.
+            wc redrawWindow: true.
+            world moveHand: self InWorldTo:
+                wc offset + ((c * ((1.0 / nz) - (1.0 / z))) asInteger).
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'handMorph' -> () From: ( | {
          'Category: meta hand\x7fModuleInfo: Module: handMorph InitialContents: FollowSlot\x7fVisibility: private'
         
          metaHandEvent: e = ( |
@@ -1090,7 +1162,7 @@ object. This will update the hand\'s cachedNameSize slot.\x7fModuleInfo: Module:
         
          recordCursorPositionOn: aWindowCanvas From: e = ( |
             | 
-            lastCursor: e cursorPoint + aWindowCanvas offset).
+            lastCursor: ((e cursorPoint + aWindowCanvas offset) * aWindowCanvas zoom) asInteger).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'handMorph' -> () From: ( | {

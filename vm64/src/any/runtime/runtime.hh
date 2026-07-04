@@ -29,8 +29,15 @@ extern "C" {
 
   void volatile ContinueNLRAfterReturnTrap(char* pc, char* sp, oop result,
                                            frame* home, int32 homeID);
+# if TARGET_IS_64BIT
+  // set when the EnterSelf stub is generated into the zone; the
+  // first_inst_addr((void*)...) use sites work unchanged on a char*
+  extern char* firstSelfFrame_returnPC;
+  extern char* firstSelfFrameSendDescEnd;
+# else
   void firstSelfFrame_returnPC(...);
   void firstSelfFrameSendDescEnd(...);
+# endif
     
 # if TARGET_IS_64BIT
   oop CallPrimitiveFromInterpreter(void* entry_point, oop rcv, oop* argp, fint nargs);
@@ -97,6 +104,10 @@ extern "C" {
   
   oop EnterSelf(oop recv, char* entryPoint, oop arg1);
         // call nmethod with given receiver and 1st arg
+# if TARGET_IS_64BIT
+  oop EnterSelfN(oop recv, char* entryPoint, oop* args, int32 nargs);
+        // call nmethod with given receiver and nargs stack-passed args
+# endif
   oop volatile ContinueNLRFromC(char* addr, bool isInterpreted, bool isSelfIC);
   void volatile DiscardStack();
 }

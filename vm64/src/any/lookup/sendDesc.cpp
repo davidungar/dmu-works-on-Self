@@ -11,6 +11,12 @@
 
 sendDesc* sendDesc::first_sendDesc() {
   // assertion is in sendDes::init
+# if TARGET_ARCH == AARCH64_ARCH
+  // the first sendDesc lives in the EnterSelf stub, which is generated
+  // into the zone on demand (see stubs_aarch64.cpp)
+  extern void generate_EnterSelf();
+  if (firstSelfFrame_returnPC == NULL) generate_EnterSelf();
+# endif
   return sendDesc::sendDesc_from_return_PC(
            first_inst_addr((void*)firstSelfFrame_returnPC));
 }
@@ -85,6 +91,7 @@ bool sendDesc::checkLookupTypeAndEntryPoint(nmethod *nm, char *entryPoint) {
 
 void sendDesc::extend(nmethod* nm, mapOop receiverMapOop,
                       CountStub *cs_from_pic) {
+  JITWriteScope jit_write_scope;  // IC and dependency-link words live in the zone
   char *addr;
   bool isPerform= isPerformLookupType(raw_lookupType());
   if (   PIC && !isPerform
@@ -126,6 +133,7 @@ void sendDesc::extend(nmethod* nm, mapOop receiverMapOop,
 
 // rebind the sendDesc to nm at addr, with cs_from_pic if non-NULL
 void sendDesc::rebind(nmethod* nm, char* addr, CountStub *cs_from_pic) {
+  JITWriteScope jit_write_scope;  // IC and dependency-link words live in the zone
   if (VerifyZoneOften) {
     nm->linkedSends.verify_list_integrity();
     if (dependency()->next == NULL  &&  dependency()->prev == NULL)
@@ -452,6 +460,13 @@ void sendDesc::init() {
   # if HOST_ARCH == PPC_ARCH && TARGET_ARCH == I386_ARCH
     if (true) return; // just testing asm
   # endif
+  # if TARGET_ARCH == AARCH64_ARCH
+    // EnterSelf (and the first sendDesc it carries) is generated into the
+    // zone lazily by first_sendDesc(), because sendDesc::init runs before
+    // the zone exists.  generate_EnterSelf() performs these same checks
+    // when it runs.
+    if (true) return;
+  # endif
   sendDesc* f = sendDesc::first_sendDesc();
 
   // cannot do this test on sparc, it has a register-call which does not read as a call
@@ -505,12 +520,82 @@ void sendDesc::sendMessagePrologue( oop  receiver, frame* lookupFrame ) {
 }
 
 
+extern char* ReturnResult_entry;   // stubs_aarch64.cpp
+extern char* ReturnNLR_entry;
+extern oop   ReturnResult_stub_result;
+
+// mixed mode: run a compiled sender's send in the interpreter (the lookup
+// produced no nmethod, e.g. a block whose home frame is interpreted, or
+// Interpret was switched back on).  Receiver and arguments live in the
+// sender's outgoing area just above the lookup frame record.  Exported for
+// DIDesc::sendMessage, whose own interpret bridge only handles data slots.
+char* interpretSendForCompiledSender(compilingLookup* L,
+                                     frame* lookupFrame) {
+  oop* out = (oop*)lookupFrame + 2;   // [0] lr hole, [1] receiver, [2..] args
+  fint nargs = L->selector()->is_string()
+    ? stringOop(L->selector())->arg_count()
+    : 0;
+  oop res = L->result()->interpret(L->receiver, L->selector(), L->delegatee(),
+                                   &out[2], nargs);
+  if (NLRSupport::have_NLR_through_C()) {
+    // the compiled caller's NLR code takes over from here (pure register
+    // protocol), mirroring continue_NLR_into_compiled_Self
+    NLRSupport::reset_have_NLR_through_C();
+    return ReturnNLR_entry;
+  }
+  ReturnResult_stub_result = res;
+  return ReturnResult_entry;
+}
+
+
 static nmethod* SendMessage_cont( compilingLookup* L) {
   if ( Interpret ) {
-    L->perform_full_lookup();
-    return NULL;
+    extern fint interpreterTierUpThreshold();
+    if (interpreterTierUpThreshold() <= 0) {
+      // Pure interpretation (tiering off): no compiling at all.  We are going
+      // to interpret, not compile: the dependency nodes the lookup just
+      // spliced into the touched maps' dependent lists will never be migrated
+      // into an nmethod.  Left behind, they dangle in the (heap) dependent
+      // lists while the shared compiler dependency buffer they live in is
+      // reused by the next real compilation -- corrupting the lists.  Unlink
+      // them now.
+      L->perform_full_lookup();
+      L->remove_all_deps();
+      return NULL;
+    }
+    // Tiered mode: this trap only fires for COMPILED senders, so this send
+    // runs at compiled-code frequency.  Bridging it to the interpreter every
+    // time dominates steady state (data-slot accessors never tier up --
+    // there is no method activation to count), so compile the callee exactly
+    // as eager mode does below -- EXCEPT block value sends whose home is not
+    // a compiled frame.  A standalone block nmethod is keyed on the block
+    // map and resolves implicit-self sends through the home receiver, which
+    // is only sound when that map pins down one home flavor: blocks cloned
+    // by COMPILED code carry a per-clone-site map from a receiver-customized
+    // nmethod (sound -- this is exactly eager mode), while INTERPRETER-
+    // cloned blocks share the method literal's map across every receiver
+    // flavor (one flavor's embedded constants would run against another's
+    // objects; this shape corrupted world building).  Interpreter-cloned
+    // blocks always have interpreted homes -- there is no OSR -- so the
+    // home's frame kind is the exact discriminator.  Blocks whose value
+    // sends stay hot enough to matter live in compiled homes anyway (their
+    // homes tiered up); bridging the rest is the cheap safe default.
+    if (L->receiverMap()->is_block()) {
+      frame* snd = L->sendingVFrame
+        ? L->sendingVFrame->fr
+        : currentProcess->last_self_frame(false);
+      abstract_vframe* home = blockOop(L->receiver)->parentVFrame(snd, true);
+      if (home == NULL || home->is_interpreted()) {
+        L->perform_full_lookup();
+        L->remove_all_deps();
+        return NULL;
+      }
+    }
   }
-  return L->send_desc()->lookup_compile_and_backpatch(L);
+  nmethod* nm = L->send_desc()->lookup_compile_and_backpatch(L);
+  if (nm == NULL)
+    L->remove_all_deps();  // interpreting after all; see dangling-deps note
+  return nm;
 }
 
 
@@ -544,6 +629,22 @@ char* sendDesc::sendMessage( frame* lookupFrame,
   // have to do it the slow way
   ResourceMark m;
   FlushRegisterWindows(); // for vframe conversion below
+  // The lookup below can run Self code and scavenge.  receiver/sel/del live
+  // only in C locals and L's captures, which no GC walk sees (the
+  // interpreter-sender path protects its lookup via lookup_in_progress);
+  // preserve them and refresh L's captures for the mixed-mode interpret
+  // path, which reads them after the lookup.  A stale receiver here is
+  // handed to the interpreted callee and corrupts from there.
+  preserved p_rcvr(receiver), p_sel(sel), p_del(del);
+  // Also walk the sender's outgoing receiver/argument SLOTS for the duration
+  // of the lookup: a mixed-mode interpreted callee reads its arguments from
+  // these frame slots for its whole activation, and no frame walk covers
+  // them while the send is still in the VM -- the callee frame that would
+  // cover them does not yet exist.  Anchored to this real send, this needs
+  // none of the parked-pc heuristics that sank the gated do_vm_frame walk.
+  // Layout above lookupFrame: [2] lr hole, [3] receiver, [4..] args.
+  fint out_n = sel->is_string() ? stringOop(sel)->arg_count() : 0;
+  preservedArray p_out((oop*)lookupFrame + 3, 1 + out_n);
   cacheProbingLookup L( receiver,
                         sel,
                         del,
@@ -558,10 +659,14 @@ char* sendDesc::sendMessage( frame* lookupFrame,
   nmethod* nm = switchToVMStack( SendMessage_cont, &L );
   if (SilentTrace) LOG_EVENT1("sendDesc::sendMessage: found %#lx", nm);
 
-  return
-    Interpret
-    ? L.interpretResultForCompiledSender(arg1)
-    : nm->verifiedEntryPoint();
+  Unused(arg1);
+  if (nm == NULL) {   // uncompilable or pure-interpretation mode: bridge
+    L.receiver      = p_rcvr.value;
+    L.key.selector  = p_sel.value;
+    L.key.delegatee = p_del.value;
+    return interpretSendForCompiledSender(&L, lookupFrame);
+  }
+  return nm->verifiedEntryPoint();
 }
 
 
@@ -574,10 +679,20 @@ char* sendDesc::fastCacheLookupAndBackpatch( LookupType t,
     // too complicated to short-circuit these lookups
     return NULL;
   }
-  // try mh-independent 
+  // try mh-independent
   MethodLookupKey key(t, MH_TBD, receiverMapOop, sel, del);
   nmethod* nm= Memory->code->lookup(key);
-  
+
+  if (nm == NULL) {
+    // Tier-up nmethods enter the code table under the CANONICAL key
+    // (NormalLookupType, MH_NOT_A_RESEND -- see interpreter routing); a send
+    // site whose lookup type carries static bits misses them above, so
+    // re-probe canonically before giving up.
+    MethodLookupKey ck(NormalLookupType, MH_NOT_A_RESEND, receiverMapOop,
+                       sel, del);
+    nm= Memory->code->lookup(ck);
+  }
+
   if (nm == NULL) {
     NumberOfFastLookupMisses++;
     return NULL;
@@ -602,7 +717,8 @@ nmethod* sendDesc::lookup_compile_and_backpatch( compilingLookup* L ) {
   assert(zone::frame_chain_nesting == 0 || recompilee != NULL,
          "should not be nested");
   
-  if (InlineCache &&
+  if (nm != NULL &&
+      InlineCache &&
       (InlineCacheNonStatic || L->isReceiverStatic())) {
     // add to PIC
     extend(nm, L->receiverMapOop(), NULL);

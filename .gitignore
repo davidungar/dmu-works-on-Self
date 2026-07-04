@@ -11,5 +11,7 @@
 *.OLD
 build/
 cmake-build-*/
+build_rel/
+build_interp/
 objects/glue/test*
 

@@ -373,8 +373,10 @@ oop oopClass::unwind_protect_prim(oop doBlock, oop protectBlock) {
     //
     // -- claude & dmu  5/26
     interpreter* active_interp = currentProcess->active_interp_list;
-    assert(active_interp != NULL,
-           "no active interpreter — unwind_protect_prim called outside Self");
+    // active_interp is NULL when the caller is fully compiled (no
+    // interpreter activation on this process); then there is nothing to
+    // register -- compiled-sender lookups run unregistered, exactly like
+    // the ones in sendDesc::sendMessage.
 #   endif
     // lookup nmethod for 1st value message send
 
@@ -389,13 +391,13 @@ oop oopClass::unwind_protect_prim(oop doBlock, oop protectBlock) {
         
     makeALookup( L, doBlock, VMString[VALUE] );
 #   if TARGET_IS_64BIT
-    // Register L immediately after construction. set_lookup_in_progress
-    // asserts no other lookup is already in progress on this interp
-    // (re-entrancy invariant). For compiler builds, &L is a
+    // Register L immediately after construction, as a chain link: this
+    // prim can run beneath a routed compiled callee while the interp's
+    // own send lookup is still registered. For compiler builds, &L is a
     // cacheProbingLookup* which upcasts cleanly to simpleLookup*.
     //
     // -- claude & dmu  5/26
-    active_interp->set_lookup_in_progress(&L);
+    if (active_interp) active_interp->push_lookup_in_progress(&L);
 #   endif
 
     nmethod* nm = NULL;
@@ -426,7 +428,7 @@ oop oopClass::unwind_protect_prim(oop doBlock, oop protectBlock) {
     // happens AFTER this clear, which is correct.
     //
     // -- claude & dmu  5/26
-    active_interp->lookup_in_progress = NULL;
+    if (active_interp) active_interp->pop_lookup_in_progress();
 #   endif
 
     if (!NLRSupport::have_NLR_through_C()) {
@@ -457,9 +459,8 @@ oop oopClass::unwind_protect_prim(oop doBlock, oop protectBlock) {
     // lookup nmethod for 2nd value: message send
     makeALookup( Ltwo, protectBlock, VMString[VALUE_] );
 #   if TARGET_IS_64BIT
-    // Register Ltwo. The L from earlier was already cleared above, so
-    // the re-entrancy assert in set_lookup_in_progress passes here.
-    active_interp->set_lookup_in_progress(&Ltwo);
+    // Register Ltwo. The L from earlier was already popped above.
+    if (active_interp) active_interp->push_lookup_in_progress(&Ltwo);
 #   endif
 
     nmethod* nm2 = NULL;
@@ -485,7 +486,7 @@ oop oopClass::unwind_protect_prim(oop doBlock, oop protectBlock) {
     }
 #   if TARGET_IS_64BIT
     // Ltwo's captures no longer needed.
-    active_interp->lookup_in_progress = NULL;
+    if (active_interp) active_interp->pop_lookup_in_progress();
 #   endif
 
     // determine target of nlr
@@ -505,7 +506,7 @@ oop oopClass::unwind_protect_prim(oop doBlock, oop protectBlock) {
 
     LOG_EVENT2("*3* continuing: NLR=%#lx, ID=%d",
                (unsigned long)NLRSupport::NLR_home_from_C(),
-               NLRSupport::NLR_home_ID_from_C());
+               (long)NLRSupport::NLR_home_ID_from_C());
 
   } // end scope for the resource mark
   // return non-locally
@@ -536,8 +537,14 @@ oop oopClass::define_prim(oop contents, void *FH) {
   }
   if (bootstrapping || result->is_mark()) {
     // can't call convert() while creating lobby!
-    // (and don't bother incrementing timestamp, either)
-    // not worth calling it on failure, either
+    // not worth calling it on failure, either.
+    // The timestamp bump, though, must happen even while bootstrapping:
+    // it is what invalidates the interpreter's persistent PICs, which
+    // cache lookup results (constants, holders, slot offsets) that this
+    // define may have changed.  Skipping it let old-map receivers keep
+    // hitting pre-define resolutions, corrupting world building.
+    if (!result->is_mark())
+      Memory->increment_programming_timestamp();
   } else {
     processes->convert();
     Memory->increment_programming_timestamp(); 

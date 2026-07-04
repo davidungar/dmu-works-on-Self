@@ -385,23 +385,25 @@ gets stuck.
          'ModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: public'
         
          baseBounds = ( |
+             bb.
              pt.
             | 
+            bb: winCanvas boundingBoxInWorld.
             orientation = 'top' ifTrue: [
-                pt: winCanvas offset negate - (thickness @ thickness).
-                ^pt ## ((winCanvas size x + thickness + thickness) @ thickness).
+                pt: bb origin - (thickness @ thickness).
+                ^pt ## ((bb size x + thickness + thickness) @ thickness).
             ].
             orientation = 'bottom' ifTrue: [
-                pt: winCanvas offset negate + (thickness negate @ winCanvas size y).
-                ^pt ## ((winCanvas size x + thickness + thickness) @ thickness).
+                pt: bb origin + (thickness negate @ bb size y).
+                ^pt ## ((bb size x + thickness + thickness) @ thickness).
             ].
             orientation = 'left' ifTrue: [
-                pt: winCanvas offset negate - (thickness @ 0).
-                ^pt ## (thickness @ winCanvas size y).
+                pt: bb origin - (thickness @ 0).
+                ^pt ## (thickness @ bb size y).
             ].
             orientation = 'right' ifTrue: [
-                pt: winCanvas offset negate + (winCanvas size x @ 0).
-                ^pt ## (thickness @ winCanvas size y).
+                pt: bb origin + (bb size x @ 0).
+                ^pt ## (thickness @ bb size y).
             ].
             error: 'Huh? my orientation is weird.').
         } | ) 
@@ -851,7 +853,7 @@ of the given canvas and return the resulting list. Ignore
 any damage rectangles that do not intersect the given canvas
 at all.\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
         
-         clipAndFilterDamage: d ForCanvas: c = ( |
+         clipAndFilterDamage: d ForCanvas: c Zoom: z = ( |
              b.
              l.
              newDamage.
@@ -860,8 +862,8 @@ at all.\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibil
             | 
             l: c offset x negate.
             t: c offset y negate.
-            r: l + c size x.
-            b: t + c size y.
+            r: l + (c size x / z).
+            b: t + (c size y / z).
             newDamage: list copyRemoveAll.
             d do: [| :rect. newRect |
                 newRect: rectangle
@@ -1422,8 +1424,10 @@ or completely obscured by some morph.\x7fModuleInfo: Module: worldMorph InitialC
              c.
              damagedRects.
              offset.
+             z.
             | 
             offset: wc offset.
+            z:      wc zoom.
             doubleBuffering
                 ifTrue: [ c: bc copyReset offset: offset ]
                  False: [ c: wc copyReset offset: offset ].
@@ -1431,15 +1435,25 @@ or completely obscured by some morph.\x7fModuleInfo: Module: worldMorph InitialC
                 wc redrawWindow: false.
                 damagedRects: (vector copyAddLast: wc boundingBoxInWorld).
             ] False: [
-                damagedRects: (clipAndFilterDamage: dList ForCanvas: c).
+                damagedRects: (clipAndFilterDamage: dList ForCanvas: c Zoom: z).
             ].
-            damagedRects do: [| :damage |
+            damagedRects do: [| :damage. devO. devC. |
                 doubleBuffering ifTrue: [
-                    "draw all the morphs that are visible in the damaged area"
-                    drawMorphs: allMorphs Intersecting: damage On: c Offset: offset.
+                    "draw the morphs in the damaged area, scaling the buffer when zoomed"
+                    1 = z ifTrue: [
+                        drawMorphs: allMorphs Intersecting: damage On: c Offset: offset.
+                    ] False: [
+                        c gc withNewGStateDo: [
+                            c gc scaleCTM_X: z Y: z.
+                            drawMorphs: allMorphs Intersecting: damage On: c Offset: offset.
+                        ].
+                    ].
+                    "blit the (possibly scaled) device region; 1:1 when zoom = 1"
+                    devO: ((damage origin + offset) * z) asInteger.
+                    devC: ((damage corner + offset) * z) asInteger.
                     wc pastePixmap: c
-                        At:    damage origin   Src: damage origin + offset
-                        Width: damage width Height: damage height.
+                        At:    devO - offset   Src: devO
+                        Width: (devC x - devO x) Height: (devC y - devO y).
                 ] False: [
                     c withClip: damage Do: [
                         "draw all the morphs that are visible in the damaged area"
