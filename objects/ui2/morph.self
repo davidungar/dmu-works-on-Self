@@ -598,6 +598,21 @@ is the representee.\x7fModuleInfo: Module: morph InitialContents: FollowSlot\x7f
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'morph' -> () From: ( | {
+         'Category: basics\x7fModuleInfo: Module: morph InitialContents: FollowSlot\x7fVisibility: public'
+        
+         colorTransparent = ( |
+            | 
+            color: paint named: 'transparent'. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'morph' -> () From: ( | {
+         'Category: copying\x7fModuleInfo: Module: morph InitialContents: FollowSlot\x7fVisibility: public'
+        
+         copyTransparent = ( |
+            | copy colorTransparent).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'morph' -> () From: ( | {
          'Category: basics\x7fComment: Color all my parts that within reason should change to a new
 color when the user so asks (with a colorChangerMorph for example).\x7fModuleInfo: Module: morph InitialContents: FollowSlot\x7fVisibility: public'
         
