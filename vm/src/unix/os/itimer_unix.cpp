@@ -390,6 +390,7 @@ TimerEntry* IntervalTimer::entry_at(int i) { return &entries()[i]; }
 // ITIMER_VIRTUAL's CPU-time accounting; on macOS the CPU timer is usually
 // aliased to the real timer anyway -- use_real_instead_of_cpu_timer.)
 // -- claude & dmu 5/2026
+
 void* IntervalTimer::ticker_main(void* arg) {
   IntervalTimer* self = (IntervalTimer*)arg;
   pthread_setname_np("self-vm-timer");
@@ -438,35 +439,48 @@ void* IntervalTimer::ticker_main(void* arg) {
   // -- diag: only the real-timer ticker watches for its OWN sleep overrun -- a
   //    process-starvation canary (asked to sleep 10ms, slept far longer).  The
   //    two tickers don't both print.  -- claude & dmu 5/2026
-  bool reporter = (self->sig == SIGALRM);
   while (self->ticker_running) {
-    long usec = self->ticker_interval_usec;
-    struct timespec ts;
-    ts.tv_sec  =  usec / 1000000;
-    ts.tv_nsec = (usec % 1000000) * 1000;
-    struct timespec before;
-    if (reporter) clock_gettime(CLOCK_MONOTONIC, &before);
-    nanosleep(&ts, NULL);
-    if (self->ticker_running  &&  self_vm_timer_thread_known)
-      pthread_kill(self_vm_timer_thread, self->sig);   // async-signal-safe
-    if (reporter) {
-      struct timespec after;
-      clock_gettime(CLOCK_MONOTONIC, &after);
-      long iter_usec = (after.tv_sec - before.tv_sec) * 1000000L
-                     + (after.tv_nsec - before.tv_nsec) / 1000;
-      // Suppress sleep/wake artifacts: CLOCK_MONOTONIC advances across some
-      // macOS sleep states, so a nanosleep spanning lid-close -> lunch -> wake
-      // reports a multi-second "stall" that isn't a scheduling problem we can
-      // fix.  Anything beyond ~1s is the laptop having been asleep, not host
-      // scheduling contention -- the symptom we actually care about.
-      // -- claude & dmu 5/2026
-      const long absurd_us = 1000000;     // 1s
-      if (iter_usec > usec * 5 + 1000 && iter_usec < absurd_us)
-        lprintf("SELFTIMER stall: ticker slept %ld us (asked %ld); "
-                "vm_ticks=%d nonvm_ticks=%d\n",
-                iter_usec, usec, (int)itt_vm_ticks, (int)itt_nonvm_ticks);
+    if (self->sig == SIGALRM)
+      self->sleep_and_maybe_signal_reporting_ticker_stall_if_any();
+    else {
+      self->sleep_and_maybe_signal();
     }
   }
   return NULL;
 }
+// Starvation canary: print when a tick's sleep overran its request by 5x --
+// the scheduler held us despite high QoS.  Suppress sleep/wake artifacts:
+// CLOCK_MONOTONIC advances across some macOS sleep states, so a nanosleep
+// spanning lid-close -> lunch -> wake reports a multi-second "stall" that
+// isn't a scheduling problem we can fix.  Anything beyond ~1s is the laptop
+// having been asleep, not host scheduling contention -- the symptom we
+// actually care about.  -- claude & dmu 5/2026, 7/2026
+void IntervalTimer::sleep_and_maybe_signal_reporting_ticker_stall_if_any() {
+  struct timespec before;
+  clock_gettime(CLOCK_MONOTONIC, &before);
+
+  long asked_usec = sleep_and_maybe_signal();
+  
+  struct timespec after;
+  clock_gettime(CLOCK_MONOTONIC, &after);
+  long iter_usec = (after.tv_sec - before.tv_sec) * 1000000L
+                 + (after.tv_nsec - before.tv_nsec) / 1000;
+  const long absurd_us = 1000000;     // 1s
+  if (iter_usec > asked_usec * 5 + 1000 && iter_usec < absurd_us)
+    lprintf("SELFTIMER stall: ticker slept %ld us (asked %ld); "
+            "vm_ticks=%d nonvm_ticks=%d\n",
+            iter_usec, asked_usec, (int)itt_vm_ticks, (int)itt_nonvm_ticks);
+}
+
+long IntervalTimer::sleep_and_maybe_signal() {
+  long asked_usec = ticker_interval_usec;
+  struct timespec ts;
+  ts.tv_sec  =  asked_usec / 1000000;
+  ts.tv_nsec = (asked_usec % 1000000) * 1000;
+  nanosleep(&ts, NULL);
+  if (ticker_running  &&  self_vm_timer_thread_known)
+    pthread_kill(self_vm_timer_thread, sig);   // async-signal-safe
+  return asked_usec;
+}
+
 # endif

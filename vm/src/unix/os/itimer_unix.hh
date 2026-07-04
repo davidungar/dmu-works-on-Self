@@ -17,6 +17,9 @@
   void install_tick_handler();              // sigaction for `sig` -> IntervalTimerTick
   void start_tick_source(long interval_usec); // VM-owned ticker (macOS) or setitimer
 
+  void sleep_and_maybe_signal_reporting_ticker_stall_if_any();
+  long sleep_and_maybe_signal();
+
   IntervalTimer(int32 sig, int32 timer);
   
  public: // for IntervalTimerTick
