@@ -358,6 +358,8 @@ extern void GC_report_bad_slot(const char* phase, oop* p, oop v);
 extern void GC_stale_sweep(const char* when);
 extern const char* GC_scan_context;
 extern bool GC_full_gc_has_run;
+extern void GC_dump_frame_holding(Process* p, oop* w);   // in frame.cpp
+extern const unsigned long GC_magic_values[2];
 
 # define SCAVENGE_TEMPLATE(p)                                                 \
     { oop __sv = *(oop*)(p);                                                  \

@@ -82,6 +82,81 @@ void FrameIterator::do_incoming_arguments_of_vm_frame_called_from_self() {
     do_incoming_arguments();
     do_memory_locals();
     do_patched_frame_saved_outgoing_args();
+    do_outgoing_arguments();
+  }
+
+
+  // sendDesc::arg_count() reads the selector oop; during the full-GC mark
+  // phase's frame walk that word is already an object-table token (the
+  // zone is marked before the processes), so resolve the token back to the
+  // original object -- its bytes are intact until compaction -- before
+  // counting.  During unmark the zone is restored before the frame walk,
+  // and during a scavenge from-space originals keep their contents, so the
+  // direct read is safe in those phases.  The mark and unmark walks of a
+  // frame must produce the same count, or tokens would be left behind in
+  // stack slots.  -- claude & dmu 7/2026
+  static fint GC_safe_selector_arg_count(sendDesc* sd) {
+    oop sel = oop(sd->selector());
+    if (!sel->is_mem()) return -1;
+    if (!Memory->is_obj_heap((oop*) memOop(sel)->addr()))
+      sel = memOop(sel)->as_oTableEntry()->obj;    // mark-phase token
+    return stringOop(sel)->arg_count();
+  }
+
+  // frame::outgoing_arg_count(), but with the GC-phase-safe selector read.
+  static fint GC_safe_outgoing_arg_count(sendDesc* sd) {
+    if (isPerformLookupType(sd->lookupType()))
+      return -1;   // dynamic arity: the walk cannot size the outgoing area
+    { char* target = (char*) sd->jump_addr();
+      if (target == (char*) Memory->code->trapdoors->SendMessage_stub_td()
+       || target == (char*) Memory->code->trapdoors->SendDIMessage_stub_td())
+        return GC_safe_selector_arg_count(sd); }
+    if (sd->isPrimCall()) {
+      PrimDesc* pd = getPrimDescOfFirstInstruction(sd->jump_addr(), true);
+      if (pd == NULL) return GC_safe_selector_arg_count(sd);
+      return pd->arg_count();
+    }
+    return GC_safe_selector_arg_count(sd);
+  }
+
+  // A compiled frame parked at a send (or prim call) whose callee is NOT
+  // compiled Self code -- a VM frame (prim, lookup, the tiered
+  // compiled-to-interpreter bridge) or an interpreted activation -- holds
+  // the in-flight receiver and arguments in its own outgoing area with no
+  // other GC coverage: a compiled callee walks those words as its incoming
+  // args, but a VM or interpreted callee does not (the interpreter copies
+  // them and the GC walks only the copies).  Left unwalked they go stale at
+  // the first scavenge, and later readers -- save_outgoing_arguments() when
+  // a return trap patches this frame, the conversion's send restart --
+  // resurrect the dead pointers as live objects.  (This was the tiered
+  // world-build corruption: the stale to:By:Do: block literals.)  Walk them
+  // here, but only at parked pcs the nmethod registers as genuine send or
+  // prim-call sites: compiled code also calls the VM from non-send
+  // positions where interpreting the return pc as a sendDesc reads garbage.
+  // -- claude & dmu 7/2026
+  void FrameIterator::do_outgoing_arguments() {
+    if (SaveOutgoingArgumentsOfPatchedFrames)
+      return;      // i386: these words are covered via do_vm_frame instead
+    extern frame* frames_do_callee;
+    frame* callee = frames_do_callee;
+    if (callee == NULL) return;   // not inside a whole-stack GC walk
+    if (callee->is_compiled_self_frame())
+      return;      // covered as the callee's incoming arguments
+    sendDesc* sd = f->send_desc();
+    if (sd == NULL) return;
+    bool genuine = false;
+    for (addrDesc* l = nm->locs(), *lend = nm->locsEnd(); l < lend; l++)
+      if ((l->isSendDesc()  && l->asSendDesc(nm)          == sd)
+      ||  (l->isPrimitive() && l->asPrimitiveSendDesc(nm) == sd)) {
+        genuine = true;
+        break;
+      }
+    if (!genuine) return;
+    fint n = GC_safe_outgoing_arg_count(sd);
+    if (n < 0) return;
+    oop* p = (oop*) f + ircvr_offset;
+    for (fint i = 0;  i < n + 1 /* rcvr */;  ++i, ++p)
+      oop_closure->do_oop(p);
   }
   
   

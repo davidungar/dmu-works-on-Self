@@ -31,6 +31,9 @@
 #   define GET_LAST_FRAME(fr) GET_LAST_FRAME1(fr)
 # endif 
 
+// See the comment in Stack::frames_do. -- claude & dmu 7/2026
+frame* frames_do_callee = NULL;
+
 frame* Stack::callee_of(const frame* f) {
   GET_LAST_FRAME(p);
   for (frame* q;  p;  p = q) {
@@ -198,18 +201,29 @@ void Stack::frames_do(framesDoFn fn, primDoFn pfn) {
   Process* savedInterpHint = interp_lookup_hint_process;
   interp_lookup_hint_process = process;
 
+  // Publish each frame's callee (the previously visited frame) so
+  // FrameIterator::do_outgoing_arguments can tell whether the in-flight
+  // send's rcvr/args words are already covered as the callee's incoming
+  // args (compiled callee) or need walking here (VM or interpreted
+  // callee). NULL outside a whole-stack walk. -- claude & dmu 7/2026
+  extern frame* frames_do_callee;
+  frame* savedCallee = frames_do_callee;
+  frame* prevFrame = NULL;
+
   frame* f = first_VM_frame();
   RegisterLocator* reg_locs = RegisterLocator::for_sender_of(f); // RegisterLocators only work for Self frames
-  
+
   if (pfn) consistencyCheck(pfn);    // do consistency check for prim call
-  
+
   frame_count = 0;
 # if  GENERATE_DEBUGGING_AIDS
     frame *ff, *fff, *ffff;
 # endif
-  for ( ; f != NULL;  
+  for ( ; f != NULL;
           f = f->sender()) {
-          
+
+    frames_do_callee = prevFrame;
+
     // Use AlsoCanBeUnwoundPast for the climb_to_frame path: RegisterLocator
     // machinery isn't designed to climb into the bottom-of-process sentinel.
     // The sentinel still receives (*fn)(f, NULL) below, and its interpreter
@@ -221,7 +235,8 @@ void Stack::frames_do(framesDoFn fn, primDoFn pfn) {
     }
     else
       (*fn)(f, NULL);
-      
+
+    prevFrame = f;
     ++frame_count;
     assert(frame_count < 1000000, "figure-6 bug");
 #   if  GENERATE_DEBUGGING_AIDS
@@ -230,6 +245,7 @@ void Stack::frames_do(framesDoFn fn, primDoFn pfn) {
       }
 #   endif
   }
+  frames_do_callee = savedCallee;
   interp_lookup_hint_process = savedInterpHint;
 }
 

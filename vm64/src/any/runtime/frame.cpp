@@ -7,6 +7,7 @@
 # pragma implementation "frame_inline.hh"
 
 # include "_frame.cpp.incl"
+# include <dlfcn.h>   // TEMPORARY diagnostic (REVERT ME): GC_symbolize
 
 extern "C" void ReturnOffTopOfProcess();
 
@@ -363,6 +364,18 @@ void frame::save_outgoing_arguments() {
     objVectorOop v = Memory->objVectorObj->cloneSize(nargs + 1 /* rcvr */);
     for (fint i = 0;  i < nargs + 1;  ++i) {
       oop e = *((oop*)this + ircvr_offset + i);
+      // TEMPORARY (REVERT ME): is THIS the reader that materializes the
+      // stale outgoing-area values into GC-visible heap vectors?
+      if ((unsigned long)e == GC_magic_values[0]
+      ||  (unsigned long)e == GC_magic_values[1])
+        lprintf("SAVE-OUTGOING-MAGIC frame %#lx nm '%s' nargs %ld i %ld "
+                "e %#lx sendee-self %d sendee-interp %d\n",
+                (unsigned long)this,
+                is_compiled_self_frame() && code()
+                  ? code()->key.selector_string() : "?",
+                (long)nargs, (long)i, (unsigned long)e,
+                sendee() ? sendee()->is_self_frame() : -1,
+                sendee() ? sendee()->is_interpreted_self_frame() : -1);
       // A patched frame's outgoing-args area is not always a valid oop
       // snapshot: for some frames these slots hold a non-object value (a
       // collected/never-live arg, or a reused slot).  The i386 path asserts
@@ -1036,6 +1049,56 @@ RegisterString frame::mask_if_present() {
   sendDesc* s = send_desc();
   // bottommost frame may have no sendDesc (uncommon trap etc.)
   return s == NULL  ?  0  :  s->mask();
+}
+
+// TEMPORARY diagnostic (REVERT ME): given a stack slot that holds a known
+// stale oop, identify the frame that owns it and everything the GC walk
+// would have used to classify/iterate that frame -- to pin down whether the
+// frame was skipped, misclassified, mis-masked, or the slot was outside the
+// iterated range.  -- claude & dmu 7/2026
+static const char* GC_symbolize(void* a) {
+  Dl_info info;
+  if (Memory->code->contains(a)) return "(code zone)";
+  if (dladdr(a, &info) && info.dli_sname) return info.dli_sname;
+  return "?";
+}
+
+void GC_dump_frame_holding(Process* p, oop* w) {
+  frame* f = p->last_self_frame(false);
+  fint steps = 0;
+  for ( ;  f != NULL && steps < 100000;  ++steps) {
+    frame* s = f->sender();
+    if (s == NULL) break;
+    if ((oop*)f <= w  &&  w < (oop*)s) {
+      lprintf("    slot %#lx owner frame %#lx..%#lx self %d interp %d "
+              "compiled %d patched %d\n",
+              (unsigned long)w, (unsigned long)f, (unsigned long)s,
+              f->is_self_frame(), f->is_interpreted_self_frame(),
+              f->is_compiled_self_frame(), f->is_patched());
+      char* rra = f->real_return_addr();
+      lprintf("      real_ret %#lx '%s' ret %#lx '%s'\n",
+              (unsigned long)rra, GC_symbolize(rra),
+              (unsigned long)f->return_addr(),
+              GC_symbolize(f->return_addr()));
+      if (f->is_compiled_self_frame()) {
+        nmethod* nm = f->code();
+        sendDesc* sd = f->send_desc();
+        lprintf("      nm %#lx '%s' memlocals %ld sendDesc %#lx mask %#lx "
+                "firstlocal %#lx slotoff-words %ld\n",
+                (unsigned long)nm,
+                nm ? nm->key.selector_string() : "?",
+                nm ? (long)nm->number_of_memory_locals() : -1,
+                (unsigned long)sd,
+                sd ? (unsigned long)sd->mask() : 0,
+                (unsigned long)f->first_local_addr(),
+                (long)(f->first_local_addr() - w));
+      }
+      return;
+    }
+    f = s;
+  }
+  lprintf("    slot %#lx: no owning frame found (steps %ld)\n",
+          (unsigned long)w, (long)steps);
 }
 
 bool frame::is_aligned() { 

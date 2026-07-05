@@ -19,6 +19,7 @@
   void do_incoming_arguments_of_vm_frame_called_from_self();
   void do_incoming_arguments();
   void do_memory_locals();
+  void do_outgoing_arguments();
   bool check_for_overwriting_patched_frame_saved_outgoing_args(oop* p, fint idx = -1);
 
 

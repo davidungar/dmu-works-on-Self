@@ -12,6 +12,8 @@
   extern InterpreterPICTable* interpreter_pic_table;
 # endif
 
+extern objVectorOop OutgoingArgsOfReturnTrapOrRecompileFrame;  // frame.cpp
+
 bool GCInProgress = false;
 bool ScavengeInProgress = false;
 
@@ -94,7 +96,7 @@ static void GC_stale_sweep_space(space* s, const char* when, long* total) {
 // all2 world build (verified against David's uninstrumented run), so we can
 // hunt the non-heap stash that keeps re-emitting them by scanning the code
 // areas for these exact words at every sweep. HARDCODED per-repro values.
-static const unsigned long GC_magic_values[] =
+const unsigned long GC_magic_values[] =    // extern: frame.cpp checks too
   { 0x80004b3f41UL, 0x80004b2fe1UL };
 
 static long GC_scan_area_for_magic(const char* area, char* start, char* end) {
@@ -132,12 +134,31 @@ static void GC_scan_stack_for_magic(Process* p) {
   oop* lo = (oop*) f;
   oop* hi = (oop*) p->stack()->end();
   if (lo < (oop*) p->stack()->base  ||  lo >= hi) return;
+  // Only frame-dump slots that also held a magic value at the PREVIOUS
+  // sweep -- the persistent-reservoir signature -- so drifting dead copies
+  // in C++ frames don't burn the budget.
+  static oop* prev_hits[64];
+  static fint prev_n = 0;
+  static fint frame_dump_budget = 30;
+  oop* cur_hits[64];
+  fint cur_n = 0;
   for (oop* w = lo;  w < hi;  ++w)
     for (fint i = 0;  i < 2;  ++i)
-      if ((unsigned long) *w == GC_magic_values[i])
+      if ((unsigned long) *w == GC_magic_values[i]) {
         lprintf("MAGIC-ON-STACK %#lx at %#lx (process %#lx, frame-off %ld)\n",
                 GC_magic_values[i], (unsigned long) w, (unsigned long) p,
                 (long)((char*)w - (char*)f));
+        if (cur_n < 64) cur_hits[cur_n++] = w;
+        bool repeated = false;
+        for (fint j = 0;  j < prev_n;  ++j)
+          if (prev_hits[j] == w) { repeated = true; break; }
+        if (repeated && frame_dump_budget > 0) {
+          --frame_dump_budget;
+          GC_dump_frame_holding(p, w);
+        }
+      }
+  for (fint j = 0;  j < cur_n;  ++j) prev_hits[j] = cur_hits[j];
+  prev_n = cur_n;
 }
 
 void universe::stale_sweep(const char* when) {
@@ -307,6 +328,11 @@ oop universe::scavenge(oop p) {
     SCAVENGE_TEMPLATE(&p);
     APPLY_TO_VM_OOPS(SCAVENGE_TEMPLATE);
     SCAVENGE_TEMPLATE(&NLRResultFromC);   // see universe.hh: not snapshotted
+    // Holds the patched frame's saved outgoing args across return-trap
+    // handling and frame conversion, which allocate and can scavenge;
+    // never snapshotted, so root it here like NLRResultFromC.
+    // -- claude & dmu 7/2026
+    SCAVENGE_TEMPLATE(&OutgoingArgsOfReturnTrapOrRecompileFrame);
     APPLY_TO_VM_MAPS(MAP_SCAVENGE_TEMPLATE);
     VMStrings_scavenge_contents();
     string_table->scavenge_contents();
@@ -407,6 +433,7 @@ oop universe::garbage_collect(oop p) {
   MARK_TEMPLATE(&p);
   APPLY_TO_VM_OOPS(MARK_TEMPLATE);
   MARK_TEMPLATE(&NLRResultFromC);       // see universe.hh: not snapshotted
+  MARK_TEMPLATE(&OutgoingArgsOfReturnTrapOrRecompileFrame);  // see scavenge
   APPLY_TO_VM_MAPS(MAP_MARK_TEMPLATE);
   
        code->gc_mark_contents();
@@ -479,6 +506,7 @@ oop universe::garbage_collect(oop p) {
   UNMARK_TEMPLATE(&p);
   APPLY_TO_VM_OOPS(UNMARK_TEMPLATE);
   UNMARK_TEMPLATE(&NLRResultFromC);     // see universe.hh: not snapshotted
+  UNMARK_TEMPLATE(&OutgoingArgsOfReturnTrapOrRecompileFrame);  // see scavenge
   APPLY_TO_VM_MAPS(MAP_UNMARK_TEMPLATE);
   
        code->gc_unmark_contents();
