@@ -98,24 +98,33 @@ void FrameIterator::do_incoming_arguments_of_vm_frame_called_from_self() {
   static fint GC_safe_selector_arg_count(sendDesc* sd) {
     oop sel = oop(sd->selector());
     if (!sel->is_mem()) return -1;
-    if (!Memory->is_obj_heap((oop*) memOop(sel)->addr()))
+    if (!Memory->is_obj_heap((oop*) memOop(sel)->addr())) {
+      // Tokens exist only during the full-GC mark/unmark window; during a
+      // scavenge a non-heap selector is garbage (e.g. a partially unlinked
+      // send site) -- skip such sites, matching their pre-existing lack of
+      // coverage.  is_oTableEntry only compares buffer ranges, so it is
+      // safe to ask about arbitrary addresses.
+      if (ScavengeInProgress) return -1;
+      if (!Memory->object_table->is_oTableEntry(memOop(sel)->addr()))
+        return -1;
       sel = memOop(sel)->as_oTableEntry()->obj;    // mark-phase token
-    return stringOop(sel)->arg_count();
+      if (!sel->is_mem() || !Memory->is_obj_heap((oop*) memOop(sel)->addr()))
+        return -1;
+    }
+    fint n = stringOop(sel)->arg_count();
+    // paranoia against a mis-decoded site: never size a walk implausibly
+    // (sendDesc::verify uses the same 100 bound)
+    return 0 <= n && n <= 100 ? n : -1;
   }
 
-  // frame::outgoing_arg_count(), but with the GC-phase-safe selector read.
+  // frame::outgoing_arg_count(), but with the GC-phase-safe selector read
+  // and restricted to real sends: prim-call sites pass their arguments in
+  // registers, so their outgoing stack words are unwritten junk (that is
+  // why save_outgoing_arguments needs its is-it-really-an-oop guard) and
+  // must not be walked.
   static fint GC_safe_outgoing_arg_count(sendDesc* sd) {
     if (isPerformLookupType(sd->lookupType()))
       return -1;   // dynamic arity: the walk cannot size the outgoing area
-    { char* target = (char*) sd->jump_addr();
-      if (target == (char*) Memory->code->trapdoors->SendMessage_stub_td()
-       || target == (char*) Memory->code->trapdoors->SendDIMessage_stub_td())
-        return GC_safe_selector_arg_count(sd); }
-    if (sd->isPrimCall()) {
-      PrimDesc* pd = getPrimDescOfFirstInstruction(sd->jump_addr(), true);
-      if (pd == NULL) return GC_safe_selector_arg_count(sd);
-      return pd->arg_count();
-    }
     return GC_safe_selector_arg_count(sd);
   }
 
@@ -137,26 +146,51 @@ void FrameIterator::do_incoming_arguments_of_vm_frame_called_from_self() {
   void FrameIterator::do_outgoing_arguments() {
     if (SaveOutgoingArgumentsOfPatchedFrames)
       return;      // i386: these words are covered via do_vm_frame instead
+    if (!GCInProgress)
+      return;      // only the GC walks (scavenge / mark / unmark) own these
+                   // words; switch_pointers and the zap/verify walks run at
+                   // programming or conversion time, when a frame can be
+                   // mid-rebuild and its outgoing area is not a valid oop
+                   // snapshot (observed: a garbage 0x29 there crashed the
+                   // switch_pointers walk)
     extern frame* frames_do_callee;
     frame* callee = frames_do_callee;
     if (callee == NULL) return;   // not inside a whole-stack GC walk
     if (callee->is_compiled_self_frame())
       return;      // covered as the callee's incoming arguments
+    if (nm == NULL) return;
     sendDesc* sd = f->send_desc();
     if (sd == NULL) return;
     bool genuine = false;
     for (addrDesc* l = nm->locs(), *lend = nm->locsEnd(); l < lend; l++)
-      if ((l->isSendDesc()  && l->asSendDesc(nm)          == sd)
-      ||  (l->isPrimitive() && l->asPrimitiveSendDesc(nm) == sd)) {
+      if (l->isSendDesc()  &&  l->asSendDesc(nm) == sd) {
         genuine = true;
         break;
       }
-    if (!genuine) return;
+    if (!genuine) return;   // non-send positions (incl. prim calls): the
+                            // outgoing stack words are not a live oop area
     fint n = GC_safe_outgoing_arg_count(sd);
     if (n < 0) return;
     oop* p = (oop*) f + ircvr_offset;
-    for (fint i = 0;  i < n + 1 /* rcvr */;  ++i, ++p)
+    for (fint i = 0;  i < n + 1 /* rcvr */;  ++i, ++p) {
+      // The outgoing area is only guaranteed-written while a send is in
+      // flight; between sends the words are leftovers.  Walk only values
+      // that are plausibly live oops -- a heap address with a valid (or
+      // forwarding) mark.  Junk (mem-tagged non-heap words like 0x1 from
+      // dead register spills) would crash the closures, and an already
+      // decayed corpse is left for save_outgoing_arguments' own guard.
+      // A slot covered from its send onward never decays, which is what
+      // keeps the patch-time snapshot honest.
+      oop v = *p;
+      if (v->is_mem()) {
+        if (!Memory->is_obj_heap((oop*) memOop(v)->addr()))
+          continue;
+        markOop m = memOop(v)->mark();
+        if (!m->is_mark() && !memOop(v)->is_gc_marked())
+          continue;
+      }
       oop_closure->do_oop(p);
+    }
   }
   
   
