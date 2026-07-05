@@ -98,6 +98,7 @@ zone::zone(smi& codeSize, smi& stubSize, smi& depSize, smi& debugSize) {
   JITWriteScope jit_write_scope;  // Heap setup writes headers into the zone
   used_per_compiler[nm_nic]= 0;
   used_per_compiler[nm_sic]= 0;
+  reservedIDs= 0;
   
   char* stb = NULL;
   if ( TARGET_IS_PROFILED )  set_sizes_for_statically_allocated_code_and_stub_area(codeSize, stubSize, depSize, debugSize, stb);
@@ -724,9 +725,9 @@ bool zone::verify() {
       eventLog->log("verifying nm %d: 0x%x", (void*)n, p);
       r &= p->verify();
     }
-    if (n != numberOfNMethods()) {
-      error2("zone: inconsistent usedIDs value - should be %ld, is %ld",
-             n, numberOfNMethods());
+    if (n + reservedIDs != numberOfNMethods()) {
+      error3("zone: inconsistent usedIDs value - should be %ld (+ %ld reserved), is %ld",
+             n, reservedIDs, numberOfNMethods());
       r = false;
     }
   }
@@ -807,6 +808,31 @@ void zone::gc_mark_contents() {
   JITWriteScope jit_write_scope;  // GC updates words in the zone
   FOR_ALL_NMETHODS(p) p->gc_mark_contents();
   stubs->gc_mark_contents(); 
+}
+
+// DIAGNOSTIC (temporary): after a full GC, check every nmethod oop literal
+// for a dangling referent (garbage mark word); reports the nmethod so we can
+// see whose relocation was missed.  -- claude & dmu 7/2026
+static void check_stale_oop(const char* what, void* nm, void* where, oop v) {
+  if (v->is_mem() && !memOop(v)->mark()->is_mark()
+      && !memOop(v)->is_forwarded())
+    lprintf("STALE-%s nmethod %#lx at %#lx value %#lx mark %#lx\n",
+            what, (unsigned long)nm, (unsigned long)where, (unsigned long)v,
+            (unsigned long)memOop(v)->mark());
+}
+
+void zone::check_stale_literals() {
+  FOR_ALL_NMETHODS(nm) {
+    addrDesc* p = nm->locs(), *end = nm->locsEnd();
+    for (; p < end; p++) {
+      if (p->isOop())
+        check_stale_oop("LITERAL", nm, p, (oop)p->referent(nm));
+    }
+    check_stale_oop("KEY-SEL", nm, &nm->key, oop(nm->key.selector));
+    check_stale_oop("KEY-MAP", nm, &nm->key, oop(nm->key._receiverMapOop));
+    { oop* sp = nm->scopes->oops(), *se = sp + nm->scopes->oops_size();
+      for (; sp < se; sp++) check_stale_oop("SCOPE", nm, sp, *sp); }
+  }
 }
 
 void zone::gc_unmark_contents() {
@@ -897,14 +923,20 @@ char* zone::allocateDeps(fint nbytes) {
 
     if (chainedFrames) unchainFrames();
 
-    // KNOWN WART: myID stays allocated here (one ID leaks per successful
-    // deps reclaim, and the verifier counts it: "inconsistent usedIDs --
-    // should be N, is N+1").  Freeing it instead crashed the next scavenge
-    // -- some reclaim-window consumer still depends on the claimed ID --
-    // so keep Russell's shape until that dependency is understood.
-    // -- claude & dmu 7/2026
+    // myID stays claimed FOREVER, on purpose.  It is the ID the in-flight
+    // compile peeked (nextNMethodID) and baked into its prologue's counter
+    // pokes (&LRUflag[id], countID); reclaim's freeID calls moved the free
+    // list under that promise, and claiming upfront was the classic way to
+    // keep the peek stable.  Releasing it here (so the pending zone::alloc
+    // returns the peeked ID again) re-arms the prologue's counter-triggered
+    // recompilation for this method -- and that path crashes in scavenge on
+    // this port (measured 2/2; with the leak the poked slot is ownerless
+    // and the trigger never fires, 7/7 clean).  So we keep the leak, count
+    // it in reservedIDs, and verify() accounts for it instead of reporting
+    // "inconsistent usedIDs".  -- claude & dmu 7/2026
     LRUtable[myID].set(0);
     useCount[myID] = 0;
+    reservedIDs++;
     if (VerifyZoneOften) {
       iZone->verify(); dZone->verify(); sZone->verify();
     }
@@ -981,7 +1013,7 @@ void zone::print_helper(bool stats) {
     nms[comp].deps   += p->depsLen;
     nms[comp].scopes += p->scopes->length();
   }
-  if (n + ignored != numberOfNMethods()) warning("inconsistent usedIDs value");
+  if (n + ignored + reservedIDs != numberOfNMethods()) warning("inconsistent usedIDs value");
   nmsizes total;
   total.clear();
   for (i = 0; i < nm_last; i++) total.add(nms[i]);

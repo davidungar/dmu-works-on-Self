@@ -67,7 +67,13 @@ class zone: public CHeapObj {
       + sZone->capacity() + stubs->zone()->capacity(); }
       
   int32 used();
+  void  check_stale_literals();  // temporary full-GC diagnostic
   int32 numberOfNMethods() { return idManager->usedIDs; }
+
+  // IDs claimed by allocateDeps' reclaim and deliberately never released
+  // (see the comment there); verify() adds these to the walked-nmethod
+  // count when checking usedIDs.  -- claude & dmu 7/2026
+  int32 reservedIDs;
   
   int used_per_compiler[nm_last];
 
