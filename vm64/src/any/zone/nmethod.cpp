@@ -156,8 +156,30 @@ nmethod::nmethod(AbstractCompiler* c, bool generateDebugCode) {
   
   MachineCache::flush_instruction_cache_range(insts(), instsEnd());
   MachineCache::flush_instruction_cache_for_debugging();
-  
+
   if (this == (nmethod*)catchThisOne) warning("caught nmethod");
+
+  // TEMPORARY (REVERT ME): watch the first SIC 'to:By:Do:' nmethod
+  if (GC_watched_nm == NULL && compiler() == SIC
+      && strcmp(key.selector_string(), "to:By:Do:") == 0) {
+    GC_watched_nm = this;
+    lprintf("WATCHED-NM %#lx CREATED (SIC to:By:Do:)\n", (unsigned long)this);
+  }
+
+  // TEMPORARY (REVERT ME): if a freshly compiled nmethod carries the
+  // freed-scopes poison in its literals or scopes, this compile consumed
+  // the scopes of a flushed nmethod -- name it.
+  { bool poisoned = false;
+    for (addrDesc* q = locs(), *qend = locsEnd(); q < qend; q++)
+      if (q->isOop() && oop(q->referent(this)) == as_smiOop(0x0DEADBEE))
+        poisoned = true;
+    oop* sp = scopes->oops(), *se = sp + scopes->oops_size();
+    for (; sp < se; sp++)
+      if (*sp == as_smiOop(0x0DEADBEE)) poisoned = true;
+    if (poisoned)
+      lprintf("POISON-IN-NEW-NMETHOD %#lx '%s'\n",
+              (unsigned long)this, key.selector_string());
+  }
 }
 
 char* nmethod::entryPointFor(sendDesc *sd) {
@@ -198,6 +220,11 @@ void nmethod::check_store() {
 void nmethod::moveTo_inner(NCodeBase* p, int32 delta, int32 size) {
   nmethod* to = (nmethod*)p;
   if (this == to) return;
+  if (this == GC_watched_nm) {   // TEMPORARY (REVERT ME)
+    lprintf("WATCHED-NM moved %#lx -> %#lx\n",
+            (unsigned long)this, (unsigned long)to);
+    GC_watched_nm = to;
+  }
   if (PrintCodeCompaction) {
     lprintf("*moving nmethod %#lx (", this);
     printName(0, key.selector);
@@ -465,6 +492,7 @@ void nmethod::unlink() {
 
 void nmethod::makeZombie(bool unlnk) {
   JITWriteScope jit_write_scope;  // mutates nmethod state in the code zone
+  GC_watched_nm_event(this, "makeZombie");  // TEMPORARY (REVERT ME)
   // mark this nmethod as zombie (it is almost dead and can be flushed as
   // soon as it is no longer on the stack)
   if (!isZombie()) {
@@ -513,6 +541,11 @@ void nmethod::flush() {
   if (flags.flushed) fatal1("nmethod %#lx already flushed", this);
   if (zone::frame_chain_nesting == 0) fatal("frames must be chained when flushing");
 
+  // TEMPORARY (REVERT ME)
+  GC_watched_nm_event(this, "flush");
+  if (this == GC_watched_nm && frame_chain == NoFrameChain)
+    GC_watched_nm = NULL;   // about to be freed for real
+
   if (frame_chain != NoFrameChain) {
     // Can't remove an nmethod from deps chains now, because later
     // programming changes may need to invalidate it.
@@ -560,6 +593,11 @@ void nmethod::flush() {
       set_oops((oop*)insts(), instsLen()/oopSize, 0); // for quicker detection
     }
 #   endif
+    // TEMPORARY (REVERT ME): poison the freed scopes' oops -- if the
+    // stale block-literal corpses turn into this smi downstream, some
+    // machinery (rscope inlining? return-trap conversion?) is reading
+    // the scopes of flushed nmethods.  -- claude & dmu 7/2026
+    set_oops(scopes->oops(), scopes->oops_size(), as_smiOop(0x0DEADBEE));
     Memory->code->free_nmethod(this);
   }
   MachineCache::flush_instruction_cache_for_debugging();
@@ -589,6 +627,7 @@ void nmethod::flushPartially() {
 
 void nmethod::invalidate() {
   JITWriteScope jit_write_scope;  // mutates nmethod state in the code zone
+  GC_watched_nm_event(this, "invalidate");  // TEMPORARY (REVERT ME)
   if (isInvalid()) return;
   processes->needsInvalidate = true;
 # if GENERATE_DEBUGGING_AIDS

@@ -138,18 +138,22 @@ void rSet::record_multistores(oop* start, oop* end) {
 bool rSet::scavenge_contents(oop* start, oop* end) {
   assert(card_size_in_oops == 32, "wired in");
   char* bound = Memory->new_gen->boundary();
-  
+
+  GC_scan_context = "rset";  // TEMPORARY diagnostic (REVERT ME)
+
   bool changed = false;
-  
+
   oop  x;
   char new_byte;
-  
+
 # define VISIT(w)                                                             \
     x = *(w);                                                                 \
     if (x->is_mem()) {                                                        \
       /* CSE the is_mem tests from the following is_new and scavenge calls */ \
       memOop mx = memOop(x);                                                  \
       if (Memory->new_gen->is_new(mx, bound)) {                               \
+        if (!mx->mark()->is_mark() && !mx->is_forwarded())                    \
+          GC_report_bad_slot("SCAV", w, x);  /* TEMPORARY (REVERT ME) */      \
         *(w) = mx = memOop(mx->scavenge());                                   \
         changed = true;                                                       \
         if (new_byte != 0 && Memory->new_gen->is_new(mx, bound)) new_byte = 0;\

@@ -810,36 +810,132 @@ void zone::gc_mark_contents() {
   stubs->gc_mark_contents(); 
 }
 
-// DIAGNOSTIC (temporary): after a full GC, check every nmethod oop literal
-// for a dangling referent (garbage mark word); reports the nmethod so we can
-// see whose relocation was missed.  -- claude & dmu 7/2026
-static void check_stale_oop(const char* what, void* nm, void* where, oop v) {
+// DIAGNOSTIC (temporary): check every nmethod oop literal for a dangling
+// referent (garbage mark word); reports the nmethod so we can see whose
+// relocation was missed. Originally post-full-GC only; now also run after
+// every post-GC scavenge (via universe::stale_sweep) to catch the exact
+// scavenge that misses an nmethod, with the chain state that explains why.
+// -- claude & dmu 7/2026
+static bool check_stale_oop(const char* what, void* nm, void* where, oop v) {
   if (v->is_mem() && !memOop(v)->mark()->is_mark()
-      && !memOop(v)->is_forwarded())
+      && !memOop(v)->is_forwarded()) {
     lprintf("STALE-%s nmethod %#lx at %#lx value %#lx mark %#lx\n",
             what, (unsigned long)nm, (unsigned long)where, (unsigned long)v,
             (unsigned long)memOop(v)->mark());
+    return true;
+  }
+  return false;
 }
 
 void zone::check_stale_literals() {
+  static fint stale_nm_budget = 40;
   FOR_ALL_NMETHODS(nm) {
+    bool any = false;
     addrDesc* p = nm->locs(), *end = nm->locsEnd();
     for (; p < end; p++) {
       if (p->isOop())
-        check_stale_oop("LITERAL", nm, p, (oop)p->referent(nm));
+        any |= check_stale_oop("LITERAL", nm, p, (oop)p->referent(nm));
     }
-    check_stale_oop("KEY-SEL", nm, &nm->key, oop(nm->key.selector));
-    check_stale_oop("KEY-MAP", nm, &nm->key, oop(nm->key._receiverMapOop));
+    any |= check_stale_oop("KEY-SEL", nm, &nm->key, oop(nm->key.selector));
+    any |= check_stale_oop("KEY-MAP", nm, &nm->key,
+                           oop(nm->key._receiverMapOop));
     { oop* sp = nm->scopes->oops(), *se = sp + nm->scopes->oops_size();
-      for (; sp < se; sp++) check_stale_oop("SCOPE", nm, sp, *sp); }
+      for (; sp < se; sp++) any |= check_stale_oop("SCOPE", nm, sp, *sp); }
+    if (any && stale_nm_budget > 0) {
+      --stale_nm_budget;
+      lprintf("STALE-NM %#lx young %d zombie %d invalid %d "
+              "rememberLink-empty %d on-stack %d\n",
+              (unsigned long)nm, nm->isYoung(), nm->isZombie(),
+              nm->isInvalid(), nm->rememberLink.isEmpty(),
+              nm->frame_chain != NoFrameChain);
+    }
   }
+}
+
+// TEMPORARY (REVERT ME): when the stale-heap sweep finds one of the known
+// stale values sitting in the instruction zone, dump which nmethod holds
+// it and whether ANY relocation entry (addrDesc) covers the word -- an
+// oop baked into code without an addrDesc is invisible to scavenge, full
+// GC, and check_stale_literals alike, and would re-emit the dead address
+// every time the code runs.  -- claude & dmu 7/2026
+void zone::dump_magic_word(oop* where, unsigned long value) {
+  nmethod* nm = findNMethod_maybe(where);
+  static fint full_dumps = 2;
+  if (nm != NULL && full_dumps <= 0) {
+    // compact per-sweep timeline: is the holder still chained & updated?
+    // A non-empty rememberLink can still be an ORPHANED cycle -- walk the
+    // zone's chain to see whether this nmethod is actually reachable.
+    bool on_chain = false;
+    fint steps = 0;
+    for (nmln* q = rememberLink.next;
+         q != &rememberLink && steps < 1000000;  q = q->next, ++steps) {
+      if (q == &nm->rememberLink) { on_chain = true; break; }
+    }
+    lprintf("  magic-nm %#lx word %#lx refmark %#lx young %d zombie %d "
+            "invalid %d rememberLink-empty %d on-zone-chain %d on-stack %d\n",
+            (unsigned long)nm, (unsigned long)where,
+            *(unsigned long*)(value - Mem_Tag),
+            nm->isYoung(), nm->isZombie(), nm->isInvalid(),
+            nm->rememberLink.isEmpty(), on_chain,
+            nm->frame_chain != NoFrameChain);
+    return;
+  }
+  --full_dumps;
+  lprintf("  magic %#lx at %#lx: ", value, (unsigned long)where);
+  if (nm == NULL) { lprintf("not in any nmethod's insts\n"); return; }
+  lprintf("insts+%ld of nmethod %#lx\n",
+          (long)((char*)where - nm->insts()), (unsigned long)nm);
+  lprintf("  referent mark = %#lx\n",
+          *(unsigned long*)(value - Mem_Tag));
+  int covering = 0;
+  for (addrDesc* q = nm->locs(); q < nm->locsEnd(); q++) {
+    char* a = (char*) q->addr(nm);
+    if ((char*)where - 8 <= a  &&  a <= (char*)where + 8) {
+      lprintf("  addrDesc desc %#x addr %#lx isOop %d isSendDesc %d "
+              "isPrim %d isDIDesc %d isEmbedded %d isUncommonTrap %d\n",
+              q->desc, (unsigned long)a, q->isOop(), q->isSendDesc(),
+              q->isPrimitive(), q->isDIDesc(), q->isEmbedded(),
+              q->isUncommonTrap());
+      covering++;
+    }
+  }
+  lprintf("  addrDescs within 8 bytes: %d (of %ld total)\n",
+          covering, (long)(nm->locsEnd() - nm->locs()));
+  nm->print();
+}
+
+// TEMPORARY (REVERT ME): watched-nmethod machinery, see zone.hh comment.
+nmethod* GC_watched_nm = NULL;
+
+void GC_watched_nm_event(void* nm, const char* what) {
+  if (nm != NULL && nm == (void*) GC_watched_nm)
+    lprintf("WATCHED-NM %#lx EVENT %s\n", (unsigned long)nm, what);
+}
+
+void zone::report_watched_nm(long scavCount) {
+  nmethod* nm = GC_watched_nm;
+  if (nm == NULL) return;
+  bool on_chain = false;
+  fint steps = 0;
+  for (nmln* q = rememberLink.next;
+       q != &rememberLink && steps < 2000000;  q = q->next, ++steps)
+    if (q == &nm->rememberLink) { on_chain = true; break; }
+  unsigned long lit = *(unsigned long*)(nm->insts() + 4720);
+  unsigned long refmark =
+    (lit & 1) && Memory->is_obj_heap((oop*)(lit - 1))
+      ? *(unsigned long*)(lit - 1) : 0;
+  lprintf("WATCHED-NM %#lx scav %ld lit %#lx refmark %#lx inv %d zom %d "
+          "rl-empty %d on-chain %d\n",
+          (unsigned long)nm, scavCount, lit, refmark,
+          nm->isInvalid(), nm->isZombie(),
+          nm->rememberLink.isEmpty(), on_chain);
 }
 
 void zone::gc_unmark_contents() {
   JITWriteScope jit_write_scope;  // GC updates words in the zone
   bool needToInvalICache = false;
   FOR_ALL_NMETHODS(p) needToInvalICache |= p->gc_unmark_contents();
-  needToInvalICache |= stubs->gc_unmark_contents(); 
+  needToInvalICache |= stubs->gc_unmark_contents();
   if (needToInvalICache) MachineCache::flush_instruction_cache_for_debugging();
 }
 

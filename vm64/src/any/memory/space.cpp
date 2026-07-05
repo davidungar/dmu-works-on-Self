@@ -181,6 +181,7 @@ void newSpace::prepare_for_scavenge() {
 bool newSpace::scavenge_contents() {
   if (objs_top == objs_scavenge_point) return false;
   assert(objs_scavenge_point < objs_top, "scavenging past top");
+  GC_scan_context = "cheney";  // TEMPORARY diagnostic (REVERT ME)
 
   oop *so_far = objs_scavenge_point; // for performance
 

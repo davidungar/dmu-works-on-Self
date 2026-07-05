@@ -42,6 +42,7 @@ class LocChange {
 
 bool OopNCode::scavenge_contents() {
   JITWriteScope jit_write_scope;
+  GC_watched_nm_event(this, "scavenge-visit");  // TEMPORARY (REVERT ME)
   ResourceMark m;
   bool needToInvalICache = false;
   char* bound = Memory->new_gen->boundary();
