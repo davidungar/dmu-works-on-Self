@@ -17,9 +17,14 @@ inline oop memOopClass::gc_mark() {
   // visitor must keep it rather than re-adding a non-heap address.
   // -- claude & dmu 7/2026
   if (!Memory->is_obj_heap((oop*) addr())) {
-    assert(Memory->object_table->is_oTableEntry(addr()),
-           "mem-tagged non-heap value that is not a mark token");
-    return oop(this);
+    // This branch is rare (only double-visited slots reach it), so the
+    // object-table membership walk is affordable. Anything else here is
+    // corruption; fail loudly in all builds rather than let the unmark
+    // phase misread it as a token later.
+    if (Memory->object_table->is_oTableEntry(addr()))
+      return oop(this);
+    fatal1("gc_mark: mem-tagged non-heap value %#lx is not a mark token",
+           this);
   }
   return oop(Memory->object_table->add(this));
 }

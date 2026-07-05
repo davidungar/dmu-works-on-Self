@@ -366,14 +366,19 @@ void frame::save_outgoing_arguments() {
       // A patched frame's outgoing-args area is not always a valid oop
       // snapshot: for some frames these slots hold a non-object value (a
       // collected/never-live arg, or a reused slot).  The i386 path asserts
-      // arg->verify_oop(); here we must not store a bogus new-space pointer,
-      // or the scavenger crashes when this GC-visited vector is later scanned
-      // (it would forward a pointer whose target has no valid map).  Substitute
-      // nil for anything that isn't a real oop.  -- rca 6/26
-      if (e->is_mem() && Memory->should_scavenge(memOop(e))
-          && !memOop(e)->is_forwarded()
-          && (memOop(e)->addr()->_map == NULL
-              || !oop(memOop(e)->addr()->_mark)->is_mark()))
+      // arg->verify_oop(); here we must not store anything bogus in this
+      // GC-visited vector, or the scavenger / full-GC mark crashes when it
+      // is later walked.  The original guard (rca 6/26) only rejected
+      // dangling new-space pointers; mem-tagged NON-HEAP junk (a leftover
+      // stack address or spill from a dead send through this site) passed
+      // through and died in the mark phase's token check.  Accept only a
+      // plausibly live oop -- a heap address whose mark is valid or
+      // forwarding -- and substitute nil for everything else, matching
+      // FrameIterator::do_outgoing_arguments.  -- rca 6/26, claude & dmu 7/26
+      if (e->is_mem()
+          && (!Memory->is_obj_heap((oop*) memOop(e)->addr())
+              || (!oop(memOop(e)->addr()->_mark)->is_mark()
+                  && !memOop(e)->is_forwarded())))
         e = Memory->nilObj;
       v->obj_at_put(i, e);
     }
