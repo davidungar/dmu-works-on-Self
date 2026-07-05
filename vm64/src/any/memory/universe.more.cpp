@@ -344,6 +344,10 @@ oop universe::garbage_collect(oop p) {
   
   string_table->gc_unmark_contents();
 
+# if TARGET_IS_64BIT
+  code->check_stale_literals();  // temporary diagnostic
+# endif
+
 
   ProcessInfo::update();
   faults= ProcessInfo::page_faults_IO() - faults;

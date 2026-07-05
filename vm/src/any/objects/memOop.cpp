@@ -49,6 +49,13 @@ oop memOopClass::scavenge() {
   } else if (this->is_forwarded()) {
     return oop(this->forwardee());
   } else {
+    // DIAGNOSTIC (temporary): a dangling oop reaches here with a garbage
+    // mark; report and pass it through instead of dereferencing the "map".
+    if (!mark()->is_mark()) {
+      lprintf("SCAV-BAD-OBJ value %#lx mark %#lx\n",
+              (unsigned long)this, (unsigned long)mark());
+      return oop(this);
+    }
     return map()->scavenge(this);
   }
 }

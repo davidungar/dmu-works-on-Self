@@ -352,7 +352,12 @@ extern "C" { extern oop NLRResultFromC; }
     (*f)((oop*)p);
 
 # define SCAVENGE_TEMPLATE(p)                                                 \
-    *((oop*) p) = oop(*p)->scavenge();
+    { oop __sv = *(oop*)(p);                                                  \
+      if (__sv->is_mem() && !memOop(__sv)->mark()->is_mark()                  \
+          && !memOop(__sv)->is_forwarded())                                   \
+        lprintf("SCAV-BAD-SLOT slot %#lx value %#lx\n",                       \
+                (unsigned long)(p), (unsigned long)__sv);                     \
+      *((oop*) p) = oop(*p)->scavenge(); }
 
 # define MARK_TEMPLATE(p)                                                     \
     *((oop*) p) = oop(*p)->gc_mark();
