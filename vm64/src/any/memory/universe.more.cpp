@@ -844,6 +844,14 @@ void universe::setDepsMap(nmln *deps, slotsMapDeps *m) {
 
 nmln* universe::allocateSlotDeps(slotsMapDeps *m) {
   char *d= code->allocateDeps(m->length_slots() * sizeof(nmln) + sizeof(m));
+  // A NULL here used to flow through unchecked: d + sizeof(m) made deps 0x8
+  // and setDepsMap's back-pointer store hit address 0 (SIGSEGV mid-compile
+  // during tiered world builds).  Stop with the real story instead; the
+  // allocateDeps failure path prints the dZone occupancy just above.
+  // -- claude & dmu 7/2026
+  if (d == NULL)
+    fatal1("allocateSlotDeps: deps zone exhausted allocating %ld bytes",
+           long(m->length_slots() * sizeof(nmln) + sizeof(m)));
   nmln *deps= (nmln*)(d + sizeof(m));
   code->setDepsMap(deps, m);
   return deps;

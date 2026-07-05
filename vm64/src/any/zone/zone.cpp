@@ -870,18 +870,39 @@ char* zone::allocateDeps(fint nbytes) {
       }
       if (PrintCodeReclamation) {
         lprintf("*reclaimed %ld bytes in iZone\n", long(reclaimed));
-      }      
-      if (reclaimed < toReclaim) {
+      }
+      // Retry the deps allocation BEFORE the quota test: the quota is in
+      // iZone bytes, but the methods just flushed also freed dZone space --
+      // a small deps request can succeed now even when the iZone quota was
+      // missed (a give-up here used to return NULL for a few-hundred-byte
+      // request after freeing megabytes).  Also give up when a round frees
+      // nothing at all, instead of looping forever once iZone is empty
+      // (toReclaim 0 counts as "met").  -- claude & dmu 7/2026
+      d= (char*) dZone->allocate(nbytes);
+      if (d != NULL && reclaimed < toReclaim)
+        lprintf("allocateDeps: %ld bytes OK on retry after partial reclaim"
+                " (%ld of %ld iZone bytes)\n",
+                long(nbytes), long(reclaimed), long(toReclaim));
+      if (d == NULL && (reclaimed < toReclaim || reclaimed == 0)) {
         // allocation failed
+        lprintf("allocateDeps: giving up on %ld bytes: dZone used %ld of %ld"
+                " (extFrag %d%%), reclaimed %ld of %ld iZone bytes\n",
+                long(nbytes), long(dZone->usedBytes()), long(dZone->capacity()),
+                int(dZone->extFrag() * 100), long(reclaimed), long(toReclaim));
         if (chainedFrames) unchainFrames();
         idManager->freeID(myID);
         return NULL;
       }
-      d= (char*) dZone->allocate(nbytes);
     } while (d == NULL);
 
-    if (chainedFrames) unchainFrames();    
+    if (chainedFrames) unchainFrames();
 
+    // KNOWN WART: myID stays allocated here (one ID leaks per successful
+    // deps reclaim, and the verifier counts it: "inconsistent usedIDs --
+    // should be N, is N+1").  Freeing it instead crashed the next scavenge
+    // -- some reclaim-window consumer still depends on the claimed ID --
+    // so keep Russell's shape until that dependency is understood.
+    // -- claude & dmu 7/2026
     LRUtable[myID].set(0);
     useCount[myID] = 0;
     if (VerifyZoneOften) {
