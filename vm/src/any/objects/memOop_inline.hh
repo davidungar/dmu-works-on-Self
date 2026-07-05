@@ -9,8 +9,19 @@
 
 
 inline oop memOopClass::gc_mark() {
-  return is_gc_marked() ?
-    oop(gc_forwardee()) : oop(Memory->object_table->add(this));
+  if (is_gc_marked())  return oop(gc_forwardee());
+  // A slot can be reached by two walkers in the same mark phase -- e.g.
+  // the frame walk's outgoing-argument coverage and a preservedArray
+  // registered over the same stack words (sendDesc::sendMessage).  After
+  // the first visit the slot holds the object-table token; the second
+  // visitor must keep it rather than re-adding a non-heap address.
+  // -- claude & dmu 7/2026
+  if (!Memory->is_obj_heap((oop*) addr())) {
+    assert(Memory->object_table->is_oTableEntry(addr()),
+           "mem-tagged non-heap value that is not a mark token");
+    return oop(this);
+  }
+  return oop(Memory->object_table->add(this));
 }
 
 inline oop memOopClass::gc_mark_derived(oop* ptr, int32 offset) {
@@ -22,6 +33,11 @@ inline oop memOopClass::gc_mark_derived(oop* ptr, int32 offset) {
 }
 
 inline oop memOopClass::gc_unmark() {
+  // Mirror of gc_mark's double-visit tolerance: a slot two walkers cover
+  // has already been restored to a (relocated) heap oop by the first
+  // unmark visit; genuine tokens point into the object table's C-heap
+  // area, never into the object heap.  -- claude & dmu 7/2026
+  if (Memory->is_obj_heap((oop*) addr()))  return oop(this);
   return oop(as_oTableEntry()->obj);
 }
 
