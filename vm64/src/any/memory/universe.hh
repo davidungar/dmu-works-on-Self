@@ -126,8 +126,6 @@ class universe {
     
   bool is_obj_heap(oop* p) {
     return new_gen->objs_contains(p)  ||  old_gen->objs_contains(p); }
-
-  void stale_sweep(const char* when);  // TEMPORARY diagnostic (REVERT ME)
   
   memOop relocate(memOop p);
   bool verify_oop(memOop p, bool expectErrorObj = false);
@@ -353,34 +351,11 @@ extern "C" { extern oop NLRResultFromC; }
 # define OOPS_DO_TEMPLATE(p, f)                                               \
     (*f)((oop*)p);
 
-// TEMPORARY diagnostics, see universe.more.cpp (REVERT ME) -- claude & dmu 7/2026
-extern void GC_report_bad_slot(const char* phase, oop* p, oop v);
-extern void GC_stale_sweep(const char* when);
-extern const char* GC_scan_context;
-extern bool GC_full_gc_has_run;
-extern void GC_dump_frame_holding(Process* p, oop* w);   // in frame.cpp
-extern const unsigned long GC_magic_values[2];
-
 # define SCAVENGE_TEMPLATE(p)                                                 \
-    { oop __sv = *(oop*)(p);                                                  \
-      if (__sv->is_mem() && !memOop(__sv)->mark()->is_mark()                  \
-          && !memOop(__sv)->is_forwarded())                                   \
-        GC_report_bad_slot("SCAV", (oop*)(p), __sv);                          \
-      *((oop*) p) = oop(*p)->scavenge(); }
+    *((oop*) p) = oop(*p)->scavenge();
 
-// TEMPORARY guard (REVERT ME): marking a stale value would gc_forward_to
-// through it -- clobbering a word of the live object it points into --
-// and later crash gc_mark_rest's dispatch through its garbage map.
-// Report and zap the slot instead so the full GC can complete.
-// -- claude & dmu 7/2026
 # define MARK_TEMPLATE(p)                                                     \
-    { oop __mv = *(oop*)(p);                                                  \
-      if (__mv->is_mem() && !memOop(__mv)->mark()->is_mark()                  \
-          && !memOop(__mv)->is_gc_marked()) {                                 \
-        GC_report_bad_slot("MARK", (oop*)(p), __mv);                          \
-        *((oop*) p) = as_smiOop(0);                                           \
-      } else                                                                  \
-        *((oop*) p) = __mv->gc_mark(); }
+    *((oop*) p) = oop(*p)->gc_mark();
 
 # define UNMARK_TEMPLATE(p)                                                   \
     *((oop*) p) = oop(*p)->gc_unmark();

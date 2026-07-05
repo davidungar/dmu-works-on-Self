@@ -68,8 +68,6 @@ class zone: public CHeapObj {
       
   int32 used();
   void  check_stale_literals();  // temporary full-GC diagnostic
-  void  dump_magic_word(oop* where, unsigned long value);  // temporary too
-  void  report_watched_nm(long scavCount);                 // temporary too
   int32 numberOfNMethods() { return idManager->usedIDs; }
 
   // IDs claimed by allocateDeps' reclaim and deliberately never released
@@ -220,13 +218,6 @@ class LRUcount {
 extern LRUcount* LRUtable;      // for optimized methods
 extern int32* LRUflag;  // == LRUtable, just different type for convenience
 extern int32* useCount; // table with counts for unoptimized methods
-
-// TEMPORARY diagnostics (REVERT ME): watch the first SIC 'to:By:Do:'
-// nmethod from birth -- every lifecycle event and every scavenge visit --
-// to catch the moment its young block literal stops being relocated.
-// -- claude & dmu 7/2026
-extern nmethod* GC_watched_nm;
-extern void GC_watched_nm_event(void* nm, const char* what);
 
 #define APPLY_TO_ZONES(template) \
         template(Memory->code->iZone); \

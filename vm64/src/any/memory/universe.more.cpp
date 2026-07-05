@@ -6,7 +6,6 @@
 # pragma implementation "universe.more.hh"
 
 # include "_universe.more.cpp.incl"
-# include <dlfcn.h>
 
 # if TARGET_IS_64BIT
   extern InterpreterPICTable* interpreter_pic_table;
@@ -17,167 +16,6 @@ extern objVectorOop OutgoingArgsOfReturnTrapOrRecompileFrame;  // frame.cpp
 bool GCInProgress = false;
 bool ScavengeInProgress = false;
 
-
-// TEMPORARY diagnostics (REVERT ME, part of the ae35c6a3 staleness set):
-// when a GC phase meets a mem-tagged slot value whose referent has no
-// valid mark (the tiered post-full-GC staleness under investigation),
-// identify the slot's enclosing heap object -- the structure that HOLDS
-// the stale oop -- and the live object whose interior the stale value
-// points into. The objs part of every space holds only tagged words, so
-// scanning back to the nearest object start is exact.
-// -- claude & dmu 7/2026
-
-static memOop GC_enclosing_object(void* q) {
-  oop* p = (oop*) (smi(q) & ~smi(oopSize - 1));
-  for (fint i = 0;  i < 500000;  ++i, --p) {
-    if (!Memory->is_obj_heap(p)) return NULL;
-    if (memOopClass::is_object_start(oop(*p))) return as_memOop(p);
-  }
-  return NULL;
-}
-
-static void GC_print_enclosing(const char* what, void* q) {
-  memOop h = GC_enclosing_object(q);
-  if (h == NULL) {
-    lprintf("    %s %#lx: no enclosing heap object\n", what, (unsigned long)q);
-    return;
-  }
-  long off = (long) ((char*) q - (char*) h->addr());
-  mapOop mo = h->addr()->_map;
-  void* vt = NULL;
-  const char* mapSym = "?";
-  if (mo->is_mem() && Memory->is_obj_heap((oop*) memOop(mo)->addr())) {
-    vt = *(void**) mo->map_addr();   // the Map's C++ vtable identifies its kind
-    Dl_info info;
-    if (!Memory->is_obj_heap((oop*)vt) && dladdr(vt, &info) && info.dli_sname)
-      mapSym = info.dli_sname;
-  }
-  lprintf("    %s %#lx: in obj %#lx (+%ld bytes) mark %#lx map %#lx vtbl %#lx %s\n",
-          what, (unsigned long)q, (unsigned long)h, off,
-          (unsigned long)h->mark(), (unsigned long)mo, (unsigned long)vt, mapSym);
-  oop* w = (oop*) h->addr();
-  lprintf("      words: %#lx %#lx %#lx %#lx %#lx %#lx %#lx %#lx\n",
-          (unsigned long)w[0], (unsigned long)w[1], (unsigned long)w[2],
-          (unsigned long)w[3], (unsigned long)w[4], (unsigned long)w[5],
-          (unsigned long)w[6], (unsigned long)w[7]);
-}
-
-const char* GC_scan_context = "roots";
-
-void GC_report_bad_slot(const char* phase, oop* p, oop v) {
-  lprintf("%s-BAD-SLOT (%s) slot %#lx value %#lx\n",
-          phase, GC_scan_context, (unsigned long)p, (unsigned long)v);
-  GC_print_enclosing("slot ", p);
-  GC_print_enclosing("value", memOop(v)->addr());
-}
-
-// Whole-heap stale sweep: run at quiescent points (right after a full GC,
-// and after each subsequent scavenge) to pin down the exact window in
-// which the first stale slot appears -- if SWEEP-POSTGC is dirty the
-// full GC itself failed to update those slots; if it is clean and a
-// later SWEEP-POSTSCAV is dirty, the mutator wrote the stale value from
-// some source the heap walks don't cover.
-
-bool GC_full_gc_has_run = false;
-
-static void GC_stale_sweep_space(space* s, const char* when, long* total) {
-  for (oop* p = s->oopsStart();  p < s->oopsEnd();  ++p) {
-    oop v = *p;
-    if (v->is_mem()
-        && Memory->is_obj_heap((oop*) memOop(v)->addr())  // wild floats etc.
-        && !memOop(v)->mark()->is_mark()
-        && !memOop(v)->is_forwarded()) {
-      if (++*total <= 20) GC_report_bad_slot(when, p, v);
-    }
-  }
-}
-
-// The two stale values are byte-for-byte reproducible across runs of the
-// all2 world build (verified against David's uninstrumented run), so we can
-// hunt the non-heap stash that keeps re-emitting them by scanning the code
-// areas for these exact words at every sweep. HARDCODED per-repro values.
-const unsigned long GC_magic_values[] =    // extern: frame.cpp checks too
-  { 0x80004b3f41UL, 0x80004b2fe1UL };
-
-static long GC_scan_area_for_magic(const char* area, char* start, char* end) {
-  long hits = 0;
-  for (oop* p = (oop*) start;  p < (oop*) end;  ++p)
-    for (fint i = 0;  i < 2;  ++i)
-      if ((unsigned long) *p == GC_magic_values[i]) {
-        if (++hits <= 3)
-          lprintf("MAGIC-IN-CODE %#lx at %#lx (%s)\n",
-                  GC_magic_values[i], (unsigned long) p, area);
-        if (*area == 'i' && hits <= 6)
-          Memory->code->dump_magic_word(p, GC_magic_values[i]);
-      }
-  return hits;
-}
-
-static void GC_scan_code_for_magic() {
-  zone* z = Memory->code;
-  long i = GC_scan_area_for_magic("iZone+stubs", z->code_start(), z->code_end());
-  long s = GC_scan_area_for_magic("sZone", z->sZone->startAddr(), z->sZone->endAddr());
-  long d = GC_scan_area_for_magic("dZone", z->dZone->startAddr(), z->dZone->endAddr());
-  if (i + s + d)
-    lprintf("MAGIC-IN-CODE totals: iZone+stubs %ld, sZone %ld, dZone %ld\n",
-            i, s, d);
-}
-
-// Scan the LIVE part of every Self process stack (last Self frame up to
-// the stack's high end) for the magic values: a hit means a frame slot
-// holds the corpse -- a spill the frame oop maps failed to scavenge.
-
-static void GC_scan_stack_for_magic(Process* p) {
-  if (p == NULL) return;
-  frame* f = p->last_self_frame(false);
-  if (f == NULL) return;
-  oop* lo = (oop*) f;
-  oop* hi = (oop*) p->stack()->end();
-  if (lo < (oop*) p->stack()->base  ||  lo >= hi) return;
-  // Only frame-dump slots that also held a magic value at the PREVIOUS
-  // sweep -- the persistent-reservoir signature -- so drifting dead copies
-  // in C++ frames don't burn the budget.
-  static oop* prev_hits[64];
-  static fint prev_n = 0;
-  static fint frame_dump_budget = 30;
-  oop* cur_hits[64];
-  fint cur_n = 0;
-  for (oop* w = lo;  w < hi;  ++w)
-    for (fint i = 0;  i < 2;  ++i)
-      if ((unsigned long) *w == GC_magic_values[i]) {
-        lprintf("MAGIC-ON-STACK %#lx at %#lx (process %#lx, frame-off %ld)\n",
-                GC_magic_values[i], (unsigned long) w, (unsigned long) p,
-                (long)((char*)w - (char*)f));
-        if (cur_n < 64) cur_hits[cur_n++] = w;
-        bool repeated = false;
-        for (fint j = 0;  j < prev_n;  ++j)
-          if (prev_hits[j] == w) { repeated = true; break; }
-        if (repeated && frame_dump_budget > 0) {
-          --frame_dump_budget;
-          GC_dump_frame_holding(p, w);
-        }
-      }
-  for (fint j = 0;  j < cur_n;  ++j) prev_hits[j] = cur_hits[j];
-  prev_n = cur_n;
-}
-
-void universe::stale_sweep(const char* when) {
-  const char* saved = GC_scan_context;
-  GC_scan_context = "sweep";
-  long total = 0;
-  GC_stale_sweep_space(new_gen->eden_space, when, &total);
-  GC_stale_sweep_space(new_gen->from_space, when, &total);
-  GC_stale_sweep_space(new_gen->to_space,   when, &total);
-  {FOR_EACH_OLD_SPACE(s) GC_stale_sweep_space(s, when, &total);}
-  lprintf("%s: %ld stale heap slots (scavenge %ld)\n",
-          when, total, (long)scavengeCount);
-  GC_scan_code_for_magic();
-  processes->processesDo(GC_scan_stack_for_magic, true);
-  code->check_stale_literals();  // every sweep, to catch the transition
-  GC_scan_context = saved;
-}
-
-void GC_stale_sweep(const char* when) { Memory->stale_sweep(when); }
 
 void universe::swapSurvivors() {
   {
@@ -324,7 +162,6 @@ oop universe::scavenge(oop p) {
     new_gen->prepare_for_scavenge();
     old_gen->prepare_for_scavenge();
 
-    GC_scan_context = "roots";  // TEMPORARY diagnostic (REVERT ME)
     SCAVENGE_TEMPLATE(&p);
     APPLY_TO_VM_OOPS(SCAVENGE_TEMPLATE);
     SCAVENGE_TEMPLATE(&NLRResultFromC);   // see universe.hh: not snapshotted
@@ -362,9 +199,6 @@ oop universe::scavenge(oop p) {
     
     old_gen->cleanup_after_scavenge();
 
-    code->report_watched_nm((long)scavengeCount);  // TEMPORARY (REVERT ME)
-    if (GC_full_gc_has_run)  // TEMPORARY diagnostic (REVERT ME)
-      GC_stale_sweep("SWEEP-POSTSCAV");
 
     if (PrintScavenge) {
       lprintf("done: %ld ms., %ld bytes in new_gen\n", long(tmr.time()), long(new_gen->used()));
@@ -521,12 +355,7 @@ oop universe::garbage_collect(oop p) {
   
   string_table->gc_unmark_contents();
 
-# if TARGET_IS_64BIT
-  code->check_stale_literals();  // temporary diagnostic
-# endif
 
-  GC_full_gc_has_run = true;     // TEMPORARY diagnostic (REVERT ME)
-  GC_stale_sweep("SWEEP-POSTGC");
 
 
   ProcessInfo::update();

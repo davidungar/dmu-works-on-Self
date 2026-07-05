@@ -44,21 +44,6 @@ void oTable::gc_mark_rest() {
       if (   current.buffer == point.buffer
           && current.index == point.index) return;
       oopsOop p = (oopsOop) current.buffer->entries[current.index].obj;
-      // TEMPORARY diagnostic guard (REVERT ME -- goes with the vm64
-      // SCAV/MARK-BAD staleness diagnostics): a stale oop that slips into
-      // the table has a garbage map slot; dispatching through it crashes.
-      // Skip such entries so the full GC can complete and report them.
-      // -- claude & dmu 7/2026
-      { mapOop __mo = p->addr()->_map;
-        void*  __vt = (__mo->is_mem()
-                       && Memory->is_obj_heap((oop*) memOop(__mo)->addr()))
-                      ? *(void**) __mo->map_addr() : NULL;
-        if (__vt == NULL || Memory->is_obj_heap((oop*) __vt)) {
-          lprintf("OTABLE-BAD-ENTRY obj %#lx map-slot %#lx\n",
-                  (unsigned long) p, (unsigned long) __mo);
-          continue;
-        }
-      }
 #     if GENERATE_DEBUGGING_AIDS
         if (CheckAssertions) {
           LOG_EVENT2("Marking map of 0x%x index %d", p, current.index);

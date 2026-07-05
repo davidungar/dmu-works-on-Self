@@ -223,16 +223,6 @@ void InterpreterPICTable::scavenge_contents() {
   bool need_rehash = false;
   for (int32 i = 0; i < TABLE_SIZE; i++) {
     for (InterpreterPICData* d = buckets[i]; d; d = d->next) {
-      // DIAGNOSTIC (temporary): a full-GC dangling d->method derefs garbage
-      // below; report it instead of crashing so we can see the value shape.
-      { markOop dm = memOop(d->method)->mark();
-        if (!dm->is_mark() && !memOop(d->method)->is_forwarded()) {
-          lprintf("PICTABLE-BAD-METHOD bucket %ld entry %#lx method %#lx mark %#lx num_pics %ld\n",
-                  long(i), (unsigned long)d, (unsigned long)d->method,
-                  (unsigned long)dm, long(d->num_pics));
-          continue;
-        }
-      }
       oop old_method = d->method;
       d->method = d->method->scavenge();
       if (d->method != old_method)
