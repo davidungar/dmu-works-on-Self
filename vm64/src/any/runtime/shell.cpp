@@ -93,8 +93,9 @@ static void processArguments(int argc, const char *argv[]) {
 #   if TARGET_IS_64BIT
       // 64-bit mixed-mode design: the interpreter is tier 0 and the SIC is
       // invoked for hot methods by counter triggers, never by default
-      // routing.
-      Interpret = true;
+      // routing.  That mode is now the predicate interpreterIsTier0(), not
+      // the Interpret flag, which is free to mean what its name says: the
+      // user's pure-interpretation switch.  -- claude & dmu 7/2026
       // count/aging stub code patterns are not implemented on aarch64 yet
       // (see countPattern_aarch64.cpp), so nmethods must bind directly
       UseAgingStubs = false;

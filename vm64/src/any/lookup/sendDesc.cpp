@@ -549,10 +549,11 @@ char* interpretSendForCompiledSender(compilingLookup* L,
 
 
 static nmethod* SendMessage_cont( compilingLookup* L) {
-  if ( Interpret ) {
+  if ( interpreterIsTier0() ) {
     extern fint interpreterTierUpThreshold();
     if (interpreterTierUpThreshold() <= 0) {
-      // Pure interpretation (tiering off): no compiling at all.  We are going
+      // Pure interpretation (tiering off, or the Interpret flag is set --
+      // the threshold reads as 0 then too): no compiling at all.  We are going
       // to interpret, not compile: the dependency nodes the lookup just
       // spliced into the touched maps' dependent lists will never be migrated
       // into an nmethod.  Left behind, they dangle in the (heap) dependent

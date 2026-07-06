@@ -759,8 +759,8 @@ void SelfMonitor::update_time_bars() {
   else {
     fint percent = _cpu_bar->current_usage();
     fint elapsed = _elapsed_ticks * 100;
-    if (Interpret)
-      _self_bar->update(percent * ExecutionMonitor::self_ticks[0], 
+    if (interpreterIsTier0())
+      _self_bar->update(percent * ExecutionMonitor::self_ticks[0],
                        percent * ExecutionMonitor::self_ticks[1], 
                        percent * ExecutionMonitor::self_ticks[2],
                        0,

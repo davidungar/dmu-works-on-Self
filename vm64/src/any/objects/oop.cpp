@@ -401,7 +401,7 @@ oop oopClass::unwind_protect_prim(oop doBlock, oop protectBlock) {
 #   endif
 
     nmethod* nm = NULL;
-    if (Interpret)
+    if (interpreterIsTier0())
       L.perform_full_lookup_n(0);
     else {
 #     if defined (FAST_COMPILER) || defined(SIC_COMPILER)
@@ -464,7 +464,7 @@ oop oopClass::unwind_protect_prim(oop doBlock, oop protectBlock) {
 #   endif
 
     nmethod* nm2 = NULL;
-    if (Interpret)
+    if (interpreterIsTier0())
       Ltwo.perform_full_lookup_n(1);
     else {
 #     if defined (FAST_COMPILER) || defined(SIC_COMPILER)

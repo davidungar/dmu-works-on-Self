@@ -1031,6 +1031,12 @@ oop interpreter::try_pic(LookupType type, oop delOrNameToSend, int32 resSP) {
   return badOop;
 }
 
+// Interpret set means the user demands pure interpretation: never enter
+// compiled code, whatever RouteToCompiled says.  -- claude & dmu 7/2026
+static inline bool route_to_compiled_enabled() {
+  return RouteToCompiled && !Interpret;
+}
+
 oop interpreter::try_pic_entry( InterpreterPIC& pic, int i, mapOop rMap,
                                  oop delToSend, fint arg_count, int32 resSP ) {
   if (pic.entries[i].cachedMap != rMap)
@@ -1094,7 +1100,7 @@ oop interpreter::try_pic_entry( InterpreterPIC& pic, int i, mapOop rMap,
       // Re-probe the code cache every 64th hit so routing spreads through
       // already-warm entries as tier-up proceeds (same canonical key as
       // route_to_nmethod; arg cap matches EnterSelfN's outgoing area).
-      if (RouteToCompiled && nm == NULL && arg_count <= 14
+      if (route_to_compiled_enabled() && nm == NULL && arg_count <= 14
           && (pic.hitCount[i] & 63) == 63) {
         MethodLookupKey ck(NormalLookupType, MH_NOT_A_RESEND, rMap,
                            selToSend, delToSend);
@@ -1105,7 +1111,7 @@ oop interpreter::try_pic_entry( InterpreterPIC& pic, int i, mapOop rMap,
           lprintf("interpreter late-routing PIC entry to nmethod %#lx\n",
                   (long)nm);
       }
-      if (RouteToCompiled && nm != NULL) {
+      if (route_to_compiled_enabled() && nm != NULL) {
         oop* args = &stack[sp - arg_count];
         oop res = arg_count > 1
                 ? EnterSelfN(rcvToSend, nm->insts(), args, arg_count)
@@ -1259,7 +1265,7 @@ static nmethod* route_to_nmethod(simpleLookup& L, int32 arg_count) {
   // or predating the ban in maybe_tier_up_block_home) may embed constants
   // resolved through a compile-time home receiver that this block's home
   // does not share (the key is only the block map).
-  if (RouteToCompiled && arg_count <= 14 && L.result() != NULL
+  if (route_to_compiled_enabled() && arg_count <= 14 && L.result() != NULL
       && baseLookupType(L.key.lookupType) == NormalBaseLookupType
       && !L.receiverMap()->is_block()) {
     // nmethods are keyed by a CANONICAL key: NormalLookupType (no implicit-self

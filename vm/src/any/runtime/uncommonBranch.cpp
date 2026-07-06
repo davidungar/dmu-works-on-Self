@@ -46,7 +46,7 @@
     compiled_vframe* vfs = vf->sender()->as_compiled();
     assert(vfs->fr == fr->sender(), "oops");
     recompilee = oldNM;
-    if (Interpret) fatal("XXXX cannot recompile when interping yet");
+    if (interpreterIsTier0()) fatal("XXXX cannot recompile when interping yet");
     char* newInsts = Recompile(vfs->fr->send_desc(), vfs->fr, vf->receiver(),
                                NULL, pc);
     // should replace on stack if in loop - fix this

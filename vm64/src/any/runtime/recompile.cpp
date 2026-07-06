@@ -90,6 +90,11 @@ void recompile_init() {
 // the SIC-only / interpreter-tier-0 configuration.
 fint interpreterTierUpThreshold() {
 # if defined(SIC_COMPILER) && !defined(FAST_COMPILER)
+  // The Interpret flag demands pure interpretation; returning 0 here shuts
+  // off both compile sources at once: maybe_tier_up (threshold <= 0 bails)
+  // and SendMessage_cont (threshold <= 0 takes its no-compile path).
+  // -- claude & dmu 7/2026
+  if (Interpret) return 0;
   return recompileLimits[0];
 # else
   return 0;
@@ -1143,7 +1148,7 @@ void Recompilation::doit(char* pc) {
 
   EventMarker em( "recompiling %#lx: %#lx --> %#lx", tripNM, NULL, NULL);
 
-  if (Interpret) return; // XXXX no recompile for interp for now -- dmu
+  if (interpreterIsTier0()) return; // XXXX no recompile for interp for now -- dmu
   if (recompilee == NULL) {
     if (PrintRecompilation) lprintf(": no recompilee\n");
     if (calledFromStub) {

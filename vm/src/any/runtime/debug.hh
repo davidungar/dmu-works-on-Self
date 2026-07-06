@@ -704,3 +704,20 @@ class FlagSettingInt {
 FOR_ALL_DEBUG_PRIMS(DeclareFlags)
 
 # undef DeclareFlags
+
+// Whether the interpreter is the primary execution engine is a property of
+// the configuration, not of the Interpret flag: it is tier 0 on 64-bit
+// mixed-mode builds and the only engine in compiler-less builds.  The
+// Interpret flag itself is the user's pure-interpretation switch.
+// (Kept textually identical to the vm64 copy of this header, which shadows
+// this one in 64-bit builds; shared .cpp files use the predicate.)
+// -- claude & dmu 7/2026
+inline bool interpreterIsTier0() {
+# if TARGET_IS_64BIT
+  return true;                 // mixed-mode: interpreter is tier 0
+# elif !defined(FAST_COMPILER) && !defined(SIC_COMPILER)
+  return true;                 // no compiler at all
+# else
+  return Interpret;            // 32-bit experimental interpreter switch
+# endif
+}

@@ -1864,13 +1864,13 @@ oop Process::runDoItMethod( oop rcv,
                             oop* args,
                             fint arg_count ) {
   
-  assert(Interpret  ||  arg_count <= 1,
+  assert(interpreterIsTier0()  ||  arg_count <= 1,
          "unimplemented: cannot pass in > 1 arg to compiled code");
-  
+
 # if defined(FAST_COMPILER) || defined(SIC_COMPILER)
 
   nmethod* nm;
-  if (!Interpret) { 
+  if (!interpreterIsTier0()) {
     nm = constructDoItMethod( rcv, method );
     if (Trace && WizardMode) {
       lprintf("running do It method 0x%lx\n", (unsigned long) nm);
@@ -1882,7 +1882,7 @@ oop Process::runDoItMethod( oop rcv,
   if (res->is_mark())
     return res;
 
-  if (!Interpret) {
+  if (!interpreterIsTier0()) {
 #   if defined(FAST_COMPILER) || defined(SIC_COMPILER)
     EventMarker("entering self %d", (void*)(long)nesting);
     res = EnterSelf( rcv, nm->insts(),  arg_count < 1  ?  badOop  : args[0]);

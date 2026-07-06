@@ -46,7 +46,7 @@ pc_t SendDIMessage(sendDesc* sd, frame* lookupFrame, DIDesc* dc,
 
 
 static nmethod* SendDIMessage_cont( compilingLookup* L ) {
-  if ( Interpret ) {
+  if ( interpreterIsTier0() ) {
 # if TARGET_IS_64BIT
     extern fint interpreterTierUpThreshold();
     if (interpreterTierUpThreshold() > 0) {

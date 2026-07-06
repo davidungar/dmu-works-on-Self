@@ -366,7 +366,8 @@ class FlagSettingInt {
     "on recompilation, clear (vs. halve) tripping nmethod's use count", true) \
                                                                               \
     BOOLEAN_PRIM_TEMPLATE(template, Interpret, false,                         \
-    "use the interpreter (experimental)", true)                               \
+    "pure interpretation: compile nothing new and enter no compiled code "    \
+    "(compiled activations already on stacks still finish)", true)            \
                                                                               \
     BOOLEAN_PRIM_TEMPLATE(template, UseLocalAccessBytecodes, true,            \
     "use the local access bytecodes (experimental)", true)                    \
@@ -716,3 +717,20 @@ class FlagSettingInt {
 FOR_ALL_DEBUG_PRIMS(DeclareFlags)
 
 # undef DeclareFlags
+
+// Whether the interpreter is the primary execution engine is a property of
+// the configuration, not of the Interpret flag: it is tier 0 on 64-bit
+// mixed-mode builds and the only engine in compiler-less builds.  The
+// Interpret flag itself is the user's pure-interpretation switch (see its
+// entry above): set at runtime, it stops new compilation and new entry into
+// compiled code, though compiled activations already on stacks still finish.
+// -- claude & dmu 7/2026
+inline bool interpreterIsTier0() {
+# if TARGET_IS_64BIT
+  return true;                 // mixed-mode: interpreter is tier 0
+# elif !defined(FAST_COMPILER) && !defined(SIC_COMPILER)
+  return true;                 // no compiler at all
+# else
+  return Interpret;            // 32-bit experimental interpreter switch
+# endif
+}

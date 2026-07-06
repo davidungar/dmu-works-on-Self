@@ -337,7 +337,7 @@ frame* frame::get_patched_self_frame(char* sp_of_patched_frame) {
   // Validated against the interpreted return-trap path (tests runAllTests):
   // sp_of_patched_frame is the patched frame itself.  Keep a WizardMode-only
   // note rather than warning on every trap.
-  if (Interpret && WizardMode)
+  if (interpreterIsTier0() && WizardMode)
     warning("get_patched_self_frame: using sp_of_patched_frame as the frame");
 # if TARGET_ARCH == AARCH64_ARCH
   // PrimCallReturnTrap's entry sp is running_sp+8 for a true prim return
