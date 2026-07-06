@@ -48,10 +48,18 @@
         warning2("X Error in the Spy: %s (request code %d).\n",
                  buf, (int)error->request_code);
       }
-    } 
+    }
     else {
-      lprintf("X Error: %s.\n", buf);
-      print_stack_and_abort();
+      // Xlib invokes this handler from inside its own protocol machinery
+      // (_XReply, _XEventsQueued), often with the display lock held and the
+      // connection mid-read. print_stack_and_abort() here unwound the Self
+      // process out of Xlib's C frames, leaving the connection's lock,
+      // reader, and XID state permanently inconsistent; the next X call then
+      // died in _XAllocID or _XLockDisplay, or deadlocked in _XReply. A
+      // non-IO X error is asynchronous and survivable: report it and return.
+      // -- claude & dmu 7/2026
+      lprintf("X Error: %s (request code %d, resource id 0x%lx).\n",
+              buf, (int)error->request_code, (unsigned long)error->resourceid);
     }
     return(0);
   }
