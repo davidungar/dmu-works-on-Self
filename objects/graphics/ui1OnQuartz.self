@@ -298,16 +298,16 @@ SlotsToOmit: parent.
             | width @ height).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fComment: the true-colour RGBA graphics backend (Phase 2). Inherits the quartz backend; overrides makeOffscreenFor: (rgbaPixmap offscreens) and installShadowOn: (no shadow -> window draws true colour). Draw-targets are inherited for now (plane masks are no-ops on rgbaContext; arrow colormap installs are harmless); the acetate/arrow multi-surface facade comes in 2.2.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'Comment: the true-colour RGBA graphics backend (Phase 2). Inherits the quartz backend; overrides makeOffscreenFor: (rgbaPixmap offscreens) and installShadowOn: (no shadow -> window draws true colour). Draw-targets are inherited for now (plane masks are no-ops on rgbaContext; arrow colormap installs are harmless); the acetate/arrow multi-surface facade comes in 2.2.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
-         newQuartzGraphicsBackend = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui newQuartzGraphicsBackend.
+         newQuartz = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'newQuartz' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends newQuartz.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'newQuartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          installShadowOn: pw = ( |
@@ -315,7 +315,7 @@ SlotsToOmit: parent.
             pw makeRGBAShadow. self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'newQuartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          makeOffscreenFor: win Size: sz = ( |
@@ -326,22 +326,22 @@ SlotsToOmit: parent.
             b).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'newQuartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          name = 'newQuartz'.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'Comment: the original 8-bit indexed graphics backend (Phase 1.5 dual-backend). Its factory methods reproduce setGraphicAndOffScreen exactly (bitmap copyFor:Size:), so selecting it changes no behaviour. parent* = lobby so the factory bodies can see the bitmap global.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
-         parent* = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui newQuartzGraphicsBackend parent.
+         quartz = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends quartz.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          blitShadowToWindowFor: w = ( |
@@ -355,116 +355,116 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          eraseAcetate: rect On: w = ( |
             | w windowBitmap planeMask: w movingPlaneMask. w windowBitmap fillRectangle: rect Color: w uiColors transparent).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          eraseArrow0: rect On: w = ( |
             | w windowBitmap planeMask: w arrow0Mask. w windowBitmap fillRectangle: rect Color: w uiColors transparent).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          eraseArrow1: rect On: w = ( |
             | w windowBitmap planeMask: w arrow1Mask. w windowBitmap fillRectangle: rect Color: w uiColors transparent).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          graphicsGlobals = bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          installShadowOn: pw = ( |
             | pw makeShadow. self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          makeOffscreenFor: win Size: sz = ( |
             | bitmap copyFor: win Size: sz).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          makeWindowBitmapFor: win Size: sz = ( |
             | bitmap copyFor: win Size: sz).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          name = 'quartz'.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          parent* = bootstrap stub -> 'lobby' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          prepareToDrawOnAcetate: w = ( |
             | w windowBitmap planeMask: w movingPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          prepareToDrawOnAll: w = ( |
             | w windowBitmap useAllBitplanes).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          prepareToDrawOnAllButArrow0: w = ( |
             | w windowBitmap planeMask: 8r777 ^^ w arrow0Mask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          prepareToDrawOnArrow0: w = ( |
             | w windowBitmap planeMask: w arrow0Mask. w myUI colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          prepareToDrawOnArrow0InstallingBoth: w = ( |
             | w windowBitmap planeMask: w arrow0Mask. w myUI colormapBothArrowPlanes installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          prepareToDrawOnArrow1: w = ( |
             | w windowBitmap planeMask: w arrow1Mask. w myUI colormap1 installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          prepareToDrawOnBackground: w = ( |
             | w windowBitmap planeMask: w stationaryPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          present: w = ( |

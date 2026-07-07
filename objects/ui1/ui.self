@@ -162,7 +162,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
-         graphicsBackend.
+         graphicsBackend <- bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
@@ -269,7 +269,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
-         window.
+         window <- bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
@@ -883,8 +883,17 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          graphicsBackendNamed: nm = ( |
             | 
-            nm = 'newQuartz' ifTrue: [ ^ newQuartzGraphicsBackend ].
-            quartzGraphicsBackend).
+            nm = 'newQuartz' ifTrue: [ ^ graphisBackends newQuartz ].
+            graphicsBackends quartz).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+        
+         graphicsBackends = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends.
+'.
+            | ) .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1091,7 +1100,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          isDisplayNameForQuartz: dn = ( |
-            | dn isEmpty || [dn = 'quartz']).
+            | 
+             [xxxxx].
+            dn isEmpty || [(dn = 'quartz') || [dn = 'newQuartz']]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1384,12 +1395,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fComment: the original 8-bit indexed graphics backend (Phase 1.5 dual-backend). Its factory methods reproduce setGraphicAndOffScreen exactly (bitmap copyFor:Size:), so selecting it changes no behaviour. parent* = lobby so the factory bodies can see the bitmap global.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         quartzGraphicsBackend = bootstrap stub -> 'traits' -> 'ui' -> 'newQuartzGraphicsBackend' -> 'parent' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1867,11 +1872,11 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          setUpOn: disp Initial: createObjBlock = ( |
             | 
             graphicsBackend:
-                disp = 'quartz' ifTrue: [ quartzGraphicsBackend ]
-                False: [ disp = 'newQuartz' ifTrue: [ newQuartzGraphicsBackend ]
+                disp = 'quartz' ifTrue: [ graphicsBackends quartz ]
+                False: [ disp = 'newQuartz' ifTrue: [ graphicsBackeds newQuartz ]
                 False: [ (isDisplayNameForQuartz: disp)
-                            ifTrue: [ newQuartzGraphicsBackend ]
-                            False: [ xGraphicsBackend ] ] ].
+                            ifTrue: [ graphicsBackends neweQuartz ]
+                            False: [ graphicsBackends x11 ] ] ].
 
             openWindowOn: disp.
 
