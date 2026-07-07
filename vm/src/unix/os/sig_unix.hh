@@ -53,6 +53,13 @@
   // the next fd-less select() in _TWAINS sleeps unwakeably.  Such a path must
   // restore the normal running mask (empty) by hand. -- claude & dmu 7/2026
   static void unblock_all_signals();
+
+  // Belt to the above suspenders: the scheduler's idle wait is woken only by
+  // signal delivery, so the mask must be open when it parks.  Called at
+  // _TWAINS entry; forces the mask open and warns (once) if it found the
+  // timer/IO signals blocked, so any leak path not yet plugged is survivable
+  // and still gets reported. -- claude & dmu 7/2026
+  static void heal_leaked_mask_before_idle_wait();
  private:
 
  public:

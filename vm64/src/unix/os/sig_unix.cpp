@@ -218,6 +218,21 @@ void SignalInterface::unblock_all_signals() {
 }
 
 
+// See the comment in sig_unix.hh. -- claude & dmu 7/2026
+void SignalInterface::heal_leaked_mask_before_idle_wait() {
+  sigset_t none, leaked;
+  sigemptyset(&none);
+  if (sigprocmask(SIG_SETMASK, &none, &leaked))  return;
+  if (!sigismember(&leaked, SIGALRM) && !sigismember(&leaked, SIGIO))  return;
+  static bool warned = false;
+  if (warned)  return;
+  warned = true;
+  warning("_TWAINS found the timer/IO signals kernel-blocked (a leaked signal "
+          "mask -- e.g. a signal handler or SignalBlocker abandoned by a "
+          "non-local unwind); healed it, but the leak's source is still live");
+}
+
+
 static int32 ctrl_z_handler(int sig) {
   if (InterruptedContext::the_interrupted_context->forwarded_to_self_thread(sig))
     return 0;

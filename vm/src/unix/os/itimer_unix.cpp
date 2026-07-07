@@ -147,7 +147,15 @@ void IntervalTimer::disable(bool) {
 // setitimer ticks must be serviced on the thread that runs Self, which is the
 // thread arming the timer here; IntervalTimerTick redirects any stray tick back
 // to it.  -- claude & dmu 5/2026
+// Record it exactly ONCE, at the boot arming.  Later re-arms can run on other
+// threads -- the post-wake enable_all() is a dispatch_after block on a GCD
+// worker (quartzWindow.mm systemWillSleep:) -- and re-recording would repoint
+// every subsequent tick at that transient worker: ticks get handled on the
+// wrong thread while it lives and vanish (ESRCH) once it is reaped, so the
+// world freezes at the next _TWAINS wait (observed live, 7/2026).  The Self
+// thread never changes in this VM. -- claude & dmu 7/2026
 static void record_vm_thread() {
+  if (self_vm_timer_thread_known) return;
   self_vm_timer_thread = pthread_self();        // pthread_kill target (both platforms)
 # if TARGET_OS_VERSION == MACOSX_VERSION
   self_vm_mach_thread  = mach_thread_self();     // macOS identity check

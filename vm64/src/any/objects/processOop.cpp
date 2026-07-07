@@ -217,6 +217,11 @@ void processOopClass::TWAINS_transfer_to_another_process(
 
 
 void processOopClass::TWAINS_await_signal() {
+  // The fd-less select in wait_for_any is woken ONLY by signal delivery, so
+  // the kernel mask must be open here; a mask leaked by a non-local unwind
+  // would otherwise park this world forever (observed live, 7/2026).
+  // -- claude & dmu 7/2026
+  SignalInterface::heal_leaked_mask_before_idle_wait();
   // nothing to do; just wait for next signal from Unix
   processes->idle = true;
   do {

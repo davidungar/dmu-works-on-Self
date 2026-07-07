@@ -1435,30 +1435,7 @@ void Process::setWatermark( abstract_vframe* currentVF ) {
   bool aliasedTop = (char*)first->locals() == (char*)current + oopSize
                     &&  !current->is_interpreted_self_frame();
 
-  if (first->is_above(currentVF->fr) && !aliasedTop) {
-
-    // the only live vframeOops are above the current frame - patch return
-    // address
-
-    frame* target = first->locals();
-    frame* sender = current->sender();
-    for ( ;
-         sender && sender->vfo_locals_of_home_frame() != target;
-         current = sender, sender = current->sender()) ;
-    if (!sender) {
-      // The current frame handle and the vframeOop's disagree about the
-      // same activation (seen when a stepping preemption fires inside a
-      // bridge stub whose linkage record masquerades as a Self frame, one
-      // word below the real activation).  Fail in an orderly way rather
-      // than dereferencing off the top of the stack. -- rca
-      fatal3("setWatermark: patch walk ran off the stack "
-             "(target=%#lx first=%#lx current=%#lx)",
-             (void*)first->locals(), (void*)first, (void*)currentVF->fr);
-    }
-    sender->patch(current);
-    clearWatermark();
-  }
-  else {
+  if (!first->is_above(currentVF->fr) || aliasedTop) {
 
     // have live vframeOops in the current frame
     // at next interrupt, we need to check if these are still live (even
@@ -1469,10 +1446,76 @@ void Process::setWatermark( abstract_vframe* currentVF ) {
             "must be the same");
 
     set_check_vfo_locals( currentVF );
-    
+
     setupPreemption();
     frame* target = current->selfSender();
     if (target) target->patch(NULL);
+  }
+  else {
+
+    // the only live vframeOops are above the current frame - patch return
+    // address
+
+    frame* target = first->locals();
+    frame* below  = current;
+    for (frame* sender = below->sender();
+         sender != NULL;
+         below = sender, sender = below->sender()) {
+      if (sender->vfo_locals_of_home_frame() == target) {
+        sender->patch(below);
+        clearWatermark();
+        return;
+      }
+      // The same one-word aliasing handled by aliasedTop above can appear at
+      // any depth of this walk, not just at the top: whenever the named
+      // compiled activation and an outstanding C call's linkage record are a
+      // word apart, the chain node and the vframeOop's name disagree by
+      // oopSize and exact equality never fires -- the walk used to run off
+      // the stack and fatal here.  Two orientations:
+      //   target == sender + 8: the vframeOop names the activation's own
+      //     object, but the chain (and we) see the C callee's record because
+      //     the activation has an outstanding C call RIGHT NOW.  Its [+0] is
+      //     clobbered by the record's saved lr, so patching through either
+      //     handle would write wild (set_currentPC goes through my_bp()).
+      //     Defer: arm preemption so the next check re-walks; once the C
+      //     call has returned, the real record is found and patched normally.
+      //     The activation cannot return while its callee runs, so no
+      //     liveness event is missed by waiting.
+      //   target == sender - 8: the vframeOop's name is stale -- recorded
+      //     while the activation had an outstanding C call (the walk handed
+      //     out the callee record) that has since returned.  sender is the
+      //     activation's own healthy record: patch it normally.
+      // No two real frames can be one word apart, so the tests cannot match
+      // a genuinely different activation.  -- claude & dmu 7/2026
+      bool namesWordAbove = (char*)target == (char*)sender + oopSize;
+      bool namesWordBelow = (char*)target + oopSize == (char*)sender;
+      if ((namesWordAbove || namesWordBelow)
+          && !sender->is_interpreted_self_frame()) {
+        if (namesWordBelow) {
+          sender->patch(below);
+          clearWatermark();
+        }
+        else
+          setupPreemption();
+        return;
+      }
+    }
+    // Ran off the top without finding the vframeOop's frame under any known
+    // aliasing.  This used to be a fatal (-- rca); but the vframeOop
+    // machinery is self-correcting as long as it is re-checked, so arm
+    // preemption and keep the world alive, dumping enough to diagnose the
+    // miss.  -- claude & dmu 7/2026
+    warning3("setWatermark: patch walk ran off the stack "
+             "(target=%#lx first=%#lx current=%#lx); "
+             "re-arming preemption instead of dying",
+             (void*)target, (void*)first, (void*)currentVF->fr);
+    { frame* f = currentVF->fr;
+      for (fint i = 0;  f != NULL && i < 40;  ++i, f = f->sender())
+        lprintf("  walk[%d]: frame %#lx vfo_locals %#lx%s\n", i,
+                (long unsigned)f, (long unsigned)f->vfo_locals_of_home_frame(),
+                f->is_interpreted_self_frame() ? " (interpreted)" : "");
+    }
+    setupPreemption();
   }
 }
 
@@ -1943,11 +1986,17 @@ void Process::cleanup_after_calling_self() {
 
     assert(twainsProcess == NULL, "shouldn't have twains process");
     NLRSupport::reset_have_NLR_through_C();
-    SignalBlocker sb;
-    processSemaphore = false;
-    SignalInterface::unblock_self_signals();
-    vmProcess->state = ready;
-    assert(isClean(), "should be clean now");
+    { SignalBlocker sb;
+      processSemaphore = false;
+      SignalInterface::unblock_self_signals();
+      vmProcess->state = ready;
+      assert(isClean(), "should be clean now");
+    }
+    // sb restored the mask saved at its construction, but if the eval was
+    // unwound out of a signal handler or a live SignalBlocker scope, that
+    // saved mask is the leaked blocked one.  The prompt must run with an
+    // open kernel mask, unconditionally. -- claude & dmu 7/2026
+    SignalInterface::unblock_all_signals();
     SignalInterface::flush_input_after_ctrl_c();
   }
   patchForSingleStepping();
