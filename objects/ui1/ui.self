@@ -879,21 +879,138 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fComment: registry: map a backend name to its backend object. Unknown names fall back to the indexed quartz backend.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
-         graphicsBackendNamed: nm = ( |
-            | 
-            nm = 'newQuartz' ifTrue: [ ^ graphisBackends newQuartz ].
-            graphicsBackends quartz).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          graphicsBackends = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits ui graphicsBackends.
 '.
             | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+        
+         abstractTraits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends abstractTraits.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         eraseAcetate: rect On: w = ( |
+            | w windowBitmap planeMask: w movingPlaneMask. w windowBitmap fillRectangle: rect Color: w uiColors transparent).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         eraseArrow0: rect On: w = ( |
+            | w windowBitmap planeMask: w arrow0Mask. w windowBitmap fillRectangle: rect Color: w uiColors transparent).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         eraseArrow1: rect On: w = ( |
+            | w windowBitmap planeMask: w arrow1Mask. w windowBitmap fillRectangle: rect Color: w uiColors transparent).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         installShadowOn: pw = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         makeOffscreenFor: win Size: sz = ( |
+            | bitmap copyFor: win Size: sz).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnAcetate: w = ( |
+            | w windowBitmap planeMask: w movingPlaneMask).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnAll: w = ( |
+            | w windowBitmap useAllBitplanes).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnAllButArrow0: w = ( |
+            | w windowBitmap planeMask: 8r777 ^^ w arrow0Mask).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnArrow0: w = ( |
+            | w windowBitmap planeMask: w arrow0Mask. w myUI colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnArrow0InstallingBoth: w = ( |
+            | w windowBitmap planeMask: w arrow0Mask. w myUI colormapBothArrowPlanes installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnArrow1: w = ( |
+            | w windowBitmap planeMask: w arrow1Mask. w myUI colormap1 installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnBackground: w = ( |
+            | w windowBitmap planeMask: w stationaryPlaneMask).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'Comment: the pre-seam uiWorld display body: render to the X window and flush. X needs no offscreen shadow/blit. -- claude & dmu 6/2026\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         present: w = ( |
+            | 
+            w displayNoUpdate.
+            w update.
+            w syncGraphics.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'Comment: registry: map a backend name to its backend object. Unknown names fall back to the indexed quartz backend.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         named: nm = ( |
+            | 
+            nm = 'newQuartz' ifTrue: [ ^ newQuartz ].
+            nm = 'quartz' ifTrue: [^ quartz].
+            x11).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'oddball' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1871,12 +1988,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          setUpOn: disp Initial: createObjBlock = ( |
             | 
-            graphicsBackend:
-                disp = 'quartz' ifTrue: [ graphicsBackends quartz ]
-                False: [ disp = 'newQuartz' ifTrue: [ graphicsBackeds newQuartz ]
-                False: [ (isDisplayNameForQuartz: disp)
-                            ifTrue: [ graphicsBackends neweQuartz ]
-                            False: [ graphicsBackends x11 ] ] ].
+            graphicsBackend: graphicsBackends named: disp.
 
             openWindowOn: disp.
 
