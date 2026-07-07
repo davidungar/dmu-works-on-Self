@@ -45,6 +45,14 @@
   // as stack printing so a nested fault re-enters the handler and the
   // abortLevel escalation can terminate the process instead. -- rca
   static void unblock_synchronous_fault_signals();
+
+  // A handler that exits non-locally (e.g. the crashomatic's return-to-prompt
+  // discarding the whole stack) never reaches sigreturn, so the kernel keeps
+  // the handler-entry mask (sa_mask = sig_mask = nearly every signal)
+  // installed forever: no tick, SIGIO, ^C, or kill can be delivered again and
+  // the next fd-less select() in _TWAINS sleeps unwakeably.  Such a path must
+  // restore the normal running mask (empty) by hand. -- claude & dmu 7/2026
+  static void unblock_all_signals();
  private:
 
  public:

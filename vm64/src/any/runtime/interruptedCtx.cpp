@@ -178,6 +178,30 @@ void InterruptedContext::return_to_prompt(SignalBlocker* sb) {
   delete sb;
   abortLevel = 0;
   AbortContext.invalidate();
+
+  // discardAll never returns, so the signal handler we may be running in is
+  // abandoned without its epilogue: no sigreturn to restore the kernel mask
+  // (deleting sb restored only the mask saved *inside* the handler), and the
+  // clears at the end of signal_handler/IntervalTimerTick never run.  Left
+  // alone, that state freezes the world later: every tick/SIGIO/^C/kill stays
+  // masked, so the next _TWAINS (fd-less select) sleeps unwakeably, and the
+  // stale nesting note would make IntervalTimerTick refuse ticks anyway.
+  // Undo the handler-entry state by hand.  Raising the block_self_signals
+  // flag first (discardAll sets it too; the next transfer clears it) makes a
+  // pending signal delivered the instant the mask opens merely count itself
+  // and defer -- no preemption can hijack the teardown.
+  // The interrupted code may also have been inside a process-switch critical
+  // region (e.g. a signal landing in the _TWAINS glue); its stack is being
+  // discarded along with everything it protected, so release the semaphore
+  // too, as cleanup_after_calling_self does on the aborted-return path --
+  // otherwise discardAll's own transfer asserts. -- claude & dmu 7/2026
+  the_interrupted_context->invalidate();
+  SignalInterface::currentNonTimerSignal = 0;
+  SignalInterface::currentTimerSignal    = 0;
+  processSemaphore = false;
+  SignalInterface::block_self_signals();
+  SignalInterface::unblock_all_signals();
+
   // Don't bother to zap blocks on stack (too complicated)
   processes->discardAll();
   ShouldNotReachHere();

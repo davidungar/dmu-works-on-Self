@@ -210,6 +210,14 @@ void SignalInterface::unblock_synchronous_fault_signals() {
 }
 
 
+// See the comment in sig_unix.hh. -- claude & dmu 7/2026
+void SignalInterface::unblock_all_signals() {
+  sigset_t none;
+  sigemptyset(&none);
+  sigprocmask(SIG_SETMASK, &none, NULL);
+}
+
+
 static int32 ctrl_z_handler(int sig) {
   if (InterruptedContext::the_interrupted_context->forwarded_to_self_thread(sig))
     return 0;
