@@ -943,6 +943,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         platformPixmap = ( |
+            | subclassResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAcetate: w = ( |

@@ -148,14 +148,6 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          window.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> () From: ( | {
-         'Category: graphics (ui1)\x7fModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
-        
-         platformPixmap = ( |
-            | 
-            xlib pixmap).
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'bitmap' -> () From: ( | {
          'Category: querying\x7fModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -279,9 +271,10 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          initializeForPixmap: pix Size: size Depth: depth = ( |
             | 
-            image: ui ui1GraphicsGlobals platformPixmap createForSameScreenAs: pix
-                                                   Size: size
-                                                  Depth: depth).
+            image: ui graphicsBackend platformPixmap 
+                createForSameScreenAs: pix
+                Size: size
+                Depth: depth).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'bitmap' -> () From: ( | {

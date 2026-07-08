@@ -1909,8 +1909,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          windowChanged = ( |
             | 
             graphic setNoClipMask.
-            graphic resize: window size PlatformPixmap: myUI ui1GraphicsGlobals platformPixmap.
-            offScreen resize: window size PlatformPixmap: myUI ui1GraphicsGlobals platformPixmap.
+            graphic resize: window size PlatformPixmap: myUI graphicsBackend platformPixmap.
+            offScreen resize: window size PlatformPixmap: myUI graphicsBackend platformPixmap.
             self).
         } | ) 
 
