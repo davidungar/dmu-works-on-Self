@@ -319,26 +319,6 @@ See the LICENSE file for license information.
          textEditorFont.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> () From: ( | {
-         'Category: userInterface\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: public'
-        
-         boxSizePlatformMixin = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'boxSizePlatformMixin' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals macToolboxGlobals boxSizePlatformMixin.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'boxSizePlatformMixin' -> () From: ( | {
-         'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
-        
-         loadFont: name Style: style Size: size For: win IfFail: fb = ( |
-             fs.
-            | 
-            fs: fontSpec copyName: name Style: style Size: size.
-            macToolbox fontIDAndStruct 
-                copyForFontSpec: fs  Port: win gc).
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
          'ModuleInfo: Module: boxSize InitialContents: FollowSlot'
         
@@ -389,37 +369,6 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'ModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
         
          subpartNames <- ''.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> () From: ( | {
-         'Category: userInterface\x7fCategory: userInterface\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: public'
-        
-         boxSizePlatformMixin = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'x11Globals' -> 'boxSizePlatformMixin' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals x11Globals boxSizePlatformMixin.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'boxSizePlatformMixin' -> () From: ( | {
-         'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
-        
-         loadFont: name For: win IfFail: fb = ( |
-            | 
-            font copyName: name On: win IfFail: fb).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'boxSizePlatformMixin' -> () From: ( | {
-         'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
-        
-         loadFont: name Style: style Size: size For: win IfFail: fb = ( |
-             middle.
-            | 
-            middle: style isEmpty 
-                ifTrue: '-' 
-                False: ['-', style uncapitalize, '-'].
-            loadFont: name, middle, size printString
-                 For: win
-              IfFail: fb).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'boxSize' -> () From: ( | {
@@ -484,9 +433,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'boxSize' -> () From: ( | {
          'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: public'
         
-         copyFor: win GraphicsGlobals: gg = ( |
+         copyFor: win BoxSizeMixin: bsm = ( |
             | 
-            (copy platformSpecificMixin: gg boxSizePlatformMixin) "have to do this somewhere"
+            (copy platformSpecificMixin: bsm) "have to do this somewhere"
             initFontsFor: win).
         } | ) 
 
@@ -828,6 +777,39 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          titleFont: isMethod = ( |
             | 
             isMethod ifTrue: boxCodeFont False: boxObjectNameFont).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> 'boxSizePlatformMixin' -> () From: ( | {
+         'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
+        
+         loadFont: name Style: style Size: size For: win IfFail: fb = ( |
+             fs.
+            | 
+            fs: fontSpec copyName: name Style: style Size: size.
+            macToolbox fontIDAndStruct 
+                copyForFontSpec: fs  Port: win gc).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'boxSizePlatformMixin' -> () From: ( | {
+         'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
+        
+         loadFont: name For: win IfFail: fb = ( |
+            | 
+            font copyName: name On: win IfFail: fb).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'boxSizePlatformMixin' -> () From: ( | {
+         'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
+        
+         loadFont: name Style: style Size: size For: win IfFail: fb = ( |
+             middle.
+            | 
+            middle: style isEmpty 
+                ifTrue: '-' 
+                False: ['-', style uncapitalize, '-'].
+            loadFont: name, middle, size printString
+                 For: win
+              IfFail: fb).
         } | ) 
 
 

@@ -878,7 +878,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             | 
             preferences uiFullScreen ifTrue: [ ^ fullScreen ].
             lastRect: win position ##! win size.
-            protoRect: ui1GraphicsGlobals window position ##! ui1GraphicsGlobals window size.
+            protoRect: graphicsBackend window position ##! ui1GraphicsGlobals window size.
             lastRect = protoRect ifTrue: [ preferences initialWindowRect ]
                                   False: [ window position ##! window size ]).
         } | ) 
@@ -1007,6 +1007,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             w update.
             w syncGraphics.
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         window = ( |
+            | subclassResponsibility).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
@@ -1483,7 +1490,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          openWindowOn: disp = ( |
              rect.
             | 
-            rect: getInitialRectFrom: ui1GraphicsGlobals window.
+            rect: getInitialRectFrom: graphicsBackend window.
             [todo ui1 dmu experimental].
             window: ui1GraphicsGlobals window copy.
             window name: 'The Self World'.
@@ -1851,7 +1858,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          resetInitialRect = ( |
             | 
-            window: ui1GraphicsGlobals window).
+            window: graphicsBackend window).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1862,7 +1869,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             "send this when the ui is not running to force the
              next ui start to use preferences initialWindowRect"
             "do not send this to a running ui!"
-            window: ui1GraphicsGlobals window).
+            window: graphicsBackend window).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1992,7 +1999,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          setBoxSizing = ( |
             | 
-            boxSizing: boxSize copyFor: window GraphicsGlobals: ui1GraphicsGlobals).
+            boxSizing: boxSize copyFor: window BoxSizeMixin: graphicsBackend boxSizePlatformMixin).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
