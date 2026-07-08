@@ -905,7 +905,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          boxSizePlatformMixin = ( |
-            | subclassResponsibility).
+            | 
+            childResponsibility).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
@@ -927,13 +928,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          eraseArrow1: rect On: w = ( |
             | w windowBitmap planeMask: w arrow1Mask. w windowBitmap fillRectangle: rect Color: w uiColors transparent).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         installShadowOn: pw = ( |
-            | self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
@@ -975,7 +969,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          platformPixmap = ( |
-            | subclassResponsibility).
+            | 
+            childResponsibility).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
@@ -1042,7 +1037,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          window = ( |
-            | subclassResponsibility).
+            | 
+            childResponsibility).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {

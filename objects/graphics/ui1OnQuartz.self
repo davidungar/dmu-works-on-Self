@@ -310,14 +310,6 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'newQuartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
-         installShadowOn: pw = ( |
-            | 
-            pw makeRGBAShadow. self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'newQuartz' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
-        
          makeOffscreenFor: win Size: sz = ( |
              b.
             | 
@@ -336,6 +328,13 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'newQuartz' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         window = ( |
+            | macToolboxGlobals window).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
@@ -374,13 +373,6 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          graphicsGlobals = bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
-        
-         installShadowOn: pw = ( |
-            | pw makeShadow. self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( | {

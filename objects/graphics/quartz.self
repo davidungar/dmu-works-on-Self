@@ -6690,13 +6690,6 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
-         'Comment: create the 8-bit indexed shadow for a ui1 window (called once at window open). Direct window draws (caret etc.) and the world flush both target the shadow; display blits shadow->trueColour. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-        
-         makeShadow = ( |
-            | shadow: quartz indexedPixmap createForSameScreenAs: self Size: size Depth: 8. self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
          'Category: opening and closing\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          openDisplay: displayName BoundingBox: bbox WindowName: wn = ( |
