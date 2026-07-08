@@ -274,7 +274,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
-         window <- bootstrap stub -> 'globals' -> 'nil' -> ().
+         window.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
@@ -944,6 +944,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         optimalNameForDisplay: disp = ( |
+            | '').
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
@@ -1264,14 +1271,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fComment: is x one of the registry-known graphics-backend names? startOn: gates on this (value-equality against the known names) so a display argument -- including a string display name -- still routes to the legacy display path.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
-         isKnownGraphicsBackendName: x = ( |
-            | 
-            (x = 'quartz') || [ x = 'newQuartz' ]).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: windowEvents\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          keyDown: keycode String: str At: pos Event: event = ( |
@@ -1531,22 +1530,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 couldNotStart
             ].
             self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
-         optimalNameForDisplay: disp = ( |
-             myhost.
-            | 
-            (isDisplayNameForQuartz: disp) ifTrue: [^ ''].
-            myhost: os nodename , ':'.
-            (myhost isPrefixOf: disp) ifTrue: [ 
-               "use :0 rather than name:0 -- much faster"
-               disp copyFrom: myhost size - 1
-            ] False: [
-               disp
-            ]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -2338,7 +2321,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          tryToOpenWindowForDisplay: disp IfFail: fblock = ( |
             | 
-            window displayName:  optimalNameForDisplay: disp.
+            window displayName:  (graphicsBackends named: disp) optimalNameForDisplay: disp.
             [todo ui1 dmu experimental].
             (isDisplayNameForQuartz: disp)
                 ifTrue: [window openIfFail: fblock]
