@@ -41,7 +41,7 @@ drawable, passing this objects own gc. -- claude & dmu 5/26\x7fModuleInfo: Modul
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> () From: ( | {
          'Comment: ui1 gets its offscreen pixmaps from platformPixmap; redirect from the dead Carbon macToolbox pixMap to the Quartz indexed pixmap prototype. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
-         platformPixmap = bootstrap stub -> 'globals' -> 'quartz' -> 'indexedPixmap' -> ().
+         platformPixmap = (quartz indexedPixmap)
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
