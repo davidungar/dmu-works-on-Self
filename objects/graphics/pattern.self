@@ -181,7 +181,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> () From: ( | {
-         'Category: graphics (ui1)\x7fModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
+         'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
          patterns = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'patterns' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals macToolboxGlobals patterns.
@@ -391,6 +391,59 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          subpartNames <- ''.
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiPatternPalette' -> 'blurArrow' -> () From: ( | {
+         'ModuleInfo: Module: pattern InitialContents: InitializeToExpression: (nullImage)\x7fVisibility: private'
+        
+         image <- bootstrap stub -> 'globals' -> 'nullImage' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'pattern' -> () From: ( | {
+         'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'x11Globals' -> 'pattern' -> 'parent' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals x11Globals pattern parent.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiPatternPalette' -> 'blurArrow' -> () From: ( | {
+         'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'globals' -> 'x11Globals' -> 'pattern' -> 'parent' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiPatternPalette' -> 'blurArrow' -> () From: ( | {
+         'ModuleInfo: Module: pattern InitialContents: InitializeToExpression: ( \'Xo
+oo
+oX
+oo\' asTextLines )\x7fVisibility: private'
+        
+         template <-  'Xo
+oo
+oX
+oo' asTextLines .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiPatternPalette' -> 'blurBody' -> () From: ( | {
+         'ModuleInfo: Module: pattern InitialContents: InitializeToExpression: (nullImage)\x7fVisibility: private'
+        
+         image <- bootstrap stub -> 'globals' -> 'nullImage' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiPatternPalette' -> 'blurBody' -> () From: ( | {
+         'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'globals' -> 'x11Globals' -> 'pattern' -> 'parent' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiPatternPalette' -> 'blurBody' -> () From: ( | {
+         'ModuleInfo: Module: pattern InitialContents: InitializeToExpression: ( \'Xo
+oX\' asTextLines )\x7fVisibility: private'
+        
+         template <-  'Xo
+oX' asTextLines .
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> () From: ( | {
          'Category: graphics (ui1)\x7fModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -404,15 +457,6 @@ globals abstractPattern. copy
 SlotsToOmit: parent.
 
 \x7fIsComplete: '.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'pattern' -> () From: ( | {
-         'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
-        
-         parent* = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'x11Globals' -> 'pattern' -> 'parent' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals x11Globals pattern parent.
-'.
             | ) .
         } | ) 
 
@@ -463,161 +507,102 @@ SlotsToOmit: parent.
          parent* = bootstrap stub -> 'traits' -> 'pattern' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> () From: ( | {
-         'Category: graphics (ui1)\x7fModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
-        
-         patterns = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals x11Globals patterns.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
-         black = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'black' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals x11Globals patterns black.
+         black = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> 'black' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11 patterns black.
 \x7fIsComplete: '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'black' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> 'black' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
         
          image <- bootstrap stub -> 'globals' -> 'nullImage' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'black' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> 'black' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'globals' -> 'x11Globals' -> 'pattern' -> 'parent' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'black' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> 'black' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: InitializeToExpression: (\'X\' asTextLines)\x7fVisibility: private'
         
          template <- 'X' asTextLines.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
-         gray = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'gray' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals x11Globals patterns gray.
-\x7fIsComplete: '.
-            | ) .
+         gray = bootstrap stub -> 'globals' -> 'uiPatternPalette' -> 'blurBody' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'gray' -> () From: ( | {
-         'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
-        
-         image <- bootstrap stub -> 'globals' -> 'nullImage' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'gray' -> () From: ( | {
-         'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
-        
-         parent* = bootstrap stub -> 'globals' -> 'x11Globals' -> 'pattern' -> 'parent' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'gray' -> () From: ( | {
-         'ModuleInfo: Module: pattern InitialContents: InitializeToExpression: ( \'Xo
-oX\' asTextLines )\x7fVisibility: private'
-        
-         template <-  'Xo
-oX' asTextLines .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
-         lightGray = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'lightGray' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals x11Globals patterns lightGray.
-\x7fIsComplete: '.
-            | ) .
+         lightGray = bootstrap stub -> 'globals' -> 'uiPatternPalette' -> 'blurArrow' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'lightGray' -> () From: ( | {
-         'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
-        
-         image <- bootstrap stub -> 'globals' -> 'nullImage' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'lightGray' -> () From: ( | {
-         'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
-        
-         parent* = bootstrap stub -> 'globals' -> 'x11Globals' -> 'pattern' -> 'parent' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'lightGray' -> () From: ( | {
-         'ModuleInfo: Module: pattern InitialContents: InitializeToExpression: ( \'Xo
-oo
-oX
-oo\' asTextLines )\x7fVisibility: private'
-        
-         template <-  'Xo
-oo
-oX
-oo' asTextLines .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
-         null = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'null' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals x11Globals patterns null.
+         null = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> 'null' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11 patterns null.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'null' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> 'null' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
          createFor: win Foreground: fg Background: bg = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'null' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> 'null' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
          isNull = bootstrap stub -> 'globals' -> 'true' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'null' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> 'null' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'globals' -> 'x11Globals' -> 'pattern' -> 'parent' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'null' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> 'null' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
          release = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
-         white = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'white' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals x11Globals patterns white.
+         white = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> 'white' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11 patterns white.
 \x7fIsComplete: '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'white' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> 'white' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
         
          image <- bootstrap stub -> 'globals' -> 'nullImage' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'white' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> 'white' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'globals' -> 'x11Globals' -> 'pattern' -> 'parent' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'white' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> 'white' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: InitializeToExpression: (\'o\' asTextLines)\x7fVisibility: private'
         
          template <- 'o' asTextLines.

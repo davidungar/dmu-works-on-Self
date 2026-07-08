@@ -161,13 +161,19 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiPatternPalette' -> () From: ( | {
          'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         blurArrow <- bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'lightGray' -> ().
+         blurArrow <- bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'uiPatternPalette' -> 'blurArrow' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals uiPatternPalette blurArrow.
+\x7fIsComplete: '.
+            | ) .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiPatternPalette' -> () From: ( | {
          'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         blurBody <- bootstrap stub -> 'globals' -> 'x11Globals' -> 'patterns' -> 'gray' -> ().
+         blurBody <- bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'uiPatternPalette' -> 'blurBody' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals uiPatternPalette blurBody.
+\x7fIsComplete: '.
+            | ) .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
@@ -357,10 +363,10 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiPatternPalette' -> () From: ( | {
          'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         initializeFor: win GraphicsGlobals: gg = ( |
+         initializeFor: win Patterns: patterns = ( |
             | 
-            blurBody:  gg patterns      gray createFor: win.
-            blurArrow: gg patterns lightGray createFor: win.
+            blurBody:  patterns      gray createFor: win.
+            blurArrow: patterns lightGray createFor: win.
             self).
         } | ) 
 

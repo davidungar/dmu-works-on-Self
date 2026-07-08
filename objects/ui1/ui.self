@@ -878,7 +878,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             | 
             preferences uiFullScreen ifTrue: [ ^ fullScreen ].
             lastRect: win position ##! win size.
-            protoRect: graphicsBackend window position ##! ui1GraphicsGlobals window size.
+            protoRect: graphicsBackend window position ##! graphicsBackend window size.
             lastRect = protoRect ifTrue: [ preferences initialWindowRect ]
                                   False: [ window position ##! window size ]).
         } | ) 
@@ -899,6 +899,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
              {} = 'ModuleInfo: Creator: traits ui graphicsBackends abstractTraits.
 '.
             | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         boxSizePlatformMixin = ( |
+            | subclassResponsibility).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
@@ -940,6 +947,21 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         patterns = ( |
+            | childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         platformColormap = ( |
+            | 
+            childResponsibility).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
@@ -1138,7 +1160,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          initializePatterns = ( |
             | 
-            uiPatterns initializeFor: window GraphicsGlobals: ui1GraphicsGlobals).
+            uiPatterns initializeFor: window Patterns: graphicsBackend patterns).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1299,15 +1321,15 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          makeAndConvertColormaps = ( |
             | 
             colormap0: uiColormap copyWithRep:
-                                     cachedColormap0 convertForWindow: window PlatformColormap: ui1GraphicsGlobals platformColormap.
+                                     cachedColormap0 convertForWindow: window PlatformColormap: graphicsBackend platformColormap.
             colormap1: uiColormap copyWithRep:
-                                     cachedColormap1 convertForWindow: window PlatformColormap: ui1GraphicsGlobals platformColormap.
+                                     cachedColormap1 convertForWindow: window PlatformColormap: graphicsBackend platformColormap.
             colormapBothArrowPlanes: uiColormap copyWithRep:
-                       cachedColormapBothArrowPlanes convertForWindow: window PlatformColormap: ui1GraphicsGlobals platformColormap.
+                       cachedColormapBothArrowPlanes convertForWindow: window PlatformColormap: graphicsBackend platformColormap.
             colormapNoAcetate:
               uiColormap copyWithRep:
-                            cachedColormapNoAcetate convertForWindow: window PlatformColormap: ui1GraphicsGlobals platformColormap.
-            ranimator makeAndConvertColormapsFor: window  PlatformColormap: ui1GraphicsGlobals platformColormap.
+                            cachedColormapNoAcetate convertForWindow: window PlatformColormap: graphicsBackend platformColormap.
+            ranimator makeAndConvertColormapsFor: window  PlatformColormap: graphicsBackend platformColormap.
             self).
         } | ) 
 
@@ -1492,7 +1514,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             | 
             rect: getInitialRectFrom: graphicsBackend window.
             [todo ui1 dmu experimental].
-            window: ui1GraphicsGlobals window copy.
+            window: graphicsBackend window copy.
             window name: 'The Self World'.
             window iconName: 'ui'.
             window iconFilename: preferences uiIconFile.
@@ -2322,14 +2344,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 ifTrue: [window openIfFail: fblock]
                  False: [window openDepth: 8 IfFail: fblock].
             self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
-         ui1GraphicsGlobals = ( |
-            | 
-            graphicsBackend graphicsGlobals).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {

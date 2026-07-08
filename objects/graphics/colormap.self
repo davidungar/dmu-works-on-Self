@@ -159,13 +159,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          subpartNames <- ''.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> () From: ( | {
-         'Category: graphics (ui1)\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
-        
-         platformColormap = ( |
-            | xlib colormap).
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'cachedColormap' -> () From: ( | {
          'Category: accessing\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
         

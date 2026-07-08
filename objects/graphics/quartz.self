@@ -7,25 +7,6 @@ See the LICENSE file for license information.
 
  '-- Module body'
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: graphics (ui1)\x7fComment: ui1 platform colormap on Quartz. The X path installs an 8-bit CLUT in the
-server; here the CLUT is a 256*3 software byte table that the window flush
-feeds to blitIndexedTo: (index -> RGB). storeOne:/queryOne: use xlib xColor
-(16-bit components) as the carrier, matching colormap.self. -- claude & dmu
-5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-        
-         colormap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'colormap' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals quartz colormap.
-\x7fIsComplete: '.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> () From: ( | {
-         'Comment: ui1 platform colormap on Quartz: the software CLUT defined in quartz.self. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
-        
-         platformColormap = bootstrap stub -> 'globals' -> 'quartz' -> 'colormap' -> ().
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot'
         
@@ -252,6 +233,19 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'quartz' -> 'colorSpace' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
+         'Category: graphics (ui1)\x7fComment: ui1 platform colormap on Quartz. The X path installs an 8-bit CLUT in the
+server; here the CLUT is a 256*3 software byte table that the window flush
+feeds to blitIndexedTo: (index -> RGB). storeOne:/queryOne: use xlib xColor
+(16-bit components) as the carrier, matching colormap.self. -- claude & dmu
+5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         colormap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'colormap' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals quartz colormap.
+\x7fIsComplete: '.
+            | ) .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'colormap' -> () From: ( | {
