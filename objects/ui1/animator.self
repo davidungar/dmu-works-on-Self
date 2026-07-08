@@ -989,19 +989,17 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             ncm: ui cachedColormapNoAcetate.
             cachedAcetateFadeOutMaps: createMapSeriesFrom: ocm
                                                        To: ncm
-                                                    Steps: dissolveSteps
-            GraphicsGlobals: ui ui1GraphicsGlobals.
+                                                    Steps: dissolveSteps.
             cachedAcetateFadeOutMapsFast: createMapSeriesFrom: ocm
                                                            To: ncm
-                                                       Steps: fastDissolveSteps
-            GraphicsGlobals: ui ui1GraphicsGlobals.
+                                                       Steps: fastDissolveSteps.
             self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
-         createMapSeriesFrom: f To: t Steps: s GraphicsGlobals: gg = ( |
+         createMapSeriesFrom: f To: t Steps: s = ( |
              fastF.
              fastT.
              ib.
@@ -1018,7 +1016,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
 
             r size do: [| :i. v. cm. |
                 v: fastF interpolate: ib value /= scale From: fastT.
-                cm: f copyWithRep: cachedColormap copyGraphicsGlobals: gg.
+                cm: f copyWithRep: cachedColormap copyGraphicsGlobals.
                 256 do: [|:i| cm at: i Put: (v at: i) asRGB].
                 r at: i Put: cm.
                 ib step.

@@ -98,14 +98,6 @@ See the LICENSE file for license information.
          xcm <- bootstrap stub -> 'traits' -> 'colormap' -> 'nullXCM' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> () From: ( | {
-         'Comment: ui1 colour for an index, carried by xlib xColor (as the X path does). The 0-receiver reaches the lobby from this parentless globals object. -- claude & dmu 5/26
-( The Quartz colormap deliberately speaks xColor)\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
-        
-         newPlatformColorForPixel: i = ( |
-            | 0 xlib xColor new allComponents pixel: i).
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
          'ModuleInfo: Module: colormap InitialContents: FollowSlot'
         
@@ -170,14 +162,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> () From: ( | {
          'Category: graphics (ui1)\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
         
-         newPlatformColorForPixel: i = ( |
-            | 
-            xlib xColor new allComponents pixel: i).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'x11Globals' -> () From: ( | {
-         'Category: graphics (ui1)\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
-        
          platformColormap = ( |
             | xlib colormap).
         } | ) 
@@ -224,14 +208,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'cachedColormap' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
         
-         copyGraphicsGlobals: gg = ( |
+         copyGraphicsGlobals = ( |
              cm.
             | 
             cm: resend.copy platformColors: 
                 platformColors copy.
             cm platformColors size do: [ | :i |
                 cm platformColors at: i
-                          Put: gg newPlatformColorForPixel: i ].
+                          Put: xlib xColor new allComponents pixel: i ].
             cm).
         } | ) 
 

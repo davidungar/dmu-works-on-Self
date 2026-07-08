@@ -160,9 +160,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
+         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (\"Default for early ui copy (during init/resetInitialRect) and when no
+   explicit backend has been chosen via setUpOn:. Prefer macToolboxGlobals
+   for Quartz/AVP ui1; fall back to x11Globals on X11 platforms.\"
+  (host osForThisHost name = \'macOS\') ||  [host osForThisHost name = \'macOSX\']
+    ifTrue: [macToolboxGlobals]
+     False: [x11Globals])\x7fVisibility: public'
         
-         graphicsBackend <- bootstrap stub -> 'globals' -> 'nil' -> ().
+         graphicsBackend <- bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
@@ -584,13 +589,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          createCachedColormaps = ( |
             | 
             deleteCachedColormaps.
-            cachedColormap0: uiColormap copyWithRep: cachedColormap copyGraphicsGlobals: ui1GraphicsGlobals.
-            cachedColormap1: uiColormap copyWithRep: cachedColormap copyGraphicsGlobals: ui1GraphicsGlobals.
+            cachedColormap0: uiColormap copyWithRep: cachedColormap copyGraphicsGlobals.
+            cachedColormap1: uiColormap copyWithRep: cachedColormap copyGraphicsGlobals.
 
             cachedColormapBothArrowPlanes:
-                             uiColormap copyWithRep: cachedColormap copyGraphicsGlobals: ui1GraphicsGlobals.
+                             uiColormap copyWithRep: cachedColormap copyGraphicsGlobals.
             cachedColormapNoAcetate:
-                             uiColormap copyWithRep: cachedColormap copyGraphicsGlobals: ui1GraphicsGlobals.
+                             uiColormap copyWithRep: cachedColormap copyGraphicsGlobals.
             fillCachedColormaps.
             self).
         } | ) 
@@ -2309,14 +2314,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          ui1GraphicsGlobals = ( |
-            | graphicsBackend ifNil: [
-              "Default for early ui copy (during init/resetInitialRect) and when no
-               explicit backend has been chosen via setUpOn:. Prefer macToolboxGlobals
-               for Quartz/AVP ui1; fall back to x11Globals on X11 platforms."
-              (host osForThisHost name = 'macOS' or: [host osForThisHost name = 'macOSX'])
-                ifTrue: [macToolboxGlobals]
-                 False: [x11Globals]
-            ] IfNotNil: [|:b| b graphicsGlobals]).
+            | 
+            graphicsBackend graphicsGlobals).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
