@@ -92,12 +92,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          parent* = bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindow' -> () From: ( | {
-         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
-        
-         ui1GraphicsGlobals = bootstrap stub -> 'globals' -> 'x11Globals' -> ().
-        } | ) 
-
 
 
  '-- Side effects'
