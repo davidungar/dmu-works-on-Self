@@ -779,7 +779,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             isMethod ifTrue: boxCodeFont False: boxObjectNameFont).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> 'boxSizePlatformMixin' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'newQuartz' -> 'boxSizePlatformMixin' -> () From: ( | {
          'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
         
          loadFont: name Style: style Size: size For: win IfFail: fb = ( |
