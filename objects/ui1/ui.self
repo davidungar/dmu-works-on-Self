@@ -226,7 +226,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
-         window.
+         window <- bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
@@ -841,14 +841,16 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow0InstallingBoth: w = ( |
-            | w windowBitmap planeMask: w arrow0Mask. w myUI colormapBothArrowPlanes installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
+            | 
+            w windowBitmap planeMask: w arrow0Mask. w myUI graphicsBackend colormapBothArrowPlanes installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow1: w = ( |
-            | w windowBitmap planeMask: w arrow1Mask. w myUI colormap1 installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
+            | 
+            w windowBitmap planeMask: w arrow1Mask. w myUI graphicsBackend colormap1 installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {

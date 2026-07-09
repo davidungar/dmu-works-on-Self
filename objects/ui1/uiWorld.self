@@ -718,18 +718,15 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fComment: experimental--does not respect arrows\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
-         floatBodyDownward: bod = ( | {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 cop.
-                } 
+         floatBodyDownward: bod = ( |
+             cop.
             | 
             cop: bodies copy.
             cop removeFirst.
             cop do: [ | :b |
                 eraseAcetate.
                 syncGraphics.
-                myUI colormap0 installImmediately.
+                myUI graphicsBackend colormap0 installImmediately.
                 syncGraphics.
                 from: bod ReverseDo: [ | :b |
                     b displayThru.
@@ -798,23 +795,11 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
          'Category: arrowGrabbing\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
-         grabArrow: arr = ( | {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 body.
-                }  {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 flip <- bootstrap stub -> 'globals' -> 'true' -> ().
-                }  {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 mir.
-                }  {
-                 'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
-                
-                 toCpt.
-                } 
+         grabArrow: arr = ( |
+             body.
+             flip <- bootstrap stub -> 'globals' -> 'true' -> ().
+             mir.
+             toCpt.
             | 
             arr isFromFakeSlot ifTrue: [
                 ^ warning:
@@ -833,7 +818,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             arr findBoundsOfFromCpt.
             windowBitmap planeMask: arrow0Mask.
             moveHeadOfArrow: arr To: arr head.
-            myUI colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
+            myUI graphicsBackend colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
             windowBitmap planeMask: arrow1Mask.
             windowBitmap clear: windowBitmap size rect.
 
@@ -1209,12 +1194,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 windowBitmap planeMask: arrow1Mask.
                 windowBitmap clear: windowBitmap size rect.
                 doBlock value.
-                myUI colormap1 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
+                myUI graphicsBackend colormap1 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
             ] False: [
                 windowBitmap planeMask: arrow0Mask.
                 windowBitmap clear: windowBitmap size rect.
                 doBlock value.
-                myUI colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
+                myUI graphicsBackend colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
             ].
             times delay: 1. "hack to make motion blur visible on Mountain Lion, with async X fd -- dmu 1/20/13"
             self).
@@ -1370,7 +1355,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                             bod findBoundsForArrows.
                             windowBitmap planeMask: arrowPlanesMask.
                             bod setAndDrawArrowsOn: windowBitmap.
-                            myUI colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
+                            myUI graphicsBackend colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
                         ] False: [
                             reclipArrows: bod absoluteBound.
                             drawArrows: graphic ].
