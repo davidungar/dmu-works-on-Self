@@ -106,30 +106,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (uiColormap)'
-        
-         cachedColormap0 <- bootstrap stub -> 'globals' -> 'uiColormap' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (uiColormap)'
-        
-         cachedColormap1 <- bootstrap stub -> 'globals' -> 'uiColormap' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (uiColormap)'
-        
-         cachedColormapBothArrowPlanes <- bootstrap stub -> 'globals' -> 'uiColormap' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (uiColormap)'
-        
-         cachedColormapNoAcetate <- bootstrap stub -> 'globals' -> 'uiColormap' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (uiColormap)\x7fVisibility: public'
         
          colormap0 <- bootstrap stub -> 'globals' -> 'uiColormap' -> ().
@@ -515,17 +491,10 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
-         colormapCacheFinalize = ( |
-            | deleteCachedColormaps).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
          colormapCacheInitialize = ( |
             | 
             uiColors restore.     "install personal color preferences"
-            createCachedColormaps.
+            graphicsBackend createCachedColormapsColors: uiColors Animator: ranimator.
             self).
         } | ) 
 
@@ -541,7 +510,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          colormapInitialize = ( |
             | 
-            makeAndConvertColormaps.
+            graphicsBackend makeAndConvertColormaps.
             installColormap0.
             self).
         } | ) 
@@ -558,12 +527,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          convertColormaps = ( |
             | 
-            colormap0 colorsFromCache: cachedColormap0.
-            colormap1 colorsFromCache: cachedColormap1.
-            colormapBothArrowPlanes
-                      colorsFromCache: cachedColormapBothArrowPlanes.
-            colormapNoAcetate colorsFromCache: cachedColormapNoAcetate.
-            ranimator convertColormaps.
+            graphicsBackend convertColormaps: ranimator.
             self).
         } | ) 
 
@@ -581,33 +545,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             | 
             '\nCould not start the ui!\n' printLine.
             process this suspend).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
-        
-         createCachedColormaps = ( |
-            | 
-            deleteCachedColormaps.
-            cachedColormap0: uiColormap copyWithRep: cachedColormap copyGraphicsGlobals.
-            cachedColormap1: uiColormap copyWithRep: cachedColormap copyGraphicsGlobals.
-
-            cachedColormapBothArrowPlanes:
-                             uiColormap copyWithRep: cachedColormap copyGraphicsGlobals.
-            cachedColormapNoAcetate:
-                             uiColormap copyWithRep: cachedColormap copyGraphicsGlobals.
-            fillCachedColormaps.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
-        
-         createColormaps = ( |
-            | 
-            createCachedColormaps.
-            convertColormaps.
-            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -639,19 +576,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          deactivateUpdating = ( |
             | alarm stop).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
-        
-         deleteCachedColormaps = ( |
-            | 
-            cachedColormap0 delete.
-            cachedColormap1 delete.
-            cachedColormapBothArrowPlanes delete.
-            cachedColormapNoAcetate delete.
-            ranimator deleteCachedColormaps.
-            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -708,48 +632,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
-        
-         fillCachedColormaps = ( |
-            | 
-            cachedColormap0 arrowPlane0MakeText: uiColors text
-                                 TextBackground: uiColors body
-                                     Background: uiColors background
-                                          Arrow: uiColors arrow
-                                         ColorA: uiColors bodyLight
-                                         ColorB: uiColors unused
-                                         ColorC: uiColors bodyDark
-                                    Transparent: uiColors transparent
-                             ArrowPlusTopPlanes: uiColors arrowPlusTopPlanes.
-
-            cachedColormap1 arrowPlane1MakeText: uiColors text
-                                 TextBackground: uiColors body
-                                     Background: uiColors background
-                                          Arrow: uiColors arrow
-                                         ColorA: uiColors bodyLight
-                                         ColorB: uiColors unused
-                                         ColorC: uiColors bodyDark
-                                    Transparent: uiColors transparent
-                             ArrowPlusTopPlanes: uiColors arrowPlusTopPlanes.
-
-            cachedColormapBothArrowPlanes
-                        bothArrowPlanesMakeText: uiColors text
-                                 TextBackground: uiColors body
-                                     Background: uiColors background
-                                          Arrow: uiColors arrow
-                                         ColorA: uiColors bodyLight
-                                         ColorB: uiColors unused
-                                         ColorC: uiColors bodyDark
-                                    Transparent: uiColors transparent
-                             ArrowPlusTopPlanes: uiColors arrowPlusTopPlanes.
-
-            cachedColormapNoAcetate makeNoAcetateFrom: cachedColormap0
-                                          Transparent: uiColors transparent.
-            ranimator createCachedColormapsUI: self.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: ending\x7fComment: _\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          finalize = ( |
@@ -802,7 +684,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          flushCaches = ( |
             | 
-            colormapCacheFinalize.
+            graphicsBackend colormapCacheFinalize: ranimator.
             invalidateCaches.
             self).
         } | ) 
@@ -907,6 +789,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          boxSizePlatformMixin = ( |
             | 
             childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         colormapCacheFinalize: ranimator = ( |
+            | self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
@@ -1042,7 +931,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
-         'Comment: registry: map a backend name to its backend object. Unknown names fall back to the indexed quartz backend.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         copyNamed: nm = ( |
+            | (named: nm) copy).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'Comment: registry: map a backend name to its backend object. Unknown names fall back to the indexed quartz backend.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          named: nm = ( |
             | 
@@ -1098,10 +994,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             | 
             hiddenSlotDict:    dictionary copyRemoveAll.
             offscreenHomeDict: dictionary copyRemoveAll.
-            cachedColormap0:               cachedColormap0 copy.
-            cachedColormap1:               cachedColormap1 copy.
-            cachedColormapBothArrowPlanes: cachedColormapBothArrowPlanes copy.
-            cachedColormapNoAcetate:       cachedColormapNoAcetate       copy.
             cacheUnflushable.
             resetInitialRect.
             self).
@@ -1308,53 +1200,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          lower = ( |
             | window lower).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
-         makeAndConvertColormaps = ( |
-            | 
-            colormap0: uiColormap copyWithRep:
-                                     cachedColormap0 convertForWindow: window PlatformColormap: graphicsBackend platformColormap.
-            colormap1: uiColormap copyWithRep:
-                                     cachedColormap1 convertForWindow: window PlatformColormap: graphicsBackend platformColormap.
-            colormapBothArrowPlanes: uiColormap copyWithRep:
-                       cachedColormapBothArrowPlanes convertForWindow: window PlatformColormap: graphicsBackend platformColormap.
-            colormapNoAcetate:
-              uiColormap copyWithRep:
-                            cachedColormapNoAcetate convertForWindow: window PlatformColormap: graphicsBackend platformColormap.
-            ranimator makeAndConvertColormapsFor: window  PlatformColormap: graphicsBackend platformColormap.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
-        
-         makeCachedColormap0 = ( |
-            | 
-            cachedColormap0 delete.
-            cachedColormap0: uiColormap copyWithRep: cachedColormap copy.
-            cachedColormap0 arrowPlane0MakeText: uiColors text
-                                 TextBackground: uiColors body
-                                     Background: uiColors background
-                                          Arrow: uiColors arrow
-                                         ColorA: uiColors bodyLight
-                                         ColorB: uiColors unused
-                                         ColorC: uiColors bodyDark
-                                    Transparent: uiColors transparent
-                             ArrowPlusTopPlanes: uiColors arrowPlusTopPlanes.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
-        
-         makeColormap0 = ( |
-            | 
-            makeCachedColormap0.
-            colormap0 colorsFromCache: cachedColormap0.
-            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -2008,7 +1853,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          setUpOn: disp Initial: createObjBlock = ( |
             | 
-            graphicsBackend: graphicsBackends named: disp.
+            graphicsBackend: graphicsBackends copyNamed: disp.
 
             openWindowOn: disp.
 

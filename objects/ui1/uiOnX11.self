@@ -84,9 +84,197 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: state\x7fModuleInfo: Module: uiOnX11 InitialContents: InitializeToExpression: (uiColormap)'
+        
+         cachedColormap0 <- bootstrap stub -> 'globals' -> 'uiColormap' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: state\x7fModuleInfo: Module: uiOnX11 InitialContents: InitializeToExpression: (uiColormap)'
+        
+         cachedColormap1 <- bootstrap stub -> 'globals' -> 'uiColormap' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: state\x7fModuleInfo: Module: uiOnX11 InitialContents: InitializeToExpression: (uiColormap)'
+        
+         cachedColormapBothArrowPlanes <- bootstrap stub -> 'globals' -> 'uiColormap' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: state\x7fModuleInfo: Module: uiOnX11 InitialContents: InitializeToExpression: (uiColormap)'
+        
+         cachedColormapNoAcetate <- bootstrap stub -> 'globals' -> 'uiColormap' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         colormapCacheFinalize: ranimator = ( |
+            | deleteCachedColormaps: ranimator).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         convertColormaps: ranimator = ( |
+            | 
+            colormap0 colorsFromCache: cachedColormap0.
+            colormap1 colorsFromCache: cachedColormap1.
+            colormapBothArrowPlanes
+                      colorsFromCache: cachedColormapBothArrowPlanes.
+            colormapNoAcetate colorsFromCache: cachedColormapNoAcetate.
+            ranimator convertColormaps.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         copy = ( |
+             r.
+            | 
+            r: resend.copy.
+            r cachedColormap0:               cachedColormap0 copy.
+            r cachedColormap1:               cachedColormap1 copy.
+            r cachedColormapBothArrowPlanes: cachedColormapBothArrowPlanes copy.
+            r cachedColormapNoAcetate:       cachedColormapNoAcetate       copy.
+            r).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         createCachedColormapsColors: uiColors Animator: ranimator = ( |
+            | 
+            deleteCachedColormaps: ranimator.
+            cachedColormap0: uiColormap copyWithRep: cachedColormap copyGraphicsGlobals.
+            cachedColormap1: uiColormap copyWithRep: cachedColormap copyGraphicsGlobals.
+
+            cachedColormapBothArrowPlanes:
+                             uiColormap copyWithRep: cachedColormap copyGraphicsGlobals.
+            cachedColormapNoAcetate:
+                             uiColormap copyWithRep: cachedColormap copyGraphicsGlobals.
+            fillCachedColormapsColors: uiColors Animator: ranimator.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         createColormapsColors: uiColors Animator: ranimator = ( |
+            | 
+            createCachedColormapsColors: uiColors Animator: ranimator.
+            convertColormaps; ranimator.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         deleteCachedColormaps: ranimator = ( |
+            | 
+            cachedColormap0 delete.
+            cachedColormap1 delete.
+            cachedColormapBothArrowPlanes delete.
+            cachedColormapNoAcetate delete.
+            ranimator deleteCachedColormaps.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         fillCachedColormapsColors: uiColors Animator: ranimator = ( |
+            | 
+            cachedColormap0 arrowPlane0MakeText: uiColors text
+                                 TextBackground: uiColors body
+                                     Background: uiColors background
+                                          Arrow: uiColors arrow
+                                         ColorA: uiColors bodyLight
+                                         ColorB: uiColors unused
+                                         ColorC: uiColors bodyDark
+                                    Transparent: uiColors transparent
+                             ArrowPlusTopPlanes: uiColors arrowPlusTopPlanes.
+
+            cachedColormap1 arrowPlane1MakeText: uiColors text
+                                 TextBackground: uiColors body
+                                     Background: uiColors background
+                                          Arrow: uiColors arrow
+                                         ColorA: uiColors bodyLight
+                                         ColorB: uiColors unused
+                                         ColorC: uiColors bodyDark
+                                    Transparent: uiColors transparent
+                             ArrowPlusTopPlanes: uiColors arrowPlusTopPlanes.
+
+            cachedColormapBothArrowPlanes
+                        bothArrowPlanesMakeText: uiColors text
+                                 TextBackground: uiColors body
+                                     Background: uiColors background
+                                          Arrow: uiColors arrow
+                                         ColorA: uiColors bodyLight
+                                         ColorB: uiColors unused
+                                         ColorC: uiColors bodyDark
+                                    Transparent: uiColors transparent
+                             ArrowPlusTopPlanes: uiColors arrowPlusTopPlanes.
+
+            cachedColormapNoAcetate makeNoAcetateFrom: cachedColormap0
+                                          Transparent: uiColors transparent.
+            ranimator createCachedColormapsGraphicsBackend: self.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
         
          graphicsGlobals = bootstrap stub -> 'globals' -> 'x11Globals' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         makeAndConvertColormaps = ( |
+            | 
+            colormap0: uiColormap copyWithRep:
+                                     cachedColormap0 convertForWindow: window PlatformColormap: platformColormap.
+            colormap1: uiColormap copyWithRep:
+                                     cachedColormap1 convertForWindow: window PlatformColormap: platformColormap.
+            colormapBothArrowPlanes: uiColormap copyWithRep:
+                       cachedColormapBothArrowPlanes convertForWindow: window PlatformColormap: platformColormap.
+            colormapNoAcetate:
+              uiColormap copyWithRep:
+                            cachedColormapNoAcetate convertForWindow: window PlatformColormap: platformColormap.
+            ranimator makeAndConvertColormapsFor: window  PlatformColormap: platformColormap.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         makeCachedColormap0 = ( |
+            | 
+            cachedColormap0 delete.
+            cachedColormap0: uiColormap copyWithRep: cachedColormap copy.
+            cachedColormap0 arrowPlane0MakeText: uiColors text
+                                 TextBackground: uiColors body
+                                     Background: uiColors background
+                                          Arrow: uiColors arrow
+                                         ColorA: uiColors bodyLight
+                                         ColorB: uiColors unused
+                                         ColorC: uiColors bodyDark
+                                    Transparent: uiColors transparent
+                             ArrowPlusTopPlanes: uiColors arrowPlusTopPlanes.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         makeColormap0 = ( |
+            | 
+            makeCachedColormap0.
+            colormap0 colorsFromCache: cachedColormap0.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {

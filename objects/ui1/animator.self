@@ -240,7 +240,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
-         createCachedColormapsUI: ui = ( |
+         createCachedColormapsGraphicsBackend: graphicsBackend = ( |
             | self).
         } | ) 
 
@@ -981,12 +981,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
-         createCachedColormapsUI: ui = ( |
+         createCachedColormapsGraphicsBackend: graphicsBackend = ( |
              ncm.
              ocm.
             | 
-            ocm: ui cachedColormap0.
-            ncm: ui cachedColormapNoAcetate.
+            ocm: graphicsBackend cachedColormap0.
+            ncm: graphicsBackend cachedColormapNoAcetate.
             cachedAcetateFadeOutMaps: createMapSeriesFrom: ocm
                                                        To: ncm
                                                     Steps: dissolveSteps.
