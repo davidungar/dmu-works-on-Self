@@ -106,30 +106,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (uiColormap)\x7fVisibility: public'
-        
-         colormap0 <- bootstrap stub -> 'globals' -> 'uiColormap' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (uiColormap)\x7fVisibility: public'
-        
-         colormap1 <- bootstrap stub -> 'globals' -> 'uiColormap' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (uiColormap)\x7fVisibility: public'
-        
-         colormapBothArrowPlanes <- bootstrap stub -> 'globals' -> 'uiColormap' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (uiColormap)\x7fVisibility: public'
-        
-         colormapNoAcetate <- bootstrap stub -> 'globals' -> 'uiColormap' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (dummyAnimator)'
         
          danimator <- bootstrap stub -> 'globals' -> 'dummyAnimator' -> ().
@@ -499,23 +475,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
-         colormapFinalize = ( |
-            | deleteColormaps).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
-         colormapInitialize = ( |
-            | 
-            graphicsBackend makeAndConvertColormaps.
-            installColormap0.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          continue = ( |
@@ -579,19 +538,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
-        
-         deleteColormaps = ( |
-            | 
-            colormap0 delete.
-            colormap1 delete.
-            colormapBothArrowPlanes delete.
-            colormapNoAcetate delete.
-            ranimator deleteColormaps.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          demo = ( |
@@ -636,7 +582,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          finalize = ( |
             | 
-            colormapFinalize.
+            graphicsBackend colormapFinalize: ranimator.
             deactivateUpdating.
             world delete.
             finalizePatterns.
@@ -887,7 +833,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow0: w = ( |
-            | w windowBitmap planeMask: w arrow0Mask. w myUI colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
+            | 
+            w windowBitmap planeMask: w arrow0Mask. w myUI graphicsBackend colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
@@ -1059,13 +1006,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         installColormap0 = ( |
-            | colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: addingObjects\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          internalAdd: mirr = ( |
@@ -1123,23 +1063,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
               ^ fb value: 'not trying'
             ].
             window: virtual8BitWindow copyForWindow: window).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
-        
-         invalidateAllColormaps = ( |
-            | 
-            cachedColormap0 invalidate.
-            cachedColormap1 invalidate.
-            cachedColormapBothArrowPlanes invalidate.
-            cachedColormapNoAcetate invalidate.
-            colormap0 invalidate.
-            colormap1 invalidate.
-            colormapBothArrowPlanes invalidate.
-            colormapNoAcetate invalidate.
-            ranimator invalidateAllColormaps.
-            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1752,7 +1675,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             | 
             stopping ifFalse: [ 
               "hack to avoid starting ui1 unintentionally"
-              invalidateAllColormaps.
+              graphicsBackend invalidateAllColormaps: ranimator.
               cacheUnflushable.
               restart.
             ].
@@ -1865,7 +1788,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
 
             initializePatterns.
 
-            colormapInitialize.
+            graphicsBackend colormapInitializeWindow: window Animator: ranimator.
 
             world: (window isColor8 ifTrue: [uiWorld] False: [uiWorld32]) copy createForUI: self.
 
