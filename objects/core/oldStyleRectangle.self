@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -209,13 +209,6 @@ SlotsToOmit: parent storeStringNeeds.
         
          shrinkTop: n = ( |
             | (origin addY: n) #! corner).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'oldStyleRectangle' -> () From: ( | {
-         'Category: stretching\x7fModuleInfo: Module: oldStyleRectangle InitialContents: FollowSlot\x7fVisibility: public'
-        
-         squinch = ( |
-            | (shrinkRight: 1) shrinkBottom: 1).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'oldStyleRectangle' -> () From: ( | {

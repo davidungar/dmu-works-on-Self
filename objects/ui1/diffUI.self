@@ -10,21 +10,12 @@ See the LICENSE file for license information.
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'comparator' -> () From: ( | {
          'Category: ui1 interface\x7fModuleInfo: Module: diffUI InitialContents: FollowSlot\x7fVisibility: private'
         
-         openView = ( | {
-                 'ModuleInfo: Module: diffUI InitialContents: FollowSlot'
-                
-                 str1.
-                }  {
-                 'ModuleInfo: Module: diffUI InitialContents: FollowSlot'
-                
-                 str2.
-                }  {
-                 'ModuleInfo: Module: diffUI InitialContents: FollowSlot'
-                
-                 te.
-                } 
+         openViewIn: uiWorld = ( |
+             str1.
+             str2.
+             te.
             | 
-            te: diffViewer copyOn: ui world
+            te: diffViewer copyOn: uiWorld
                              Size: (700@150)
                                Do: [|:e| e name: 'Diff'].
             coll1 doFirst: [| :fs | str1: fs string             ]

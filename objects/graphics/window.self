@@ -740,8 +740,8 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
          closeDisplay = ( |
             | 
             icon isLive ifTrue: [ icon delete ].
-            platformWindow delete.
-            display close.
+            platformWindow deleteIfFail: [].
+            display closeIfFail: [].
             self).
         } | ) 
 

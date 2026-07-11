@@ -47,9 +47,9 @@ See the LICENSE file for license information.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'boxBody' -> () From: ( | {
-         'ModuleInfo: Module: uiBody InitialContents: FollowSlot'
+         'ModuleInfo: Module: uiBody InitialContents: InitializeToExpression: (boxBitmap)'
         
-         graphic <- bootstrap stub -> 'globals' -> 'bitmap' -> ().
+         graphic <- bootstrap stub -> 'globals' -> 'boxBitmap' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
@@ -348,6 +348,13 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                       UIColors: uiColors.
             graphic background: world graphic.
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'boxBody' -> () From: ( | {
+         'ModuleInfo: Module: uiBody InitialContents: FollowSlot'
+        
+         ui = ( |
+            | world myUI).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiBody' -> () From: ( | {

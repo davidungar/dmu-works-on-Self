@@ -2752,6 +2752,21 @@ SlotsToOmit: parent size.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+         'Category: windowing\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: public'
+        
+         textApplication = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'textApplication' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals textApplication.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'textApplication' -> () From: ( | {
+         'ModuleInfo: Module: textEditor InitialContents: FollowSlot'
+        
+         parent* = bootstrap stub -> 'traits' -> 'textApplication' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
          'Category: windowing\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot'
         
          textBuffer = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'textBuffer' -> () From: ( |

@@ -353,8 +353,15 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: objBodyTypes InitialContents: FollowSlot'
         
-         canonicalStringBody = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'canonicalStringBody' -> () From: ( |
+         canonicalStringBody = bootstrap define: bootstrap stub -> 'traits' -> 'canonicalStringBody' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'parent' From:
+             globals objectBody copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'canonicalStringBody' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits canonicalStringBody.
+
+CopyDowns:
+globals objectBody. copy 
+SlotsToOmit: parent.
+
 '.
             | ) .
         } | ) 

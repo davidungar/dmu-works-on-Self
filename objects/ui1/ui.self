@@ -465,6 +465,21 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         closeAllWindows = ( |
+            | 
+            (browse childrenOf: traits ui) do: [|:x| x reflectee closeWindow]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         closeWindow = ( |
+            | window close).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          colormapCacheInitialize = ( |
@@ -1314,7 +1329,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: ending\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          quit = ( |
-            | handler queue: 'realQuit' With: vector copySize: 0).
+            | 
+            self = testUI ifFalse: [ handler queue: 'realQuit' With: vector copySize: 0]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -2016,6 +2032,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
              {} = 'ModuleInfo: Creator: traits ui testUI.
 '.
             | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'testUI' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         closeWindow = ( |
+            | self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'testUI' -> () From: ( | {

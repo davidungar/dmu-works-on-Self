@@ -62,8 +62,15 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: objectBody InitialContents: FollowSlot\x7fVisibility: public'
         
-         objectBody = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'objectBody' -> () From: ( |
+         objectBody = bootstrap define: bootstrap stub -> 'globals' -> 'objectBody' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'parent' From:
+             globals boxBody copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'objectBody' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals objectBody.
+
+CopyDowns:
+globals boxBody. copy 
+SlotsToOmit: parent.
+
 \x7fIsComplete: '.
             | ) .
         } | ) 
@@ -72,18 +79,6 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'ModuleInfo: Module: objectBody InitialContents: InitializeToExpression: (list copyRemoveAll)'
         
          allSubmenu <- list copyRemoveAll.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objectBody' -> () From: ( | {
-         'ModuleInfo: Module: objectBody InitialContents: InitializeToExpression: (list copyRemoveAll)'
-        
-         animatingFromArrows <- list copyRemoveAll.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objectBody' -> () From: ( | {
-         'ModuleInfo: Module: objectBody InitialContents: InitializeToExpression: (list copyRemoveAll)'
-        
-         animatingToArrows <- list copyRemoveAll.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objectBody' -> () From: ( | {
@@ -111,24 +106,6 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'ModuleInfo: Module: objectBody InitialContents: InitializeToExpression: (dictionary copyRemoveAll)'
         
          categoriesForMenu <- dictionary copyRemoveAll.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objectBody' -> () From: ( | {
-         'ModuleInfo: Module: objectBody InitialContents: InitializeToExpression: (list copyRemoveAll)'
-        
-         fromArrows <- list copyRemoveAll.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objectBody' -> () From: ( | {
-         'ModuleInfo: Module: objectBody InitialContents: InitializeToExpression: (0)'
-        
-         graphLevel <- 0.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objectBody' -> () From: ( | {
-         'ModuleInfo: Module: objectBody InitialContents: FollowSlot'
-        
-         graphic <- bootstrap stub -> 'globals' -> 'boxBitmap' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objectBody' -> () From: ( | {
@@ -191,12 +168,6 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objectBody' -> () From: ( | {
          'ModuleInfo: Module: objectBody InitialContents: FollowSlot'
         
-         size <- (1)@(1).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objectBody' -> () From: ( | {
-         'ModuleInfo: Module: objectBody InitialContents: FollowSlot'
-        
          slots <- bootstrap stub -> 'globals' -> 'list' -> ().
         } | ) 
 
@@ -204,18 +175,6 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'ModuleInfo: Module: objectBody InitialContents: FollowSlot'
         
          sndButton <- bootstrap stub -> 'globals' -> 'sendButton' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objectBody' -> () From: ( | {
-         'ModuleInfo: Module: objectBody InitialContents: InitializeToExpression: (list copyRemoveAll)'
-        
-         toArrows <- list copyRemoveAll.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objectBody' -> () From: ( | {
-         'ModuleInfo: Module: objectBody InitialContents: FollowSlot'
-        
-         world <- bootstrap stub -> 'globals' -> 'uiWorld' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objectBodySizing' -> () From: ( | {
