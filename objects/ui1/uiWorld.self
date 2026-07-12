@@ -408,11 +408,11 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                     uiColors bodyDark  saturation: hsbCol saturation.
                 ].
                 rgbCol from: hsbCol.
-                myUI graphicsBackend makeColormap0.
+                myUI graphicsBackend changeBackendColors: uiColors.
                 myUI graphicsBackend colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
             ].
             cursor moveTo: oldLoc.
-            myUI graphicsBackend createColormaps.
+            myUI graphicsBackend createColormapsColors: uiColors Animator: myUI ranimator.
             uiColors save.
             self).
         } | ) 

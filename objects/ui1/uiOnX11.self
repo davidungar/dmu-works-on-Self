@@ -262,6 +262,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         changeBackendColors: uiColors = ( |
+            | 
+            makeColormap0ForUIColors: uiColors).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
          'Category: colormaps\x7fCategory: state\x7fCategory: colormaps\x7fModuleInfo: Module: uiOnX11 InitialContents: InitializeToExpression: (uiColormap)\x7fVisibility: public'
         
          colormap0 <- bootstrap stub -> 'globals' -> 'uiColormap' -> ().
@@ -282,8 +290,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
          'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
-         colormapCacheFinalize: ranimator = ( |
-            | deleteCachedColormaps: ranimator).
+         colormapCacheFinalize = ( |
+            | 
+            deleteCachedColormaps).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
@@ -344,7 +353,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          createCachedColormapsColors: uiColors Animator: ranimator = ( |
             | 
-            deleteCachedColormaps: ranimator.
+            deleteCachedColormaps.
+
             cachedColormap0: uiColormap copyWithRep: cachedColormap copyGraphicsGlobals.
             cachedColormap1: uiColormap copyWithRep: cachedColormap copyGraphicsGlobals.
 
@@ -407,7 +417,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
          'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
-         deleteCachedColormaps: ranimator = ( |
+         deleteCachedColormaps = ( |
             | 
             cachedColormap0 delete.
             cachedColormap1 delete.
@@ -551,10 +561,10 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
          'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
-         makeCachedColormap0 = ( |
+         makeCachedColormap0: uiColors = ( |
             | 
             cachedColormap0 delete.
-            cachedColormap0: uiColormap copyWithRep: cachedColormap copy.
+            cachedColormap0: uiColormap copyWithRep: cachedColormap copyGraphicsGlobals.
             cachedColormap0 arrowPlane0MakeText: uiColors text
                                  TextBackground: uiColors body
                                      Background: uiColors background
@@ -568,11 +578,11 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
-         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
-         makeColormap0 = ( |
+         makeColormap0ForUIColors: uiColors = ( |
             | 
-            makeCachedColormap0.
+            makeCachedColormap0: uiColors.
             colormap0 colorsFromCache: cachedColormap0.
             self).
         } | ) 

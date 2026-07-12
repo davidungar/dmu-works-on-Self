@@ -779,6 +779,28 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             isMethod ifTrue: boxCodeFont False: boxObjectNameFont).
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> 'boxSizePlatformMixin' -> () From: ( | {
+         'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
+        
+         loadFont: name For: win IfFail: fb = ( |
+            | 
+            font copyName: name On: win IfFail: fb).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> 'boxSizePlatformMixin' -> () From: ( | {
+         'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
+        
+         loadFont: name Style: style Size: size For: win IfFail: fb = ( |
+             middle.
+            | 
+            middle: style isEmpty 
+                ifTrue: '-' 
+                False: ['-', style uncapitalize, '-'].
+            loadFont: name, middle, size printString
+                 For: win
+              IfFail: fb).
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'newQuartz' -> 'boxSizePlatformMixin' -> () From: ( | {
          'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
         

@@ -199,6 +199,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'cachedColormap' -> () From: ( | {
+         'ModuleInfo: Module: colormap InitialContents: FollowSlot'
+        
+         copy = ( |
+            | resend.copy platformColors: platformColors copy).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'cachedColormap' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: colormap InitialContents: FollowSlot\x7fVisibility: public'
         
          copyGraphicsGlobals = ( |

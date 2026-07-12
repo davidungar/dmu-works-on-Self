@@ -913,7 +913,7 @@ SlotsToOmit: parent.
         
          flushCaches = ( |
             | 
-            graphicsBackend colormapCacheFinalize: ranimator.
+            graphicsBackend colormapCacheFinalize.
             invalidateCaches.
             self).
         } | ) 
@@ -1081,6 +1081,16 @@ SlotsToOmit: parent.
 
 '.
             | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         createColormapsColors: uiColors Animator: ranimator = ( |
+            | 
+            createCachedColormapsColors: uiColors Animator: ranimator.
+            convertColormaps.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
