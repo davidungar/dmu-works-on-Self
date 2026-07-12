@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.73 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -6688,7 +6688,8 @@ x = start, y = end
          'Category: reflecteePrimitives\x7fModuleInfo: Module: mirror InitialContents: FollowSlot\x7fVisibility: public'
         
          reflecteeIsLive = ( |
-            | reflectee _ForeignIsLive).
+            | 
+            reflectee _ForeignIsLiveIfFail: false).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'mirrors' -> 'proxy' -> () From: ( | {

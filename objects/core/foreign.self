@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.12 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -2928,7 +2928,8 @@ coerced.\x7fModuleInfo: Module: foreign InitialContents: FollowSlot\x7fVisibilit
          'ModuleInfo: Module: foreign InitialContents: FollowSlot\x7fVisibility: public'
         
          isLive = ( |
-            | _ForeignIsLive).
+            | 
+            _ForeignIsLiveIfFail: false).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'proxy' -> () From: ( | {
