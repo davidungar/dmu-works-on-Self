@@ -66,19 +66,47 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
-         'Comment: the X11 graphics backend. Inherits the generic (quartz parent) backend -- makeOffscreenFor:/makeWindowBitmapFor:/plane masks/erase are platform-polymorphic via bitmap copyFor:Size: and windowBitmap planeMask:, exactly as the pre-seam uiWorld code. Only present: and installShadowOn: are overridden: X has no shadow buffer and blits the windowBitmap straight to the window. -- claude & dmu 6/2026\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
         
-         x11 = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11.
+         abstractX11Traits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends abstractX11Traits.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
-         boxSizePlatformMixin = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'boxSizePlatformMixin' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11 boxSizePlatformMixin.
+         boxSizePlatformMixin = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> 'boxSizePlatformMixin' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends abstractX11Traits boxSizePlatformMixin.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         optimalNameForDisplay: disp = ( |
+             myhost.
+            | 
+            myhost: os nodename , ':'.
+            (myhost isPrefixOf: disp) ifFalse: [disp] True: [ 
+               "use :0 rather than name:0 -- much faster"
+               disp copyFrom: myhost size - 1
+            ]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'Comment: the X11 graphics backend. Inherits the generic (quartz parent) backend -- makeOffscreenFor:/makeWindowBitmapFor:/plane masks/erase are platform-polymorphic via bitmap copyFor:Size: and windowBitmap planeMask:, exactly as the pre-seam uiWorld code. Only present: and installShadowOn: are overridden: X has no shadow buffer and blits the windowBitmap straight to the window. -- claude & dmu 6/2026\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         x11 = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11.
 '.
             | ) .
         } | ) 
@@ -363,22 +391,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
-         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         optimalNameForDisplay: disp = ( |
-             myhost.
-            | 
-            myhost: os nodename , ':'.
-            (myhost isPrefixOf: disp) ifFalse: [disp] True: [ 
-               "use :0 rather than name:0 -- much faster"
-               disp copyFrom: myhost size - 1
-            ]).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
-         parent* = bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
@@ -409,6 +424,41 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          window = ( |
             | x11Globals window).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         x11OnCanvas = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11OnCanvas.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         copy = ( |
+            | resend.copy windowCanvas: windowCanvas copy).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         window = ( |
+            | windowCanvas platformWindow).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: InitializeToExpression: (x11Globals windowCanvas)'
+        
+         windowCanvas <- bootstrap stub -> 'globals' -> 'x11Globals' -> 'windowCanvas' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {

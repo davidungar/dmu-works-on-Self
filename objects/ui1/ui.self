@@ -226,7 +226,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
-         window <- bootstrap stub -> 'globals' -> 'nil' -> ().
+         window.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
@@ -926,6 +926,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             | 
             nm = 'newQuartz' ifTrue: [ ^ newQuartz ].
             nm = 'quartz' ifTrue: [^ quartz].
+            nm = 'x11OnCanvas' ifTrue: [^ x11OnCanvas].
             x11).
         } | ) 
 

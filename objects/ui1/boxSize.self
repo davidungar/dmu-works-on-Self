@@ -779,18 +779,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             isMethod ifTrue: boxCodeFont False: boxObjectNameFont).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'newQuartz' -> 'boxSizePlatformMixin' -> () From: ( | {
-         'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
-        
-         loadFont: name Style: style Size: size For: win IfFail: fb = ( |
-             fs.
-            | 
-            fs: fontSpec copyName: name Style: style Size: size.
-            macToolbox fontIDAndStruct 
-                copyForFontSpec: fs  Port: win gc).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'boxSizePlatformMixin' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> 'boxSizePlatformMixin' -> () From: ( | {
          'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
         
          loadFont: name For: win IfFail: fb = ( |
@@ -798,7 +787,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             font copyName: name On: win IfFail: fb).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'boxSizePlatformMixin' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> 'boxSizePlatformMixin' -> () From: ( | {
          'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
         
          loadFont: name Style: style Size: size For: win IfFail: fb = ( |
@@ -810,6 +799,17 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             loadFont: name, middle, size printString
                  For: win
               IfFail: fb).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'newQuartz' -> 'boxSizePlatformMixin' -> () From: ( | {
+         'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
+        
+         loadFont: name Style: style Size: size For: win IfFail: fb = ( |
+             fs.
+            | 
+            fs: fontSpec copyName: name Style: style Size: size.
+            macToolbox fontIDAndStruct 
+                copyForFontSpec: fs  Port: win gc).
         } | ) 
 
 
