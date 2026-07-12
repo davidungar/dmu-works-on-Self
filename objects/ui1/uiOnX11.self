@@ -65,15 +65,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          subpartNames <- ''.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
-         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
-        
-         abstractX11Traits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui graphicsBackends abstractX11Traits.
-'.
-            | ) .
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -81,6 +72,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
              {} = 'ModuleInfo: Creator: traits ui graphicsBackends abstractX11Traits boxSizePlatformMixin.
 '.
             | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         graphicsGlobals = bootstrap stub -> 'globals' -> 'x11Globals' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( | {
@@ -102,13 +99,142 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          parent* = bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
-         'Comment: the X11 graphics backend. Inherits the generic (quartz parent) backend -- makeOffscreenFor:/makeWindowBitmapFor:/plane masks/erase are platform-polymorphic via bitmap copyFor:Size: and windowBitmap planeMask:, exactly as the pre-seam uiWorld code. Only present: and installShadowOn: are overridden: X has no shadow buffer and blits the windowBitmap straight to the window. -- claude & dmu 6/2026\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
-         x11 = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11.
+         patterns = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> 'patterns' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends abstractX11Traits patterns.
 '.
             | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: state\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         animatorColormaps <- bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'animatorColormaps' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11 animatorColormaps.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'animatorColormaps' -> () From: ( | {
+         'Category: colormaps\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         acetateFadeOutMaps <- ((bootstrap stub -> 'globals') \/-> 'vector') -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'animatorColormaps' -> () From: ( | {
+         'Category: colormaps\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         acetateFadeOutMapsFast <- ((bootstrap stub -> 'globals') \/-> 'vector') -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'animatorColormaps' -> () From: ( | {
+         'Category: colormaps\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         cachedAcetateFadeOutMaps <- ((bootstrap stub -> 'globals') \/-> 'vector') -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'animatorColormaps' -> () From: ( | {
+         'Category: colormaps\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         cachedAcetateFadeOutMapsFast <- ((bootstrap stub -> 'globals') \/-> 'vector') -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'animatorColormaps' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         convertFadeOutMaps = ( |
+            | 
+            acetateFadeOutMaps do: [ | :cm. :i. |
+                cm colorsFromCache: cachedAcetateFadeOutMaps at: i ].
+            acetateFadeOutMapsFast do: [ | :cm. :i. |
+                cm colorsFromCache: cachedAcetateFadeOutMapsFast at: i ]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'animatorColormaps' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         deleteCachedColormaps = ( |
+            | 
+            cachedAcetateFadeOutMaps do: [ | :cm | cm delete ].
+            cachedAcetateFadeOutMapsFast do: [ | :cm | cm delete ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'animatorColormaps' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         deleteColormaps = ( |
+            | 
+            acetateFadeOutMaps do: [ | :cm | cm delete ].
+            acetateFadeOutMapsFast do: [ | :cm | cm delete ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'animatorColormaps' -> () From: ( | {
+         'Category: fading\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         fadeInAcetate = ( |
+            | 
+            acetateFadeOutMaps reverseDo: [ | :m |
+                m installImmediately.
+                times delay: realAnimator delay.
+            ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'animatorColormaps' -> () From: ( | {
+         'Category: fading\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         fadeOutAcetate = ( |
+            | 
+            acetateFadeOutMaps do: [|:m|
+                m installImmediately.
+                times delay: peakingInBetweener delay.
+            ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'animatorColormaps' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         invalidateFadeOutMaps = ( |
+            | 
+            cachedAcetateFadeOutMaps do: [ | :cm | cm invalidate ].
+            acetateFadeOutMaps do: [ | :cm | cm invalidate ].
+            cachedAcetateFadeOutMapsFast do: [ | :cm | cm invalidate ].
+            acetateFadeOutMapsFast do: [ | :cm | cm invalidate ]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'animatorColormaps' -> () From: ( | {
+         'Category: fading\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         makeAcetateVisible = ( |
+            | 
+            acetateFadeOutMaps first installImmediately. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'animatorColormaps' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         makeAndConvertColormapsFor: win PlatformColormap: platformColormap = ( |
+            | 
+            acetateFadeOutMaps: cachedAcetateFadeOutMaps copy.
+            cachedAcetateFadeOutMaps do: [ | :cm. :i. |
+                acetateFadeOutMaps at: i Put: uiColormap copyWithRep:
+                                              cm convertForWindow: win PlatformColormap: platformColormap].
+            acetateFadeOutMapsFast: cachedAcetateFadeOutMapsFast copy.
+            cachedAcetateFadeOutMapsFast do: [ | :cm. :i. |
+                acetateFadeOutMapsFast at: i Put: uiColormap copyWithRep:
+                                              cm convertForWindow: win PlatformColormap: platformColormap ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'animatorColormaps' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
@@ -187,14 +313,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
          'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
-         convertColormaps: ranimator = ( |
+         convertColormaps = ( |
             | 
             colormap0 colorsFromCache: cachedColormap0.
             colormap1 colorsFromCache: cachedColormap1.
             colormapBothArrowPlanes
                       colorsFromCache: cachedColormapBothArrowPlanes.
             colormapNoAcetate colorsFromCache: cachedColormapNoAcetate.
-            ranimator convertColormaps.
+            animatorColormaps convertFadeOutMaps.
             self).
         } | ) 
 
@@ -209,6 +335,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             r cachedColormap1:               cachedColormap1 copy.
             r cachedColormapBothArrowPlanes: cachedColormapBothArrowPlanes copy.
             r cachedColormapNoAcetate:       cachedColormapNoAcetate       copy.
+            r animatorColormaps:              animatorColormaps copy.
             r).
         } | ) 
 
@@ -230,13 +357,51 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
-         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
-         createColormapsColors: uiColors Animator: ranimator = ( |
+         createCachedColormapsDissolveSteps: dissolveSteps FastDissolveSteps: fastDissolveSteps = ( |
+             ncm.
+             ocm.
             | 
-            createCachedColormapsColors: uiColors Animator: ranimator.
-            convertColormaps; ranimator.
+            ocm: cachedColormap0.
+            ncm: cachedColormapNoAcetate.
+            animatorColormaps cachedAcetateFadeOutMaps: createMapSeriesFrom: ocm
+                                                       To: ncm
+                                                    Steps: dissolveSteps.
+            animatorColormaps cachedAcetateFadeOutMapsFast: createMapSeriesFrom: ocm
+                                                           To: ncm
+                                                       Steps: fastDissolveSteps.
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         createMapSeriesFrom: f To: t Steps: s = ( |
+             fastF.
+             fastT.
+             ib.
+             r.
+             scale = 1000000.
+            | 
+            'creating colormap series . . . ' print.
+            r: vector copySize: s succ. "one extra for endpoint"
+            ib: peakingInBetweener copyFrom: 0 To: scale Steps: s.
+            fastF: vector copySize: 256.
+            fastT: vector copySize: 256.
+            256 do: [|:i| fastF at: i Put: (f at: i) "asHSB" asRGB].
+            256 do: [|:i| fastT at: i Put: (t at: i) "asHSB" asRGB].
+
+            r size do: [| :i. v. cm. |
+                v: fastF interpolate: ib value /= scale From: fastT.
+                cm: f copyWithRep: cachedColormap copyGraphicsGlobals.
+                256 do: [|:i| cm at: i Put: (v at: i) asRGB].
+                r at: i Put: cm.
+                ib step.
+                '. ' print.
+            ].
+            'done.' printLine.
+            r).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
@@ -248,7 +413,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             cachedColormap1 delete.
             cachedColormapBothArrowPlanes delete.
             cachedColormapNoAcetate delete.
-            ranimator deleteCachedColormaps.
+            animatorColormaps deleteCachedColormaps.
             self).
         } | ) 
 
@@ -261,8 +426,24 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             colormap1 delete.
             colormapBothArrowPlanes delete.
             colormapNoAcetate delete.
-            ranimator deleteColormaps.
+            animatorColormaps deleteColormaps.
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fCategory: fading\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         fadeInAcetate = ( |
+            | 
+            animatorColormaps fadeInAcetate).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fCategory: fading\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         fadeOutAcetate = ( |
+            | 
+            animatorColormaps fadeOutAcetate).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
@@ -303,14 +484,16 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
 
             cachedColormapNoAcetate makeNoAcetateFrom: cachedColormap0
                                           Transparent: uiColors transparent.
-            ranimator createCachedColormapsGraphicsBackend: self.
+            createCachedColormapsDissolveSteps: ranimator dissolveSteps FastDissolveSteps: ranimator fastDissolveSteps.
             self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
-         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
-         graphicsGlobals = bootstrap stub -> 'globals' -> 'x11Globals' -> ().
+         finalizeAnimator: animator = ( |
+            | 
+            colormapFinalize: animator).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
@@ -323,7 +506,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
          'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
         
-         invalidateAllColormaps: ranimator = ( |
+         invalidateAllColormaps = ( |
             | 
             cachedColormap0 invalidate.
             cachedColormap1 invalidate.
@@ -333,8 +516,18 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             colormap1 invalidate.
             colormapBothArrowPlanes invalidate.
             colormapNoAcetate invalidate.
-            ranimator invalidateAllColormaps.
+
+            animatorColormaps invalidateFadeOutMaps.
+
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fCategory: fading\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         makeAcetateVisible = ( |
+            | 
+            animatorColormaps makeAcetateVisible).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
@@ -351,7 +544,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             colormapNoAcetate:
               uiColormap copyWithRep:
                             cachedColormapNoAcetate convertForWindow: window PlatformColormap: platformColormap.
-            ranimator makeAndConvertColormapsFor: window  PlatformColormap: platformColormap.
+            animatorColormaps makeAndConvertColormapsFor: window  PlatformColormap: platformColormap.
             self).
         } | ) 
 
@@ -399,15 +592,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
-         patterns = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'patterns' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11 patterns.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
-         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
-        
          platformColormap = ( |
             | xlib colormap).
         } | ) 
@@ -420,19 +604,71 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
-         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+         'Category: colormaps\x7fCategory: behavior\x7fCategory: preparing to draw\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
-         window = ( |
-            | x11Globals window).
+         prepareToDrawOnAcetate: w = ( |
+            | w windowBitmap planeMask: w movingPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
-         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fCategory: preparing to draw\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
-         x11OnCanvas = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11OnCanvas.
-'.
-            | ) .
+         prepareToDrawOnAll: w = ( |
+            | w windowBitmap useAllBitplanes).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fCategory: preparing to draw\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnAllButArrow0: w = ( |
+            | w windowBitmap planeMask: 8r777 ^^ w arrow0Mask).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fCategory: preparing to draw\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnArrow0: w = ( |
+            | 
+            w windowBitmap planeMask: w arrow0Mask. w myUI graphicsBackend colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fCategory: preparing to draw\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnArrow0InstallingBoth: w = ( |
+            | 
+            w windowBitmap planeMask: w arrow0Mask. w myUI graphicsBackend colormapBothArrowPlanes installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fCategory: preparing to draw\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnArrow1: w = ( |
+            | 
+            w windowBitmap planeMask: w arrow1Mask. w myUI graphicsBackend colormap1 installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fCategory: preparing to draw\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnBackground: w = ( |
+            | w windowBitmap planeMask: w stationaryPlaneMask).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fCategory: preparing to draw\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnInvisibleAcetate = ( |
+            | 
+            animatorColormaps  acetateFadeOutMaps last installImmediately.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         windowPrototype = ( |
+            | x11Globals window).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
@@ -443,22 +679,28 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         name = 'xOnCanvas'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
-         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
-        
-         window = ( |
-            | windowCanvas platformWindow).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: InitializeToExpression: (x11Globals windowCanvas)'
         
          windowCanvas <- bootstrap stub -> 'globals' -> 'x11Globals' -> 'windowCanvas' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         windowPrototype = ( |
+            | windowCanvas platformWindow).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {

@@ -111,15 +111,295 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          danimator <- bootstrap stub -> 'globals' -> 'dummyAnimator' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (\"Default for early ui copy (during init/resetInitialRect) and when no
-   explicit backend has been chosen via setUpOn:. Prefer macToolboxGlobals
-   for Quartz/AVP ui1; fall back to x11Globals on X11 platforms.\"
-  (host osForThisHost name = \'macOS\') ||  [host osForThisHost name = \'macOSX\']
-    ifTrue: [macToolboxGlobals]
-     False: [x11Globals])\x7fVisibility: public'
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'Category: prototypes\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
-         graphicsBackend <- bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> ().
+         abstract = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstract' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends abstract.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstract' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)'
+        
+         gbWindow.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'Category: traits\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+        
+         abstractTraits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends abstractTraits.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstract' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         parent* = bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstract' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (\'\')'
+        
+         prevDisplayName <- ''.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         boxSizePlatformMixin = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         colormapCacheFinalize: ranimator = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+        
+         colormapInitializeWindow: window Animator: ranimator = ( |
+            | 
+            [xxxxx].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         createCachedColormapsColors: uiColors Animator: ranimator = ( |
+            | 
+            [xxxxx].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         eraseAcetate: rect On: w = ( |
+            | w windowBitmap planeMask: w movingPlaneMask. w windowBitmap fillRectangle: rect Color: w uiColors transparent).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         eraseArrow0: rect On: w = ( |
+            | w windowBitmap planeMask: w arrow0Mask. w windowBitmap fillRectangle: rect Color: w uiColors transparent).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         eraseArrow1: rect On: w = ( |
+            | w windowBitmap planeMask: w arrow1Mask. w windowBitmap fillRectangle: rect Color: w uiColors transparent).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'Category: fading\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         fadeInAcetate = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'Category: fading\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         fadeOutAcetate = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         finalizeAnimator: animator = ( |
+            | childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'Category: fading\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         makeAcetateVisible = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         makeOffscreenFor: win Size: sz = ( |
+            | bitmap copyFor: win Size: sz).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         optimalNameForDisplay: disp = ( |
+            | '').
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         patterns = ( |
+            | childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         platformColormap = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         platformPixmap = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnAcetate: w = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnAll: w = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnAllButArrow0: w = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnArrow0: w = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnArrow0InstallingBoth: w = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnArrow1: w = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnBackground: w = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prepareToDrawOnInvisibleAcetate = ( |
+            | 
+            childResponsibility.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'Comment: the pre-seam uiWorld display body: render to the X window and flush. X needs no offscreen shadow/blit. -- claude & dmu 6/2026\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         present: w = ( |
+            | 
+            w displayNoUpdate.
+            w update.
+            w syncGraphics.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         window = ( |
+            | childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         windowPrototype = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'Category: prototypes\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         abstractX11 = bootstrap define: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11' -> () ToBe: bootstrap addSlotsTo: (
+             traits ui graphicsBackends abstract copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends abstractX11.
+
+CopyDowns:
+traits ui graphicsBackends abstract. copy
+
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'Category: prototypes\x7fComment: the X11 graphics backend. Inherits the generic (quartz parent) backend -- makeOffscreenFor:/makeWindowBitmapFor:/plane masks/erase are platform-polymorphic via bitmap copyFor:Size: and windowBitmap planeMask:, exactly as the pre-seam uiWorld code. Only present: and installShadowOn: are overridden: X has no shadow buffer and blits the windowBitmap straight to the window. -- claude & dmu 6/2026\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+        
+         x11 = bootstrap define: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'parent' From:
+             traits ui graphicsBackends abstractX11 copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11.
+
+CopyDowns:
+traits ui graphicsBackends abstractX11. copy 
+SlotsToOmit: parent.
+
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (ui graphicsBackends x11)\x7fVisibility: public'
+        
+         graphicsBackend <- bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
@@ -153,12 +433,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'ui' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (\'\')\x7fVisibility: private'
-        
-         prevDisplayName <- ''.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
@@ -221,12 +495,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (true)\x7fVisibility: private'
         
          unflushableCache <- bootstrap stub -> 'globals' -> 'true' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
-        
-         window.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
@@ -439,7 +707,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          checkCaches = ( |
             | 
-            isCacheValid not || [window displayName != prevDisplayName]
+            isCacheValid not || [graphicsBackend window displayName != graphicsBackend prevDisplayName]
               ifTrue: [ initializeCaches ]).
         } | ) 
 
@@ -501,7 +769,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          convertColormaps = ( |
             | 
-            graphicsBackend convertColormaps: ranimator.
+            graphicsBackend convertColormaps.
             self).
         } | ) 
 
@@ -597,7 +865,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          finalize = ( |
             | 
-            graphicsBackend colormapFinalize: ranimator.
+            graphicsBackend finalizeAnimator: ranimator.
             deactivateUpdating.
             world delete.
             finalizePatterns.
@@ -721,7 +989,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             | 
             preferences uiFullScreen ifTrue: [ ^ fullScreen ].
             lastRect: win position ##! win size.
-            protoRect: graphicsBackend window position ##! graphicsBackend window size.
+            protoRect: windowPrototype position ##! windowPrototype size.
             lastRect = protoRect ifTrue: [ preferences initialWindowRect ]
                                   False: [ window position ##! window size ]).
         } | ) 
@@ -736,193 +1004,40 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: prototypes\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
-         abstractTraits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui graphicsBackends abstractTraits.
+         abstractQuartz = bootstrap define: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractQuartz' -> () ToBe: bootstrap addSlotsTo: (
+             traits ui graphicsBackends abstract copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractQuartz' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends abstractQuartz.
+
+CopyDowns:
+traits ui graphicsBackends abstract. copy
+
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'Category: traits\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
-         boxSizePlatformMixin = ( |
-            | 
-            childResponsibility).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         colormapCacheFinalize: ranimator = ( |
-            | self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
-         colormapInitializeWindow: window Animator: ranimator = ( |
-            | 
-            [xxxxx].
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         createCachedColormapsColors: uiColors Animator: ranimator = ( |
-            | 
-            [xxxxx].
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         eraseAcetate: rect On: w = ( |
-            | w windowBitmap planeMask: w movingPlaneMask. w windowBitmap fillRectangle: rect Color: w uiColors transparent).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         eraseArrow0: rect On: w = ( |
-            | w windowBitmap planeMask: w arrow0Mask. w windowBitmap fillRectangle: rect Color: w uiColors transparent).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         eraseArrow1: rect On: w = ( |
-            | w windowBitmap planeMask: w arrow1Mask. w windowBitmap fillRectangle: rect Color: w uiColors transparent).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         makeOffscreenFor: win Size: sz = ( |
-            | bitmap copyFor: win Size: sz).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         optimalNameForDisplay: disp = ( |
-            | '').
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot'
-        
-         parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         patterns = ( |
-            | childResponsibility).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         platformColormap = ( |
-            | 
-            childResponsibility).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot'
-        
-         platformPixmap = ( |
-            | 
-            childResponsibility).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         prepareToDrawOnAcetate: w = ( |
-            | w windowBitmap planeMask: w movingPlaneMask).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         prepareToDrawOnAll: w = ( |
-            | w windowBitmap useAllBitplanes).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         prepareToDrawOnAllButArrow0: w = ( |
-            | w windowBitmap planeMask: 8r777 ^^ w arrow0Mask).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         prepareToDrawOnArrow0: w = ( |
-            | 
-            w windowBitmap planeMask: w arrow0Mask. w myUI graphicsBackend colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         prepareToDrawOnArrow0InstallingBoth: w = ( |
-            | 
-            w windowBitmap planeMask: w arrow0Mask. w myUI graphicsBackend colormapBothArrowPlanes installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         prepareToDrawOnArrow1: w = ( |
-            | 
-            w windowBitmap planeMask: w arrow1Mask. w myUI graphicsBackend colormap1 installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         prepareToDrawOnBackground: w = ( |
-            | w windowBitmap planeMask: w stationaryPlaneMask).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'Comment: the pre-seam uiWorld display body: render to the X window and flush. X needs no offscreen shadow/blit. -- claude & dmu 6/2026\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         present: w = ( |
-            | 
-            w displayNoUpdate.
-            w update.
-            w syncGraphics.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot'
-        
-         window = ( |
-            | 
-            childResponsibility).
+         abstractX11Traits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends abstractX11Traits.
+'.
+            | ) .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: behaviors\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
-         copyNamed: nm = ( |
-            | (named: nm) copy).
+         graphicsBackendCopyNamed: nm = ( |
+            | 
+            (graphicsBackendPrototypeNamed: nm) copy).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
-         'Comment: registry: map a backend name to its backend object. Unknown names fall back to the indexed quartz backend.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: behaviors\x7fComment: registry: map a backend name to its backend object. Unknown names fall back to the indexed quartz backend.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
-         named: nm = ( |
+         graphicsBackendPrototypeNamed: nm = ( |
             | 
             nm = 'newQuartz' ifTrue: [ ^ newQuartz ].
             nm = 'quartz' ifTrue: [^ quartz].
@@ -931,9 +1046,57 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'Category: prototypes\x7fComment: the true-colour RGBA graphics backend (Phase 2). Inherits the quartz backend; overrides makeOffscreenFor: (rgbaPixmap offscreens) and installShadowOn: (no shadow -> window draws true colour). Draw-targets are inherited for now (plane masks are no-ops on rgbaContext; arrow colormap installs are harmless); the acetate/arrow multi-surface facade comes in 2.2.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+        
+         newQuartz = bootstrap define: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'newQuartz' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'parent' From:
+             traits ui graphicsBackends abstractQuartz copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'newQuartz' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends newQuartz.
+
+CopyDowns:
+traits ui graphicsBackends abstractQuartz. copy 
+SlotsToOmit: parent.
+
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'oddball' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'Category: prototypes\x7fComment: the original 8-bit indexed graphics backend (Phase 1.5 dual-backend). Its factory methods reproduce setGraphicAndOffScreen exactly (bitmap copyFor:Size:), so selecting it changes no behaviour. parent* = lobby so the factory bodies can see the bitmap global.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+        
+         quartz = bootstrap define: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'parent' From:
+             traits ui graphicsBackends abstractQuartz copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'quartz' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends quartz.
+
+CopyDowns:
+traits ui graphicsBackends abstractQuartz. copy 
+SlotsToOmit: parent.
+
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'Category: prototypes\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+        
+         x11OnCanvas = bootstrap define: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'parent' From:
+             traits ui graphicsBackends abstractX11 copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11OnCanvas.
+
+CopyDowns:
+traits ui graphicsBackends abstractX11. copy 
+SlotsToOmit: parent.
+
+'.
+            | ) .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1000,16 +1163,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: caching\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
-         initializeCaches = ( | {
-                 'ModuleInfo: Module: ui InitialContents: FollowSlot'
-                
-                 sb.
-                } 
+         initializeCaches = ( |
+             sb.
             | 
             'initializing ui caches...' print.
             unflushableCache ifFalse: [ flushCaches ].
 
-            prevDisplayName: window displayName.
+            graphicsBackend prevDisplayName: window displayName.
 
             ranimator: realAnimator copy.
             danimator: dummyAnimator copy.
@@ -1089,7 +1249,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: emulating\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          interposeVirtual8BitWindowIfFail: fb = ( |
              tryExperiment = bootstrap stub -> 'globals' -> 'false' -> ().
@@ -1311,9 +1471,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          openWindowOn: disp = ( |
              rect.
             | 
-            rect: getInitialRectFrom: graphicsBackend window.
+            rect: getInitialRectFrom: windowPrototype.
             [todo ui1 dmu experimental].
-            window: graphicsBackend window copy.
+            window: windowPrototype copy.
             window name: 'The Self World'.
             window iconName: 'ui'.
             window iconFilename: preferences uiIconFile.
@@ -1664,7 +1824,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          resetInitialRect = ( |
             | 
-            window: graphicsBackend window).
+            window: windowPrototype).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1675,7 +1835,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             "send this when the ui is not running to force the
              next ui start to use preferences initialWindowRect"
             "do not send this to a running ui!"
-            window: graphicsBackend window).
+            window: windowPrototype).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1712,7 +1872,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             | 
             stopping ifFalse: [ 
               "hack to avoid starting ui1 unintentionally"
-              graphicsBackend invalidateAllColormaps: ranimator.
+              graphicsBackend invalidateAllColormaps.
               cacheUnflushable.
               restart.
             ].
@@ -1813,7 +1973,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          setUpOn: disp Initial: createObjBlock = ( |
             | 
-            graphicsBackend: graphicsBackends copyNamed: disp.
+            graphicsBackend: graphicsBackends graphicsBackendCopyNamed: disp.
 
             openWindowOn: disp.
 
@@ -2129,7 +2289,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          tryToOpenWindowForDisplay: disp IfFail: fblock = ( |
             | 
-            window displayName:  (graphicsBackends named: disp) optimalNameForDisplay: disp.
+            window displayName:  (graphicsBackends graphicsBackendCopyNamed: disp) optimalNameForDisplay: disp.
             [todo ui1 dmu experimental].
             (isDisplayNameForQuartz: disp)
                 ifTrue: [window openIfFail: fblock]
@@ -2181,6 +2341,22 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'Category: WIP\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         window = ( |
+            | 
+            graphicsBackend gbWindow).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'Category: WIP\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         window: w = ( |
+            | 
+            graphicsBackend gbWindow: w).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: windowEvents\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          windowChanged: rect Event: event = ( |
@@ -2205,6 +2381,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
               textEditorDisplayGlitchHack
             ].
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         windowPrototype = ( |
+            | graphicsBackend windowPrototype).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {

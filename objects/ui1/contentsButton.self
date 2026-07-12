@@ -168,7 +168,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                                                     FromCpt: self
                                                    IsParent: isParent.
                                       arr: arrowTo: b IsParent: isParent.
-                                      b animator displayAndFadeOutAcetate.
+                                      b world displayAndFadeOutAcetate.
                                   ] True: [ | w. toloc. oldbound. |
                                       b: world makeBodyFor: mirr
                                                   Constrain: cb1

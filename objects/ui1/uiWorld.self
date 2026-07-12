@@ -412,7 +412,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 myUI graphicsBackend colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
             ].
             cursor moveTo: oldLoc.
-            myUI graphicsBackend createColormaps: ranimator.
+            myUI graphicsBackend createColormaps.
             uiColors save.
             self).
         } | ) 
@@ -487,6 +487,20 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          display = ( |
             | 
             myUI graphicsBackend present: self.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+         'ModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
+        
+         displayAndFadeOutAcetate = ( |
+            | 
+            prepareToDrawOnBackground.
+            display.
+            fadeOutAcetate.
+            world eraseAcetate.
+            makeAcetateVisible.
+            world prepareToDrawOnAll.
             self).
         } | ) 
 
@@ -675,6 +689,45 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          fadeAddBody: bod = ( |
             | 
             animator fadeIn: bod.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+         'ModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fadeIn: bod = ( |
+            | 
+            myUI graphicsBackend prepareToDrawOnInvisibleAcetate.
+            syncGraphics.
+            eraseAcetate.
+            syncGraphics.
+
+            bod displayThru.
+            syncGraphics.
+
+            fadeInAcetate.
+            prepareToDrawOnAll.
+            bod display.
+            display.
+            syncGraphics.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+         'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
+        
+         fadeInAcetate = ( |
+            | 
+            myUI graphicsBackend fadeInAcetate.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+         'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
+        
+         fadeOutAcetate = ( |
+            | 
+            myUI graphicsBackend fadeOutAcetate.
             self).
         } | ) 
 
@@ -1157,6 +1210,15 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+         'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
+        
+         makeAcetateVisible = ( |
+            | 
+            myUI graphicsBackend makeAcetateVisible.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
          'Category: sprouting\x7fComment: 
            the constraint argument must be a positive or negative delta
 	    w.r.t. the bod\'s location--dmu\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
@@ -1463,7 +1525,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             floatBodyToTop: bod.
             clipArrows: bod absoluteBound.
             bod restoreArrowEnds.
-            animator fadeIn: bod.
+            fadeIn: bod.
             self).
         } | ) 
 

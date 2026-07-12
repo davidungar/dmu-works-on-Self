@@ -110,33 +110,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
-         'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
-        
-         acetateFadeOutMaps <- ((bootstrap stub -> 'globals') \/-> 'vector') -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
-         'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
-        
-         acetateFadeOutMapsFast <- ((bootstrap stub -> 'globals') \/-> 'vector') -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot'
         
          anticipationMagnitude <- 20.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
-         'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
-        
-         cachedAcetateFadeOutMaps <- ((bootstrap stub -> 'globals') \/-> 'vector') -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
-         'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
-        
-         cachedAcetateFadeOutMapsFast <- ((bootstrap stub -> 'globals') \/-> 'vector') -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
@@ -395,6 +371,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          wiggleBody: bod Direction: dir = ( |
             | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+         'ModuleInfo: Module: animator InitialContents: FollowSlot'
+        
+         xxxxx = ( |
+            | [xxxxx]. "delete slots not in realAnimator").
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
@@ -968,65 +951,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
-         'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
-        
-         convertColormaps = ( |
-            | 
-            acetateFadeOutMaps do: [ | :cm. :i. |
-                cm colorsFromCache: cachedAcetateFadeOutMaps at: i ].
-            acetateFadeOutMapsFast do: [ | :cm. :i. |
-                cm colorsFromCache: cachedAcetateFadeOutMapsFast at: i ]).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
-         'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
-        
-         createCachedColormapsGraphicsBackend: graphicsBackend = ( |
-             ncm.
-             ocm.
-            | 
-            ocm: graphicsBackend cachedColormap0.
-            ncm: graphicsBackend cachedColormapNoAcetate.
-            cachedAcetateFadeOutMaps: createMapSeriesFrom: ocm
-                                                       To: ncm
-                                                    Steps: dissolveSteps.
-            cachedAcetateFadeOutMapsFast: createMapSeriesFrom: ocm
-                                                           To: ncm
-                                                       Steps: fastDissolveSteps.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
-         'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
-        
-         createMapSeriesFrom: f To: t Steps: s = ( |
-             fastF.
-             fastT.
-             ib.
-             r.
-             scale = 1000000.
-            | 
-            'creating colormap series . . . ' print.
-            r: vector copySize: s succ. "one extra for endpoint"
-            ib: peakingInBetweener copyFrom: 0 To: scale Steps: s.
-            fastF: vector copySize: 256.
-            fastT: vector copySize: 256.
-            256 do: [|:i| fastF at: i Put: (f at: i) "asHSB" asRGB].
-            256 do: [|:i| fastT at: i Put: (t at: i) "asHSB" asRGB].
-
-            r size do: [| :i. v. cm. |
-                v: fastF interpolate: ib value /= scale From: fastT.
-                cm: f copyWithRep: cachedColormap copyGraphicsGlobals.
-                256 do: [|:i| cm at: i Put: (v at: i) asRGB].
-                r at: i Put: cm.
-                ib step.
-                '. ' print.
-            ].
-            'done.' printLine.
-            r).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
          'Category: wiggling\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          createSproutingArrowFrom: f To: t Width: w = ( |
@@ -1048,26 +972,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                                                End: dest
                                          Direction: dest - bod location.
             moveBody: bod InBetweeners: inBs).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
-         'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
-        
-         deleteCachedColormaps = ( |
-            | 
-            cachedAcetateFadeOutMaps do: [ | :cm | cm delete ].
-            cachedAcetateFadeOutMapsFast do: [ | :cm | cm delete ].
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
-         'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
-        
-         deleteColormaps = ( |
-            | 
-            acetateFadeOutMaps do: [ | :cm | cm delete ].
-            acetateFadeOutMapsFast do: [ | :cm | cm delete ].
-            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
@@ -1186,23 +1090,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
-         displayAndFadeOutAcetate = ( |
-            | 
-            world prepareToDrawOnBackground.
-            world display.
-            acetateFadeOutMaps do: [|:m|
-                m installImmediately.
-                times delay: peakingInBetweener delay.
-            ].
-            world eraseAcetate.
-            acetateFadeOutMaps first installImmediately.
-            world prepareToDrawOnAll.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
-         'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
-        
          dissolve = ( |
             | 
             acetateFadeOutMapsFast do: [|:m|
@@ -1235,31 +1122,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
          dissolveSteps = 8.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
-         'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
-        
-         fadeIn: bod = ( |
-            | 
-            acetateFadeOutMaps last installImmediately.
-            world syncGraphics.
-            world eraseAcetate.
-            world syncGraphics.
-
-            bod displayThru.
-            world syncGraphics.
-
-
-            acetateFadeOutMaps reverseDo: [ | :m |
-                m installImmediately.
-                times delay: delay.
-            ].
-            world prepareToDrawOnAll.
-            bod display.
-            world display.
-            world syncGraphics.
-            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
@@ -1412,34 +1274,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 d: dn.
             ].
             inBs asList).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
-         'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
-        
-         invalidateAllColormaps = ( |
-            | 
-            cachedAcetateFadeOutMaps do: [ | :cm | cm invalidate ].
-            acetateFadeOutMaps do: [ | :cm | cm invalidate ].
-            cachedAcetateFadeOutMapsFast do: [ | :cm | cm invalidate ].
-            acetateFadeOutMapsFast do: [ | :cm | cm invalidate ].
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
-         'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
-        
-         makeAndConvertColormapsFor: win PlatformColormap: platformColormap = ( |
-            | 
-            acetateFadeOutMaps: cachedAcetateFadeOutMaps copy.
-            cachedAcetateFadeOutMaps do: [ | :cm. :i. |
-                acetateFadeOutMaps at: i Put: uiColormap copyWithRep:
-                                              cm convertForWindow: win PlatformColormap: platformColormap].
-            acetateFadeOutMapsFast: cachedAcetateFadeOutMapsFast copy.
-            cachedAcetateFadeOutMapsFast do: [ | :cm. :i. |
-                acetateFadeOutMapsFast at: i Put: uiColormap copyWithRep:
-                                              cm convertForWindow: win PlatformColormap: platformColormap ].
-            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
