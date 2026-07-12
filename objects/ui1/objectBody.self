@@ -63,13 +63,14 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'Category: userInterface\x7fModuleInfo: Module: objectBody InitialContents: FollowSlot\x7fVisibility: public'
         
          objectBody = bootstrap define: bootstrap stub -> 'globals' -> 'objectBody' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'graphic' From:
              bootstrap remove: 'parent' From:
              globals boxBody copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'objectBody' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals objectBody.
 
 CopyDowns:
 globals boxBody. copy 
-SlotsToOmit: parent.
+SlotsToOmit: graphic parent.
 
 \x7fIsComplete: '.
             | ) .
@@ -106,6 +107,12 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: objectBody InitialContents: InitializeToExpression: (dictionary copyRemoveAll)'
         
          categoriesForMenu <- dictionary copyRemoveAll.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objectBody' -> () From: ( | {
+         'ModuleInfo: Module: objectBody InitialContents: InitializeToExpression: (boxBitmap)'
+        
+         graphic <- bootstrap stub -> 'globals' -> 'boxBitmap' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objectBody' -> () From: ( | {
