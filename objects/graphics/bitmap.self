@@ -271,7 +271,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          initializeForPixmap: pix Size: size Depth: depth = ( |
             | 
-            image: xlib pixmap 
+            image: pix platformPixmap 
                 createForSameScreenAs: pix
                 Size: size
                 Depth: depth).

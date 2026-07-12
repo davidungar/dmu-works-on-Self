@@ -760,6 +760,24 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+        
+         colormapInitializeWindow: window Animator: ranimator = ( |
+            | 
+            [xxxxx].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         createCachedColormapsColors: uiColors Animator: ranimator = ( |
+            | 
+            [xxxxx].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseAcetate: rect On: w = ( |

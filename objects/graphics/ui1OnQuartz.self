@@ -154,6 +154,15 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         platformPixmap = ( |
+            | 
+            [xxxxx].
+             quartz indexedPixmap).
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaContext' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -344,6 +353,15 @@ SlotsToOmit: parent.
         
          patterns = ( |
             | macToolboxGlobals patterns).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'newQuartz' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         platformPixmap = ( |
+            | 
+            [xxxxx].
+            quartz indexedPixmap).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'newQuartz' -> () From: ( | {

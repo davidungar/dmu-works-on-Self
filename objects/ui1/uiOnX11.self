@@ -411,6 +411,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             | x11Globals window).
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         platformPixmap = ( |
+            | xlib pixmap).
+        } | ) 
+
 
 
  '-- Side effects'
