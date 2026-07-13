@@ -65,6 +65,28 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          subpartNames <- ''.
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'Category: prototypes\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         abstractX11 = bootstrap define: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'gbWindow' From:
+             traits ui graphicsBackends abstract copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends abstractX11.
+
+CopyDowns:
+traits ui graphicsBackends abstract. copy 
+SlotsToOmit: gbWindow.
+
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: InitializeToExpression: (nil)'
+        
+         gbWindow <- bootstrap stub -> 'globals' -> 'nil' -> ().
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -104,6 +126,29 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          patterns = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> 'patterns' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits ui graphicsBackends abstractX11Traits patterns.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         windowPrototype = ( |
+            | x11Globals window).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'Category: prototypes\x7fComment: the X11 graphics backend. Inherits the generic (quartz parent) backend -- makeOffscreenFor:/makeWindowBitmapFor:/plane masks/erase are platform-polymorphic via bitmap copyFor:Size: and windowBitmap planeMask:, exactly as the pre-seam uiWorld code. Only present: and installShadowOn: are overridden: X has no shadow buffer and blits the windowBitmap straight to the window. -- claude & dmu 6/2026\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         x11 = bootstrap define: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'parent' From:
+             traits ui graphicsBackends abstractX11 copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11.
+
+CopyDowns:
+traits ui graphicsBackends abstractX11. copy 
+SlotsToOmit: parent.
+
 '.
             | ) .
         } | ) 
@@ -629,12 +674,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: uiOnX11 InitialContents: InitializeToExpression: (nil)'
-        
-         gbWindow <- bootstrap stub -> 'globals' -> 'nil' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
         
          initializeColorCachesColors: uiColors Animator: ranimator = ( |
@@ -950,8 +989,23 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
         
-         windowPrototype = ( |
-            | x11Globals window).
+         windowDepth = 8.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
+         'Category: prototypes\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         x11OnCanvas = bootstrap define: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'parent' From:
+             traits ui graphicsBackends abstractX11 copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11OnCanvas.
+
+CopyDowns:
+traits ui graphicsBackends abstractX11. copy 
+SlotsToOmit: parent.
+
+'.
+            | ) .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
@@ -977,13 +1031,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: uiOnX11 InitialContents: InitializeToExpression: (x11Globals windowCanvas)'
         
          windowCanvas <- bootstrap stub -> 'globals' -> 'x11Globals' -> 'windowCanvas' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
-         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
-        
-         windowPrototype = ( |
-            | windowCanvas platformWindow).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
