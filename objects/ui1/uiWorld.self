@@ -487,7 +487,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          draw = ( |
-            | drawBackground. redrawAllBodies).
+            | 
+            drawBackground. redrawAllBodies).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {

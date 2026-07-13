@@ -84,7 +84,7 @@ SlotsToOmit: gbWindow.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: InitializeToExpression: (nil)'
         
-         gbWindow <- bootstrap stub -> 'globals' -> 'nil' -> ().
+         gbWindow.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( | {
@@ -106,12 +106,15 @@ SlotsToOmit: gbWindow.
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          optimalNameForDisplay: disp = ( |
+             hackedDisp.
              myhost.
             | 
             myhost: os nodename , ':'.
-            (myhost isPrefixOf: disp) ifFalse: [disp] True: [ 
+            [xxxxx hack].
+            hackedDisp: disp = 'x11OnCanvas' ifTrue: [preferences xDisplay] False: disp.
+            (myhost isPrefixOf: hackedDisp) ifFalse: [hackedDisp] True: [ 
                "use :0 rather than name:0 -- much faster"
-               disp copyFrom: myhost size - 1
+               hackedDisp copyFrom: myhost size - 1
             ]).
         } | ) 
 
@@ -128,6 +131,13 @@ SlotsToOmit: gbWindow.
              {} = 'ModuleInfo: Creator: traits ui graphicsBackends abstractX11Traits patterns.
 '.
             | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         platformPixmap = ( |
+            | xlib pixmap).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( | {
@@ -417,6 +427,25 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         checkColor8IfFail: fblock = ( |
+             dispName.
+            | 
+            "get the interpreted display name before display is closed"
+
+            dispName: gbWindow interpretedDisplayName.
+            gbWindow isColor8 ifFalse: [
+                gbWindow closeAsync.              
+                ('\nThe opened X display, \'', dispName,
+                 '\', is not an 8-bit monitor.') printLine.
+                'Set XQuartz Output colors to 256; see "Running the UI under X11" in readme.md.' printLine.
+                 ^fblock value.
+            ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
          'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          colormapCacheFinalize = ( |
@@ -469,6 +498,15 @@ SlotsToOmit: parent.
             r cachedColormapNoAcetate:       cachedColormapNoAcetate       copy.
             r animatorColormaps:              animatorColormaps copy.
             r).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         couldNotStart = ( |
+            | 
+            '\nCould not start the ui!\n' printLine.
+            process this suspend).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
@@ -666,7 +704,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          flushCaches = ( |
             | 
@@ -813,6 +851,24 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
+         openWindowError = ( |
+            | 
+            'The ui runs only on an 8-bit color X display.' printLine.
+            ''                                              printLine.
+            'To change the ui display type:               ' printLine.
+            '  preferences xDisplay: \'YOUR-DISPLAY\' '     printLine.
+            ''                                              printLine.
+            'To start the ui type:'                         printLine.
+            '  ui demo'                                     printLine.
+            ''                                              printLine.
+            'For the required XQuartz settings (incl. 256-color/8-bit), see' printLine.
+            '"Running the UI under X11 (XQuartz) on macOS" in readme.md.'    printLine.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
          parent* = bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> ().
         } | ) 
 
@@ -821,13 +877,6 @@ SlotsToOmit: parent.
         
          platformColormap = ( |
             | xlib colormap).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
-        
-         platformPixmap = ( |
-            | xlib pixmap).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
@@ -989,6 +1038,21 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
         
+         tryToOpenWindowForDisplay: disp IfFail: fb = ( |
+            | 
+            gbWindow displayName: optimalNameForDisplay: disp.
+            [todo ui1 dmu experimental].
+            gbWindow openDepth: windowDepth IfFail: fblock.
+            checkColor8IfFail: [ 
+              openWindowError.
+              couldNotStart
+            ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
          windowDepth = 8.
         } | ) 
 
@@ -1025,6 +1089,24 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         tryToOpenWindowForDisplay: disp IfFail: fblock = ( |
+            | 
+            gbWindow displayName: optimalNameForDisplay: disp.
+            [addWindowOnDisplay: dispName Bounds: b Limited: false].
+            windowCanvas copyOpenForWorld: (|doubleBuffering <- true. name <- 'Experimental UI on x11OnCanvas'|) 
+                OnDisplay: gbWindow displayName 
+                At: gbWindow position
+                 Width: gbWindow size x 
+                Height: gbWindow size y.
+            [todo ui1 dmu experimental].
+            halt. "call canvas openForWOrld"
+            window openIfFail: fblock.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {

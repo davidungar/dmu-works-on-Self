@@ -388,6 +388,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          beginRun = ( |
             | 
+            [run]. "browsing"
             (process this copySend: message copy receiver: self Selector: 'run')
               resume).
         } | ) 
@@ -428,28 +429,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
-         checkColor8IfFail: fblock = ( |
-             dispName.
-            | 
-            "get the interpreted display name before display is closed"
-
-            dispName: window interpretedDisplayName.
-            window isColor8 ifFalse: [
-                interposeVirtual8BitWindowIfFail: [
-                    window closeAsync.              
-                    ('\nThe opened X display, \'', dispName,
-                     '\', is not an 8-bit monitor.') printLine.
-                    'Set XQuartz Output colors to 256; see "Running the UI under X11" in readme.md.' printLine.
-                    fblock value.
-                ].
-            ].
-
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          closeAllWindows = ( |
@@ -476,15 +455,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          copy = ( |
             | resend.copy init).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
-         couldNotStart = ( |
-            | 
-            '\nCould not start the ui!\n' printLine.
-            process this suspend).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -753,15 +723,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         createCachedColormapsColors: uiColors Animator: ranimator = ( |
-            | 
-            [xxxxx].
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          fadeInAcetate = ( |
@@ -781,7 +742,32 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          finalizeAnimator: animator = ( |
-            | childResponsibility).
+            | 
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         flushCaches = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot'
+        
+         initializeColorCachesColors: uiColors Animator: ranimator = ( |
+            | 
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         initializeColorsWindow: window Animator: ranimator = ( |
+            | 
+            [xxxxx].
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
@@ -1148,19 +1134,6 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
-         interposeVirtual8BitWindowIfFail: fb = ( |
-             tryExperiment = bootstrap stub -> 'globals' -> 'false' -> ().
-            | 
-            [todo ui1 dmu experimental].
-            tryExperiment ifFalse: [
-              ^ fb value: 'not trying'
-            ].
-            window: virtual8BitWindow copyForWindow: window).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: caching\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          invalidateCaches = ( |
@@ -1340,24 +1313,6 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
-         openWindowError = ( |
-            | 
-            'The ui runs only on an 8-bit color X display.' printLine.
-            ''                                              printLine.
-            'To change the ui display type:               ' printLine.
-            '  preferences xDisplay: \'YOUR-DISPLAY\' '     printLine.
-            ''                                              printLine.
-            'To start the ui type:'                         printLine.
-            '  ui demo'                                     printLine.
-            ''                                              printLine.
-            'For the required XQuartz settings (incl. 256-color/8-bit), see' printLine.
-            '"Running the UI under X11 (XQuartz) on macOS" in readme.md.'    printLine.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
          openWindowOn: disp = ( |
              rect.
             | 
@@ -1370,11 +1325,10 @@ SlotsToOmit: parent.
             window position: rect topLeft.
             window size: rect size.
             window useQueueingHandlerFor: self.
-            halt.
-            tryToOpenWindowForDisplay: disp IfFail: [ | :err |
+            graphicsBackend tryToOpenWindowForDisplay: disp IfFail: [ | :err |
                 ('\n', err) printLine.
-                openWindowError.
-                couldNotStart.
+               graphicsBackend openWindowError.
+               graphicsBackend couldNotStart.
             ].
             self).
         } | ) 
@@ -2048,7 +2002,7 @@ SlotsToOmit: parent.
             disp: preferences xDisplay.
             testUI parent: ui copy.
             testUI window: x11Globals window copy.
-            testUI tryToOpenWindowForDisplay: disp
+            testUI graphicsBackend tryToOpenWindowForDisplay: disp
                    IfFail: [ | :err | ^ fblock value: err ].
             testUI window closeAsync.
             test).
@@ -2170,25 +2124,6 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
-         tryToOpenWindowForDisplay: disp IfFail: fblock = ( |
-            | 
-            window displayName:  (graphicsBackends graphicsBackendCopyNamed: disp) optimalNameForDisplay: disp.
-            [todo ui1 dmu experimental].
-            graphicsBackend windowDepth 
-              ifNil: [window openIfFail: fblock]
-              IfNotNil: [
-                window openDepth: graphicsBackend windowDepth IfFail: fblock.
-                checkColor8IfFail: [ 
-                  openWindowError.
-                  couldNotStart
-                ].
-              ].
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fComment: update all objects on the world, stopping only for events\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          update = ( |
@@ -2254,6 +2189,7 @@ SlotsToOmit: parent.
          windowChanged: rect Event: event = ( |
             | 
             resend.windowChanged: rect Event: event.
+            halt.
             world windowChanged.
             world draw.
             resetBodyPosition.
