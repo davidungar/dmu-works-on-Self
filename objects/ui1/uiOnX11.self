@@ -270,6 +270,57 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         changeColorsFor: uiColors OffScreen: offScreen Cursor: cursor Animator: ranimator UpdateNow: updateNow = ( |
+             hsbCol.
+             index.
+             oldLoc.
+             rgbCol.
+             sat.
+             windowBitmapSize.
+            | 
+            index: (offScreen pixelValueAt: cursor location) && 8r007.
+            windowBitmapSize: gbWindow bitmap size.
+            uiColors do: [ | :cme |
+                index = (cme index && 8r007) ifTrue: [ rgbCol: cme color ] ].
+            hsbCol: rgbCol asHSB.
+            oldLoc: cursor location.
+            sat: false.
+            cursor moveTo:
+                hsbCol asPoint: windowBitmapSize InSaturationSpace: sat.
+            cursor while: [cursor anyButtonDown] Do: [
+                sat != cursor leftButtonDown ifTrue: [
+                    sat: cursor leftButtonDown.      
+                    cursor moveTo:
+                      hsbCol asPoint: windowBitmapSize InSaturationSpace: sat.
+                ].
+                hsbCol fromPoint: cursor location
+                       SpaceSize: windowBitmapSize
+               InSaturationSpace: sat.
+                 (index = (uiColors body      index && 8r007)) ||
+                [(index = (uiColors bodyLight index && 8r007)) ||
+                [ index = (uiColors bodyDark  index && 8r007)]] ifTrue: [
+                    uiColors body      hue: hsbCol hue.
+                    uiColors bodyLight hue: hsbCol hue.
+                    uiColors bodyDark  hue: hsbCol hue.
+                    uiColors body      saturation: hsbCol saturation.
+                    uiColors bodyLight saturation: hsbCol saturation.
+                    uiColors bodyDark  saturation: hsbCol saturation.
+                ].
+                rgbCol from: hsbCol.
+                changeBackendColors: uiColors.
+                colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
+
+                updateNow value.
+            ].
+            cursor moveTo: oldLoc.
+            createColormapsColors: uiColors Animator: ranimator.
+            uiColors save.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
          'Category: colormaps\x7fCategory: state\x7fCategory: colormaps\x7fModuleInfo: Module: uiOnX11 InitialContents: InitializeToExpression: (uiColormap)\x7fVisibility: public'
         
          colormap0 <- bootstrap stub -> 'globals' -> 'uiColormap' -> ().
@@ -381,6 +432,16 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             animatorColormaps cachedAcetateFadeOutMapsFast: createMapSeriesFrom: ocm
                                                            To: ncm
                                                        Steps: fastDissolveSteps.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         createColormapsColors: uiColors Animator: ranimator = ( |
+            | 
+            createCachedColormapsColors: uiColors Animator: ranimator.
+            convertColormaps.
             self).
         } | ) 
 
@@ -507,6 +568,30 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         flushCaches = ( |
+            | 
+            colormapCacheFinalize).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         initializeColorCachesColors: uiColors Animator: ranimator = ( |
+            | 
+            createCachedColormapsColors: uiColors Animator: ranimator).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         initializeColorsWindow: window Animator: ranimator = ( |
+            | 
+            colormapInitializeWindow: window Animator: ranimator).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
          'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          installColormap0 = ( |
@@ -614,6 +699,16 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         postFlip: flipped = ( |
+            | 
+            (flipped ifTrue: colormap1 False: colormap0)
+              installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
          'Category: colormaps\x7fCategory: behavior\x7fCategory: preparing to draw\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAcetate: w = ( |
@@ -672,6 +767,22 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             | 
             animatorColormaps  acetateFadeOutMaps last installImmediately.
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         prepareToZoom = ( |
+            | 
+            installColormap0).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         returnFromSnapshot = ( |
+            | 
+            invalidateAllColormaps).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {

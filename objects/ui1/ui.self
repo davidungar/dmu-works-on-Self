@@ -749,29 +749,10 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
-         colormapCacheInitialize = ( |
-            | 
-            uiColors restore.     "install personal color preferences"
-            graphicsBackend createCachedColormapsColors: uiColors Animator: ranimator.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          continue = ( |
             | beginRun).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: colormapHandling\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
-         convertColormaps = ( |
-            | 
-            graphicsBackend convertColormaps.
-            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -914,7 +895,7 @@ SlotsToOmit: parent.
         
          flushCaches = ( |
             | 
-            graphicsBackend colormapCacheFinalize.
+            graphicsBackend flushCaches.
             invalidateCaches.
             self).
         } | ) 
@@ -1084,67 +1065,6 @@ SlotsToOmit: parent.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
-         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         changeColorsFor: uiColors OffScreen: offScreen Cursor: cursor Animator: ranimator UpdateNow: updateNow = ( |
-             hsbCol.
-             index.
-             oldLoc.
-             rgbCol.
-             sat.
-             windowBitmapSize.
-            | 
-            index: (offScreen pixelValueAt: cursor location) && 8r007.
-            windowBitmapSize: gbWindow bitmap size.
-            uiColors do: [ | :cme |
-                index = (cme index && 8r007) ifTrue: [ rgbCol: cme color ] ].
-            hsbCol: rgbCol asHSB.
-            oldLoc: cursor location.
-            sat: false.
-            cursor moveTo:
-                hsbCol asPoint: windowBitmapSize InSaturationSpace: sat.
-            cursor while: [cursor anyButtonDown] Do: [
-                sat != cursor leftButtonDown ifTrue: [
-                    sat: cursor leftButtonDown.      
-                    cursor moveTo:
-                      hsbCol asPoint: windowBitmapSize InSaturationSpace: sat.
-                ].
-                hsbCol fromPoint: cursor location
-                       SpaceSize: windowBitmapSize
-               InSaturationSpace: sat.
-                 (index = (uiColors body      index && 8r007)) ||
-                [(index = (uiColors bodyLight index && 8r007)) ||
-                [ index = (uiColors bodyDark  index && 8r007)]] ifTrue: [
-                    uiColors body      hue: hsbCol hue.
-                    uiColors bodyLight hue: hsbCol hue.
-                    uiColors bodyDark  hue: hsbCol hue.
-                    uiColors body      saturation: hsbCol saturation.
-                    uiColors bodyLight saturation: hsbCol saturation.
-                    uiColors bodyDark  saturation: hsbCol saturation.
-                ].
-                rgbCol from: hsbCol.
-                changeBackendColors: uiColors.
-                colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
-
-                updateNow value.
-            ].
-            cursor moveTo: oldLoc.
-            createColormapsColors: uiColors Animator: ranimator.
-            uiColors save.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
-         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
-        
-         createColormapsColors: uiColors Animator: ranimator = ( |
-            | 
-            createCachedColormapsColors: uiColors Animator: ranimator.
-            convertColormaps.
-            self).
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> () From: ( | {
          'Category: prototypes\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
@@ -1239,7 +1159,9 @@ SlotsToOmit: parent.
 
             initializeColorsAndPatterns.
 
-            colormapCacheInitialize.
+            uiColors restore.     "install personal color preferences"
+            graphicsBackend initializeColorCachesColors: uiColors Animator: ranimator.
+
             validateCaches.
             ' done.' printLine.
             self).
@@ -1934,7 +1856,7 @@ SlotsToOmit: parent.
             | 
             stopping ifFalse: [ 
               "hack to avoid starting ui1 unintentionally"
-              graphicsBackend invalidateAllColormaps.
+              graphicsBackend returnFromSnapshot.
               cacheUnflushable.
               restart.
             ].
@@ -2047,7 +1969,7 @@ SlotsToOmit: parent.
 
             initializePatterns.
 
-            graphicsBackend colormapInitializeWindow: window Animator: ranimator.
+            graphicsBackend initializeColorsWindow: window Animator: ranimator.
 
             world: (window isColor8 ifTrue: [uiWorld] False: [uiWorld32]) copy createForUI: self.
 

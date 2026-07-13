@@ -746,7 +746,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             cop do: [ | :b |
                 eraseAcetate.
                 syncGraphics.
-                myUI graphicsBackend colormap0 installImmediately.
+                myUI graphicsBackend prepareForAnimationWithArrows.
                 syncGraphics.
                 from: bod ReverseDo: [ | :b |
                     b displayThru.
@@ -838,7 +838,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             arr findBoundsOfFromCpt.
             windowBitmap planeMask: arrow0Mask.
             moveHeadOfArrow: arr To: arr head.
-            myUI graphicsBackend colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
+            myUI graphicsBackend prepareForAnimationWithArrows.
             windowBitmap planeMask: arrow1Mask.
             windowBitmap clear: windowBitmap size rect.
 
@@ -1219,17 +1219,11 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          moveArrows: doBlock Flip: flip = ( |
             | 
-            flip ifTrue: [
-                windowBitmap planeMask: arrow1Mask.
-                windowBitmap clear: windowBitmap size rect.
-                doBlock value.
-                myUI graphicsBackend colormap1 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
-            ] False: [
-                windowBitmap planeMask: arrow0Mask.
-                windowBitmap clear: windowBitmap size rect.
-                doBlock value.
-                myUI graphicsBackend colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
-            ].
+            [xxxxx]. "still colormap oidal"
+            windowBitmap planeMask: flip ifTrue: arrow1Mask False: arrow0Mask.
+            windowBitmap clear: windowBitmap size rect.
+            doBlock value.
+            myUI graphicsBackend postFlip: flip.
             times delay: 1. "hack to make motion blur visible on Mountain Lion, with async X fd -- dmu 1/20/13"
             self).
         } | ) 
@@ -1384,7 +1378,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                             bod findBoundsForArrows.
                             windowBitmap planeMask: arrowPlanesMask.
                             bod setAndDrawArrowsOn: windowBitmap.
-                            myUI graphicsBackend colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
+                            myUI graphicsBackend prepareForAnimationWithArrows.
                         ] False: [
                             reclipArrows: bod absoluteBound.
                             drawArrows: graphic ].
