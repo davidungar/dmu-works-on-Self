@@ -531,7 +531,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             | 
             cursorLocation: cursor location.
             computeGeometry.
-            world myUI graphicsBackend prepareToZoon.
+            world myUI graphicsBackend prepareToZoom.
             zoom.
             world prepareToDrawOnAcetate.
             draw.

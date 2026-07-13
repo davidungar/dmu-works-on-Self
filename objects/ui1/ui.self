@@ -158,47 +158,10 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
-         colormapCacheFinalize: ranimator = ( |
-            | self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
-        
-         colormapInitializeWindow: window Animator: ranimator = ( |
-            | 
-            [xxxxx].
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
          createCachedColormapsColors: uiColors Animator: ranimator = ( |
             | 
             [xxxxx].
             self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         eraseAcetate: rect On: w = ( |
-            | w windowBitmap planeMask: w movingPlaneMask. w windowBitmap fillRectangle: rect Color: w uiColors transparent).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         eraseArrow0: rect On: w = ( |
-            | w windowBitmap planeMask: w arrow0Mask. w windowBitmap fillRectangle: rect Color: w uiColors transparent).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         eraseArrow1: rect On: w = ( |
-            | w windowBitmap planeMask: w arrow1Mask. w windowBitmap fillRectangle: rect Color: w uiColors transparent).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
@@ -278,14 +241,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
          'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
-         prepareToDrawOnAcetate: w = ( |
-            | 
-            childResponsibility).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
          prepareToDrawOnAll: w = ( |
             | 
             childResponsibility).
@@ -319,14 +274,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow1: w = ( |
-            | 
-            childResponsibility).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractTraits' -> () From: ( | {
-         'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
-        
-         prepareToDrawOnBackground: w = ( |
             | 
             childResponsibility).
         } | ) 
@@ -384,13 +331,14 @@ traits ui graphicsBackends abstract. copy
          'Category: prototypes\x7fComment: the X11 graphics backend. Inherits the generic (quartz parent) backend -- makeOffscreenFor:/makeWindowBitmapFor:/plane masks/erase are platform-polymorphic via bitmap copyFor:Size: and windowBitmap planeMask:, exactly as the pre-seam uiWorld code. Only present: and installShadowOn: are overridden: X has no shadow buffer and blits the windowBitmap straight to the window. -- claude & dmu 6/2026\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          x11 = bootstrap define: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'gbWindow' From:
              bootstrap remove: 'parent' From:
              traits ui graphicsBackends abstractX11 copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11.
 
 CopyDowns:
 traits ui graphicsBackends abstractX11. copy 
-SlotsToOmit: parent.
+SlotsToOmit: gbWindow parent.
 
 '.
             | ) .

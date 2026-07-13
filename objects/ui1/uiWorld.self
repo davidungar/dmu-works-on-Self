@@ -240,24 +240,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
-         'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
-        
-         arrow0Mask = 64.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
-         'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
-        
-         arrow1Mask = 128.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
-         'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
-        
-         arrowPlanesMask = 192.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          banishAllBodies = ( | {
@@ -586,7 +568,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          eraseAcetate: rect = ( |
             | 
-            myUI graphicsBackend eraseAcetate: rect On: self.
+            myUI graphicsBackend eraseAcetate: rect Colors: uiColors.
             self).
         } | ) 
 
@@ -602,7 +584,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          eraseArrow0: rect = ( |
             | 
-            myUI graphicsBackend eraseArrow0: rect On: self.
+            myUI graphicsBackend eraseArrow0: rect Transparent: uiColors transparent.
             self).
         } | ) 
 
@@ -618,7 +600,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          eraseArrow1: rect = ( |
             | 
-            myUI graphicsBackend eraseArrow1: rect On: self.
+            myUI graphicsBackend eraseArrow1: rect Transparent: uiColors transparent.
             self).
         } | ) 
 
@@ -836,11 +818,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             graphic copyTo: windowBitmap.
 
             arr findBoundsOfFromCpt.
-            windowBitmap planeMask: arrow0Mask.
-            moveHeadOfArrow: arr To: arr head.
-            myUI graphicsBackend prepareForAnimationWithArrows.
-            windowBitmap planeMask: arrow1Mask.
-            windowBitmap clear: windowBitmap size rect.
+            myUI graphicsBackend moveArrowHeadUsing: [moveHeadOfArrow: arr To: arr head].
 
             "move the arrow"
             cursor while: [cursor anyButtonDown] Do: [ | :nextLocation |
@@ -850,7 +828,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             ].
 
             "clean up after moving"
-            windowBitmap useAllBitplanes.
+            myUI graphicsBackend prepareToCopyAllLayers.
             reinstateStatic.
             arrows add: arr.
 
@@ -1219,12 +1197,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          moveArrows: doBlock Flip: flip = ( |
             | 
-            [xxxxx]. "still colormap oidal"
-            windowBitmap planeMask: flip ifTrue: arrow1Mask False: arrow0Mask.
-            windowBitmap clear: windowBitmap size rect.
-            doBlock value.
-            myUI graphicsBackend postFlip: flip.
-            times delay: 1. "hack to make motion blur visible on Mountain Lion, with async X fd -- dmu 1/20/13"
+            myUI graphicsBackend moveArrows: doBlock Flip: flip.
             self).
         } | ) 
 
@@ -1336,12 +1309,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
-         'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
-        
-         movingPlaneMask = 56.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          notifyTopObject = ( |
@@ -1376,7 +1343,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                             reclipArrows: bod absoluteBound.
                             drawArrows: graphic.
                             bod findBoundsForArrows.
-                            windowBitmap planeMask: arrowPlanesMask.
+                            myUI graphicsBackend prepareToDrawArrows.
                             bod setAndDrawArrowsOn: windowBitmap.
                             myUI graphicsBackend prepareForAnimationWithArrows.
                         ] False: [
@@ -1399,7 +1366,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          prepareToDrawOnAcetate = ( |
             | 
-            myUI graphicsBackend prepareToDrawOnAcetate: self.
+            myUI graphicsBackend prepareToDrawOnAcetate.
             self).
         } | ) 
 
@@ -1453,7 +1420,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          prepareToDrawOnBackground = ( |
             | 
-            myUI graphicsBackend prepareToDrawOnBackground: self.
+            myUI graphicsBackend prepareToDrawOnBackground.
             self).
         } | ) 
 
@@ -1648,13 +1615,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             graphic copy: arect To: windowBitmap At: arect topLeft.
             draw3dExtension: (arect bottomLeft addY: 1)
                          To: (arect bottomRight addY: 1).
-            windowBitmap useAllBitplanes.
+            myUI graphicsBackend prepareToCopyAllLayers
             sliver: bitmap copyFor: window Size: rect size.
             bod graphic copy: rect To: sliver.
 
             changeBlock value.
 
-            windowBitmap planeMask: movingPlaneMask.
+            myUI graphicsBackend prepareToMoveBlock.
             leftLoc: arect topLeft subtractX: arect size x + 10.
             leftB: (peakingInBetweener
                     copyFrom: arect topLeft To: leftLoc Steps: steps)
@@ -1737,12 +1704,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: printing\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          statePrintString = ''.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
-         'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
-        
-         stationaryPlaneMask = 7.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
