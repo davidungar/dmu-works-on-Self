@@ -508,6 +508,7 @@ SlotsToOmit: parent.
         
          activateUpdating = ( |
             | 
+            [updateCheaply]. "browsing"
             alarm: ping copyMessage: (message copy receiver: self
                                                    Selector: 'updateCheaply')
                   RepeatingInterval: minUpdateInterval).
@@ -707,7 +708,7 @@ SlotsToOmit: parent.
         
          checkCaches = ( |
             | 
-            isCacheValid not || [graphicsBackend window displayName != graphicsBackend prevDisplayName]
+            isCacheValid not || [graphicsBackend gbWindow displayName != graphicsBackend prevDisplayName]
               ifTrue: [ initializeCaches ]).
         } | ) 
 
@@ -1081,6 +1082,57 @@ SlotsToOmit: parent.
 
 '.
             | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         changeColorsFor: uiColors OffScreen: offScreen Cursor: cursor Animator: ranimator UpdateNow: updateNow = ( |
+             hsbCol.
+             index.
+             oldLoc.
+             rgbCol.
+             sat.
+             windowBitmapSize.
+            | 
+            index: (offScreen pixelValueAt: cursor location) && 8r007.
+            windowBitmapSize: gbWindow bitmap size.
+            uiColors do: [ | :cme |
+                index = (cme index && 8r007) ifTrue: [ rgbCol: cme color ] ].
+            hsbCol: rgbCol asHSB.
+            oldLoc: cursor location.
+            sat: false.
+            cursor moveTo:
+                hsbCol asPoint: windowBitmapSize InSaturationSpace: sat.
+            cursor while: [cursor anyButtonDown] Do: [
+                sat != cursor leftButtonDown ifTrue: [
+                    sat: cursor leftButtonDown.      
+                    cursor moveTo:
+                      hsbCol asPoint: windowBitmapSize InSaturationSpace: sat.
+                ].
+                hsbCol fromPoint: cursor location
+                       SpaceSize: windowBitmapSize
+               InSaturationSpace: sat.
+                 (index = (uiColors body      index && 8r007)) ||
+                [(index = (uiColors bodyLight index && 8r007)) ||
+                [ index = (uiColors bodyDark  index && 8r007)]] ifTrue: [
+                    uiColors body      hue: hsbCol hue.
+                    uiColors bodyLight hue: hsbCol hue.
+                    uiColors bodyDark  hue: hsbCol hue.
+                    uiColors body      saturation: hsbCol saturation.
+                    uiColors bodyLight saturation: hsbCol saturation.
+                    uiColors bodyDark  saturation: hsbCol saturation.
+                ].
+                rgbCol from: hsbCol.
+                changeBackendColors: uiColors.
+                colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
+
+                updateNow value.
+            ].
+            cursor moveTo: oldLoc.
+            createColormapsColors: uiColors Animator: ranimator.
+            uiColors save.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> () From: ( | {
@@ -2333,6 +2385,7 @@ SlotsToOmit: parent.
         
          updateCheaply = ( |
             | 
+            [requestUpdateCheaply]. "browsing"
             ifRunning: [ | args = vector copySize: 0 |
                 handler queue: 'requestUpdateCheaply' With: args ]).
         } | ) 

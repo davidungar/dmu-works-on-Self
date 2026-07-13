@@ -374,46 +374,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: colorChanging\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          changeColors = ( |
-             hsbCol.
-             index.
-             oldLoc.
-             rgbCol.
-             sat.
             | 
-            index: (offScreen pixelValueAt: cursor location) && 8r007.
-            uiColors do: [ | :cme |
-                index = (cme index && 8r007) ifTrue: [ rgbCol: cme color ] ].
-            hsbCol: rgbCol asHSB.
-            oldLoc: cursor location.
-            sat: false.
-            cursor moveTo:
-                hsbCol asPoint: windowBitmap size InSaturationSpace: sat.
-            cursor while: [cursor anyButtonDown] Do: [
-                sat != cursor leftButtonDown ifTrue: [
-                    sat: cursor leftButtonDown.      
-                    cursor moveTo:
-                      hsbCol asPoint: windowBitmap size InSaturationSpace: sat.
-                ].
-                hsbCol fromPoint: cursor location
-                       SpaceSize: windowBitmap size
-               InSaturationSpace: sat.
-                 (index = (uiColors body      index && 8r007)) ||
-                [(index = (uiColors bodyLight index && 8r007)) ||
-                [ index = (uiColors bodyDark  index && 8r007)]] ifTrue: [
-                    uiColors body      hue: hsbCol hue.
-                    uiColors bodyLight hue: hsbCol hue.
-                    uiColors bodyDark  hue: hsbCol hue.
-                    uiColors body      saturation: hsbCol saturation.
-                    uiColors bodyLight saturation: hsbCol saturation.
-                    uiColors bodyDark  saturation: hsbCol saturation.
-                ].
-                rgbCol from: hsbCol.
-                myUI graphicsBackend changeBackendColors: uiColors.
-                myUI graphicsBackend colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo.
-            ].
-            cursor moveTo: oldLoc.
-            myUI graphicsBackend createColormapsColors: uiColors Animator: myUI ranimator.
-            uiColors save.
+            myUI graphicsBackend 
+             changeColorsFor: uiColors 
+              OffScreen: offScreen
+              Cursor: cursor 
+              Animator: myUI ranimator
+              UpdateNow: [display].
             self).
         } | ) 
 
