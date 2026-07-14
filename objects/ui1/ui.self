@@ -2189,7 +2189,7 @@ SlotsToOmit: parent.
          windowChanged: rect Event: event = ( |
             | 
             resend.windowChanged: rect Event: event.
-            halt.
+            [xxxxx].
             world windowChanged.
             world draw.
             resetBodyPosition.

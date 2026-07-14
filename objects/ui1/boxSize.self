@@ -525,7 +525,6 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
               loadRomanFont ].
             ].
             loadBoldFont: [ loadFont: bf Style: 'bold' Size: bfs For: win IfFail: loadRomanFont ].
-
             boxFont:              loadRomanFont value.
             boxPublicFont:        loadBoldFont value.
             boxPrivateFont:       loadItalicFont value.

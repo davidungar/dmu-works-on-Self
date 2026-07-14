@@ -143,6 +143,22 @@ SlotsToOmit: gbWindow.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
         
+         tryToOpenWindowForDisplay: disp IfFail: fb = ( |
+            | 
+            gbWindow displayName: optimalNameForDisplay: disp.
+            [todo ui1 dmu experimental]. [xxxxx].
+            openWindowOrCanvas: windowDepth IfFail: [|:e| ^ fb value: e].
+            gbWindow finishOpening.
+            checkColor8IfFail: [ 
+              openWindowError.
+              couldNotStart
+            ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
          windowPrototype = ( |
             | x11Globals window).
         } | ) 
@@ -867,6 +883,22 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         openWindowOrCanvas: depth IfFail: fb = ( |
+            | 
+            [xxxxx].
+            gbWindow display: xlib display 
+                open: gbWindow displayName
+                IfFail: [
+                    ^ fblock value: 'Could not open X display \'', gbWindow interpretedDisplayName, '\'.' 
+                ].
+            gbWindow xwin: xlib window createOnDisplay: gbWindow display
+                                         At: gbWindow position Size: gbWindow size Depth: depth.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> ().
@@ -1038,21 +1070,6 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
         
-         tryToOpenWindowForDisplay: disp IfFail: fb = ( |
-            | 
-            gbWindow displayName: optimalNameForDisplay: disp.
-            [todo ui1 dmu experimental].
-            gbWindow openDepth: windowDepth IfFail: fblock.
-            checkColor8IfFail: [ 
-              openWindowError.
-              couldNotStart
-            ].
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
-        
          windowDepth = 8.
         } | ) 
 
@@ -1073,40 +1090,77 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> 'parent' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11OnCanvas parent.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> 'parent' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         checkColor8IfFail: fb = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> 'parent' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
         
          copy = ( |
             | resend.copy windowCanvas: windowCanvas copy).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> 'parent' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
         
          name = 'xOnCanvas'.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
-         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> 'parent' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
         
-         parent* = bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {
-         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: private'
-        
-         tryToOpenWindowForDisplay: disp IfFail: fblock = ( |
+         openWindowOrCanvas: depth IfFail: fb = ( |
             | 
-            gbWindow displayName: optimalNameForDisplay: disp.
+
             [addWindowOnDisplay: dispName Bounds: b Limited: false].
-            windowCanvas copyOpenForWorld: (|doubleBuffering <- true. name <- 'Experimental UI on x11OnCanvas'|) 
+            [xxxxx].
+            windowCanvas: windowCanvas copyOpenForWorld: phoneyBaloneyUI2World
                 OnDisplay: gbWindow displayName 
                 At: gbWindow position
                  Width: gbWindow size x 
                 Height: gbWindow size y.
-            [todo ui1 dmu experimental].
-            halt. "call canvas openForWOrld"
-            window openIfFail: fblock.
+            gbWindow display: windowCanvas display.
+            gbWindow xwin: windowCanvas platformWindow.
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> 'parent' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         parent* = bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'abstractX11Traits' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> 'parent' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         phoneyBaloneyUI2World = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> 'parent' -> 'phoneyBaloneyUI2World' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui graphicsBackends x11OnCanvas parent phoneyBaloneyUI2World.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> 'parent' -> 'phoneyBaloneyUI2World' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         doubleBuffering <- bootstrap stub -> 'globals' -> 'true' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> 'parent' -> 'phoneyBaloneyUI2World' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
+        
+         name <- 'Experimental UI on x11OnCanvas'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'graphicsBackends' -> 'x11OnCanvas' -> () From: ( | {

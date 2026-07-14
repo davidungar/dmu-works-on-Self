@@ -757,6 +757,28 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindow' -> () From: ( | {
+         'Category: creating\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: private'
+        
+         finishOpening = ( |
+            | 
+             [todo ui1 dmu experimental].
+            icon: createIcon: iconFilename.
+            xwin configureAsTopLevelNamed: name IconName: iconName Icon: icon EventMask: handler eventsToCatch.
+
+            display gc graphics_exposures: false.
+
+            createBitmap.
+            createCursor.
+
+            init.
+            spawnEventWatcherProcess.
+
+            synchronous ifTrue: [ display synchronize: true ].
+
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindow' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
         
          interpretedDisplayName = ( |
@@ -782,34 +804,6 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
         
          isMono = ( |
             | display isMonochrome).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindow' -> () From: ( | {
-         'Category: creating\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: private'
-        
-         openDepth: d IfFail: fblock = ( |
-            | 
-             [todo ui1 dmu experimental].
-            display: xlib display open: displayName
-                                IfFail: [ ^ fblock value:
-                                          'Could not open X display \'',
-                                          interpretedDisplayName,
-                                          '\'.' ].
-            xwin: xlib window createOnDisplay: display At: position Size: size Depth: d.
-            icon: createIcon: iconFilename.
-            xwin configureAsTopLevelNamed: name IconName: iconName Icon: icon EventMask: handler eventsToCatch.
-
-            display gc graphics_exposures: false.
-
-            createBitmap.
-            createCursor.
-
-            init.
-            spawnEventWatcherProcess.
-
-            synchronous ifTrue: [ display synchronize: true ].
-
-            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindow' -> () From: ( | {

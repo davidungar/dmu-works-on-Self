@@ -1199,7 +1199,12 @@ fntype(&call_and_convert5_glue),
 {
 "KillActivationsUpTo:", fntype(&KillUpTo_prim_glue),
  ExternalPrimitive, UnknownPrimType,
- true, true, false, true,  false, false, // SIDEEFFECTS & CAN_CAUSE_SCAVENGE
+ SIDEEFFECTS_CANABORT,
+ // Was SIDEEFFECTS & CAN_CAUSE_SCAVENGE, but the ported kill flow parks the
+ // killer inside this prim during the unwind hand-back, so the killer must
+ // survive being aborted there: checkAbort (Process::kill) fatals on any
+ // live prim frame lacking canAbortProcess.  It walks the target's stack
+ // (vframe_at/killFrames), so canWalkStack too. -- claude & dmu 7/2026
  "Receiver is a process (not the current process or the scheduler); "
  "argument is the number of activations to kill."
 },
