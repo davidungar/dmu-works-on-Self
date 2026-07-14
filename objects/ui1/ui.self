@@ -454,7 +454,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Comment: usually, you should just use the prototype instead of copying your own\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          copy = ( |
-            | resend.copy init).
+            | 
+            ( resend.copy graphicsBackend: graphicsBackend copy) init).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
