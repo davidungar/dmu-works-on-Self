@@ -8,9 +8,9 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
-         'ModuleInfo: Module: allUI InitialContents: FollowSlot'
+         'ModuleInfo: Module: allUI1 InitialContents: FollowSlot'
         
-         allUI = bootstrap define: bootstrap stub -> 'globals' -> 'modules' -> 'allUI' -> () ToBe: bootstrap addSlotsTo: (
+         allUI1 = bootstrap define: bootstrap stub -> 'globals' -> 'modules' -> 'allUI1' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'comment' From:
              bootstrap remove: 'directory' From:
              bootstrap remove: 'fileInTimeString' From:
@@ -18,8 +18,8 @@ See the LICENSE file for license information.
              bootstrap remove: 'postFileIn' From:
              bootstrap remove: 'revision' From:
              bootstrap remove: 'subpartNames' From:
-             globals modules init copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'modules' -> 'allUI' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals modules allUI.
+             globals modules init copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'modules' -> 'allUI1' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals modules allUI1.
 
 CopyDowns:
 globals modules init. copy 
@@ -29,32 +29,32 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allUI' -> () From: ( | {
-         'ModuleInfo: Module: allUI InitialContents: FollowSlot\x7fVisibility: public'
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allUI1' -> () From: ( | {
+         'ModuleInfo: Module: allUI1 InitialContents: FollowSlot\x7fVisibility: public'
         
          directory <- 'ui1'.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allUI' -> () From: ( | {
-         'ModuleInfo: Module: allUI InitialContents: InitializeToExpression: (_CurrentTimeString)\x7fVisibility: public'
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allUI1' -> () From: ( | {
+         'ModuleInfo: Module: allUI1 InitialContents: InitializeToExpression: (_CurrentTimeString)\x7fVisibility: public'
         
          fileInTimeString <- _CurrentTimeString.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allUI' -> () From: ( | {
-         'ModuleInfo: Module: allUI InitialContents: FollowSlot'
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allUI1' -> () From: ( | {
+         'ModuleInfo: Module: allUI1 InitialContents: FollowSlot'
         
          myComment <- 'Read in all objects in the ui.'.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allUI' -> () From: ( | {
-         'ModuleInfo: Module: allUI InitialContents: FollowSlot\x7fVisibility: public'
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allUI1' -> () From: ( | {
+         'ModuleInfo: Module: allUI1 InitialContents: FollowSlot\x7fVisibility: public'
         
          revision <- 'Sun-$Revision: 30.8 $'.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allUI' -> () From: ( | {
-         'ModuleInfo: Module: allUI InitialContents: FollowSlot\x7fVisibility: private'
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allUI1' -> () From: ( | {
+         'ModuleInfo: Module: allUI1 InitialContents: FollowSlot\x7fVisibility: private'
         
          subpartNames <- '
 	 ui1Event
@@ -113,14 +113,14 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'mixins' -> () From: ( | {
-         'Category: system\x7fComment: for compatability with pre-encapsulated ui1\x7fModuleInfo: Module: allUI InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: system\x7fComment: for compatability with pre-encapsulated ui1\x7fModuleInfo: Module: allUI1 InitialContents: FollowSlot\x7fVisibility: public'
         
          ui = ( |
             | ui1 ui).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'mixins' -> () From: ( | {
-         'ModuleInfo: Module: allUI InitialContents: FollowSlot\x7fVisibility: public'
+         'ModuleInfo: Module: allUI1 InitialContents: FollowSlot\x7fVisibility: public'
         
          userInterface = bootstrap setObjectAnnotationOf: bootstrap stub -> 'mixins' -> 'userInterface' -> () From: ( |
              {} = 'ModuleInfo: Creator: mixins userInterface.
@@ -175,4 +175,4 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
 
  '-- Side effects'
 
- globals modules allUI postFileIn
+ globals modules allUI1 postFileIn
