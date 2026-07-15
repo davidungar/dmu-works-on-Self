@@ -113,6 +113,13 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'mixins' -> () From: ( | {
+         'Category: system\x7fComment: for compatability with pre-encapsulated ui1\x7fModuleInfo: Module: allUI InitialContents: FollowSlot\x7fVisibility: public'
+        
+         ui = ( |
+            | ui1 ui).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'mixins' -> () From: ( | {
          'ModuleInfo: Module: allUI InitialContents: FollowSlot\x7fVisibility: public'
         
          userInterface = bootstrap setObjectAnnotationOf: bootstrap stub -> 'mixins' -> 'userInterface' -> () From: ( |

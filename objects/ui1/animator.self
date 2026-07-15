@@ -7,46 +7,46 @@ See the LICENSE file for license information.
 
  '-- Module body'
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
-         dummyAnimator = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'dummyAnimator' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals dummyAnimator.
+         dummyAnimator = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'dummyAnimator' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 dummyAnimator.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
-         dummyAnimator = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits dummyAnimator.
+         dummyAnimator = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 dummyAnimator.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
-         parent* = bootstrap stub -> 'traits' -> 'dummyAnimator' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
-         uiColors <- bootstrap stub -> 'globals' -> 'uiColorPalette' -> ().
+         uiColors <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
-         uiPatterns <- bootstrap stub -> 'globals' -> 'uiPatternPalette' -> ().
+         uiPatterns <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
-         world <- bootstrap stub -> 'globals' -> 'uiWorld' -> ().
+         world <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiWorld' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
@@ -100,91 +100,91 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          subpartNames <- ''.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
-         realAnimator = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals realAnimator.
+         realAnimator = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'realAnimator' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 realAnimator.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot'
         
          anticipationMagnitude <- 20.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
          delay <- 10.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot'
         
          noAnticipation <- bootstrap stub -> 'globals' -> 'false' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot'
         
          noFollowThrough <- bootstrap stub -> 'globals' -> 'false' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot'
         
          noSlowInOut <- bootstrap stub -> 'globals' -> 'false' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
-         realAnimator = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits realAnimator.
+         realAnimator = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 realAnimator.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
-         parent* = bootstrap stub -> 'traits' -> 'realAnimator' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot'
         
          straightLines <- bootstrap stub -> 'globals' -> 'false' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
-         uiColors <- bootstrap stub -> 'globals' -> 'uiColorPalette' -> ().
+         uiColors <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
-         uiPatterns <- bootstrap stub -> 'globals' -> 'uiPatternPalette' -> ().
+         uiPatterns <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot'
         
          wiggleMagnitude <- 4.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
-         world <- bootstrap stub -> 'globals' -> 'uiWorld' -> ().
+         world <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiWorld' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          accelerateBody: bod To: dest = ( |
@@ -192,43 +192,43 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             moveBody: bod To: dest).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: wiggling\x7fModuleInfo: Module: animator InitialContents: FollowSlot'
         
          arcAnticipateBody: bod To: pt = ( |
             | moveBody: bod To: pt).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: wiggling\x7fModuleInfo: Module: animator InitialContents: FollowSlot'
         
          arcWiggleBody: bod To: pt = ( |
             | moveBody: bod To: pt).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          convertColormaps = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          createCachedColormapsGraphics: graphics = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: wiggling\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          createSproutingArrowFrom: f To: t Width: w = ( |
             | 
-            uiArrow copy from: f To: t Width: w).
+            ui1 uiArrow copy from: f To: t Width: w).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          decelerateBody: bod To: dest = ( |
@@ -236,35 +236,35 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             moveBody: bod To: dest).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          delay: x = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          deleteCachedColormaps = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          deleteColormaps = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: arrowSprouting\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          desproutArrow: a = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          desproutArrowsArcAnticipateBody: bod To: dest = ( |
@@ -272,14 +272,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             moveBody: bod To: dest).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          displayAndFadeOutAcetate = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: slidingRegion\x7fModuleInfo: Module: animator InitialContents: FollowSlot'
         
          hideRegion: origrect OfBody: bod SlotCpt: sb = ( |
@@ -289,7 +289,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: morphing\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          hideSlot: sb OfBody: bod = ( |
@@ -299,21 +299,21 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          invalidateAllColormaps = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          makeAndConvertColormapsFor: x PlatformColormap: pc = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          moveBody: bod To: dest = ( |
@@ -322,72 +322,72 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: slidingRegion\x7fModuleInfo: Module: animator InitialContents: FollowSlot'
         
          ripOutRegion: origrect Of: bod = ( |
             | 
-            "assumes bod is an objectBody!"
+            "assumes bod is an ui1 objectBody!"
             world myUI requestUpdate: bod objMirror.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: arrowSprouting\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          sproutArrow: a = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: sprouting\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          sproutBody: nb FromPoint: pt = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: sprouting\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          sproutBody: nb FromPoint: pt HasArrow: hasArrow FromCpt: cpt IsParent: isParent = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: wiggling\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          sproutWiggleArrow: arr Init: init = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: wiggling\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          wiggleBody: bod Direction: dir = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot'
         
          xxxxx = ( |
-            | [xxxxx]. "delete slots not in realAnimator").
+            | [xxxxx]. "delete slots not in ui1 realAnimator").
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
          'Category: morphing\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          zoomSlab: s To: e = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          accelerateBody: bod To: dest = ( | {
@@ -427,7 +427,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             moveBody: bod InBetweeners: (antiB & dropB) asVector).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: slidingRegion\x7fModuleInfo: Module: animator InitialContents: FollowSlot'
         
          animateSliver: sliver With: tweener StartingAt: pt = ( |
@@ -459,7 +459,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             newRect).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          anticipateBody: bod To: dest = ( | {
@@ -499,7 +499,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             moveBody: bod InBetweeners: (antiB & inB) asVector).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          arcAnticipateBody: bod To: dest = ( | {
@@ -578,7 +578,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             moveBody: bod InBetweeners: (antiB & inB) asVector).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          arcBody: bod To: dest = ( | {
@@ -619,7 +619,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             moveBody: bod InBetweeners: vector copySize: 1 FillingWith: inB).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          arcWiggleBody: bod To: dest = ( | {
@@ -750,7 +750,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             moveBody: bod InBetweeners: ((wigB addFirst: inB) addFirst: antiB)).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          arcWiggleNoAntBody: bod To: dest = ( | {
@@ -854,7 +854,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             moveBody: bod InBetweeners: (wigB addFirst: inB)).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          arcWiggleNoAntBody: bod To: dest SproutingArrowFrom: cpt IsParent: isParent = ( |
@@ -924,8 +924,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                             t: isParent ifTrue: [ world boxSizing parentArrowWidth ]
                                          False: [ world boxSizing dataArrowWidth   ].
 
-                        slb: slab copyFromRect: dest ##! bod size.
-                        narr: uiArrow copy from: cpt To: bod Width: t.
+                        slb: ui1 slab copyFromRect: dest ##! bod size.
+                        narr: ui1 uiArrow copy from: cpt To: bod Width: t.
                         bod animateToArrowsSetup.
                         narr setToCpt: slb.
                         tweener: xB_proto copyFrom: narr tail To: narr head Steps: steps.
@@ -950,15 +950,15 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                         narr).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: wiggling\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          createSproutingArrowFrom: f To: t Width: w = ( |
             | 
-            uiArrow copy createFrom: f To: t Width: w All: world bodies).
+            ui1 uiArrow copy createFrom: f To: t Width: w All: world bodies).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          decelerateBody: bod To: dest = ( | {
@@ -974,7 +974,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             moveBody: bod InBetweeners: inBs).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: arrowSprouting\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          desproutArrow: a = ( | {
@@ -1000,7 +1000,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          desproutArrowsArcAnticipateBody: bod To: dest = ( |
@@ -1087,7 +1087,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                         self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          dissolve = ( |
@@ -1099,7 +1099,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          dissolve: bod = ( |
@@ -1118,19 +1118,19 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
          dissolveSteps = 8.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
          fastDissolveSteps = 4.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: slidingRegion\x7fModuleInfo: Module: animator InitialContents: FollowSlot'
         
          hideRegion: origrect OfBody: bod SlotCpt: sb = ( | {
@@ -1151,7 +1151,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
 
             world slideOutRegion: origrect
                     OfBody: bod
-                  Changing: [ endSlab: slab copyFromPoint:
+                  Changing: [ endSlab: ui1 slab copyFromPoint:
                                          bod hsButton absoluteBound leftCenter.
                               bod hide: sb. ]
                      Setup: [ | :leftLoc. offLoc. steps = 8. |
@@ -1165,11 +1165,11 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                               rect: animateSliver: sliver
                                              With: downB
                                        StartingAt: prevRect topLeft.
-                              startSlab: slab copyFromRect: rect.
+                              startSlab: ui1 slab copyFromRect: rect.
                               zoomSlab: startSlab To: endSlab. ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: morphing\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          hideSlot: sb OfBody: bod = ( |
@@ -1188,9 +1188,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                                     y2: y1 + sb size y pred.
                                     yc: (y1 + y2) / 2.
                                     oldWidth: bod bound width.
-                                    gr: boxBitmap copyFor: world myUI window Size: bod graphic size.
+                                    gr: ui1 boxBitmap copyFor: world myUI window Size: bod graphic size.
                                     bod graphic copyTo: gr.
-                                    oldbod: objectBody clone graphic: gr.
+                                    oldbod: ui1 objectBody clone graphic: gr.
                                     oldbod size: bod size.
                                     oldbod location: bod location.
                                     world prepareForAnimation: bod IncludeArrows: false.
@@ -1205,7 +1205,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                                         oldBound: oldRegions bound.
                                         world prepareToDrawOnAcetate.
                                         oldRegions tweenTo: newRegions Do: [ | :reg. newBound. |
-            objBodyRegions debug ifTrue: [ halt. ].
+            ui1 objBodyRegions debug ifTrue: [ halt. ].
                                           newBound: reg drawBody: oldbod To: world windowBitmap.
                                           (oldBound deltaList: newBound) do: [ | :rect |
                                             world eraseAcetate: rect ].
@@ -1219,7 +1219,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                                     self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: wiggling\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
          inBetweenersForDecelerateWiggleBody: bod Start: start End: end Direction: dir = ( | {
@@ -1276,7 +1276,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             inBs asList).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          moveAntWiggleBody: bod To: dest = ( | {
@@ -1384,7 +1384,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             moveBody: bod InBetweeners: ((wigB addFirst: inB) addFirst: antiB)).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
          moveBody: bod InBetweeners: inBs = ( |
@@ -1400,7 +1400,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          moveBody: bod To: dest = ( | {
@@ -1424,7 +1424,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
              moveBody: bod InBetweeners: vector copyAddFirst: inB).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: cursorMoving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          moveCursor: c To: pt = ( | {
@@ -1440,7 +1440,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: moving\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          moveWiggleBody: bod To: dest = ( | {
@@ -1514,13 +1514,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             moveBody: bod InBetweeners: (wigB addFirst: inB)).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: slidingRegion\x7fModuleInfo: Module: animator InitialContents: FollowSlot'
         
          ripOutRegion: origrect Of: bod = ( | {
@@ -1552,7 +1552,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                                  StartingAt: prevRect topLeft. ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: morphing\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          showSlotOfBody: bod CuttingBlock: cutter = ( |
@@ -1565,9 +1565,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                         oldRegions: bod regions copy.
                         oldRegions location: bod location.
                         oldWidth: bod bound width.
-                        gr: boxBitmap copyFor: world myUI window Size: bod graphic size.
+                        gr: ui1 boxBitmap copyFor: world myUI window Size: bod graphic size.
                         bod graphic copyTo: gr.
-                        oldbod: objectBody clone graphic: gr.
+                        oldbod: ui1 objectBody clone graphic: gr.
                         oldbod size: bod size.
                         oldbod location: bod location.
                         world prepareForAnimation: bod IncludeArrows: false.
@@ -1584,7 +1584,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                             oldBound: oldRegions bound.
                             world prepareToDrawOnAcetate.
                             newRegions tweenFrom: oldRegions Do: [ | :reg. newBound. |
-            objBodyRegions debug ifTrue: [ halt. ].
+            ui1 objBodyRegions debug ifTrue: [ halt. ].
                               newBound: reg drawBody: bod To: world windowBitmap.
                               (oldBound deltaList: newBound) do: [ | :rect |
                                 world eraseAcetate: rect ].
@@ -1598,7 +1598,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                         self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: arrowSprouting\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          sproutArrow: a = ( | {
@@ -1623,7 +1623,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: sprouting\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          sproutBody: nb FromPoint: pt = ( |
@@ -1632,7 +1632,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                FromCpt: nil IsParent: nil).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: sprouting\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          sproutBody: nb FromPoint: pt HasArrow: hasArrow FromCpt: cpt IsParent: isParent = ( | {
@@ -1650,11 +1650,11 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 }  {
                  'ModuleInfo: Module: animator InitialContents: FollowSlot'
                 
-                 ns <- bootstrap stub -> 'globals' -> 'slab' -> ().
+                 ns <- bootstrap stub -> 'globals' -> 'ui1' -> 'slab' -> ().
                 }  {
                  'ModuleInfo: Module: animator InitialContents: FollowSlot'
                 
-                 os <- bootstrap stub -> 'globals' -> 'slab' -> ().
+                 os <- bootstrap stub -> 'globals' -> 'ui1' -> 'slab' -> ().
                 }  {
                  'ModuleInfo: Module: animator InitialContents: FollowSlot'
                 
@@ -1676,7 +1676,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             noSlowInOut ifTrue: [ pib_proto: linearInBetweener ].
 
             ns: nb asSlab.
-            os: slab copyFromPoint: pt.
+            os: ui1 slab copyFromPoint: pt.
             mustClear: (ns encloses: os) not.
             world eraseAcetate.
             prevSlab: os.
@@ -1684,7 +1684,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 arrowBound: prevSlab bound.
                 t: isParent ifTrue: [ world boxSizing parentArrowWidth ]
                              False: [ world boxSizing dataArrowWidth   ].
-                narr: uiArrow copy createFrom: cpt To: nb Width: t All: vector.
+                narr: ui1 uiArrow copy createFrom: cpt To: nb Width: t All: vector.
             ].
             world eraseArrowLayers.
             world prepareToDrawOnAcetate.
@@ -1710,7 +1710,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
              self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: wiggling\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          sproutWiggleArrow: arr Init: init = ( | {
@@ -1757,7 +1757,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: wiggling\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          wiggleBody: bod Direction: dir = ( | {
@@ -1774,7 +1774,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             moveBody: bod InBetweeners: inBs).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: morphing\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          winkOut: bod From: y1 To: y2 = ( |
@@ -1826,7 +1826,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                         self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'realAnimator' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
          'Category: morphing\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          zoomSlab: startSlab To: endSlab = ( | {
@@ -1836,7 +1836,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 }  {
                  'ModuleInfo: Module: animator InitialContents: FollowSlot'
                 
-                 prevSlab <- bootstrap stub -> 'globals' -> 'slab' -> ().
+                 prevSlab <- bootstrap stub -> 'globals' -> 'ui1' -> 'slab' -> ().
                 } 
             | 
             noSlowInOut ifTrue: [ pib_proto: linearInBetweener ].

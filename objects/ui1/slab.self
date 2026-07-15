@@ -59,63 +59,63 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          subpartNames <- ''.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: graphics\x7fModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
-         slab = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'slab' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals slab.
+         slab = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'slab' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 slab.
 \x7fIsComplete: '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: publicReadPrivateWrite'
         
          back <- bootstrap stub -> 'globals' -> 'rectangle' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: publicReadPrivateWrite'
         
          front <- bootstrap stub -> 'globals' -> 'rectangle' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
          'Category: graphics\x7fModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
-         slab = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'slab' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits slab.
+         slab = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 slab.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: private'
         
-         parent* = bootstrap stub -> 'traits' -> 'slab' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
-         storeStringNeeds = bootstrap stub -> 'globals' -> 'slab' -> ().
+         storeStringNeeds = bootstrap stub -> 'globals' -> 'ui1' -> 'slab' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot'
         
          absoluteFrontFace = ( |
             | front).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
          absoluteLocationForArrowhead: arr = ( |
             | edgePointClosestTo: arr tail).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot'
         
          bound = ( |
@@ -123,7 +123,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             (front left @ back top) # ((back right @ front bottom) + (1@1))).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
          copyFromPoint: pt = ( |
@@ -133,28 +133,28 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             copyFront: r Back: r).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
          copyFromRect: rect = ( |
             | copyFront: rect Back: rect).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
          copyFront: f Back: b = ( |
             | (copy front: f) back: b).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
          copyX: x Y: y = ( |
             | copyFront: x   Back: y).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
          drawOn: bm UIColors: uiColors = ( |
@@ -178,14 +178,14 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: private'
         
          edgePointClosestTo: p = ( |
             | absoluteFrontFace pointClosestToPoint: p).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
          encloses: aSlab = ( |
@@ -193,13 +193,13 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             (front encloses: aSlab front)  &&  [back encloses: aSlab back]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'pair' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot'
         
          rightSide = ( | {
@@ -216,13 +216,13 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             r).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: private'
         
          separator = ' [] '.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
          statePrintString = ( |
@@ -230,7 +230,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             front printString, ', ', back printString).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot'
         
          top = ( | {
@@ -247,7 +247,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             r).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
          translateBy: pr = ( |
@@ -255,14 +255,14 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             Back:  back  translateBy: pr).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
          x = ( |
             | front).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slab' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slab' -> () From: ( | {
          'ModuleInfo: Module: slab InitialContents: FollowSlot\x7fVisibility: public'
         
          y = ( |

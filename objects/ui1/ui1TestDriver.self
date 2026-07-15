@@ -7,64 +7,64 @@ See the LICENSE file for license information.
 
  '-- Module body'
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: userInterface
 ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
 
-         ui1TestDriver = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1TestDriver' -> () From: ( |
+         testDriver = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'testDriver' -> () From: ( |
              {} = 'Comment: Drives ui1 autonomously by injecting synthetic ui1Events into a window
-event source (quartz ui1EventSource / the future X source -- anything with
+event source (quartz ui1 eventSource / the future X source -- anything with
 inject:). No host input, no Accessibility, no real cursor: feeds the SAME
 real dispatch path (source -> watcher -> handler event: -> world) that live
-clicks/keys do. forUI: a-ui -> a driver; clickAt:/moveTo:/type:/typeAt:String:
+clicks/keys do. forUI: a-ui1 ui -> a driver; clickAt:/moveTo:/type:/typeAt:String:
 do the work; componentAt: helps write state assertions. -- claude & dmu 5/2026
-ModuleInfo: Creator: globals ui1TestDriver.
+ModuleInfo: Creator: globals ui1 testDriver.
 IsComplete: '.
             | ) .
         } | )
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1TestDriver' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'testDriver' -> () From: ( | {
          'ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
 
          lastPt <- 0 @ 0.
         } | )
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1TestDriver' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'testDriver' -> () From: ( | {
          'ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
 
-         parent* = bootstrap stub -> 'traits' -> 'ui1TestDriver' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'testDriver' -> ().
         } | )
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1TestDriver' -> () From: ( | {
-         'Comment: the event source we inject into (a-ui window display).
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'testDriver' -> () From: ( | {
+         'Comment: the event source we inject into (a-ui1 ui window display).
 ModuleInfo: Module: ui1TestDriver InitialContents: InitializeToExpression: (nil)'
 
          source.
         } | )
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1TestDriver' -> () From: ( | {
-         'Comment: the ui1 instance this driver drives (ui, or ui copy for a 2nd window).
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'testDriver' -> () From: ( | {
+         'Comment: the ui1 instance this driver drives (ui1 ui, or ui1 ui copy for a 2nd window).
 ModuleInfo: Module: ui1TestDriver InitialContents: InitializeToExpression: (nil)'
 
          theUI.
         } | )
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
          'ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
 
-         ui1TestDriver = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1TestDriver' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1TestDriver.
+         testDriver = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'testDriver' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 testDriver.
 '.
             | ) .
         } | )
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1TestDriver' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'testDriver' -> () From: ( | {
          'ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
 
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
         } | )
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1TestDriver' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'testDriver' -> () From: ( | {
          'Comment: make a driver for a started ui1 (call after aUI startOn:).
 ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
 
@@ -73,11 +73,11 @@ ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
             |
             d: copy.
             d theUI: aUI.
-            d source: aUI window watcher display. "the watchers event source (the ui1EventSource); on X window display is the raw xlib connection -- claude & dmu 5/2026"
+            d source: aUI window watcher display. "the watchers event source (the ui1 eventSource); on X window display is the raw xlib connection -- claude & dmu 5/2026"
             d).
         } | )
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1TestDriver' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'testDriver' -> () From: ( | {
          'ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
 
          moveTo: pt = ( |
@@ -91,7 +91,7 @@ ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
             self).
         } | )
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1TestDriver' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'testDriver' -> () From: ( | {
          'Comment: X-style state: button1 mask (256) is set on press (post-transition), clear on release.
 ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
 
@@ -106,7 +106,7 @@ ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
             self).
         } | )
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1TestDriver' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'testDriver' -> () From: ( | {
          'ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
 
          releaseAt: pt = ( |
@@ -120,7 +120,7 @@ ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
             self).
         } | )
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1TestDriver' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'testDriver' -> () From: ( | {
          'Comment: a full left click (move, press, release) at pt.
 ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
 
@@ -132,7 +132,7 @@ ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
             self).
         } | )
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1TestDriver' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'testDriver' -> () From: ( | {
          'Comment: one keystroke (a 1-char string) at the last cursor point (ui1 is point-to-type).
 ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
 
@@ -147,7 +147,7 @@ ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
             self).
         } | )
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1TestDriver' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'testDriver' -> () From: ( | {
          'ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
 
          type: str = ( |
@@ -156,7 +156,7 @@ ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
             self).
         } | )
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1TestDriver' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'testDriver' -> () From: ( | {
          'Comment: hover pt then type str there (point-to-type lands under the cursor).
 ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
 
@@ -167,7 +167,7 @@ ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
             self).
         } | )
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1TestDriver' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'testDriver' -> () From: ( | {
          'Comment: the ui1 component under pt -- for writing state assertions.
 ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
 
@@ -181,7 +181,7 @@ ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
          'ModuleInfo: Module: ui1TestDriver InitialContents: FollowSlot'
 
-         ui1TestDriver = bootstrap define: bootstrap stub -> 'globals' -> 'modules' -> 'ui1TestDriver' -> () ToBe: bootstrap addSlotsTo: (
+         testDriver = bootstrap define: bootstrap stub -> 'globals' -> 'modules' -> 'ui1TestDriver' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'directory' From:
              bootstrap remove: 'fileInTimeString' From:
              bootstrap remove: 'myComment' From:

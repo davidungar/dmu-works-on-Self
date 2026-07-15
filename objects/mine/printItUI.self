@@ -7,5 +7,5 @@
     "This version uses the UI to display the result of the Self expression."
 
 _AddSlots: ( |
-    _ printIt = ( ui startWith: doIt ).
+    _ printIt = ( ui1 ui startWith: doIt ).
 | )

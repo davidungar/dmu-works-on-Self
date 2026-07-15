@@ -967,7 +967,7 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: quartz InitialContents: FollowSlot'
         
          menu = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> 'kinds' -> 'menu' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals quartz event parent kinds menu.
+             {} = 'ModuleInfo: Creator: globals quartz event parent kinds ui1 menu.
 '.
             | ) .
         } | ) 
@@ -3652,9 +3652,9 @@ here). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: Follo
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
-         'Category: converting to ui1 events\x7fComment: a Mac one-button mouse fakes the middle/right button with
+         'Category: converting to ui1 events\x7fComment: a Mac one-ui1 button mouse fakes the middle/right ui1 button with
 option/control/command, the same mapping ui2s whichButton uses. Returns the X
-button number 1/2/3. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+ui1 button number 1/2/3. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
         
          ui1ButtonNumber = ( |
              b.
@@ -3698,7 +3698,7 @@ button number 1/2/3. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialC
               m: getUnsignedParam: parameters keyModifiers Type: types uint32.
               b: case if: [(m &&  modifierMasks option ) != 0] Then: 2
                       If: [(m &&  modifierMasks command) != 0] Then: 3
-                     "let OS X two-button mouse right button be middle"
+                     "let OS X two-ui1 button mouse right ui1 button be middle"
                       If: [(m &&  modifierMasks control) != 0] Then: 2
                                                                Else: 1.
             ].
@@ -3712,7 +3712,7 @@ Mac mouse chord (bit0 left, bit1 right, bit2 middle) and Carbon modifiers into
 that mask. X11 constants: button1=256 button2=512 button3=1024, shift=1 lock=2
 control=4 mod1=8. (&&/|| are bitwise on Self integers.) Without this, drag
 failed -- the raw Mac chord bit (left=1) ANDed with button1Mask (256) is 0, so
-the modal drag loop saw the button as up. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+the modal drag loop saw the ui1 button as up. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
         
          xStateMaskFromChord: chord Modifiers: mods = ( |
              s.
@@ -3945,7 +3945,7 @@ and the X font struct object (used to measure text).\x7fModuleInfo: Module: quar
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'drawable' -> () From: ( | {
-         'Category: drawing\x7fComment: ui1 draws single pixels (cursor/caret feedback, scatter plots) via
+         'Category: drawing\x7fComment: ui1 draws single pixels (cursor/ui1 caret feedback, scatter plots) via
 drawPoint:GC:; the X drawable has it as a primitive. Realise it as a 1x1 fill
 so the index byte is written with the gcs foreground8Bit colour, same as
 fillRectangle:. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
@@ -4389,7 +4389,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'platformWindow' -> () From: ( | {
-         'Comment: ui1 8-bit indexed shadow (a quartz indexedPixmap). When set (makeShadow, ui1 only), gc routes drawing here so direct window draws (caret, etc.) are indexed like the offscreens; blit shadow->trueColour window at display. nil for ui2 windows (which draw true colour directly). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
+         'Comment: ui1 8-bit indexed shadow (a quartz indexedPixmap). When set (makeShadow, ui1 only), gc routes drawing here so direct window draws (ui1 caret, etc.) are indexed like the offscreens; blit shadow->trueColour window at display. nil for ui2 windows (which draw true colour directly). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
          shadow.
         } | ) 
@@ -4526,7 +4526,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
-         'Comment: last cursor position seen on a mouse event. ui1 is point-to-type (ui keyDown:String:At:Event: routes to world componentContaining: pos), but keyboard events carry no location -- so we stamp key events with this. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: last cursor position seen on a mouse event. ui1 is point-to-type (ui1 ui keyDown:String:At:Event: routes to world componentContaining: pos), but keyboard events carry no location -- so we stamp key events with this. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          lastCursor <- (0)@(0).
         } | ) 
@@ -5909,7 +5909,7 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
-         'Comment: must return a POINT (width@height) per the font contract (font.self sizeOfString:); ui1 layout does `aSize x`. Returning a rectangle broke boxSize. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: must return a POINT (width@height) per the font contract (font.self sizeOfString:); ui1 layout does `aSize x`. Returning a rectangle broke ui1 boxSize. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          sizeOfString: s = ( |
              r.
@@ -6500,7 +6500,7 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
-         'Comment: ui1 asks the platform window for its bit depth (macWindow isColor8 = platformWindow depth = 8). Report 8 so ui1 takes its indexed-colour path (plain uiWorld, drawing into 8-bit indexed offscreens). The window is really true colour; the 8->trueColour conversion happens at the offscreen->window flush (blitIndexedTo:). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: ui1 asks the platform window for its bit depth (macWindow isColor8 = platformWindow depth = 8). Report 8 so ui1 takes its indexed-colour path (plain ui1 uiWorld, drawing into 8-bit indexed offscreens). The window is really true colour; the 8->trueColour conversion happens at the offscreen->window flush (blitIndexedTo:). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          depth = ( |
             | 8).
@@ -6536,7 +6536,7 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
-         'Comment: ui1 draws the caret and other direct-to-window graphics through the drawable protocol; forward them to the 8-bit shadow (which is a quartz drawable). The gc passed in is already the shadow gc (see gc above). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: ui1 draws the ui1 caret and other direct-to-window graphics through the drawable protocol; forward them to the 8-bit shadow (which is a quartz drawable). The gc passed in is already the shadow gc (see gc above). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          drawLine: a To: b GC: g = ( |
             | shadow drawLine: a To: b GC: g. self).
@@ -6799,7 +6799,7 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
-         'Comment: ui1s screenOperations flush (uiWorld syncGraphics -> macWindow sync) and double-buffer flush (macWindow flush) both land here: convert the indexed shadow to the true-colour window and push it to the IOSurface so the next event-pump cycle blits it to the view. The X path mapped these to XSync/XFlush; here they are the indexed->trueColour display. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: ui1s screenOperations flush (ui1 uiWorld syncGraphics -> macWindow sync) and double-buffer flush (macWindow flush) both land here: convert the indexed shadow to the true-colour window and push it to the IOSurface so the next event-pump cycle blits it to the view. The X path mapped these to XSync/XFlush; here they are the indexed->trueColour display. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          sync = ( |
             | displayShadow. quartzWindow gc flush. self).
@@ -7033,7 +7033,7 @@ Ideal for laid-out text or scaling on the screen.\x7fModuleInfo: Module: quartz 
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
-         'Comment: ui1EventSource hook: decode the next native Cocoa event into one shared
+         'Comment: ui1 eventSource hook: decode the next native Cocoa event into one shared
 uiEvent for ui1 -- the X-masked x11Globals ui2Event, populated by ui1s proven
 Quartz decode (setUI1Event:, X-style state). Cocoa key events carry no location,
 so stamp them with the last cursor (point-to-type); the native window event
@@ -7093,18 +7093,18 @@ converters). -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContent
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
         
-         parent* = bootstrap stub -> 'traits' -> 'ui1EventSource' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'eventSource' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
-         'Comment: ui1EventSource hook: no fd to block on, so the shared nextEvent sleep-polls this. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: ui1 eventSource hook: no fd to block on, so the shared nextEvent sleep-polls this. -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          rawEventsPending = ( |
             | platformWindow eventsPending).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'ui1EventSource' -> () From: ( | {
-         'Comment: ui1EventSource hook: fetch the next native Cocoa event (only called once the shared nextEvent has confirmed one is pending). -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: ui1 eventSource hook: fetch the next native Cocoa event (only called once the shared nextEvent has confirmed one is pending). -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          rawNextEvent = ( |
             | platformWindow nextEvent).
@@ -7170,7 +7170,7 @@ converters). -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContent
         
          flush = ( |
             | 
-            "may have been closed by VM if user hit red button"
+            "may have been closed by VM if user hit red ui1 button"
             wasClosedByVM ifFalse: [
               worldMorph doubleBuffering ifTrue: [gc synchronize]
                                           False: [gc flush].

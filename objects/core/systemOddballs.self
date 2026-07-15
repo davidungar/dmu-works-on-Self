@@ -489,8 +489,8 @@ Probably not worth making smaller than the size of eden.\x7fModuleInfo: Module: 
             history   freeResults.
             ((reflect: self) lookupKey: 'desktop') isEmpty 
               ifFalse: [desktop releaseObjects].
-            ((reflect: self) lookupKey: 'ui') isEmpty 
-              ifFalse: [ui releaseObjects].
+            ((reflect: self) lookupKey: 'ui1') isEmpty 
+              ifFalse: [ui1 ui releaseObjects].
             traits cachedSlotAnnotation releaseObjects.
             scheduler releaseObjects.
             self).

@@ -59,139 +59,139 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          subpartNames <- ''.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         uiColorPalette = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'uiColorPalette' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals uiColorPalette.
+         uiColorPalette = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 uiColorPalette.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((colormapEntry copy red: 112) green: 134) blue: 170 )\x7fVisibility: public'
         
          arrow <-  ((colormapEntry copy red: 112) green: 134) blue: 170 .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((colormapEntry copy red: 112) green: 134) blue: 170 )\x7fVisibility: public'
         
          arrowPlusTopPlanes <-  ((colormapEntry copy red: 112) green: 134) blue: 170 .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((colormapEntry copy red: 161) green: 180) blue: 171 )\x7fVisibility: public'
         
          background <-  ((colormapEntry copy red: 161) green: 180) blue: 171 .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((colormapEntry copy red: 194) green: 191) blue: 185 )\x7fVisibility: public'
         
          body <-  ((colormapEntry copy red: 194) green: 191) blue: 185 .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((colormapEntry copy red: 126) green: 124) blue: 120 )\x7fVisibility: public'
         
          bodyDark <-  ((colormapEntry copy red: 126) green: 124) blue: 120 .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((colormapEntry copy red: 230) green: 226) blue: 219 )\x7fVisibility: public'
         
          bodyLight <-  ((colormapEntry copy red: 230) green: 226) blue: 219 .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: index entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (colormapIndexEntry copy index: 255)\x7fVisibility: public'
         
          ones <- colormapIndexEntry copy index: 255.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         uiColorPalette = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'uiColorPalette' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits uiColorPalette.
+         uiColorPalette = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'uiColorPalette' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 uiColorPalette.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: private'
         
-         parent* = bootstrap stub -> 'traits' -> 'uiColorPalette' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'uiColorPalette' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((colormapEntry copy red: 0) green: 0) blue: 0 )\x7fVisibility: public'
         
          text <-  ((colormapEntry copy red: 0) green: 0) blue: 0 .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((colormapEntry copy red: 0) green: 0) blue: 0 )\x7fVisibility: public'
         
          transparent <-  ((colormapEntry copy red: 0) green: 0) blue: 0 .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((colormapEntry copy red: 0) green: 0) blue: 255 )\x7fVisibility: public'
         
          unused <-  ((colormapEntry copy red: 0) green: 0) blue: 255 .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: index entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (colormapIndexEntry copy index: 0)\x7fVisibility: public'
         
          zeros <- colormapIndexEntry copy index: 0.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         uiPatternPalette = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'uiPatternPalette' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals uiPatternPalette.
+         uiPatternPalette = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 uiPatternPalette.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiPatternPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> () From: ( | {
          'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         blurArrow <- bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'uiPatternPalette' -> 'blurArrow' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals uiPatternPalette blurArrow.
+         blurArrow <- bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> 'blurArrow' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 uiPatternPalette blurArrow.
 \x7fIsComplete: '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiPatternPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> () From: ( | {
          'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         blurBody <- bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'uiPatternPalette' -> 'blurBody' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals uiPatternPalette blurBody.
+         blurBody <- bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> 'blurBody' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 uiPatternPalette blurBody.
 \x7fIsComplete: '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         uiPatternPalette = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'uiPatternPalette' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits uiPatternPalette.
+         uiPatternPalette = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'uiPatternPalette' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 uiPatternPalette.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiPatternPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> () From: ( | {
          'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: private'
         
-         parent* = bootstrap stub -> 'traits' -> 'uiPatternPalette' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'uiPatternPalette' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: private'
         
          clean = ( |
@@ -212,14 +212,14 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
          copy = ( |
             | resend.copy clean).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: iterating\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
          do: block = ( |
@@ -233,13 +233,13 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             block value: unused     With: 'unused').
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: filing\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
          restore = ( |
@@ -251,7 +251,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: filing\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
          restore: filename = ( |
@@ -288,14 +288,14 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: filing\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
          save = ( |
             | save: preferences uiColorFile).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiColorPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiColorPalette' -> () From: ( | {
          'Category: filing\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
          save: filename = ( |
@@ -333,7 +333,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiPatternPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiPatternPalette' -> () From: ( | {
          'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: private'
         
          clean = ( |
@@ -343,14 +343,14 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiPatternPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiPatternPalette' -> () From: ( | {
          'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
          copy = ( |
             | resend.copy clean).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiPatternPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiPatternPalette' -> () From: ( | {
          'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
          finalize = ( |
@@ -360,7 +360,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiPatternPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiPatternPalette' -> () From: ( | {
          'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
          initializeFor: win Patterns: patterns = ( |
@@ -370,7 +370,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiPatternPalette' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiPatternPalette' -> () From: ( | {
          'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().

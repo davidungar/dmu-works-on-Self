@@ -43,7 +43,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
          'ModuleInfo: Module: ui1Event InitialContents: FollowSlot'
         
-         myComment <- 'ui1 input-event source contract (shared traits ui1EventSource).'.
+         myComment <- 'ui1 input-event source contract (shared traits ui1 eventSource).'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1Event' -> () From: ( | {
@@ -58,7 +58,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          subpartNames <- ''.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fCategory: Events\x7fComment: Shared event-source contract: the object ui1s eventWatcher pulls events from
 (eventWatcher watch = handler event: display nextEvent). Both backends inherit
 this nextEvent, which unifies the wait strategy on sleep-polling (X used to
@@ -71,13 +71,13 @@ may override finishEvent:. X source: traits xlib ui1EventSource (graphics/
 xlib.self). Quartz source: traits quartz ui1EventSource (graphics/quartz.self).
 -- claude & dmu 5/2026\x7fModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: public'
         
-         ui1EventSource = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1EventSource' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1EventSource.
+         eventSource = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'eventSource' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 eventSource.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1EventSource' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'eventSource' -> () From: ( | {
          'Comment: post-conversion fixup hook; default returns the event unchanged. A backend
 may override it (e.g. to track the cursor or fill bounds). -- claude & dmu 5/2026\x7fModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -85,8 +85,8 @@ may override it (e.g. to track the cursor or fill bounds). -- claude & dmu 5/202
             | e).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1EventSource' -> () From: ( | {
-         'Comment: synthetic events (the ui1TestDriver harness) jump the native queue so the
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'eventSource' -> () From: ( | {
+         'Comment: synthetic events (the ui1 testDriver harness) jump the native queue so the
 watcher drains them through the real handler -- no OS input, works on both
 backends. -- claude & dmu 5/2026\x7fModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -94,7 +94,7 @@ backends. -- claude & dmu 5/2026\x7fModuleInfo: Module: ui1Event InitialContents
             | injectedEvents add: e. self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1EventSource' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'eventSource' -> () From: ( | {
          'Comment: the seam eventWatcher blocks on. Sleep-poll the native queue (no fd to
 block on for Quartz; X is polled too so injected events are seen and the
 times-delay lets check_carbon_events pump Cocoa), then return an injected event
@@ -108,7 +108,7 @@ if any, else convert the next native event into one shared uiEvent and finish it
             finishEvent: convert: rawNextEvent).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1EventSource' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'eventSource' -> () From: ( | {
          'ModuleInfo: Module: ui1Event InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().

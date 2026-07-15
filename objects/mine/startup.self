@@ -95,8 +95,8 @@ _AddSlots: ( |
 	    undefinedSelector: s Type: t Delegatee: d MethodHolder: mh
 	        Arguments: a = ( s _RunScript).
 	| ).
-        s = (_Spy: true. cc all. '/mem/Snap' ws. ui start).
-	uis = (ui start).
+        s = (_Spy: true. cc all. '/mem/Snap' ws. ui1 ui start).
+	uis = (ui1 ui start).
 	db = (_AddSlots: ( | debug = true |) ).
 	und = (_AddSlots: ( | debug = false |) ).
         as = (_AsObject).

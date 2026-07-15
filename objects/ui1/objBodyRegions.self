@@ -59,104 +59,104 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          subpartNames <- ''.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
-         objBodyRegions = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'objBodyRegions' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals objBodyRegions.
+         objBodyRegions = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'objBodyRegions' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 objBodyRegions.
 \x7fIsComplete: '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: InitializeToExpression: (list copyRemoveAll)'
         
          bodyLeftSpaces <- list copyRemoveAll.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: InitializeToExpression: (list copyRemoveAll)'
         
          bodyLefts <- list copyRemoveAll.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: InitializeToExpression: (list copyRemoveAll)'
         
          bodyRightSpaces <- list copyRemoveAll.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: InitializeToExpression: (list copyRemoveAll)'
         
          bodyRights <- list copyRemoveAll.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: InitializeToExpression: (nil)'
         
          footerCenter.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: InitializeToExpression: (nil)'
         
          footerLeft.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: InitializeToExpression: (nil)'
         
          footerRight.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: InitializeToExpression: (nil)'
         
          headerCenter.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: InitializeToExpression: (nil)'
         
          headerLeft.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: InitializeToExpression: (nil)'
         
          headerRight.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: InitializeToExpression: (nil)'
         
          location.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
-         objBodyRegions = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits objBodyRegions.
+         objBodyRegions = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 objBodyRegions.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
-         parent* = bootstrap stub -> 'traits' -> 'objBodyRegions' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          ac = ( |
-            | ui uiColors arrow" ones").
+            | ui1 ui uiColors arrow" ones").
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          bound = ( |
@@ -164,7 +164,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             location ## (footerRight bottomRight - headerLeft topLeft)).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          copy = ( |
@@ -175,20 +175,20 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                            bodyRightSpaces: bodyRightSpaces copy).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: InitializeToExpression: (false)'
         
          debug <- bootstrap stub -> 'globals' -> 'false' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          drawBody: bod To: bm = ( |
             | drawBody: bod To: bm At: location).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          drawBody: bod To: bm At: pt = ( |
@@ -221,7 +221,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                     pt # ((p + footerRight size) + (1@1))).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          drawSlices: bodyRegions Body: bod To: bm At: pt = ( |
@@ -235,13 +235,13 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          scoop: bodyRegions From: y1 To: y2 = ( |
@@ -261,7 +261,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             newRegions).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          scoopFrom: y1 To: y2 = ( |
@@ -274,7 +274,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          slice: bodyRegions At: y = ( |
@@ -292,7 +292,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             newRegions).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          sliceAt: y = ( |
@@ -304,7 +304,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          stepTweener: tweener Do: block = ( |
@@ -418,7 +418,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                     block value: self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          tweenFrom: fromreg Do: block = ( |
@@ -432,7 +432,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          tweenTo: toreg Do: block = ( |
@@ -446,14 +446,14 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          tweenerTo: toreg Steps: steps = ( |
              tweenProto = bootstrap stub -> 'globals' -> 'peakingInBetweener' -> ().
              tweener.
             | 
-            tweener: objBodyRegions copy.
+            tweener: ui1 objBodyRegions copy.
             tweener headerLeft: tweenProto copyFrom: headerLeft width
                                                  To: toreg headerLeft width
                                               Steps: steps.
@@ -489,7 +489,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             tweener).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          xdrawBody: bod To: bm At: pt = ( |
@@ -523,12 +523,12 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                     p: p addX: footerCenter width.
             bm rectangle: (footerRight translateTo: p) Color: ac.
             xhalt.
-            "ui window flush.
+            "ui1 ui window flush.
             halt.
             "       self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          xdrawSlices: bodyRegions Body: bod To: bm At: pt = ( |
@@ -543,11 +543,11 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                     self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'objBodyRegions' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objBodyRegions' -> () From: ( | {
          'ModuleInfo: Module: objBodyRegions InitialContents: FollowSlot'
         
          xhalt = ( |
-            | "ui window flush. halt. " self).
+            | "ui1 ui window flush. halt. " self).
         } | ) 
 
 

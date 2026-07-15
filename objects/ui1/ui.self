@@ -52,9 +52,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          postFileIn = ( |
             | 
             snapshotAction addSchedulerInitialMessage:
-              message copy receiver: ui Selector: 'returnFromSnapshot'.
-            ui invalidateCaches.
-            ui slotsInPasteBuffer: vector.
+              message copy receiver: ui1 ui Selector: 'returnFromSnapshot'.
+            ui1 ui invalidateCaches.
+            ui1 ui slotsInPasteBuffer: vector.
             prompt updateUI: true.
             resend.postFileIn).
         } | ) 
@@ -72,153 +72,153 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
 '.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
-         ui = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals ui.
+         ui = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 ui.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (ping)\x7fVisibility: private'
         
          alarm <- bootstrap stub -> 'globals' -> 'ping' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (realAnimator)\x7fVisibility: public'
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (ui1 realAnimator)\x7fVisibility: public'
         
-         animator <- bootstrap stub -> 'globals' -> 'realAnimator' -> ().
+         animator <- bootstrap stub -> 'globals' -> 'ui1' -> 'realAnimator' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (20@20)\x7fVisibility: private'
         
          bodyPos <- 20@20.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (boxSize)\x7fVisibility: public'
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (ui1 boxSize)\x7fVisibility: public'
         
-         boxSizing <- bootstrap stub -> 'globals' -> 'boxSize' -> ().
+         boxSizing <- bootstrap stub -> 'globals' -> 'ui1' -> 'boxSize' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (dummyAnimator)'
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (ui1 dummyAnimator)'
         
-         danimator <- bootstrap stub -> 'globals' -> 'dummyAnimator' -> ().
+         danimator <- bootstrap stub -> 'globals' -> 'ui1' -> 'dummyAnimator' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (traits ui1Graphics x11)\x7fVisibility: public'
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (traits ui1 graphics x11)\x7fVisibility: public'
         
-         graphics <- bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'x11' -> ().
+         graphics <- bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (dictionary copyRemoveAll)\x7fVisibility: public'
         
          hiddenSlotDict <- dictionary copyRemoveAll.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (false)\x7fVisibility: private'
         
          isCacheValid <- bootstrap stub -> 'globals' -> 'false' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (dictionary copyRemoveAll)\x7fVisibility: public'
         
          offscreenHomeDict <- dictionary copyRemoveAll.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
-         ui = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui.
+         ui = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 ui.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
-         parent* = bootstrap stub -> 'traits' -> 'ui' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (realAnimator)'
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (ui1 realAnimator)'
         
-         ranimator <- bootstrap stub -> 'globals' -> 'realAnimator' -> ().
+         ranimator <- bootstrap stub -> 'globals' -> 'ui1' -> 'realAnimator' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (false)'
         
          reporting <- bootstrap stub -> 'globals' -> 'false' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (vector)\x7fVisibility: public'
         
          slotsInPasteBuffer <- ((bootstrap stub -> 'globals') \/-> 'vector') -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (true)\x7fVisibility: private'
         
          stopping <- bootstrap stub -> 'globals' -> 'true' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          storeStringIfFail: fb = ( |
-            | 'ui copy').
+            | 'ui1 ui copy').
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          storeStringNeeds = ( |
-            | ui).
+            | ui1 ui).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (uiColorPalette)\x7fVisibility: public'
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (ui1 uiColorPalette)\x7fVisibility: public'
         
-         uiColors <- bootstrap stub -> 'globals' -> 'uiColorPalette' -> ().
+         uiColors <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (uiPatternPalette)\x7fVisibility: public'
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (ui1 uiPatternPalette)\x7fVisibility: public'
         
-         uiPatterns <- bootstrap stub -> 'globals' -> 'uiPatternPalette' -> ().
+         uiPatterns <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: ( ( | isActive = false | ) )\x7fVisibility: private'
         
          uiProcess <-  ( | isActive = false | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (true)\x7fVisibility: private'
         
          unflushableCache <- bootstrap stub -> 'globals' -> 'true' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (uiWorld)\x7fVisibility: private'
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (ui1 uiWorld)\x7fVisibility: private'
         
-         world <- bootstrap stub -> 'globals' -> 'uiWorld' -> ().
+         world <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiWorld' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          activateUpdating = ( |
@@ -229,7 +229,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                   RepeatingInterval: minUpdateInterval).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          add: obj = ( |
@@ -237,7 +237,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             ifRunning: [add: obj WithMessages: vector]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          add: obj At: pos = ( |
@@ -249,7 +249,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 handler queue: 'requestAdd:At:' With: args. ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          add: obj With: m = ( |
@@ -258,7 +258,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 add: obj WithMessages: list copyRemoveAll add: m ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          add: obj With: m1 With: m2 = ( |
@@ -266,7 +266,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             ifRunning: [ add: obj WithMessages: (m1 & m2) asList ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          add: obj With: m1 With: m2 With: m3 = ( |
@@ -274,7 +274,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             ifRunning: [ add: obj WithMessages: (m1 & m2 & m3) asList ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          add: obj With: m1 With: m2 With: m3 With: m4 = ( |
@@ -283,7 +283,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 add: obj WithMessages: (m1 & m2 & m3 & m4) asList ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          add: obj With: m1 With: m2 With: m3 With: m4 With: m5 = ( |
@@ -292,7 +292,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 add: obj WithMessages: (m1 & m2 & m3 & m4 & m5) asList ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          add: obj WithMessages: msgs = ( |
@@ -304,7 +304,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 handler queue: 'requestAdd:WithMessages:' With: args. ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          addMirror: mirr = ( |
@@ -314,7 +314,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 handler queue: 'requestAddMirror:' With: args. ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          addMirror: mirr At: pos = ( |
@@ -324,7 +324,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                            With: (mirr & pos) asVector ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          addMirror: mirr Sprout: name = ( |
@@ -334,7 +334,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                            With: (mirr & name) asVector ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          animationOff = ( |
@@ -344,7 +344,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          animationOn = ( |
@@ -354,28 +354,28 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          anticipation = ( |
             | ranimator noAnticipation: false).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          arcs = ( |
             | ranimator straightLines: false).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: responding\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          areEventsPending = ( |
             | handler messagesReady || [stdin dataReady]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          banishAll = ( |
@@ -383,7 +383,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             ifRunning: [ requestSend: 'banishAllBodies' To: world ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          beginRun = ( |
@@ -393,33 +393,33 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
               resume).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: bodyPositioning\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          bodyPosInc = (10)@(20).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: bodyPositioning\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          bodyPosOrig = (20)@(20).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: caching\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          cacheFlushable = ( |
             | unflushableCache: false).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: caching\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          cacheUnflushable = ( |
             | unflushableCache: true. invalidateCaches).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: caching\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          checkCaches = ( |
@@ -428,29 +428,29 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
               ifTrue: [ initializeCaches ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          closeAllWindows = ( |
             | 
-            (browse childrenOf: traits ui) do: [|:x| x reflectee closeWindow]).
+            (browse childrenOf: traits ui1 ui) do: [|:x| x reflectee closeWindow]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          closeWindow = ( |
             | window close).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          continue = ( |
             | beginRun).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Comment: usually, you should just use the prototype instead of copying your own\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          copy = ( |
@@ -458,7 +458,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             ( resend.copy graphics: graphics copy) init).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          createRoot: mirr = ( | {
@@ -475,38 +475,38 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: requests client\x7fComment: In order for \"togglers all\" to work in a copy of the ui,
-(e.g. \"ui copy start\"),
-the togglers all method, run from a descendant of editorWithReceiver,
-must have some way of figuring out which uiWorld to put the new togglers into.
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: requests client\x7fComment: In order for \"ui1 togglers all\" to work in a copy of the ui1 ui,
+(e.g. \"ui1 ui copy start\"),
+the ui1 togglers all method, run from a descendant of ui1 editorWithReceiver,
+must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers into.
 -- dmu 7/26\x7fModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)'
         
          currentWorld <- bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: forwarded\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          cursor = ( |
             | window cursor).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: ending\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          deactivateUpdating = ( |
             | alarm stop).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          demo = ( |
-            | uiDemo start).
+            | ui1 uiDemo start).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          desprout: name On: mirr = ( |
@@ -516,7 +516,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                            With: (name & mirr) asVector ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          dummyAnimatorDo: block = ( | {
@@ -532,21 +532,21 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          ensureFrontmost = ( |
             | graphics ensureFrontmost).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: forwarded\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          exists: mirr = ( |
             | world exists: mirr).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: ending\x7fComment: _\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          finalize = ( |
@@ -560,14 +560,14 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: ending\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          finalizePatterns = ( |
             | uiPatterns finalize).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          find: mirr Do: block = ( |
@@ -575,7 +575,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             find: mirr Do: block IfAbsent: missingBoxBlock).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          find: mirr Do: block IfAbsent: missingBoxBlock = ( |
@@ -586,7 +586,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
              self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: forwarded\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          findFirst: fb IfPresent: pb IfAbsent: ab = ( |
@@ -594,7 +594,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             world bodies findFirst: fb IfPresent: pb IfAbsent: ab).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: caching\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          flushCaches = ( |
@@ -604,21 +604,21 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          followThrough = ( |
             | ranimator noFollowThrough: false).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          forkAndSend: msg CauseOfBirth: birthString PutResultAt: pt = ( |
             | 
             "send msg asynchronously, reporting errors in a notifier,
              and put the result object on the screen point pt.
-             May be called in ui process or in any other process -- dmu"
+             May be called in ui1 ui process or in any other process -- dmu"
             [send: 0 CatchErrorsAndPutResultAt: 0]. "browsing"
             ifRunning: [ | p |
                 "fork for asynchrony"
@@ -633,33 +633,33 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          fullScreen = ( |
             | (-5 @ -26) ##! (1280 @ 1024)).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          fullScreenGXWithSpy = ( |
             | (-5 @ -26) ##! (1152 @ 797)).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          fullSpeed = ( |
             | ranimator delay: preferences uiAnimationDelay).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fComment: update all objects on the world, stopping for naught & sync w/ sema\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          fullUpdate = ( |
             | 
-            "so prompt can send this before ui is started"
+            "so prompt can send this before ui1 ui is started"
             ifRunning: [| s. args. |
                 s: semaphore copyBinary wait.
                 args: (vector copySize: 1) at: 0 Put: s.
@@ -668,7 +668,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                 [areEventsPending] whileTrue.]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          getInitialRectFrom: win = ( |
@@ -682,14 +682,14 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                                   False: [ window position ##! window size ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: forwarded\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          handler = ( |
             | window handler).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          hide: name On: mirr = ( |
@@ -699,7 +699,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                            With: (name & mirr) asVector ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          iconify: mirr = ( |
@@ -709,14 +709,14 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                 handler queue: 'requestIconify:' With: args ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          ifRunning: b = ( |
             | uiProcess isActive ifTrue: b. self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          init = ( |
@@ -728,7 +728,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          initAnimators = ( |
@@ -743,7 +743,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: caching\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          initializeCaches = ( |
@@ -754,8 +754,8 @@ must have some way of figuring out which uiWorld to put the new togglers into.
 
             graphics prevDisplayName: window displayName.
 
-            ranimator: realAnimator copy.
-            danimator: dummyAnimator copy.
+            ranimator: ui1 realAnimator copy.
+            danimator: ui1 dummyAnimator copy.
             animator: ranimator.
 
             initializeColorsAndPatterns.
@@ -768,17 +768,17 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: caching\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          initializeColorsAndPatterns = ( |
             | 
-            uiColors: uiColorPalette copy.
-            uiPatterns: uiPatternPalette copy.
+            uiColors: ui1 uiColorPalette copy.
+            uiPatterns: ui1 uiPatternPalette copy.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          initializePatterns = ( |
@@ -786,14 +786,14 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             uiPatterns initializeFor: window Patterns: graphics patterns).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: addingObjects\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          internalAdd: mirr = ( |
             | internalAdd: mirr Messages: vector).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: addingObjects\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          internalAdd: mirr Blueprint: bp = ( |
@@ -801,7 +801,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             internalAdd: mirr Blueprint: bp At: nextBodyPosition).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: addingObjects\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          internalAdd: mirr Blueprint: bp At: pos = ( |
@@ -813,7 +813,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                                                To: pos ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: addingObjects\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          internalAdd: mirr Messages: msgs = ( |
@@ -821,7 +821,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             internalAdd: mirr Messages: msgs At: nextBodyPosition).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: addingObjects\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          internalAdd: mirr Messages: msgs At: pos = ( |
@@ -833,14 +833,14 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                                                To: pos ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: caching\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          invalidateCaches = ( |
             | isCacheValid: false).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: windowEvents\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          keyDown: keycode String: str At: pos Event: event = ( |
@@ -850,7 +850,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: windowEvents\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          leftButtonDownAt: pos Event: event = ( |
@@ -860,7 +860,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: windowEvents\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          leftButtonUpAt: pos Event: event = ( |
@@ -870,27 +870,27 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          linearlySpaced = ( |
             | ranimator noSlowInOut: true).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: windowManagement\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          lower = ( |
             | window lower).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: updateParameters\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          maxUpdateInterval = 60000.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: windowEvents\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          middleButtonDownAt: pos Event: event = ( |
@@ -900,7 +900,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: windowEvents\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          middleButtonUpAt: pos Event: event = ( |
@@ -910,28 +910,28 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: updateParameters\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          minUpdateInterval = 3000.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
-         missingBoxBlock = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'missingBoxBlock' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui missingBoxBlock.
+         missingBoxBlock = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> 'missingBoxBlock' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 ui missingBoxBlock.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'missingBoxBlock' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> 'missingBoxBlock' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          parent* = bootstrap stub -> 'lobby' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'missingBoxBlock' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> 'missingBoxBlock' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          value: mirr = ( |
@@ -939,22 +939,22 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             warning: mirr name, ' is not currently displayed on the ui').
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
-         missingSlotBlock = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'missingSlotBlock' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui missingSlotBlock.
+         missingSlotBlock = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> 'missingSlotBlock' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 ui missingSlotBlock.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'missingSlotBlock' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> 'missingSlotBlock' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          parent* = bootstrap stub -> 'lobby' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'missingSlotBlock' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> 'missingSlotBlock' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          value: name With: mirr = ( |
@@ -962,14 +962,14 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             warning: mirr name, ' does not have a slot "', name, '"').
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          motionBlur = ( |
             | preferences blurBodies: true).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          move: mirr To: pos = ( |
@@ -979,7 +979,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                            With: (mirr & pos) asVector ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: bodyPositioning\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          nextBodyPosition = ( |
@@ -989,28 +989,28 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             bodyPos).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          noAnticipation = ( |
             | ranimator noAnticipation: true).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          noFollowThrough = ( |
             | ranimator noFollowThrough: true).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          noMotionBlur = ( |
             | preferences blurBodies: false).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          openWindowOn: disp = ( |
@@ -1033,19 +1033,19 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: windowEvents\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          queueingParent* = bootstrap stub -> 'traits' -> 'queueingEventHandler' -> 'nullTarget' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: ending\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          quit = ( |
@@ -1053,14 +1053,14 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self = testUI ifFalse: [ handler queue: 'realQuit' With: vector copySize: 0]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: windowManagement\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          raise = ( |
             | window raise).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          raise: mirr = ( |
@@ -1070,14 +1070,14 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                 handler queue: 'requestRaise:' With: args ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: ending\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          realQuit = ( |
             | programmingLog close. stopping: true).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: releasing\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          releaseObjects = ( |
@@ -1086,7 +1086,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             releaseUnneededHiddenSlotInfo).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: releasing\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          releaseUnneededHiddenSlotInfo = ( |
@@ -1097,7 +1097,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          remove: mirr = ( |
@@ -1107,14 +1107,14 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                 handler queue: 'requestRemove:' With: args ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: responding\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          removeRequests: str = ( |
             | handler removeMessages: str).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          repopulate: bods = ( |
@@ -1123,7 +1123,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             textEditorDisplayGlitchHack).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestAdd: obj At: pos = ( |
@@ -1133,7 +1133,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestAdd: obj WithMessages: msgs = ( |
@@ -1143,7 +1143,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestAddMirror: mirr = ( |
@@ -1153,7 +1153,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestAddMirror: mirr At: pos = ( |
@@ -1163,7 +1163,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestAddMirror: mirr Sprout: name = ( | {
@@ -1179,7 +1179,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestDesprout: name On: mirr = ( |
@@ -1188,7 +1188,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                 bod desprout: name IfAbsent: missingSlotBlock ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestFullUpdate: s = ( |
@@ -1198,7 +1198,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestHide: name On: mirr = ( |
@@ -1207,7 +1207,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                 bod hide: name IfAbsent: missingSlotBlock ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestIconify: mirr = ( |
@@ -1215,7 +1215,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             find: mirr Do: [ | :bod | bod iconifyRemainCentered ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestMove: mirr To: pos = ( |
@@ -1223,43 +1223,43 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             find: mirr Do: [ | :bod | bod moveTo: pos ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestRaise: mirr = ( |
             | find: mirr Do: [ | :bod | bod raise ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestRemove: mirr = ( |
             | find: mirr Do: [ | :bod | bod banish ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestSend: unaryMsg To: obj = ( |
             | 
-            "sends a message within the ui process"
-            "if the message causes an error, the ui crashes"
+            "sends a message within the ui1 ui process"
+            "if the message causes an error, the ui1 ui crashes"
             unaryMsg sendTo: obj.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestSend: msg To: obj Args: args = ( |
             | 
-            "sends a message within the ui process"
-            "if the message causes an error, the ui crashes"
+            "sends a message within the ui1 ui process"
+            "if the message causes an error, the ui1 ui crashes"
             msg sendTo: obj WithArguments: args.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestShow: name On: mirr = ( |
@@ -1268,7 +1268,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                 bod show: name IfAbsent: missingSlotBlock ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestShowAll: mirr = ( |
@@ -1276,7 +1276,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             find: mirr Do: [ | :bod | bod showAll ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestShowContentsOf: name On: mirr = ( |
@@ -1285,7 +1285,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                 bod showContentsOf: name IfAbsent: missingSlotBlock ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestSprout: name On: mirr = ( |
@@ -1294,7 +1294,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                 bod sprout: name IfAbsent: missingSlotBlock ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestUpdate = ( |
@@ -1304,7 +1304,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestUpdate: mirr = ( |
@@ -1313,7 +1313,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests synchronous\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          requestUpdateCheaply = ( |
@@ -1353,14 +1353,14 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: bodyPositioning\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          resetBodyPosition = ( |
             | bodyPos: bodyPosOrig).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          resetInitialRect = ( |
@@ -1368,18 +1368,18 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             window: windowPrototype).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          resetWindowRect = ( |
             | 
-            "send this when the ui is not running to force the
-             next ui start to use preferences initialWindowRect"
-            "do not send this to a running ui!"
+            "send this when the ui1 ui is not running to force the
+             next ui1 ui start to use preferences initialWindowRect"
+            "do not send this to a running ui1 ui!"
             window: windowPrototype).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: responding\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          respond = ( |
@@ -1388,7 +1388,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          restart = ( | {
@@ -1406,7 +1406,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: caching\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          returnFromSnapshot = ( |
@@ -1420,7 +1420,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: windowEvents\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          rightButtonDownAt: pos Event: event = ( |
@@ -1430,7 +1430,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: windowEvents\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          rightButtonUpAt: pos Event: event = ( |
@@ -1440,7 +1440,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fComment: _\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          run = ( |
@@ -1452,7 +1452,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          send: msg CatchErrorsAndPutResultAt: pt = ( | {
@@ -1463,10 +1463,10 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             | 
             "send msg, reporting errors in a notifier, and putting the result
              in the desired place on screen. Probably wont work if 
-             called in the ui process -- dmu"
+             called in the ui1 ui process -- dmu"
             ifRunning: [ | p |
               r: msg sendIfFail: [| :errObj |
-                uiNotifier copySyncOn: world
+                ui1 uiNotifier copySyncOn: world
                               Message: errObj errorString
                                    At: pt.
                 ^ self
@@ -1477,44 +1477,44 @@ must have some way of figuring out which uiWorld to put the new togglers into.
              r).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          send: unaryMsg To: obj = ( |
             | 
-            "sends a message within the ui process"
-            "if the message causes an error, the ui crashes"
+            "sends a message within the ui1 ui process"
+            "if the message causes an error, the ui1 ui crashes"
             ifRunning: [
                 handler queue: 'requestSend:To:'
                          With: (unaryMsg & obj) asVector ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          send: msg To: obj Args: args = ( |
             | 
-            "sends a message within the ui process"
-            "if the message causes an error, the ui crashes"
+            "sends a message within the ui1 ui process"
+            "if the message causes an error, the ui1 ui crashes"
             ifRunning: [
                 handler queue: 'requestSend:To:Args:'
                          With: (msg & obj & args) asVector ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          setBoxSizing = ( |
             | 
-            boxSizing: boxSize copyFor: window BoxSizeMixin: graphics boxSizePlatformMixin).
+            boxSizing: ui1 boxSize copyFor: window BoxSizeMixin: graphics boxSizePlatformMixin).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fComment: route the X display path to the x11 graphics object; it used to fall through to (preferences xDisplay) -- a display, not a graphics backend -- which broke ui start on X11. -- claude & dmu 6/2026\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fComment: route the X display path to the x11 graphics object; it used to fall through to (preferences xDisplay) -- a display, not a graphics backend -- which broke ui1 ui start on X11. -- claude & dmu 6/2026\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          setUpOn: disp Initial: createObjBlock = ( |
             | 
-            graphics: traits ui1Graphics copyNamed: disp.
+            graphics: traits ui1 graphics copyNamed: disp.
             openWindowOn: disp.
 
             setBoxSizing.
@@ -1527,7 +1527,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
 
             graphics initializeColorsWindow: window Animator: ranimator.
 
-            world: (window isColor8 ifTrue: [uiWorld] False: [uiWorld32]) copy createForUI: self.
+            world: (window isColor8 ifTrue: [ui1 uiWorld] False: [ui1 uiWorld32]) copy createForUI: self.
 
             initAnimators.
 
@@ -1538,7 +1538,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          show: name On: mirr = ( |
@@ -1548,7 +1548,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                            With: (name & mirr) asVector ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          showAll: mirr = ( |
@@ -1558,7 +1558,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                 handler queue: 'requestShowAll:' With: args ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          showContentsOf: name On: mirr = ( |
@@ -1568,34 +1568,34 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                            With: (name & mirr) asVector ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: forwarded\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          size = ( |
             | window size).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          slowInOut = ( |
             | ranimator noSlowInOut: false).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          slowMotion = ( |
             | ranimator delay: slowness).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          slowness <- 200.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          sprout: name On: mirr = ( |
@@ -1605,20 +1605,20 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                            With: (name & mirr) asVector ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          start = ( |
             | startOn: preferences xDisplay).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          startObj = bootstrap stub -> 'lobby' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fComment: Phase 1.5 dual-backend A/B switch: if the argument is a registry-known graphics-backend name (e.g. quartz / newQuartz) select that backend and start on the default display; otherwise treat it as a display, exactly as before.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          startOn: dispOrBackend = ( |
@@ -1626,7 +1626,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             startOn: dispOrBackend With: startObj).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          startOn: disp With: obj = ( |
@@ -1636,7 +1636,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          startWith: obj = ( |
@@ -1644,21 +1644,21 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             startOn: preferences xDisplay With: obj).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          straightLines = ( |
             | ranimator straightLines: true).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: testing\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          test = ( |
             | testOn: preferences xDisplay).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: testing\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          testDeleting = ( |
@@ -1667,16 +1667,16 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             world display).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: testing\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          testDesprouting = ( |
             | 
-            ((world bodies last) slots first) contents button desprout.
+            ((world bodies last) slots first) contents ui1 button desprout.
             world display).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: testing\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          testGo = ( |
@@ -1693,14 +1693,14 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: testing\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          testIfBadDisplay: fblock = ( |
              disp.
             | 
             disp: preferences xDisplay.
-            testUI parent: ui copy.
+            testUI parent: ui1 ui copy.
             testUI window: x11Globals window copy.
             testUI graphics tryToOpenWindowForDisplay: disp
                    IfFail: [ | :err | ^ fblock value: err ].
@@ -1708,19 +1708,19 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             test).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: testing\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          testOn: disp = ( |
             | 
-            testUI parent: ui copy.
+            testUI parent: ui1 ui copy.
             testUI setUpOn: disp Initial: [ testUI createRoot: reflect: lobby].
             testUI testGo.
             testUI finalize.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: testing\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          testSprouting: n = ( | {
@@ -1738,50 +1738,50 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                 error: 'not that many slots in this object' ].
             world bodies first slots do: [ | :slot |
                 i: i succ.  
-                i = n ifTrue: [ clickOnMe: slot contents button ]. ].
+                i = n ifTrue: [ clickOnMe: slot contents ui1 button ]. ].
             clickOnMe sprout.
             world display).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
-         testUI = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'testUI' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui testUI.
+         testUI = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> 'testUI' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 ui testUI.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'testUI' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> 'testUI' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          closeWindow = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'testUI' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> 'testUI' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
-         cursor = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui' -> 'testUI' -> 'cursor' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui testUI cursor.
+         cursor = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> 'testUI' -> 'cursor' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 ui testUI cursor.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'testUI' -> 'cursor' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> 'testUI' -> 'cursor' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          location <- (0)@(0).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'testUI' -> 'cursor' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> 'testUI' -> 'cursor' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          moveTo: pt = ( |
             | location: pt. self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'testUI' -> 'cursor' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> 'testUI' -> 'cursor' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          while: whileBlock Do: doBlock = ( |
@@ -1792,26 +1792,26 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'testUI' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> 'testUI' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
-         makeTransporterPutMeAfter = bootstrap stub -> 'globals' -> 'ui' -> ().
+         makeTransporterPutMeAfter = bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'testUI' -> () From: ( | {
-         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (traits ui)\x7fVisibility: private'
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> 'testUI' -> () From: ( | {
+         'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (traits ui1 ui)\x7fVisibility: private'
         
-         parent* <- bootstrap stub -> 'traits' -> 'ui' -> ().
+         parent* <- bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> 'testUI' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> 'testUI' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          storeStringNeeds = ( |
-            | traits ui testUI).
+            | traits ui1 ui testUI).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: windowEvents\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          textEditorDisplayGlitchHack = ( |
@@ -1823,17 +1823,17 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fComment: update all objects on the world, stopping only for events\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          update = ( |
             | 
-            "so prompt can send this before ui is started"
+            "so prompt can send this before ui1 ui is started"
             ifRunning: [ | args = vector copySize: 0 |
                 handler queue: 'requestUpdate' With: args ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          update: aMirror = ( |
@@ -1843,7 +1843,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                 handler queue: 'requestUpdate:' With: args. ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fComment: update all objects on the world, stopping for events, 
                but do not use too much time\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -1854,20 +1854,20 @@ must have some way of figuring out which uiWorld to put the new togglers into.
                 handler queue: 'requestUpdateCheaply' With: args ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: updateParameters\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          updateDutyCycle = 0.1.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: caching\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          validateCaches = ( |
             | isCacheValid: true. cacheFlushable).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: WIP\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          window = ( |
@@ -1875,7 +1875,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             graphics window).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: WIP\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          window: w = ( |
@@ -1883,7 +1883,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             graphics window: w).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: windowEvents\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          windowChanged: rect Event: event = ( |
@@ -1898,7 +1898,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: windowEvents\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          windowExposed: rect Last: last Event: event = ( |
@@ -1911,14 +1911,14 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          windowPrototype = ( |
             | graphics windowPrototype).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: windowEvents\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          windowQuit: win Event: event = ( |
@@ -1927,52 +1927,52 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             quit).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
-         ui1Graphics = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1Graphics' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1Graphics.
+         graphics = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 graphics.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
          'Category: prototypes\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
-         abstract = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstract' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1Graphics abstract.
+         abstract = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstract' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 graphics abstract.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstract' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstract' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)'
         
          window.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
          'Category: traits\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
-         abstractTraits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1Graphics abstractTraits.
+         abstractTraits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 graphics abstractTraits.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstract' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstract' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
-         parent* = bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstract' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstract' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (\'\')'
         
          prevDisplayName <- ''.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          boxSizePlatformMixin = ( |
@@ -1980,14 +1980,14 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             childResponsibility).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          copy = ( |
             | resend.copy window: window copy).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          fadeInAcetate = ( |
@@ -1995,7 +1995,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             childResponsibility).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          fadeOutAcetate = ( |
@@ -2003,7 +2003,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             childResponsibility).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          finalizeAnimator: animator = ( |
@@ -2011,14 +2011,14 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          flushCaches = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          initializeColorCachesColors: uiColors Animator: ranimator = ( |
@@ -2026,7 +2026,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          initializeColorsWindow: window Animator: ranimator = ( |
@@ -2035,7 +2035,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
          makeAcetateVisible = ( |
@@ -2043,34 +2043,34 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             childResponsibility).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          makeOffscreenFor: win Size: sz = ( |
             | bitmap copyFor: win Size: sz).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          optimalNameForDisplay: disp = ( |
             | '').
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          patterns = ( |
             | childResponsibility).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          platformColormap = ( |
@@ -2078,7 +2078,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             childResponsibility).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          platformPixmap = ( |
@@ -2086,7 +2086,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             childResponsibility).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAll: w = ( |
@@ -2094,7 +2094,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             childResponsibility).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAllButArrow0: w = ( |
@@ -2102,7 +2102,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             childResponsibility).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow0: w = ( |
@@ -2110,7 +2110,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             childResponsibility).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow0InstallingBoth: w = ( |
@@ -2118,7 +2118,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             childResponsibility).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow1: w = ( |
@@ -2126,7 +2126,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             childResponsibility).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: preparing to draw\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnInvisibleAcetate = ( |
@@ -2135,8 +2135,8 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
-         'Comment: the pre-seam uiWorld display body: render to the X window and flush. X needs no offscreen shadow/blit. -- claude & dmu 6/2026\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Comment: the pre-seam ui1 uiWorld display body: render to the X window and flush. X needs no offscreen shadow/blit. -- claude & dmu 6/2026\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          present: w = ( |
             | 
@@ -2146,20 +2146,20 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          window = ( |
             | childResponsibility).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          windowDepth = bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          windowPrototype = ( |
@@ -2167,30 +2167,30 @@ must have some way of figuring out which uiWorld to put the new togglers into.
             childResponsibility).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
          'Category: prototypes\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
-         abstractQuartz = bootstrap define: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractQuartz' -> () ToBe: bootstrap addSlotsTo: (
-             traits ui1Graphics abstract copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractQuartz' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1Graphics abstractQuartz.
+         abstractQuartz = bootstrap define: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractQuartz' -> () ToBe: bootstrap addSlotsTo: (
+             traits ui1 graphics abstract copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractQuartz' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 graphics abstractQuartz.
 
 CopyDowns:
-traits ui1Graphics abstract. copy
+traits ui1 graphics abstract. copy
 
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
          'Category: traits\x7fModuleInfo: Module: ui InitialContents: FollowSlot'
         
-         abstractX11Traits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractX11Traits' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1Graphics abstractX11Traits.
+         abstractX11Traits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 graphics abstractX11Traits.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
          'Category: behaviors\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          copyNamed: nm = ( |
@@ -2198,29 +2198,29 @@ traits ui1Graphics abstract. copy
             (prototypeNamed: nm) copy).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
          'Category: prototypes\x7fComment: the true-colour RGBA graphics backend (Phase 2). Inherits the quartz backend; overrides makeOffscreenFor: (rgbaPixmap offscreens) and installShadowOn: (no shadow -> window draws true colour). Draw-targets are inherited for now (plane masks are no-ops on rgbaContext; arrow colormap installs are harmless); the acetate/arrow multi-surface facade comes in 2.2.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
-         newQuartz = bootstrap define: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'newQuartz' -> () ToBe: bootstrap addSlotsTo: (
+         newQuartz = bootstrap define: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'newQuartz' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
-             traits ui1Graphics abstractQuartz copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'newQuartz' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1Graphics newQuartz.
+             traits ui1 graphics abstractQuartz copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'newQuartz' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 graphics newQuartz.
 
 CopyDowns:
-traits ui1Graphics abstractQuartz. copy 
+traits ui1 graphics abstractQuartz. copy 
 SlotsToOmit: parent.
 
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'oddball' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
          'Category: behaviors\x7fComment: registry: map a backend name to its backend object. Unknown names fall back to the indexed quartz backend.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
          prototypeNamed: nm = ( |
@@ -2231,16 +2231,16 @@ SlotsToOmit: parent.
             x11).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
          'Category: prototypes\x7fComment: the original 8-bit indexed graphics backend (Phase 1.5 dual-backend). Its factory methods reproduce setGraphicAndOffScreen exactly (bitmap copyFor:Size:), so selecting it changes no behaviour. parent* = lobby so the factory bodies can see the bitmap global.\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
-         quartz = bootstrap define: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'quartz' -> () ToBe: bootstrap addSlotsTo: (
+         quartz = bootstrap define: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartz' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
-             traits ui1Graphics abstractQuartz copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'quartz' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1Graphics quartz.
+             traits ui1 graphics abstractQuartz copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartz' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 graphics quartz.
 
 CopyDowns:
-traits ui1Graphics abstractQuartz. copy 
+traits ui1 graphics abstractQuartz. copy 
 SlotsToOmit: parent.
 
 '.

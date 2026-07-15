@@ -59,16 +59,16 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          subpartNames <- ''.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: togglers InitialContents: FollowSlot'
         
-         togglers = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'togglers' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals togglers.
+         togglers = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 togglers.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'togglers' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
          'ModuleInfo: Module: togglers InitialContents: FollowSlot'
         
          all = ( |
@@ -83,7 +83,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'togglers' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
          'ModuleInfo: Module: togglers InitialContents: FollowSlot'
         
          animation = ( | {
@@ -92,12 +92,12 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  t.
                 } 
             | 
-            t: toggleBody createOn: ui currentWorld
+            t: ui1 toggleBody createOn: ui1 ui currentWorld
                         OnString: 'animation ON'
                         OffString: 'animation OFF'
-                        OnMessage: (message copy receiver: ui currentWorld myUI
+                        OnMessage: (message copy receiver: ui1 ui currentWorld myUI
                                                  Selector: 'animationOn')
-                        OffMessage: (message copy receiver: ui currentWorld myUI
+                        OffMessage: (message copy receiver: ui1 ui currentWorld myUI
                                                   Selector: 'animationOff')
                         InitiallyOn: true.
              t location: loc: 1.
@@ -105,7 +105,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
              t).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'togglers' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
          'ModuleInfo: Module: togglers InitialContents: FollowSlot'
         
          anticipation = ( | {
@@ -114,12 +114,12 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  t.
                 } 
             | 
-            t: toggleBody createOn: ui currentWorld
+            t: ui1 toggleBody createOn: ui1 ui currentWorld
                         OnString: 'anticipation'
                         OffString: 'no anticipation'
-                        OnMessage: (message copy receiver: ui currentWorld myUI
+                        OnMessage: (message copy receiver: ui1 ui currentWorld myUI
                                                  Selector: 'anticipation')
-                        OffMessage: (message copy receiver: ui currentWorld myUI
+                        OffMessage: (message copy receiver: ui1 ui currentWorld myUI
                                                   Selector: 'noAnticipation')
                         InitiallyOn: true.
              t location: loc: 5.
@@ -127,7 +127,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
              t).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'togglers' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
          'ModuleInfo: Module: togglers InitialContents: FollowSlot'
         
          arcs = ( | {
@@ -136,12 +136,12 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  t.
                 } 
             | 
-            t: toggleBody createOn: ui currentWorld
+            t: ui1 toggleBody createOn: ui1 ui currentWorld
                         OnString: 'arcs'
                         OffString: 'straight lines'
-                        OnMessage: (message copy receiver: ui currentWorld myUI
+                        OnMessage: (message copy receiver: ui1 ui currentWorld myUI
                                                  Selector: 'arcs')
-                        OffMessage: (message copy receiver: ui currentWorld myUI
+                        OffMessage: (message copy receiver: ui1 ui currentWorld myUI
                                                   Selector: 'straightLines')
                         InitiallyOn: true.
              t location: loc: 7.
@@ -149,7 +149,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
              t).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'togglers' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
          'ModuleInfo: Module: togglers InitialContents: FollowSlot'
         
          followThrough = ( | {
@@ -158,12 +158,12 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  t.
                 } 
             | 
-            t: toggleBody createOn: ui currentWorld
+            t: ui1 toggleBody createOn: ui1 ui currentWorld
                         OnString: 'follow through'
                         OffString: 'no follow through'
-                        OnMessage: (message copy receiver: ui currentWorld myUI
+                        OnMessage: (message copy receiver: ui1 ui currentWorld myUI
                                                  Selector: 'followThrough')
-                        OffMessage: (message copy receiver: ui currentWorld myUI
+                        OffMessage: (message copy receiver: ui1 ui currentWorld myUI
                                                   Selector: 'noFollowThrough')
                         InitiallyOn: true.
              t location: loc: 6.
@@ -171,7 +171,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
              t).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'togglers' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
          'ModuleInfo: Module: togglers InitialContents: FollowSlot'
         
          loc: n = ( |
@@ -180,11 +180,11 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
              xoffset = 30.
              yoffset = 50.
             | 
-            sz: ui currentWorld myUI window size.
+            sz: ui1 ui currentWorld myUI window size.
             xoffset @ (sz y - (yoffset * (total succ - n)))).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'togglers' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
          'ModuleInfo: Module: togglers InitialContents: FollowSlot'
         
          motionBlur = ( | {
@@ -193,12 +193,12 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  t.
                 } 
             | 
-            t: toggleBody createOn: ui currentWorld
+            t: ui1 toggleBody createOn: ui1 ui currentWorld
                         OnString: 'motion blur'
                         OffString: 'no motion blur'
-                        OnMessage: (message copy receiver: ui currentWorld myUI
+                        OnMessage: (message copy receiver: ui1 ui currentWorld myUI
                                                  Selector: 'motionBlur')
-                        OffMessage: (message copy receiver: ui currentWorld myUI
+                        OffMessage: (message copy receiver: ui1 ui currentWorld myUI
                                                   Selector: 'noMotionBlur')
                         InitiallyOn: true.
              t location: loc: 3.
@@ -206,13 +206,13 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
              t).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'togglers' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
          'ModuleInfo: Module: togglers InitialContents: FollowSlot'
         
          parent* = bootstrap stub -> 'traits' -> 'oddball' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'togglers' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
          'ModuleInfo: Module: togglers InitialContents: FollowSlot'
         
          slowInOut = ( | {
@@ -221,12 +221,12 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  t.
                 } 
             | 
-            t: toggleBody createOn: ui currentWorld
+            t: ui1 toggleBody createOn: ui1 ui currentWorld
                         OnString: 'slow in & slow out'
                         OffString: 'linearly spaced'
-                        OnMessage: (message copy receiver: ui currentWorld myUI
+                        OnMessage: (message copy receiver: ui1 ui currentWorld myUI
                                                  Selector: 'slowInOut')
-                        OffMessage: (message copy receiver: ui currentWorld myUI
+                        OffMessage: (message copy receiver: ui1 ui currentWorld myUI
                                                   Selector: 'linearlySpaced')
                         InitiallyOn: true.
              t location: loc: 4.
@@ -234,7 +234,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
              t).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'togglers' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
          'ModuleInfo: Module: togglers InitialContents: FollowSlot'
         
          slowMotion = ( | {
@@ -243,12 +243,12 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  t.
                 } 
             | 
-            t: toggleBody createOn: ui currentWorld
+            t: ui1 toggleBody createOn: ui1 ui currentWorld
                         OnString: 'slow motion'
                         OffString: 'full speed'
-                        OnMessage: (message copy receiver: ui currentWorld myUI
+                        OnMessage: (message copy receiver: ui1 ui currentWorld myUI
                                                  Selector: 'slowMotion')
-                        OffMessage: (message copy receiver: ui currentWorld myUI
+                        OffMessage: (message copy receiver: ui1 ui currentWorld myUI
                                                   Selector: 'fullSpeed')
                         InitiallyOn: false.
              t location: loc: 2.

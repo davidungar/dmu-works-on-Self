@@ -377,7 +377,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                  input: input, '\n'.
             ] False: [
                  input: ''.
-                 updateUI ifTrue: [ui update].
+                 updateUI ifTrue: [ui1 ui update].
             ].
             input).
         } | ) 

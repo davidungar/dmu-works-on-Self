@@ -7,88 +7,88 @@ See the LICENSE file for license information.
 
  '-- Module body'
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
-         menu = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'menu' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals menu.
+         menu = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'menu' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 menu.
 \x7fIsComplete: '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menu' -> () From: ( | {
          'ModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: publicReadPrivateWrite'
         
-         body <- bootstrap stub -> 'globals' -> 'slab' -> ().
+         body <- bootstrap stub -> 'globals' -> 'ui1' -> 'slab' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menu' -> () From: ( | {
          'ModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          columnExtent <- (0)@(0).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menu' -> () From: ( | {
          'ModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          currentItemNumber <- -1.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menu' -> () From: ( | {
          'ModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          cursorLocation <- (0)@(0).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menu' -> () From: ( | {
          'Comment: redundant, but convenient\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          itemExtent <- (0)@(0).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menu' -> () From: ( | {
          'ModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          itemsPerColumn <- 1.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menu' -> () From: ( | {
          'ModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          numberOfColumns <- 1.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
-         menu = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'menu' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits menu.
+         menu = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 menu.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menu' -> () From: ( | {
          'ModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
-         parent* = bootstrap stub -> 'traits' -> 'menu' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menu' -> () From: ( | {
          'ModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
          sourceBound <- ((0)@(0)) # ((2)@(2)).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menu' -> () From: ( | {
          'ModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
          truncatedItems <- ((bootstrap stub -> 'globals') \/-> 'vector') -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menu' -> () From: ( | {
          'ModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
-         world <- bootstrap stub -> 'globals' -> 'uiWorld' -> ().
+         world <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiWorld' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
@@ -143,27 +143,27 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          subpartNames <- ''.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: accessingGlobals\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          animator = ( |
             | world animator).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: geometry\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          baseThickness = 3.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: bounding\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
          bound = ( |
             | body bound).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: bounding\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          boundOfItem: i = ( |
@@ -174,21 +174,21 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             ##! (itemExtent      +  (3 @ 1))).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: accessingGlobals\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          boxSizing = ( |
             | world boxSizing).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: selecting\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          checkForButtonUp = ( |
             | cursor queuedButtonUp).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: geometry\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          computeBody = ( | {
@@ -205,7 +205,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: geometry\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          computeExtent = ( |
@@ -217,7 +217,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: geometry\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          computeGeometry = ( |
@@ -227,7 +227,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             placeBody).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: geometry\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          constrainBodyToWindow = ( | {
@@ -256,7 +256,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  topOff.
                 } 
             | 
-            "make sure menu stays within boundaries of window"
+            "make sure ui1 menu stays within boundaries of window"
             fbr: windowBitmap size rect.
             bb: body bound.
             leftOff:   0 max: fbr left   - bb  left.
@@ -268,7 +268,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
          createFromBound: sbnd Items: itms World: w = ( |
@@ -276,21 +276,21 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             ((sourceBound: sbnd) items: itms) world: w).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: selecting\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          currentSelection = ( |
             | items at: currentItemNumber).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: accessingGlobals\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          cursor = ( |
             | world cursor).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: drawing\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          draw = ( |
@@ -300,14 +300,14 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: drawing\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          drawFeaturesOfItem: i Color: c = ( |
             | drawTextOfItem: i Color: c).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: drawing\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          drawHighlighting: i = ( |
@@ -317,7 +317,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: drawing\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          drawItem: i TextColor: tc BackgroundColor: bc = ( |
@@ -327,7 +327,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             drawFeaturesOfItem: i Color: tc).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: drawing\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          drawTextOfItem: i Color: c = ( | {
@@ -344,7 +344,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: selecting\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
          feedbackAt: p = ( | {
@@ -361,7 +361,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: drawing\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          highlightItem: i = ( |
@@ -372,35 +372,35 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             world syncGraphics).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: items\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          itemFont: it = ( |
             | boxSizing menuFont).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: items\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          itemName: it = ( |
             | it).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: geometry\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          itemSize: it = ( |
             | (itemFont: it) sizeOfString: it).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: items\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
          items = ( |
             | truncatedItems).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: items\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
          items: aCol = ( |
@@ -414,26 +414,26 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: geometry\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          marginWidth = 5.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: selecting\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          noCurrentSelection = ( |
             | currentItemNumber = noSelection).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: selecting\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          noSelection = -1.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: drawing\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          offsetOfItem: i = ( |
@@ -442,20 +442,20 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             (itemExtent addX: marginWidth)).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: animating\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          originSlab = ( |
-            | slab copyFromRect: sourceBound).
+            | ui1 slab copyFromRect: sourceBound).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'ModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: geometry\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          placeBody = ( |
@@ -464,7 +464,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             constrainBodyToWindow).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: geometry\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          placeBodyInDesiredLocation = ( |
@@ -472,7 +472,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             body: body translateBy: cursorLocation - body front center).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: selecting\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
          select: selBlock IfNone: noneBlock = ( |
@@ -492,7 +492,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             selectAfterSetup: selBlock IfNone: noneBlock).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: selecting\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          selectAfterSetup: selBlock IfNone: noneBlock = ( | {
@@ -511,7 +511,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                             IfNone: noneBlock).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: selecting\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
          selectAt: p IfSelected: selBlock IfNone: noneBlock = ( |
@@ -524,7 +524,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             noneBlock value).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: animating\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
          setup = ( |
@@ -538,7 +538,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: animating\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
          takedown = ( |
@@ -547,28 +547,28 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: bounding\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          textBox = ( |
             | body front indent: marginWidth).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: bounding\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          textLocationOfItem: i = ( |
             | textBox origin + offsetOfItem: i).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: accessingGlobals\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          uiColors = ( |
             | world uiColors).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: drawing\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          unhighlightItem: i = ( |
@@ -578,21 +578,21 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             BackgroundColor: uiColors body).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: animating\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
          unzoom = ( |
             | animator zoomSlab: body To: originSlab).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: accessingGlobals\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          windowBitmap = ( |
             | world windowBitmap).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'menu' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: animating\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
          zoom = ( |

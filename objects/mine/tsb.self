@@ -321,7 +321,7 @@ traits screenBox _Define: ( |
             ^ zoomFrom: aRect SelectFrom: selections
                   IfSelected: selBlock IfNone: noneBlock = (
                 | m.  comment = 'zoom some day--dmu'. |
-	        m: menu copy.
+	        m: ui1 menu copy.
 		m screenBitmap: window.
                 m items: selections.
                 m clearColor: colorPrefs textBackground.
@@ -435,7 +435,7 @@ traits screenBox _Define: ( |
                   IfSelected: selBlock IfNone: noneBlock = (
                 | m.  comment = 'zoom some day--dmu'. |
 		window setBitplaneMask: movingPlaneMask.
-	        m: menu copy.
+	        m: ui1 menu copy.
 		m screenBitmap: window.
                 m items: selections.
                 m clearColor: colorPrefs textBackground.
@@ -560,4 +560,4 @@ screenBox _Define: ( |
 | )
 
 
-ui invalidateCaches
+ui1 ui invalidateCaches

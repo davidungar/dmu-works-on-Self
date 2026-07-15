@@ -58,73 +58,73 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          subpartNames <- ''.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
-         uiWorld = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'uiWorld' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals uiWorld.
+         uiWorld = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiWorld' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 uiWorld.
 \x7fIsComplete: '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          arrows <- bootstrap stub -> 'globals' -> 'list' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          bodies <- bootstrap stub -> 'globals' -> 'list' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          bodiesToUpdate <- bootstrap stub -> 'globals' -> 'list' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          graphic <- bootstrap stub -> 'globals' -> 'bitmap' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
-         myUI <- bootstrap stub -> 'globals' -> 'ui' -> ().
+         myUI <- bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          offScreen <- bootstrap stub -> 'globals' -> 'bitmap' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
-         uiWorld = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits uiWorld.
+         uiWorld = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 uiWorld.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'ModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
         
-         parent* = bootstrap stub -> 'traits' -> 'uiWorld' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: accessing\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          absoluteLocation = (0)@(0).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          accelerateBody: bod To: dest = ( |
@@ -132,7 +132,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             bod animator accelerateBody: bod To: dest).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          addBodyOnBottom: bod = ( |
@@ -141,7 +141,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          addBodyOnTop: bod = ( |
@@ -151,7 +151,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: buttoning\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          addEditor = ( | {
@@ -160,14 +160,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                  me.
                 } 
             | 
-            me: textEditor copyOn: self.
+            me: ui1 textEditor copyOn: self.
             addBodyOnTop: me.
             me location: cursor location.
             me constrainFullBodyToWorld.
             me swoopDown).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: buttoning\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          addNewCodeObject = ( |
@@ -182,7 +182,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             ^false).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: buttoning\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          addNewObject = ( |
@@ -197,7 +197,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             ^false).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fComment: alters body in place (does not raise body to top)\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          alterBody: bod By: alterBlock = ( | {
@@ -223,7 +223,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          arcBody: bod To: dest = ( |
@@ -231,7 +231,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             bod animator arcAnticipateBody: bod To: dest).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          arcWiggleBody: bod To: dest = ( |
@@ -239,7 +239,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             bod animator arcWiggleBody: bod To: dest).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          banishAllBodies = ( | {
@@ -256,7 +256,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          banishBody: bod = ( | {
@@ -296,7 +296,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                         self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          banishLocation = ( | {
@@ -314,7 +314,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             x @ y).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          bodyAt: loc IfFound: found IfNone: none = ( |
@@ -325,7 +325,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             none value).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: sprouting\x7fComment: 
            the constraint argument must be a positive or negative delta
 	    w.r.t. the bod\'s location--dmu\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
@@ -352,7 +352,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
              ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: colorChanging\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          changeColors = ( |
@@ -366,28 +366,28 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: screenOperations\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          clipArrows: bnd = ( |
             | arrows do: [ | :a | a clip:   bnd ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: accessing\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          componentsDo: block = ( |
             | bodies do: block).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: accessing\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          containsPoint: pt = ( |
             | boundContainsPoint: pt).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          createForUI: aui = ( |
@@ -401,7 +401,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          decelerateBody: bod To: dest = ( |
@@ -409,7 +409,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             bod animator decelerateBody: bod To: dest).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: screenOperations\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          delete = ( |
@@ -419,7 +419,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             offScreen release).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          deleteBody: bod = ( |
@@ -430,7 +430,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: screenOperations\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          display = ( |
@@ -439,7 +439,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'ModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          displayAndFadeOutAcetate = ( |
@@ -453,7 +453,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: screenOperations\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          displayNoArrows = ( |
@@ -462,7 +462,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: screenOperations\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          displayNoUpdate = ( |
@@ -472,7 +472,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          dissolveBody: bod = ( |
@@ -483,7 +483,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          draw = ( |
@@ -491,7 +491,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             drawBackground. redrawAllBodies).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          draw3dExtension: botLeft To: botRight = ( | {
@@ -518,14 +518,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: screenOperations\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
         
          drawArrows: bm = ( |
             | drawArrows: bm Color: uiColors arrow).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: screenOperations\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
         
          drawArrows: bm Color: col = ( |
@@ -533,7 +533,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             arrows do: [ | :a | a drawOn: bm Color: col ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: screenOperations\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
         
          drawArrowsPlusTopPlanes: bm = ( |
@@ -541,7 +541,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             drawArrows: bm Color: uiColors arrowPlusTopPlanes).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
         
          drawBackground = ( |
@@ -549,14 +549,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             graphic fillRectangle: size rect Color: uiColors background).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'ModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          ensureFrontmost = ( |
             | myUI ensureFrontmost).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          entirelyOffScreen: bod = ( |
@@ -564,14 +564,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             (bod absoluteBound intersects: myUI size rect) not).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseAcetate = ( |
             | eraseAcetate: windowBitmap size rect).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseAcetate: rect = ( |
@@ -580,14 +580,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseArrow0 = ( |
             | eraseArrow0: windowBitmap size rect).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseArrow0: rect = ( |
@@ -596,14 +596,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseArrow1 = ( |
             | eraseArrow1: windowBitmap size rect).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseArrow1: rect = ( |
@@ -612,14 +612,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseArrowLayers = ( |
             | eraseArrow0. eraseArrow1).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          eraseBody: bod = ( | {
@@ -633,14 +633,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          exists: mirr = ( |
             | findBody: mirr IfFound: true IfNone: false).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          fadeAddBody: bod = ( |
@@ -649,7 +649,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'ModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          fadeIn: bod = ( |
@@ -670,7 +670,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          fadeInAcetate = ( |
@@ -679,7 +679,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          fadeOutAcetate = ( |
@@ -688,7 +688,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          fillInBackground: rect = ( |
@@ -696,7 +696,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             graphic fillRectangle: rect Color: uiColors background).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: arrowGrabbing\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          findArrow = ( | {
@@ -716,7 +716,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             nil).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          findBody: mirr IfFound: fb IfNone: nb = ( |
@@ -725,7 +725,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                     IfPresent: fb IfAbsent: nb).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fComment: experimental--does not respect arrows\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          floatBodyDownward: bod = ( |
@@ -761,7 +761,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          floatBodyToBottom: bod = ( |
@@ -770,7 +770,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             addBodyOnBottom: bod).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          floatBodyToTop: bod = ( |
@@ -779,14 +779,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             addBodyOnTop: bod).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: screenOperations\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          flushGraphics = ( |
             | window flush).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          from: bod ReverseDo: block = ( | {
@@ -802,7 +802,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: arrowGrabbing\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          grabArrow: arr = ( |
@@ -865,7 +865,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          hideRegion: origrect OfBody: bod SlotCpt: sb = ( |
@@ -873,7 +873,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             animator hideRegion: origrect OfBody: bod SlotCpt: sb).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          incrementalLowerBody: bod = ( |
@@ -886,49 +886,49 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          isEmpty = ( |
             | bodies isEmpty).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          isTop: box = ( |
             | box = bodies first).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdAgain = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdCopy = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdCut = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdDown = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdF1 = ( |
@@ -937,98 +937,98 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdF10 = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdF11 = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdF12 = ( |
             | updateBodiesUntil: false).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdF2 = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdF3 = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdF4 = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdF5 = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdF6 = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdF7 = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdF8 = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdF9 = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdFind = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdLeft = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdPaste = ( |
@@ -1040,49 +1040,49 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdProps = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdRight = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdStop = ( |
             | myUI quit).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdUndo = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          kbdUp = ( |
             | keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          keyNullResponse = ( |
             | '\a' print).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: keying nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          keyString: str = ( |
@@ -1091,7 +1091,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             keyNullResponse).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          layerBody: bod After: targ = ( |
@@ -1103,7 +1103,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: buttoning\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          leftButtonDown = ( | {
@@ -1130,14 +1130,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: buttoning nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          leftButtonUp = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          lowerBody: bod = ( |
@@ -1149,7 +1149,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fComment: experimental; does not respect arrows\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          lowerFadeInBody: bod = ( |
@@ -1162,7 +1162,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             animator dissolve: bod).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          makeAcetateVisible = ( |
@@ -1171,7 +1171,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: sprouting\x7fComment: 
            the constraint argument must be a positive or negative delta
 	    w.r.t. the bod\'s location--dmu\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
@@ -1179,12 +1179,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          makeBodyFor: mir Constrain: a To: b = ( |
             | 
                bodyFor: mir
-             CreateBy: [ (objectBody protoFor: mir) copy create: mir On: self ]
+             CreateBy: [ (ui1 objectBody protoFor: mir) copy create: mir On: self ]
             Constrain: a To: b
                 IfNew: []).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: buttoning\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          middleButtonDown = ( |
@@ -1193,14 +1193,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             cursor metaKeyDown ifTrue: [ ^ addEditor ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: buttoning nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          middleButtonUp = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyMoving\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          moveArrows: doBlock Flip: flip = ( |
@@ -1209,7 +1209,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyMoving\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          moveBody: bod Doing: block = ( |
@@ -1219,7 +1219,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             moveEpilogue: bod).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyMoving\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          moveBody: bod Offset: offset Doing: block = ( |
@@ -1229,7 +1229,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             moveEpilogue: bod).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          moveBody: bod To: dest = ( |
@@ -1237,14 +1237,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             bod animator moveBody: bod To: dest).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyMoving\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          moveEpilogue: bod = ( |
             | recoverFromAnimation: bod IncludeArrows: true).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: arrowGrabbing\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          moveHeadOfArrow: arr To: loc = ( |
@@ -1259,7 +1259,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyMoving\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          moveLoop: bod Offset: offset Doing: block = ( |
@@ -1309,14 +1309,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyMoving\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          movePrologue: bod = ( |
             | prepareForAnimation: bod IncludeArrows: true).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          notifyTopObject = ( |
@@ -1324,20 +1324,20 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             isEmpty ifFalse: [ bodies first leavingTopNotify ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          numberOfBodies = ( |
             | bodies size).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'ModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
         
-         parent* = bootstrap stub -> 'traits' -> 'uiNester' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'uiNester' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyMoving\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          prepareForAnimation: bod IncludeArrows: withArr = ( |
@@ -1369,7 +1369,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                         self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAcetate = ( |
@@ -1378,7 +1378,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAll = ( |
@@ -1387,7 +1387,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAllButArrow0 = ( |
@@ -1396,7 +1396,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow0 = ( |
@@ -1405,7 +1405,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow0InstallingBoth = ( |
@@ -1414,7 +1414,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow1 = ( |
@@ -1423,7 +1423,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: planes\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnBackground = ( |
@@ -1432,7 +1432,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          raiseBody: bod = ( |
@@ -1452,7 +1452,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          raiseFadeInBody: bod = ( |
@@ -1465,14 +1465,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: screenOperations\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          reclipArrows: bnd = ( |
             | arrows do: [ | :a | a reclip: bnd ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyMoving\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          recoverFromAnimation: bod IncludeArrows: withArr = ( |
@@ -1491,7 +1491,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          redrawAllBodies = ( |
@@ -1501,14 +1501,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                                         False: [ b display ] ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyMoving\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          reinstateStatic = ( |
             | offScreen copyTo: graphic).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          removeBody: bod = ( |
@@ -1518,7 +1518,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          repairBodies: bnd = ( |
@@ -1527,7 +1527,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             bodies reverseDo: [ | :b | b repair: bnd ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          repairBodies: bnd StartingAt: startBody = ( | {
@@ -1541,7 +1541,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 seen ifTrue: [b repair: bnd] ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: buttoning\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          rightButtonDown = ( |
@@ -1550,14 +1550,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 ifTrue: [ myUI lower ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: buttoning nullResponse\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          rightButtonUp = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          ripOutRegion: origrect Of: bod = ( |
@@ -1565,14 +1565,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             animator ripOutRegion: origrect Of: bod).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyMoving\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          saveStatic = ( |
             | graphic copyTo: offScreen).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: arrowGrabbing\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          scanArrows = ( |
@@ -1586,7 +1586,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             false).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: creating\x7fComment: Phase 1.5 increment 2: the two offscreens are created via the selected graphics backend factory (myUI graphics makeOffscreenFor:Size:) instead of bitmap copyFor:Size: directly. For the quartz (indexed) backend the factory IS bitmap copyFor:Size:, so behaviour is unchanged; the newQuartz backend will return RGBA offscreens.\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
         
          setGraphicAndOffScreen = ( |
@@ -1595,14 +1595,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             offScreen: myUI graphics makeOffscreenFor: window Size: window size).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: accessing\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          size = ( |
             | graphic size).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyMoving\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          slideOutRegion: origrect OfBody: bod Changing: changeBlock Setup: setupBlock AfterSlide: afterSlideBlock = ( |
@@ -1644,7 +1644,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: sprouting\x7fComment: 
            the constraint argument must be a positive or negative delta
 	    w.r.t. the bod\'s location--dmu\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
@@ -1652,13 +1652,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          sproutBodyFor: mir Blueprint: bp Constrain: a To: b = ( |
             | 
                bodyFor: mir
-             CreateBy: [ (objectBody protoFor: mir) copy create: mir On: self
+             CreateBy: [ (ui1 objectBody protoFor: mir) copy create: mir On: self
                                                            WithBlueprint: bp ]
             Constrain: a To: b
                 IfNew: [|:b| b display]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: sprouting\x7fComment: 
            the constraint argument must be a positive or negative delta
 	    w.r.t. the bod\'s location--dmu\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
@@ -1666,19 +1666,19 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          sproutBodyFor: mir Constrain: a To: b = ( |
             | 
                bodyFor: mir
-             CreateBy: [ (objectBody protoFor: mir) copy create: mir On: self ]
+             CreateBy: [ (ui1 objectBody protoFor: mir) copy create: mir On: self ]
             Constrain: a To: b
                 IfNew: [|:b| b display]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: sprouting\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          sproutBound = ( |
             | size rect indent: 20).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: sprouting\x7fComment: 
            the constraint argument must be a positive or negative delta
 	    w.r.t. the bod\'s location--dmu\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
@@ -1687,7 +1687,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             | sproutTypeInFor: bod Contents: '').
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: sprouting\x7fComment: 
            the constraint argument must be a positive or negative delta
 	    w.r.t. the bod\'s location--dmu\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
@@ -1698,7 +1698,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                  te.
                 } 
             | 
-            te: evalEditor copyOn: self
+            te: ui1 evalEditor copyOn: self
                              Size: (bod size x @ 80)
                          Receiver: bod objMirror.
             te methodView addTextToEnd: contents.
@@ -1708,13 +1708,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             te).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: printing\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          statePrintString = ''.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: sprouting\x7fComment: 
            the constraint argument must be a positive or negative delta
 	    w.r.t. the bod\'s location--dmu\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
@@ -1722,13 +1722,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          summonBodyFor: mir Blueprint: bp Constrain: a To: b = ( |
             | 
                bodyFor: mir
-             CreateBy: [ (objectBody protoFor: mir) copy create: mir On: self
+             CreateBy: [ (ui1 objectBody protoFor: mir) copy create: mir On: self
                                                            WithBlueprint: bp ]
             Constrain: a To: b
                 IfNew: [|:b| b swoopDown]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: sprouting\x7fComment: 
            the constraint argument must be a positive or negative delta
 	    w.r.t. the bod\'s location--dmu\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
@@ -1736,12 +1736,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          summonBodyFor: mir Constrain: a To: b = ( |
             | 
                bodyFor: mir
-             CreateBy: [ (objectBody protoFor: mir) copy create: mir On: self ]
+             CreateBy: [ (ui1 objectBody protoFor: mir) copy create: mir On: self ]
             Constrain: a To: b
                 IfNew: [|:b| b swoopDown]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: sprouting\x7fComment: 
            the constraint argument must be a positive or negative delta
 	    w.r.t. the bod\'s location--dmu\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
@@ -1749,20 +1749,20 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          summonBodyFor: mir Messages: m Constrain: a To: b = ( |
             | 
                bodyFor: mir
-             CreateBy: [ (objectBody protoFor: mir) copy create: mir On: self
+             CreateBy: [ (ui1 objectBody protoFor: mir) copy create: mir On: self
                                                            WithMessages: m ]
             Constrain: a To: b
                 IfNew: [|:b| b swoopDown]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: screenOperations\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          syncGraphics = ( |
             | window sync).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          teleportBody: bod To: dest = ( |
@@ -1779,21 +1779,21 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          topObject = ( |
             | bodies first objMirror).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: screenOperations\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          update = ( |
             | offScreen copyTo: windowBitmap. self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: screenOperations\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          update: rect = ( |
@@ -1802,14 +1802,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement updating\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          updateAllBodies = ( |
             | updateBodiesUntil: [ false ]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement updating\x7fComment: recomputes and redraws all or some bodies (in roughly round-robin)
 	     and stops if untilBlock return true, or of it has done approx all
 	     blocks -- dmu\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
@@ -1853,7 +1853,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement updating\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          updateBody: bod = ( |
@@ -1863,7 +1863,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          wiggleBody: bod Direction: dir = ( |
@@ -1873,14 +1873,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'ModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          windowBitmap = ( |
             | window bitmap).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          windowChanged = ( |
@@ -1891,7 +1891,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: accessing\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          world = ( |

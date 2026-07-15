@@ -422,7 +422,7 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
          buttonName = ( |
-            | buttonName: button).
+            | buttonName: ui1 button).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xButtonEvent' -> () From: ( | {
@@ -452,7 +452,7 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
          newState = ( |
-            | newStateFrom: state Changing: button).
+            | newStateFrom: state Changing: ui1 button).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xButtonEvent' -> () From: ( | {
@@ -5130,7 +5130,7 @@ an object with these slots:
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'ui1EventSource' -> () From: ( | {
-         'Comment: ui1EventSource hook: convert one native X event into the shared uiEvent
+         'Comment: ui1 eventSource hook: convert one native X event into the shared uiEvent
 family (x11Globals ui2Event) by REUSING ui2s proven X converter
 (copyFrom:LastCursor: -> the native events setUI2Event: -> setFromButtonPress:
 etc.). ui1 reads it through the ui1-view aliases (typeName/x/y/newState/...).
@@ -5162,11 +5162,11 @@ native event. -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'ui1EventSource' -> () From: ( | {
          'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: private'
         
-         parent* = bootstrap stub -> 'traits' -> 'ui1EventSource' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'eventSource' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'ui1EventSource' -> () From: ( | {
-         'Comment: ui1EventSource hook: how many native X events are queued. XPending also
+         'Comment: ui1 eventSource hook: how many native X events are queued. XPending also
 pumps the fd, so the shared nextEvent sleep-polling this sees newly-arrived
 events (Option A: X no longer fd-blocks, so injected synthetic events are
 noticed too). -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
@@ -5176,7 +5176,7 @@ noticed too). -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'ui1EventSource' -> () From: ( | {
-         'Comment: ui1EventSource hook: fetch the next native X event. Only called once the
+         'Comment: ui1 eventSource hook: fetch the next native X event. Only called once the
 shared nextEvent has confirmed one is pending, so it returns without
 fd-blocking. -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         

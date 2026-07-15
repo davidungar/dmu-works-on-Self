@@ -52,10 +52,10 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          postFileIn = ( |
             | 
-            uiDemo initializeStrings.
-            uiDemo initializeTextPositions.
+            ui1 uiDemo initializeStrings.
+            ui1 uiDemo initializeTextPositions.
             snapshotAction addPostReadMessage:
-                message copy receiver: uiDemo Selector: 
+                message copy receiver: ui1 uiDemo Selector: 
                 'flushEditors'.
             resend.postFileIn).
         } | ) 
@@ -72,16 +72,16 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          subpartNames <- ''.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: applications\x7fModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
-         uiDemo = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals uiDemo.
+         uiDemo = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 uiDemo.
 \x7fIsComplete: '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          acceptStep: n = ( | {
@@ -107,179 +107,179 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
-         account1 = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'uiDemo' -> 'account1' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals uiDemo account1.
+         account1 = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'account1' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 uiDemo account1.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'account1' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'account1' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          dollars <- 100.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'account1' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'account1' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
-         parent* = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'uiDemo' -> 'account1' -> 'parent' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals uiDemo account1 parent.
+         parent* = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'account1' -> 'parent' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 uiDemo account1 parent.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'account1' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'account1' -> 'parent' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          deposit: amt = ( |
             | dollars: dollars + amt).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'account1' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'account1' -> 'parent' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'account1' -> 'parent' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'account1' -> 'parent' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          withdraw: amt = ( |
             | deposit: amt negate).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
-         account2 = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'uiDemo' -> 'account2' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals uiDemo account2.
+         account2 = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'account2' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 uiDemo account2.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'account2' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'account2' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          dollars <- 100.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'account2' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'account2' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
-         parent* = bootstrap stub -> 'globals' -> 'uiDemo' -> 'account1' -> 'parent' -> ().
+         parent* = bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'account1' -> 'parent' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot\x7fVisibility: private'
         
-         applyCommand = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'uiDemo' -> 'applyCommand' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals uiDemo applyCommand.
+         applyCommand = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'applyCommand' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 uiDemo applyCommand.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'applyCommand' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'applyCommand' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          demo.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'applyCommand' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'applyCommand' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          doIt: ctx = ( |
             | demo nextStepFromIndex: ctx container index).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'applyCommand' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'applyCommand' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          doIt: ctx Shift: bool = ( |
             | doIt: ctx).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'applyCommand' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'applyCommand' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot\x7fVisibility: private'
         
-         cancelCommand = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'uiDemo' -> 'cancelCommand' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals uiDemo cancelCommand.
+         cancelCommand = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'cancelCommand' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 uiDemo cancelCommand.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'cancelCommand' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'cancelCommand' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          demo.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'cancelCommand' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'cancelCommand' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          doIt: ctx = ( |
             | demo prevStepFromIndex: ctx container index).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'cancelCommand' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'cancelCommand' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          doIt: ctx Shift: bool = ( |
             | doIt: ctx).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'cancelCommand' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'cancelCommand' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
-         exampleObject = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'uiDemo' -> 'exampleObject' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals uiDemo exampleObject.
+         exampleObject = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'exampleObject' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 uiDemo exampleObject.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'exampleObject' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'exampleObject' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
-         parent* = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'uiDemo' -> 'exampleObject' -> 'parent' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals uiDemo exampleObject parent.
+         parent* = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'exampleObject' -> 'parent' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 uiDemo exampleObject parent.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'exampleObject' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'exampleObject' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          slotA = 'a string'.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'exampleObject' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'exampleObject' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          slotB = 43.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> 'exampleObject' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> 'exampleObject' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          slotC = ( |
             | 2 * slotB).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          flushEditors = ( |
@@ -287,16 +287,16 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             textEditors: vector copySize: textEditors size FillingWith: nil).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot\x7fVisibility: private'
         
          initializeStrings = ( |
             | 
-            strings: (uiDemo s1 & uiDemo s2 & uiDemo s3 & uiDemo s4 & uiDemo s5 & uiDemo s6 & uiDemo s7 & uiDemo s8) asList.
+            strings: (ui1 uiDemo s1 & ui1 uiDemo s2 & ui1 uiDemo s3 & ui1 uiDemo s4 & ui1 uiDemo s5 & ui1 uiDemo s6 & ui1 uiDemo s7 & ui1 uiDemo s8) asList.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot\x7fVisibility: private'
         
          initializeTextPositions = ( |
@@ -306,7 +306,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          makeAndSproutIndex: i = ( |
@@ -315,7 +315,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             textEditors at: i).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          makeTextEditorIndex: i = ( |
@@ -326,7 +326,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             | 
 
             s:  strings at: i.
-            te: demoEditor copyOn: ui world
+            te: ui1 demoEditor copyOn: ui1 ui world
                     Size: ( 517 + ((strings size - 1 - i)*dx) )@ (668 )
                       Do: [ | :e | 
                          e applyButtonName: 'next'.
@@ -342,7 +342,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          makeTextEditors = ( |
@@ -354,15 +354,15 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          nextStep = ( |
-            | "ui send: 'lowerBody:' To: ui world  Args: ((vector copySize: 1) at: 0 Put: topTextEditor).
-            ui send: 'display' To: ui world" topTextEditor banish).
+            | "ui1 ui send: 'lowerBody:' To: ui1 ui world  Args: ((vector copySize: 1) at: 0 Put: topTextEditor).
+            ui1 ui send: 'display' To: ui1 ui world" topTextEditor banish).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          nextStepFromIndex: i = ( |
@@ -374,20 +374,20 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             i = nextI ifTrue: [ ^ self ].
             (textEditors at: nextI) ifNil: [
                 makeTextEditorIndex: nextI.
-                ui world addBodyOnTop: (textEditors at: nextI).
+                ui1 ui world addBodyOnTop: (textEditors at: nextI).
                 (textEditors at: nextI) swoopDown.
             ].
             (textEditors at: nextI) raise.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          parent* = bootstrap stub -> 'traits' -> 'oddball' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          placeExamples = ( | {
@@ -396,25 +396,25 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  pt.
                 } 
             | 
-            ui add: uiDemo account1      At: 28@380.
-            ui add: uiDemo account2      At: 28@586.
-            ui add: uiDemo exampleObject At: 243@242.
+            ui1 ui add: ui1 uiDemo account1      At: 28@380.
+            ui1 ui add: ui1 uiDemo account2      At: 28@586.
+            ui1 ui add: ui1 uiDemo exampleObject At: 243@242.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          placeStrings = ( |
             | 
             textEditors reverseDo: [ | :te | 
-                   ui world addBodyOnTop: te.
+                   ui1 ui world addBodyOnTop: te.
                    te swoopDown.
             ].
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          prevStepFromIndex: i = ( |
@@ -423,7 +423,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             prevI: ((0 max: (i - 1)) min: textEditors size - 1).
             (textEditors at: prevI) ifNil: [
                 makeTextEditorIndex: prevI.
-                ui world addBodyOnTop: (textEditors at: prevI).
+                ui1 ui world addBodyOnTop: (textEditors at: prevI).
                 (textEditors at: prevI) swoopDown.
             ] IfNotNil: [
                 (textEditors at: prevI) raise.
@@ -431,7 +431,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          s1 = 'WELCOME...
@@ -449,34 +449,34 @@ let you see and directly modify Self objects.)
 Follow the instructions on this box for a brief demo/tutorial.
  
  
-STEP 1: Objects, manipulation, and menu buttons.
+STEP 1: Objects, manipulation, and ui1 menu buttons.
  
 You only need the LEFT MOUSE BUTTON for this tutorial.
-The left mouse button is used to activate buttons and to grab objects.
-Try grabbing and moving the \"uiDemo exampleObject\" (at the left).
+The left mouse ui1 button is used to activate buttons and to grab objects.
+Try grabbing and moving the \"ui1 uiDemo exampleObject\" (at the left).
  
-Let\'s examine the uiDemo exampleObject to the left.  This represents a Self
+Let\'s examine the ui1 uiDemo exampleObject to the left.  This represents a Self
 object.  A Self object is a collection of \"slots.\"  Each slot has a name, and
 each slot contains some object.
  
 The exampleObject\'s slotA contains a character string object. In
 in slotB there is a number object.  SlotC contains some Self code.  
   
-The object name (such as \"uiDemo exampleObject\") is not an intrinsic
+The object name (such as \"ui1 uiDemo exampleObject\") is not an intrinsic
 part of the Self object. (It\'s a kind of path name that the interface
 prints for convenience.)
  
 The little inset rectangles along the left of each object are
-\"menu buttons\" -- a menu button pops up a menu.  We are done with     
-the object called \"uiDemo exampleObject,\" so let\'s send it away.  Press and
-hold the left mouse button on the upper left menu button of that object
+\"ui1 menu buttons\" -- a ui1 menu ui1 button pops up a menu.  We are done with     
+the object called \"ui1 uiDemo exampleObject,\" so let\'s send it away.  Press and
+hold the left mouse ui1 button on the upper left ui1 menu ui1 button of that object
 and select \"dismiss.\"
  
 To move on to step 2, get rid of this \"STEP 1\" box by pressing \"next\"
 at the lower right.'.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          s2 = 'STEP 2: Sending messages with the evaluator window.
@@ -486,8 +486,8 @@ this will return the slot\'s contents, or, if the slot contains code, will
 execute the code.
   
 You can use an \"evaluator\" window to send messages to an object. Use the
-upper left menu button on account1 to get an evaluator window. Point the
-mouse button within the evaluator window and type \"dollars\". Send the
+upper left ui1 menu ui1 button on account1 to get an evaluator window. Point the
+mouse ui1 button within the evaluator window and type \"dollars\". Send the
 message by pressing the \"Eval\" button. You should get the object 100,
 because the evaluator puts the result of the message on the screen (if it
 is not already there.)
@@ -505,7 +505,7 @@ contents of the \"foo\" slot to x by sending \"foo: x\".
  
 You can use this interface to directly inspect the contents of slots
 without sending messages. This is called \"sprouting\" a slots\'s
-contents. You sprout a slot\'s contents by poking the round button at
+contents. You sprout a slot\'s contents by poking the round ui1 button at
 the right end of the slot.  Go ahead and try it on account1\'s
 \"dollars\" slot.
  
@@ -519,10 +519,10 @@ Before proceeding, it\'s probably a good idea to tidy up the screen by
 dismissing extraneous objects: you only need the two account objects
 and these text boxes to continue.
    
-Press the \"next\" button to move on'.
+Press the \"next\" ui1 button to move on'.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          s3 = 'STEP 3: Adding slots.
@@ -533,7 +533,7 @@ Suppose we want account2 to be based on shares of stock instead of a
 stored amount of dollars.  Let\'s add some place for the value and
 number of shares to be stored.
  
-From the upper left menu button on account2, select \"add slot...\".
+From the upper left ui1 menu ui1 button on account2, select \"add slot...\".
  
 Point the mouse in the window and type \"nShares <- 10\". (If you wish,
 you can select the text in this editor and use the copy and paste keys on the 
@@ -559,17 +559,17 @@ You have just added two new attributes to a Self object.
  
  
  
-Press the \"next\" button to move on.'.
+Press the \"next\" ui1 button to move on.'.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          s4 = 'STEP 4:
 We are going to modify the stock account object (account2) so that adding 
 more dollars affects the amount of stock. (The \"dollars:\" slot is currently 
 used to assign a new value into the \"dollars\" slot.)  From the little square 
-menu button on the left of the \"dollars:\" slot (the colon is important) 
+ui1 menu ui1 button on the left of the \"dollars:\" slot (the colon is important) 
 select \"edit...\"  
 
 Point the mouse cursor in the resulting window and change
@@ -601,10 +601,10 @@ and press the \"Apply\" button.
  
  
 
-Press the \"next\" button to move on.'.
+Press the \"next\" ui1 button to move on.'.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          s5 = 'STEP 5: Inherited messages. 
@@ -612,7 +612,7 @@ Press the \"next\" button to move on.'.
 Before sending more messages to your object, let\'s look at the parent
 slots. Notice that each of the two accounts has a slot called \"parent*.\"
 Let\'s examine the contents of these \"parent*\" slots . Recall, you can just 
-press the round button in the slot to get the contents sprouted onto the screen. 
+press the round ui1 button in the slot to get the contents sprouted onto the screen. 
 Sprout the \"parent*\" slot in each of the two accounts. Feel free to move 
 this object to a convenient place.
   
@@ -638,10 +638,10 @@ Notice that the same code works in each account, even though \"dollars\"
 is stored in one case and computed in the other.
  
  
-Press the \"next\" button to move on.'.
+Press the \"next\" ui1 button to move on.'.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          s6 = 'STEP 6: Arrow dragging
@@ -653,7 +653,7 @@ sending \"copy.\" (Optional puzzle - you might try to find where the
 We can make this new object the parent of account2 by \"arrow dragging.\"
  
 Find the arrow pointing from account2\'s \"parent\" slot to the actual
-parent object.  Use the left mouse button to grab and drag the
+parent object.  Use the left mouse ui1 button to grab and drag the
 arrowhead. Drag it over to the new parent -- and drop the arrowhead
 directly on the new parent somewhere, you don\'t have to try for the edge.)
  
@@ -673,7 +673,7 @@ Move on to STEP 7 when ready...
 '.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          s7 = 'STEP 7: More method editing. 
@@ -704,7 +704,7 @@ Move on when ready for STEP 8.
 '.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          s8 = 'STEP 8: Slot removal
@@ -720,7 +720,7 @@ parent\'s parent from \"traits clonable\" to the *original* account parent (the
 one with the normal deposit: and withdraw: slots.)
  
 Now go to the stock account parent\'s \"withdraw:\" slot and, using this 
-slot\'s menu button, remove the slot. Now the stock-based account will
+slot\'s ui1 menu ui1 button, remove the slot. Now the stock-based account will
 inherit \"withdraw:\" from the original account parent.
 
 You might test the effect of sending \"withdraw:\" to the stock-based account.
@@ -746,17 +746,17 @@ mergeAssignemtSlots. Change this slot to contain true to save screen space.
 you invoked this Self world. Before exiting, it will ask if you want to save 
 the current state of the system in an executable snapshot file.
 
-    To run the demo/tutorial again, type \"ui demo\" in the original shell.
+    To run the demo/tutorial again, type \"ui1 ui demo\" in the original shell.
 
     Thanks for trying Self - good luck to you and yourSelf!'.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: FollowSlot'
         
          start = ( |
             | 
-            ui uiProcess isActive ifTrue: 
+            ui1 ui uiProcess isActive ifTrue: 
                 [' ' printLine. ' ' printLine.
                 'The demo must start with a fresh user interface but' printLine.
                 'you currently have one running.' printLine.
@@ -773,31 +773,31 @@ the current state of the system in an executable snapshot file.
             preferences mergeAssignmentSlots: false.
             preferences allowArrowGrabbing: true.
 
-            ui resetWindowRect.
+            ui1 ui resetWindowRect.
             preferences initialWindowRect: (0@0) # (1142@868).
-            ui animationOff.
-            ui start.
-            ui banishAll.
+            ui1 ui animationOff.
+            ui1 ui start.
+            ui1 ui banishAll.
             makeTextEditors.
             placeStrings. 
             placeExamples.
-            ui animationOn.
+            ui1 ui animationOn.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: InitializeToExpression: ( nil )'
         
          strings <- bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: InitializeToExpression: (vector copySize: 8)'
         
          textEditors <- vector copySize: 8.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'uiDemo' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
          'ModuleInfo: Module: uiDemo InitialContents: InitializeToExpression: (dictionary copyRemoveAll)'
         
          textPositions = dictionary copyRemoveAll.
