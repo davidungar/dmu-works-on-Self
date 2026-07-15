@@ -357,7 +357,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          changeColors = ( |
             | 
-            myUI graphicsBackend 
+            myUI graphics 
              changeColorsFor: uiColors 
               OffScreen: offScreen
               Cursor: cursor 
@@ -435,7 +435,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          display = ( |
             | 
-            myUI graphicsBackend present: self.
+            myUI graphics present: self.
             self).
         } | ) 
 
@@ -569,7 +569,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          eraseAcetate: rect = ( |
             | 
-            myUI graphicsBackend eraseAcetate: rect Colors: uiColors.
+            myUI graphics eraseAcetate: rect Colors: uiColors.
             self).
         } | ) 
 
@@ -585,7 +585,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          eraseArrow0: rect = ( |
             | 
-            myUI graphicsBackend eraseArrow0: rect Transparent: uiColors transparent.
+            myUI graphics eraseArrow0: rect Transparent: uiColors transparent.
             self).
         } | ) 
 
@@ -601,7 +601,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          eraseArrow1: rect = ( |
             | 
-            myUI graphicsBackend eraseArrow1: rect Transparent: uiColors transparent.
+            myUI graphics eraseArrow1: rect Transparent: uiColors transparent.
             self).
         } | ) 
 
@@ -647,7 +647,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          fadeIn: bod = ( |
             | 
-            myUI graphicsBackend prepareToDrawOnInvisibleAcetate.
+            myUI graphics prepareToDrawOnInvisibleAcetate.
             syncGraphics.
             eraseAcetate.
             syncGraphics.
@@ -668,7 +668,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          fadeInAcetate = ( |
             | 
-            myUI graphicsBackend fadeInAcetate.
+            myUI graphics fadeInAcetate.
             self).
         } | ) 
 
@@ -677,7 +677,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          fadeOutAcetate = ( |
             | 
-            myUI graphicsBackend fadeOutAcetate.
+            myUI graphics fadeOutAcetate.
             self).
         } | ) 
 
@@ -729,7 +729,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             cop do: [ | :b |
                 eraseAcetate.
                 syncGraphics.
-                myUI graphicsBackend prepareForAnimationWithArrows.
+                myUI graphics prepareForAnimationWithArrows.
                 syncGraphics.
                 from: bod ReverseDo: [ | :b |
                     b displayThru.
@@ -819,7 +819,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             graphic copyTo: windowBitmap.
 
             arr findBoundsOfFromCpt.
-            myUI graphicsBackend moveArrowHeadUsing: [moveHeadOfArrow: arr To: arr head].
+            myUI graphics moveArrowHeadUsing: [moveHeadOfArrow: arr To: arr head].
 
             "move the arrow"
             cursor while: [cursor anyButtonDown] Do: [ | :nextLocation |
@@ -829,7 +829,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             ].
 
             "clean up after moving"
-            myUI graphicsBackend prepareToCopyAllLayers.
+            myUI graphics prepareToCopyAllLayers.
             reinstateStatic.
             arrows add: arr.
 
@@ -1160,7 +1160,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          makeAcetateVisible = ( |
             | 
-            myUI graphicsBackend makeAcetateVisible.
+            myUI graphics makeAcetateVisible.
             self).
         } | ) 
 
@@ -1198,7 +1198,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          moveArrows: doBlock Flip: flip = ( |
             | 
-            myUI graphicsBackend moveArrows: doBlock Flip: flip.
+            myUI graphics moveArrows: doBlock Flip: flip.
             self).
         } | ) 
 
@@ -1344,9 +1344,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                             reclipArrows: bod absoluteBound.
                             drawArrows: graphic.
                             bod findBoundsForArrows.
-                            myUI graphicsBackend prepareToDrawArrows.
+                            myUI graphics prepareToDrawArrows.
                             bod setAndDrawArrowsOn: windowBitmap.
-                            myUI graphicsBackend prepareForAnimationWithArrows.
+                            myUI graphics prepareForAnimationWithArrows.
                         ] False: [
                             reclipArrows: bod absoluteBound.
                             drawArrows: graphic ].
@@ -1367,7 +1367,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          prepareToDrawOnAcetate = ( |
             | 
-            myUI graphicsBackend prepareToDrawOnAcetate.
+            myUI graphics prepareToDrawOnAcetate.
             self).
         } | ) 
 
@@ -1376,7 +1376,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          prepareToDrawOnAll = ( |
             | 
-            myUI graphicsBackend prepareToDrawOnAll: self.
+            myUI graphics prepareToDrawOnAll: self.
             self).
         } | ) 
 
@@ -1385,7 +1385,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          prepareToDrawOnAllButArrow0 = ( |
             | 
-            myUI graphicsBackend prepareToDrawOnAllButArrow0: self.
+            myUI graphics prepareToDrawOnAllButArrow0: self.
             self).
         } | ) 
 
@@ -1394,7 +1394,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          prepareToDrawOnArrow0 = ( |
             | 
-            myUI graphicsBackend prepareToDrawOnArrow0: self.
+            myUI graphics prepareToDrawOnArrow0: self.
             self).
         } | ) 
 
@@ -1403,7 +1403,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          prepareToDrawOnArrow0InstallingBoth = ( |
             | 
-            myUI graphicsBackend prepareToDrawOnArrow0InstallingBoth: self.
+            myUI graphics prepareToDrawOnArrow0InstallingBoth: self.
             self).
         } | ) 
 
@@ -1412,7 +1412,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          prepareToDrawOnArrow1 = ( |
             | 
-            myUI graphicsBackend prepareToDrawOnArrow1: self.
+            myUI graphics prepareToDrawOnArrow1: self.
             self).
         } | ) 
 
@@ -1421,7 +1421,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          prepareToDrawOnBackground = ( |
             | 
-            myUI graphicsBackend prepareToDrawOnBackground.
+            myUI graphics prepareToDrawOnBackground.
             self).
         } | ) 
 
@@ -1580,12 +1580,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
-         'Category: creating\x7fComment: Phase 1.5 increment 2: the two offscreens are created via the selected graphics backend factory (myUI graphicsBackend makeOffscreenFor:Size:) instead of bitmap copyFor:Size: directly. For the quartz (indexed) backend the factory IS bitmap copyFor:Size:, so behaviour is unchanged; the newQuartz backend will return RGBA offscreens.\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: creating\x7fComment: Phase 1.5 increment 2: the two offscreens are created via the selected graphics backend factory (myUI graphics makeOffscreenFor:Size:) instead of bitmap copyFor:Size: directly. For the quartz (indexed) backend the factory IS bitmap copyFor:Size:, so behaviour is unchanged; the newQuartz backend will return RGBA offscreens.\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
         
          setGraphicAndOffScreen = ( |
             | 
-            graphic: myUI graphicsBackend makeOffscreenFor: window Size: window size.
-            offScreen: myUI graphicsBackend makeOffscreenFor: window Size: window size).
+            graphic: myUI graphics makeOffscreenFor: window Size: window size.
+            offScreen: myUI graphics makeOffscreenFor: window Size: window size).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
@@ -1616,13 +1616,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             graphic copy: arect To: windowBitmap At: arect topLeft.
             draw3dExtension: (arect bottomLeft addY: 1)
                          To: (arect bottomRight addY: 1).
-            myUI graphicsBackend prepareToCopyAllLayers
+            myUI graphics prepareToCopyAllLayers
             sliver: bitmap copyFor: window Size: rect size.
             bod graphic copy: rect To: sliver.
 
             changeBlock value.
 
-            myUI graphicsBackend prepareToMoveBlock.
+            myUI graphics prepareToMoveBlock.
             leftLoc: arect topLeft subtractX: arect size x + 10.
             leftB: (peakingInBetweener
                     copyFrom: arect topLeft To: leftLoc Steps: steps)
@@ -1879,8 +1879,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          windowChanged = ( |
             | 
             graphic setNoClipMask.
-            graphic resize: window size PlatformPixmap: myUI graphicsBackend platformPixmap.
-            offScreen resize: window size PlatformPixmap: myUI graphicsBackend platformPixmap.
+            graphic resize: window size PlatformPixmap: myUI graphics platformPixmap.
+            offScreen resize: window size PlatformPixmap: myUI graphics platformPixmap.
             self).
         } | ) 
 

@@ -216,7 +216,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'dummyAnimator' -> () From: ( | {
          'Category: fading\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
-         createCachedColormapsGraphicsBackend: graphicsBackend = ( |
+         createCachedColormapsGraphics: graphics = ( |
             | self).
         } | ) 
 
