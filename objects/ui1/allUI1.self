@@ -94,7 +94,7 @@ toggleBody
 togglers
 diffUI
 uiDemo
-uiOnX11
+ui1OnX11
 '.
         } | ) 
 
@@ -156,7 +156,7 @@ uiOnX11
  bootstrap read: 'togglers' From: 'ui1'
  bootstrap read: 'diffUI' From: 'ui1'
  bootstrap read: 'uiDemo' From: 'ui1'
- bootstrap read: 'uiOnX11' From: 'ui1'
+ bootstrap read: 'ui1OnX11' From: 'ui1'
 
 
 
