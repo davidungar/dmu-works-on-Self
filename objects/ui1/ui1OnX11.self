@@ -82,7 +82,7 @@ SlotsToOmit: window.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (nil)'
+         'ModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
          window.
         } | ) 

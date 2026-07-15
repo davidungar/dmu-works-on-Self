@@ -283,13 +283,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstract' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: InitializeToExpression: (\'\')'
+         'ModuleInfo: Module: ui1 InitialContents: InitializeToExpression: (\'\')\x7fVisibility: public'
         
          prevDisplayName <- ''.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstract' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: InitializeToExpression: (nil)'
+         'ModuleInfo: Module: ui1 InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
          window.
         } | ) 
@@ -833,7 +833,7 @@ the ui1 togglers all method, run from a descendant of ui1 editorWithReceiver,
 must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers into.
 -- dmu 7/26\x7fModuleInfo: Module: ui1 InitialContents: InitializeToExpression: (nil)'
         
-         currentWorld.
+         currentWorld <- bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
