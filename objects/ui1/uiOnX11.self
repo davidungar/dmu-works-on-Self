@@ -69,13 +69,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: prototypes\x7fModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
         
          abstractX11 = bootstrap define: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractX11' -> () ToBe: bootstrap addSlotsTo: (
-             bootstrap remove: 'gbWindow' From:
+             bootstrap remove: 'window' From:
              traits ui1Graphics abstract copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractX11' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits ui1Graphics abstractX11.
 
 CopyDowns:
 traits ui1Graphics abstract. copy 
-SlotsToOmit: gbWindow.
+SlotsToOmit: window.
 
 '.
             | ) .
@@ -84,7 +84,7 @@ SlotsToOmit: gbWindow.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractX11' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: InitializeToExpression: (nil)'
         
-         gbWindow.
+         window.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractX11Traits' -> () From: ( | {
@@ -101,7 +101,7 @@ SlotsToOmit: gbWindow.
         
          ensureFrontmost = ( |
             | 
-            gbWindow xwin ensureFrontmost).
+            window xwin ensureFrontmost).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractX11Traits' -> () From: ( | {
@@ -153,10 +153,10 @@ SlotsToOmit: gbWindow.
         
          tryToOpenWindowForDisplay: disp IfFail: fb = ( |
             | 
-            gbWindow displayName: optimalNameForDisplay: disp.
+            window displayName: optimalNameForDisplay: disp.
             [todo ui1 dmu experimental]. [xxxxx].
             openWindowOrCanvas: windowDepth IfFail: [|:e| ^ fb value: e].
-            gbWindow finishOpening.
+            window finishOpening.
             checkColor8IfFail: [ 
               openWindowError.
               couldNotStart
@@ -411,7 +411,7 @@ SlotsToOmit: parent.
              windowBitmapSize.
             | 
             index: (offScreen pixelValueAt: cursor location) && 8r007.
-            windowBitmapSize: gbWindow bitmap size.
+            windowBitmapSize: window bitmap size.
             uiColors do: [ | :cme |
                 index = (cme index && 8r007) ifTrue: [ rgbCol: cme color ] ].
             hsbCol: rgbCol asHSB.
@@ -458,9 +458,9 @@ SlotsToOmit: parent.
             | 
             "get the interpreted display name before display is closed"
 
-            dispName: gbWindow interpretedDisplayName.
-            gbWindow isColor8 ifFalse: [
-                gbWindow closeAsync.              
+            dispName: window interpretedDisplayName.
+            window isColor8 ifFalse: [
+                window closeAsync.              
                 ('\nThe opened X display, \'', dispName,
                  '\', is not an 8-bit monitor.') printLine.
                 'Set XQuartz Output colors to 256; see "Running the UI under X11" in readme.md.' printLine.
@@ -640,7 +640,7 @@ SlotsToOmit: parent.
         
          eraseAcetate: rect Colors: uiColors = ( |
             | 
-            gbWindow bitmap planeMask: movingPlaneMask. gbWindow bitmap fillRectangle: rect Color: uiColors transparent).
+            window bitmap planeMask: movingPlaneMask. window bitmap fillRectangle: rect Color: uiColors transparent).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'x11' -> 'parent' -> () From: ( | {
@@ -648,8 +648,8 @@ SlotsToOmit: parent.
         
          eraseArrow0: rect Transparent: transparent = ( |
             | 
-            gbWindow bitmap planeMask: arrow0Mask. 
-            gbWindow bitmap fillRectangle: rect Color: transparent).
+            window bitmap planeMask: arrow0Mask. 
+            window bitmap fillRectangle: rect Color: transparent).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'x11' -> 'parent' -> () From: ( | {
@@ -657,8 +657,8 @@ SlotsToOmit: parent.
         
          eraseArrow1: rect Transparent: transparent = ( |
             | 
-             gbWindow bitmap planeMask: arrow1Mask. 
-            gbWindow bitmap fillRectangle: rect Color: transparent).
+             window bitmap planeMask: arrow1Mask. 
+            window bitmap fillRectangle: rect Color: transparent).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'x11' -> 'parent' -> () From: ( | {
@@ -841,7 +841,7 @@ SlotsToOmit: parent.
             moveBlock value.
             prepareForAnimationWithArrows.
             prepareToMoveArrow1.
-            gbWindow bitmap clear: gbWindow bitmap size rect.
+            window bitmap clear: window bitmap size rect.
             self).
         } | ) 
 
@@ -851,7 +851,7 @@ SlotsToOmit: parent.
          moveArrows: doBlock Flip: flip = ( |
              windowBitmap.
             | 
-            windowBitmap: gbWindow bitmap.
+            windowBitmap: window bitmap.
             windowBitmap planeMask: flip ifTrue: arrow1Mask False: arrow0Mask.
             windowBitmap clear: windowBitmap size rect.
             doBlock value.
@@ -896,13 +896,13 @@ SlotsToOmit: parent.
          openWindowOrCanvas: depth IfFail: fb = ( |
             | 
             [xxxxx].
-            gbWindow display: xlib display 
-                open: gbWindow displayName
+            window display: xlib display 
+                open: window displayName
                 IfFail: [
-                    ^ fblock value: 'Could not open X display \'', gbWindow interpretedDisplayName, '\'.' 
+                    ^ fblock value: 'Could not open X display \'', window interpretedDisplayName, '\'.' 
                 ].
-            gbWindow xwin: xlib window createOnDisplay: gbWindow display
-                                         At: gbWindow position Size: gbWindow size Depth: depth.
+            window xwin: xlib window createOnDisplay: window display
+                                         At: window position Size: window size Depth: depth.
             self).
         } | ) 
 
@@ -943,7 +943,7 @@ SlotsToOmit: parent.
         
          prepareToCopyAllLayers = ( |
             | 
-            gbWindow bitmap useAllBitplanes.
+            window bitmap useAllBitplanes.
             self).
         } | ) 
 
@@ -952,7 +952,7 @@ SlotsToOmit: parent.
         
          prepareToDrawArrows = ( |
             | 
-            gbWindow bitmap planeMask: arrowPlanesMask.
+            window bitmap planeMask: arrowPlanesMask.
             self).
         } | ) 
 
@@ -961,7 +961,7 @@ SlotsToOmit: parent.
         
          prepareToDrawOnAcetate = ( |
             | 
-             gbWindow bitmap planeMask: movingPlaneMask.
+             window bitmap planeMask: movingPlaneMask.
             self).
         } | ) 
 
@@ -970,7 +970,7 @@ SlotsToOmit: parent.
         
          prepareToDrawOnAcetate: w = ( |
             | 
-             gbWindow bitmap planeMask: movingPlaneMask.
+             window bitmap planeMask: movingPlaneMask.
             self).
         } | ) 
 
@@ -1017,7 +1017,7 @@ SlotsToOmit: parent.
         
          prepareToDrawOnBackground = ( |
             | 
-            gbWindow bitmap planeMask: stationaryPlaneMask).
+            window bitmap planeMask: stationaryPlaneMask).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'x11' -> 'parent' -> () From: ( | {
@@ -1034,14 +1034,14 @@ SlotsToOmit: parent.
         
          prepareToMoveArrow0 = ( |
             | 
-            gbWindow bitmap planeMask: arrow0Mask. self).
+            window bitmap planeMask: arrow0Mask. self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'x11' -> 'parent' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToMoveArrow1 = ( |
-            | gbWindow bitmap planeMask: arrow1Mask. self).
+            | window bitmap planeMask: arrow1Mask. self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'x11' -> 'parent' -> () From: ( | {
@@ -1049,7 +1049,7 @@ SlotsToOmit: parent.
         
          prepareToMoveBlock = ( |
             | 
-            gbWindow bitmap planeMask: movingPlaneMask.
+            window bitmap planeMask: movingPlaneMask.
             self).
         } | ) 
 
@@ -1135,12 +1135,12 @@ SlotsToOmit: parent.
             [addWindowOnDisplay: dispName Bounds: b Limited: false].
             [xxxxx].
             windowCanvas: windowCanvas copyOpenForWorld: phoneyBaloneyUI2World
-                OnDisplay: gbWindow displayName 
-                At: gbWindow position
-                 Width: gbWindow size x 
-                Height: gbWindow size y.
-            gbWindow display: windowCanvas display.
-            gbWindow xwin: windowCanvas platformWindow.
+                OnDisplay: window displayName 
+                At: window position
+                 Width: window size x 
+                Height: window size y.
+            window display: windowCanvas display.
+            window xwin: windowCanvas platformWindow.
             self).
         } | ) 
 

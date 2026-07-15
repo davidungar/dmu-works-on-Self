@@ -424,7 +424,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          checkCaches = ( |
             | 
-            isCacheValid not || [graphics gbWindow displayName != graphics prevDisplayName]
+            isCacheValid not || [graphics window displayName != graphics prevDisplayName]
               ifTrue: [ initializeCaches ]).
         } | ) 
 
@@ -1872,7 +1872,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
         
          window = ( |
             | 
-            graphics gbWindow).
+            graphics window).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1880,7 +1880,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
         
          window: w = ( |
             | 
-            graphics gbWindow: w).
+            graphics window: w).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
@@ -1948,7 +1948,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstract' -> () From: ( | {
          'ModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)'
         
-         gbWindow.
+         window.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> () From: ( | {
@@ -1984,7 +1984,7 @@ must have some way of figuring out which uiWorld to put the new togglers into.
          'ModuleInfo: Module: ui InitialContents: FollowSlot'
         
          copy = ( |
-            | resend.copy gbWindow: gbWindow copy).
+            | resend.copy window: window copy).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractTraits' -> () From: ( | {
