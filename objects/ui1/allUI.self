@@ -94,7 +94,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
 	 objBodyTypes
 
 	 animator
-	 ui
+	 ui1
 
 	 arrowheadCache
 	 uiArrow
@@ -160,7 +160,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap read: 'sendButton' From: 'ui1'
  bootstrap read: 'objBodyTypes' From: 'ui1'
  bootstrap read: 'animator' From: 'ui1'
- bootstrap read: 'ui' From: 'ui1'
+ bootstrap read: 'ui1' From: 'ui1'
  bootstrap read: 'arrowheadCache' From: 'ui1'
  bootstrap read: 'uiArrow' From: 'ui1'
  bootstrap read: 'textEditor' From: 'ui1'
