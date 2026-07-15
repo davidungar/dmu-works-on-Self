@@ -56,60 +56,46 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allUI1' -> () From: ( | {
          'ModuleInfo: Module: allUI1 InitialContents: FollowSlot\x7fVisibility: private'
         
-         subpartNames <- '
-	 ui1Event
-
-	 enumResult
-
-	 slab
-
-	 uiColormap
-
-	 uiColorPalette
-
-	 boxSize
-	 boxBitmap
-	 uiNester
-	 uiWorld
-	 boxBlueprint
-	 uiBody
-	 objBodyRegions
-	 objectBody
-	 slotCpt
-	 uiButton
-	 contentsButton
-	 slotNameCpt
-	 slotContentsCpt
-
-	 menu
-	 menuItem
-	 hierarchicalMenu
-
-	 menuButton
-	 hiddenSlotsButton
-	 objectButton
-	 slotButton
-	 sendButton
-
-	 objBodyTypes
-
-	 animator
-	 ui1
-
-	 arrowheadCache
-	 uiArrow
-
-	 textEditor
-
-	 uiNotifier
-	 transcript
-
-	 toggleBody
-	 togglers
-
-	 diffUI
-	 uiDemo
-	 '.
+         subpartNames <- 'ui1Event
+enumResult
+slab
+uiColormap
+uiColorPalette
+boxSize
+boxBitmap
+uiNester
+uiWorld
+boxBlueprint
+uiBody
+objBodyRegions
+objectBody
+slotCpt
+uiButton
+contentsButton
+slotNameCpt
+slotContentsCpt
+menu
+menuItem
+hierarchicalMenu
+menuButton
+hiddenSlotsButton
+objectButton
+slotButton
+sendButton
+objBodyTypes
+animator
+ui1
+arrowheadCache
+uiArrow
+textEditor
+uiNotifier
+transcript
+toggleBody
+togglers
+diffUI
+uiDemo
+uiOnX11
+'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'mixins' -> () From: ( | {
@@ -170,6 +156,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap read: 'togglers' From: 'ui1'
  bootstrap read: 'diffUI' From: 'ui1'
  bootstrap read: 'uiDemo' From: 'ui1'
+ bootstrap read: 'uiOnX11' From: 'ui1'
 
 
 

@@ -68,8 +68,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'ui1' -> () From: ( | {
          'ModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
-         subpartNames <- 'uiOnX11
-'.
+         subpartNames <- ''.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
@@ -834,7 +833,7 @@ the ui1 togglers all method, run from a descendant of ui1 editorWithReceiver,
 must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers into.
 -- dmu 7/26\x7fModuleInfo: Module: ui1 InitialContents: InitializeToExpression: (nil)'
         
-         currentWorld <- bootstrap stub -> 'globals' -> 'nil' -> ().
+         currentWorld.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
@@ -2272,12 +2271,6 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
             resend.windowQuit: win Event: event.
             quit).
         } | ) 
-
-
-
- '-- Sub parts'
-
- bootstrap read: 'uiOnX11' From: 'ui1'
 
 
 
