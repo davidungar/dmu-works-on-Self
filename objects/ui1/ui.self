@@ -476,6 +476,16 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
+         'Category: requests client\x7fComment: In order for \"togglers all\" to work in a copy of the ui,
+(e.g. \"ui copy start\"),
+the togglers all method, run from a descendant of editorWithReceiver,
+must have some way of figuring out which uiWorld to put the new togglers into.
+-- dmu 7/26\x7fModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)'
+        
+         currentWorld <- bootstrap stub -> 'globals' -> 'nil' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui' -> () From: ( | {
          'Category: forwarded\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          cursor = ( |
@@ -602,6 +612,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             "send msg asynchronously, reporting errors in a notifier,
              and put the result object on the screen point pt.
              May be called in ui process or in any other process -- dmu"
+            [send: 0 CatchErrorsAndPutResultAt: 0]. "browsing"
             ifRunning: [ | p |
                 "fork for asynchrony"
                 p: process this copySend: 
@@ -610,6 +621,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                                      With: msg
                                      With: pt.
                 p causeOfBirth: birthString.
+                currentWorld: world.
                 p resume.
             ]).
         } | ) 

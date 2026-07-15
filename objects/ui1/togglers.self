@@ -92,7 +92,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  t.
                 } 
             | 
-            t: toggleBody createOn: ui world
+            t: toggleBody createOn: ui currentWorld
                         OnString: 'animation ON'
                         OffString: 'animation OFF'
                         OnMessage: (message copy receiver: ui
@@ -114,7 +114,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  t.
                 } 
             | 
-            t: toggleBody createOn: ui world
+            t: toggleBody createOn: ui currentWorld
                         OnString: 'anticipation'
                         OffString: 'no anticipation'
                         OnMessage: (message copy receiver: ui
@@ -136,7 +136,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  t.
                 } 
             | 
-            t: toggleBody createOn: ui world
+            t: toggleBody createOn: ui currentWorld
                         OnString: 'arcs'
                         OffString: 'straight lines'
                         OnMessage: (message copy receiver: ui
@@ -158,7 +158,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  t.
                 } 
             | 
-            t: toggleBody createOn: ui world
+            t: toggleBody createOn: ui currentWorld
                         OnString: 'follow through'
                         OffString: 'no follow through'
                         OnMessage: (message copy receiver: ui
@@ -205,7 +205,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  t.
                 } 
             | 
-            t: toggleBody createOn: ui world
+            t: toggleBody createOn: ui currentWorld
                         OnString: 'motion blur'
                         OffString: 'no motion blur'
                         OnMessage: (message copy receiver: ui
@@ -233,7 +233,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  t.
                 } 
             | 
-            t: toggleBody createOn: ui world
+            t: toggleBody createOn: ui currentWorld
                         OnString: 'slow in & slow out'
                         OffString: 'linearly spaced'
                         OnMessage: (message copy receiver: ui
@@ -255,7 +255,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  t.
                 } 
             | 
-            t: toggleBody createOn: ui world
+            t: toggleBody createOn: ui currentWorld
                         OnString: 'slow motion'
                         OffString: 'full speed'
                         OnMessage: (message copy receiver: ui
