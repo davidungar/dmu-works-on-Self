@@ -88,7 +88,7 @@ SlotsToOmit: window.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: prototypes\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          boxSizePlatformMixin = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'boxSizePlatformMixin' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits ui1 graphics abstractX11Traits boxSizePlatformMixin.
@@ -97,7 +97,7 @@ SlotsToOmit: window.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: window\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          ensureFrontmost = ( |
             | 
@@ -105,13 +105,13 @@ SlotsToOmit: window.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'Category: prototypes\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
         
          graphicsGlobals = bootstrap stub -> 'globals' -> 'x11Globals' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: window\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          optimalNameForDisplay: disp = ( |
              hackedDisp.
@@ -133,7 +133,7 @@ SlotsToOmit: window.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: prototypes\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          patterns = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits ui1 graphics abstractX11Traits patterns.
@@ -142,14 +142,14 @@ SlotsToOmit: window.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'Category: prototypes\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
         
          platformPixmap = ( |
             | xlib pixmap).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'Category: window\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
         
          tryToOpenWindowForDisplay: disp IfFail: fb = ( |
             | 
@@ -165,7 +165,7 @@ SlotsToOmit: window.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'Category: prototypes\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
         
          windowPrototype = ( |
             | x11Globals window).
@@ -510,7 +510,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          copy = ( |
              r.
@@ -522,15 +522,6 @@ SlotsToOmit: parent.
             r cachedColormapNoAcetate:       cachedColormapNoAcetate       copy.
             r animatorColormaps:              animatorColormaps copy.
             r).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         couldNotStart = ( |
-            | 
-            '\nCould not start the ui!\n' printLine.
-            process this suspend).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
@@ -636,7 +627,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fCategory: erasing layers\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseAcetate: rect Colors: uiColors = ( |
             | 
@@ -644,7 +635,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fCategory: erasing layers\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseArrow0: rect Transparent: transparent = ( |
             | 
@@ -653,7 +644,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fCategory: erasing layers\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseArrow1: rect Transparent: transparent = ( |
             | 
@@ -939,7 +930,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToCopyAllLayers = ( |
             | 
@@ -1030,7 +1021,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToMoveArrow0 = ( |
             | 
@@ -1038,14 +1029,14 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToMoveArrow1 = ( |
             | window bitmap planeMask: arrow1Mask. self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToMoveBlock = ( |
             | 
