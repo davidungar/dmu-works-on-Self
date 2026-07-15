@@ -188,7 +188,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> () From: ( | {
-         'Category: colormaps\x7fCategory: state\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'Category: colormaps\x7fCategory: state\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          animatorColormaps <- bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'animatorColormaps' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits ui1 graphics x11 animatorColormaps.
@@ -317,49 +317,49 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> () From: ( | {
-         'Category: colormaps\x7fCategory: state\x7fCategory: cached colormaps\x7fModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (ui1 uiColormap)'
+         'Category: colormaps\x7fCategory: state\x7fCategory: cached colormaps\x7fModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (ui1 uiColormap)\x7fVisibility: private'
         
          cachedColormap0 <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiColormap' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> () From: ( | {
-         'Category: colormaps\x7fCategory: state\x7fCategory: cached colormaps\x7fModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (ui1 uiColormap)'
+         'Category: colormaps\x7fCategory: state\x7fCategory: cached colormaps\x7fModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (ui1 uiColormap)\x7fVisibility: private'
         
          cachedColormap1 <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiColormap' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> () From: ( | {
-         'Category: colormaps\x7fCategory: state\x7fCategory: cached colormaps\x7fModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (ui1 uiColormap)'
+         'Category: colormaps\x7fCategory: state\x7fCategory: cached colormaps\x7fModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (ui1 uiColormap)\x7fVisibility: private'
         
          cachedColormapBothArrowPlanes <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiColormap' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> () From: ( | {
-         'Category: colormaps\x7fCategory: state\x7fCategory: cached colormaps\x7fModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (ui1 uiColormap)'
+         'Category: colormaps\x7fCategory: state\x7fCategory: cached colormaps\x7fModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (ui1 uiColormap)\x7fVisibility: private'
         
          cachedColormapNoAcetate <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiColormap' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> () From: ( | {
-         'Category: colormaps\x7fCategory: state\x7fCategory: colormaps\x7fModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (ui1 uiColormap)\x7fVisibility: public'
+         'Category: colormaps\x7fCategory: state\x7fCategory: colormaps\x7fModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (ui1 uiColormap)\x7fVisibility: private'
         
          colormap0 <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiColormap' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> () From: ( | {
-         'Category: colormaps\x7fCategory: state\x7fCategory: colormaps\x7fModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (ui1 uiColormap)\x7fVisibility: public'
+         'Category: colormaps\x7fCategory: state\x7fCategory: colormaps\x7fModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (ui1 uiColormap)\x7fVisibility: private'
         
          colormap1 <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiColormap' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> () From: ( | {
-         'Category: colormaps\x7fCategory: state\x7fCategory: colormaps\x7fModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (ui1 uiColormap)\x7fVisibility: public'
+         'Category: colormaps\x7fCategory: state\x7fCategory: colormaps\x7fModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (ui1 uiColormap)\x7fVisibility: private'
         
          colormapBothArrowPlanes <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiColormap' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> () From: ( | {
-         'Category: colormaps\x7fCategory: state\x7fCategory: colormaps\x7fModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (ui1 uiColormap)\x7fVisibility: public'
+         'Category: colormaps\x7fCategory: state\x7fCategory: colormaps\x7fModuleInfo: Module: ui1OnX11 InitialContents: InitializeToExpression: (ui1 uiColormap)\x7fVisibility: private'
         
          colormapNoAcetate <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiColormap' -> ().
         } | ) 
@@ -392,7 +392,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          changeBackendColors: uiColors = ( |
             | 
@@ -470,7 +470,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          colormapCacheFinalize = ( |
             | 
@@ -480,9 +480,9 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
          'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
-         colormapFinalize: ranimator = ( |
+         colormapFinalize = ( |
             | 
-            deleteColormaps: ranimator).
+            deleteColormaps).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
@@ -534,7 +534,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          createCachedColormapsColors: uiColors Animator: ranimator = ( |
             | 
@@ -552,7 +552,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          createCachedColormapsDissolveSteps: dissolveSteps FastDissolveSteps: fastDissolveSteps = ( |
              ncm.
@@ -625,7 +625,7 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
          'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
         
-         deleteColormaps: ranimator = ( |
+         deleteColormaps = ( |
             | 
             colormap0 delete.
             colormap1 delete.
@@ -722,9 +722,9 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
          'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
-         finalizeAnimator: animator = ( |
+         finalize = ( |
             | 
-            colormapFinalize: animator).
+            colormapFinalize).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
@@ -752,7 +752,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          installColormap0 = ( |
             | colormap0 installAndFixMultiprocessorColormapBugIfPreferencesSaySo).
@@ -804,7 +804,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          makeCachedColormap0: uiColors = ( |
             | 
@@ -823,7 +823,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          makeColormap0ForUIColors: uiColors = ( |
             | 

@@ -295,22 +295,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         boxSizePlatformMixin = ( |
-            | 
-            childResponsibility).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: FollowSlot'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          copy = ( |
             | resend.copy window: window copy).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: fading\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+         'Category: fading acetate\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          fadeInAcetate = ( |
             | 
@@ -318,7 +310,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: fading\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+         'Category: fading acetate\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          fadeOutAcetate = ( |
             | 
@@ -326,22 +318,22 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
-         finalizeAnimator: animator = ( |
+         finalize = ( |
             | 
             self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: FollowSlot'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          flushCaches = ( |
             | self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: FollowSlot'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          initializeColorCachesColors: uiColors Animator: ranimator = ( |
             | 
@@ -349,16 +341,15 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          initializeColorsWindow: window Animator: ranimator = ( |
             | 
-            [xxxxx].
             self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: fading\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+         'Category: fading acetate\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          makeAcetateVisible = ( |
             | 
@@ -366,14 +357,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          makeOffscreenFor: win Size: sz = ( |
             | bitmap copyFor: win Size: sz).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          optimalNameForDisplay: disp = ( |
             | '').
@@ -386,14 +377,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: prototypes\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          patterns = ( |
             | childResponsibility).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          platformColormap = ( |
             | 
@@ -401,7 +392,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: FollowSlot'
+         'Category: prototypes\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          platformPixmap = ( |
             | 
@@ -458,7 +449,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Comment: the pre-seam ui1 uiWorld display body: render to the X window and flush. X needs no offscreen shadow/blit. -- claude & dmu 6/2026\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: drawing\x7fComment: the pre-seam ui1 uiWorld display body: render to the X window and flush. X needs no offscreen shadow/blit. -- claude & dmu 6/2026\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          present: w = ( |
             | 
@@ -469,20 +460,20 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: FollowSlot'
+         'Category: window\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          window = ( |
             | childResponsibility).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: FollowSlot'
+         'Category: window\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          windowDepth = bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: FollowSlot'
+         'Category: prototypes\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          windowPrototype = ( |
             | 
@@ -902,7 +893,7 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
         
          finalize = ( |
             | 
-            graphics finalizeAnimator: ranimator.
+            graphics finalize.
             deactivateUpdating.
             world delete.
             finalizePatterns.
