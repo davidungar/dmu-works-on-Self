@@ -449,10 +449,10 @@ let you see and directly modify Self objects.)
 Follow the instructions on this box for a brief demo/tutorial.
  
  
-STEP 1: Objects, manipulation, and ui1 menu buttons.
+STEP 1: Objects, manipulation, and menu buttons.
  
 You only need the LEFT MOUSE BUTTON for this tutorial.
-The left mouse ui1 button is used to activate buttons and to grab objects.
+The left mouse button is used to activate buttons and to grab objects.
 Try grabbing and moving the \"ui1 uiDemo exampleObject\" (at the left).
  
 Let\'s examine the ui1 uiDemo exampleObject to the left.  This represents a Self
@@ -467,9 +467,9 @@ part of the Self object. (It\'s a kind of path name that the interface
 prints for convenience.)
  
 The little inset rectangles along the left of each object are
-\"ui1 menu buttons\" -- a ui1 menu ui1 button pops up a menu.  We are done with     
+\"menu buttons\" -- a menu button pops up a menu.  We are done with     
 the object called \"ui1 uiDemo exampleObject,\" so let\'s send it away.  Press and
-hold the left mouse ui1 button on the upper left ui1 menu ui1 button of that object
+hold the left mouse button on the upper left menu button of that object
 and select \"dismiss.\"
  
 To move on to step 2, get rid of this \"STEP 1\" box by pressing \"next\"
@@ -486,8 +486,8 @@ this will return the slot\'s contents, or, if the slot contains code, will
 execute the code.
   
 You can use an \"evaluator\" window to send messages to an object. Use the
-upper left ui1 menu ui1 button on account1 to get an evaluator window. Point the
-mouse ui1 button within the evaluator window and type \"dollars\". Send the
+upper left menu button on account1 to get an evaluator window. Point the
+mouse button within the evaluator window and type \"dollars\". Send the
 message by pressing the \"Eval\" button. You should get the object 100,
 because the evaluator puts the result of the message on the screen (if it
 is not already there.)
@@ -505,7 +505,7 @@ contents of the \"foo\" slot to x by sending \"foo: x\".
  
 You can use this interface to directly inspect the contents of slots
 without sending messages. This is called \"sprouting\" a slots\'s
-contents. You sprout a slot\'s contents by poking the round ui1 button at
+contents. You sprout a slot\'s contents by poking the round button at
 the right end of the slot.  Go ahead and try it on account1\'s
 \"dollars\" slot.
  
@@ -519,7 +519,7 @@ Before proceeding, it\'s probably a good idea to tidy up the screen by
 dismissing extraneous objects: you only need the two account objects
 and these text boxes to continue.
    
-Press the \"next\" ui1 button to move on'.
+Press the \"next\" button to move on'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
@@ -533,7 +533,7 @@ Suppose we want account2 to be based on shares of stock instead of a
 stored amount of dollars.  Let\'s add some place for the value and
 number of shares to be stored.
  
-From the upper left ui1 menu ui1 button on account2, select \"add slot...\".
+From the upper left menu button on account2, select \"add slot...\".
  
 Point the mouse in the window and type \"nShares <- 10\". (If you wish,
 you can select the text in this editor and use the copy and paste keys on the 
@@ -559,7 +559,7 @@ You have just added two new attributes to a Self object.
  
  
  
-Press the \"next\" ui1 button to move on.'.
+Press the \"next\" button to move on.'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
@@ -569,7 +569,7 @@ Press the \"next\" ui1 button to move on.'.
 We are going to modify the stock account object (account2) so that adding 
 more dollars affects the amount of stock. (The \"dollars:\" slot is currently 
 used to assign a new value into the \"dollars\" slot.)  From the little square 
-ui1 menu ui1 button on the left of the \"dollars:\" slot (the colon is important) 
+menu button on the left of the \"dollars:\" slot (the colon is important) 
 select \"edit...\"  
 
 Point the mouse cursor in the resulting window and change
@@ -601,7 +601,7 @@ and press the \"Apply\" button.
  
  
 
-Press the \"next\" ui1 button to move on.'.
+Press the \"next\" button to move on.'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
@@ -612,7 +612,7 @@ Press the \"next\" ui1 button to move on.'.
 Before sending more messages to your object, let\'s look at the parent
 slots. Notice that each of the two accounts has a slot called \"parent*.\"
 Let\'s examine the contents of these \"parent*\" slots . Recall, you can just 
-press the round ui1 button in the slot to get the contents sprouted onto the screen. 
+press the round button in the slot to get the contents sprouted onto the screen. 
 Sprout the \"parent*\" slot in each of the two accounts. Feel free to move 
 this object to a convenient place.
   
@@ -638,7 +638,7 @@ Notice that the same code works in each account, even though \"dollars\"
 is stored in one case and computed in the other.
  
  
-Press the \"next\" ui1 button to move on.'.
+Press the \"next\" button to move on.'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiDemo' -> () From: ( | {
@@ -653,7 +653,7 @@ sending \"copy.\" (Optional puzzle - you might try to find where the
 We can make this new object the parent of account2 by \"arrow dragging.\"
  
 Find the arrow pointing from account2\'s \"parent\" slot to the actual
-parent object.  Use the left mouse ui1 button to grab and drag the
+parent object.  Use the left mouse button to grab and drag the
 arrowhead. Drag it over to the new parent -- and drop the arrowhead
 directly on the new parent somewhere, you don\'t have to try for the edge.)
  
@@ -720,7 +720,7 @@ parent\'s parent from \"traits clonable\" to the *original* account parent (the
 one with the normal deposit: and withdraw: slots.)
  
 Now go to the stock account parent\'s \"withdraw:\" slot and, using this 
-slot\'s ui1 menu ui1 button, remove the slot. Now the stock-based account will
+slot\'s menu button, remove the slot. Now the stock-based account will
 inherit \"withdraw:\" from the original account parent.
 
 You might test the effect of sending \"withdraw:\" to the stock-based account.

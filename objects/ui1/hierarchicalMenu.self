@@ -119,7 +119,7 @@ SlotsToOmit: parent.
          'Category: animating\x7fModuleInfo: Module: hierarchicalMenu InitialContents: FollowSlot\x7fVisibility: private'
         
          demote = ( |
-            | "put the ui1 menu onto the background plane"
+            | "put the menu onto the background plane"
             saveunder: bitmap copyFor: world window Size: bound size.
             world prepareToDrawOnAll.
             world windowBitmap copy: bound To: saveunder At: 0@0.
@@ -315,7 +315,7 @@ SlotsToOmit: parent.
          'Category: animating\x7fModuleInfo: Module: hierarchicalMenu InitialContents: FollowSlot\x7fVisibility: private'
         
          promote = ( |
-            | "put the ui1 menu back onto the acetate plane"
+            | "put the menu back onto the acetate plane"
             world prepareToDrawOnBackground.
             saveunder copyTo: world windowBitmap At: bound origin.
             world prepareToDrawOnAcetate.

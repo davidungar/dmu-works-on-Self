@@ -1646,7 +1646,7 @@ SlotsToOmit: name parent.
             "Crtl y"    char asByte = 25  ifTrue: [ ^paste_cmd             ].
 
             char = '\r' ifTrue: [
-                "meta-return is the same as hitting the apply/eval ui1 button"
+                "meta-return is the same as hitting the apply/eval button"
                 cursor metaKeyDown ifTrue: [ apply ]
                                     False: [ split_line ].
             ] False: [

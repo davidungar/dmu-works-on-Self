@@ -256,7 +256,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                  topOff.
                 } 
             | 
-            "make sure ui1 menu stays within boundaries of window"
+            "make sure menu stays within boundaries of window"
             fbr: windowBitmap size rect.
             bb: body bound.
             leftOff:   0 max: fbr left   - bb  left.

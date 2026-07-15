@@ -411,7 +411,7 @@ SlotsToOmit: graphic parent.
             regions bodyRights removeAll.
             regions bodyRights add:
                 builder bodycenterloc #
-                "the -25 is to compensate for ui1 button and right side"
+                "the -25 is to compensate for button and right side"
                 (((builder bodycenterloc x + builder maxSlotContentsWidth) - 15)
                    @ builder footerloc y pred).
             regions bodyRightSpaces removeAll.
