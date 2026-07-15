@@ -295,6 +295,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: prototypes\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         boxSizePlatformMixin = ( |
+            | childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: starting and stopping\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          copy = ( |
@@ -485,7 +492,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          abstractQuartz = bootstrap define: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractQuartz' -> () ToBe: bootstrap addSlotsTo: (
              traits ui1 graphics abstract copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractQuartz' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 graphics abstractQuartz.
+             {} = 'Comment: under construction\x7fModuleInfo: Creator: traits ui1 graphics abstractQuartz.
 
 CopyDowns:
 traits ui1 graphics abstract. copy
