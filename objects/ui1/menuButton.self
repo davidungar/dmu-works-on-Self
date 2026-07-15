@@ -7,54 +7,6 @@ See the LICENSE file for license information.
 
  '-- Module body'
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
-         'Category: userInterface\x7fModuleInfo: Module: menuButton InitialContents: FollowSlot\x7fVisibility: public'
-        
-         menuButton = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'menuButton' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals ui1 menuButton.
-\x7fIsComplete: '.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menuButton' -> () From: ( | {
-         'ModuleInfo: Module: menuButton InitialContents: FollowSlot\x7fVisibility: public'
-        
-         container <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiNester' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menuButton' -> () From: ( | {
-         'ModuleInfo: Module: menuButton InitialContents: FollowSlot\x7fVisibility: public'
-        
-         location <- bootstrap stub -> 'globals' -> 'point' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menuButton' -> () From: ( | {
-         'ModuleInfo: Module: menuButton InitialContents: InitializeToExpression: (list copyRemoveAll)\x7fVisibility: public'
-        
-         menuItems <- list copyRemoveAll.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
-         'Category: userInterface\x7fModuleInfo: Module: menuButton InitialContents: FollowSlot\x7fVisibility: public'
-        
-         menuButton = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'menuButton' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 menuButton.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menuButton' -> () From: ( | {
-         'ModuleInfo: Module: menuButton InitialContents: FollowSlot\x7fVisibility: private'
-        
-         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'menuButton' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menuButton' -> () From: ( | {
-         'ModuleInfo: Module: menuButton InitialContents: FollowSlot\x7fVisibility: public'
-        
-         size <- (1)@(1).
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
          'ModuleInfo: Module: menuButton InitialContents: FollowSlot'
         
@@ -105,6 +57,54 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'ModuleInfo: Module: menuButton InitialContents: FollowSlot\x7fVisibility: private'
         
          subpartNames <- ''.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
+         'Category: userInterface\x7fModuleInfo: Module: menuButton InitialContents: FollowSlot\x7fVisibility: public'
+        
+         menuButton = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'menuButton' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 menuButton.
+\x7fIsComplete: '.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menuButton' -> () From: ( | {
+         'ModuleInfo: Module: menuButton InitialContents: FollowSlot\x7fVisibility: public'
+        
+         container <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiNester' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menuButton' -> () From: ( | {
+         'ModuleInfo: Module: menuButton InitialContents: FollowSlot\x7fVisibility: public'
+        
+         location <- bootstrap stub -> 'globals' -> 'point' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menuButton' -> () From: ( | {
+         'ModuleInfo: Module: menuButton InitialContents: InitializeToExpression: (list copyRemoveAll)\x7fVisibility: public'
+        
+         menuItems <- list copyRemoveAll.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
+         'Category: userInterface\x7fModuleInfo: Module: menuButton InitialContents: FollowSlot\x7fVisibility: public'
+        
+         menuButton = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'menuButton' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 menuButton.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menuButton' -> () From: ( | {
+         'ModuleInfo: Module: menuButton InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'menuButton' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'menuButton' -> () From: ( | {
+         'ModuleInfo: Module: menuButton InitialContents: FollowSlot\x7fVisibility: public'
+        
+         size <- (1)@(1).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'mixins' -> 'userInterface' -> () From: ( | {

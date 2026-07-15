@@ -7,48 +7,6 @@ See the LICENSE file for license information.
 
  '-- Module body'
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
-         'Category: userInterface\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
-        
-         dummyAnimator = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'dummyAnimator' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals ui1 dummyAnimator.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
-         'Category: userInterface\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
-        
-         dummyAnimator = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 dummyAnimator.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
-         'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
-        
-         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
-         'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
-        
-         uiColors <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
-         'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
-        
-         uiPatterns <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
-         'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
-        
-         world <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiWorld' -> ().
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
          'ModuleInfo: Module: animator InitialContents: FollowSlot'
         
@@ -98,6 +56,48 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
         
          subpartNames <- ''.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
+         'Category: userInterface\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
+        
+         dummyAnimator = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'dummyAnimator' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 dummyAnimator.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
+         'Category: userInterface\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
+        
+         dummyAnimator = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 dummyAnimator.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
+         'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'dummyAnimator' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
+         'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
+        
+         uiColors <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
+         'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
+        
+         uiPatterns <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'dummyAnimator' -> () From: ( | {
+         'ModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: private'
+        
+         world <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiWorld' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {

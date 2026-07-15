@@ -7,64 +7,6 @@ See the LICENSE file for license information.
 
  '-- Module body'
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
-         'Category: userInterface\x7fModuleInfo: Module: enumResult InitialContents: FollowSlot'
-        
-         enumResult = bootstrap define: ((bootstrap stub -> 'globals') \/-> 'enumResult') -> () ToBe: bootstrap addSlotsTo: (
-             bootstrap remove: 'parent' From:
-             globals vector copy ) From: bootstrap setObjectAnnotationOf: ((bootstrap stub -> 'globals') \/-> 'enumResult') -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals ui1 enumResult.
-
-CopyDowns:
-globals vector. copy 
-SlotsToOmit: parent.
-
-\x7fIsComplete: '.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: ((bootstrap stub -> 'globals') \/-> 'enumResult') -> () From: ( | {
-         'ModuleInfo: Module: enumResult InitialContents: InitializeToExpression: (\'\')\x7fVisibility: public'
-        
-         desiredText <- ''.
-        } | ) 
-
- bootstrap addSlotsTo: ((bootstrap stub -> 'globals') \/-> 'enumResult') -> () From: ( | {
-         'ModuleInfo: Module: enumResult InitialContents: FollowSlot\x7fVisibility: public'
-        
-         from <- bootstrap setObjectAnnotationOf: ((bootstrap stub -> 'globals') \/-> 'enumResult') -> 'from' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals ui1 enumResult from.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
-         'Category: userInterface\x7fModuleInfo: Module: enumResult InitialContents: FollowSlot'
-        
-         enumResult = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'enumResult' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 enumResult.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: ((bootstrap stub -> 'globals') \/-> 'enumResult') -> () From: ( | {
-         'ModuleInfo: Module: enumResult InitialContents: FollowSlot\x7fVisibility: private'
-        
-         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'enumResult' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: ((bootstrap stub -> 'globals') \/-> 'enumResult') -> () From: ( | {
-         'ModuleInfo: Module: enumResult InitialContents: FollowSlot\x7fVisibility: public'
-        
-         prototype = ((bootstrap stub -> 'globals') \/-> 'enumResult') -> ().
-        } | ) 
-
- bootstrap addSlotsTo: ((bootstrap stub -> 'globals') \/-> 'enumResult') -> () From: ( | {
-         'ModuleInfo: Module: enumResult InitialContents: FollowSlot\x7fVisibility: public'
-        
-         type <- 'enumerations'.
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
          'ModuleInfo: Module: enumResult InitialContents: FollowSlot'
         
@@ -115,6 +57,64 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'ModuleInfo: Module: enumResult InitialContents: FollowSlot\x7fVisibility: private'
         
          subpartNames <- ''.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
+         'Category: userInterface\x7fModuleInfo: Module: enumResult InitialContents: FollowSlot'
+        
+         enumResult = bootstrap define: ((bootstrap stub -> 'globals' -> 'ui1') \/-> 'enumResult') -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'parent' From:
+             globals vector copy ) From: bootstrap setObjectAnnotationOf: ((bootstrap stub -> 'globals' -> 'ui1') \/-> 'enumResult') -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 enumResult.
+
+CopyDowns:
+globals vector. copy 
+SlotsToOmit: parent.
+
+\x7fIsComplete: '.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: ((bootstrap stub -> 'globals' -> 'ui1') \/-> 'enumResult') -> () From: ( | {
+         'ModuleInfo: Module: enumResult InitialContents: InitializeToExpression: (\'\')\x7fVisibility: public'
+        
+         desiredText <- ''.
+        } | ) 
+
+ bootstrap addSlotsTo: ((bootstrap stub -> 'globals' -> 'ui1') \/-> 'enumResult') -> () From: ( | {
+         'ModuleInfo: Module: enumResult InitialContents: FollowSlot\x7fVisibility: public'
+        
+         from <- bootstrap setObjectAnnotationOf: ((bootstrap stub -> 'globals' -> 'ui1') \/-> 'enumResult') -> 'from' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 enumResult from.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
+         'Category: userInterface\x7fModuleInfo: Module: enumResult InitialContents: FollowSlot'
+        
+         enumResult = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'enumResult' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 enumResult.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: ((bootstrap stub -> 'globals' -> 'ui1') \/-> 'enumResult') -> () From: ( | {
+         'ModuleInfo: Module: enumResult InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'enumResult' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: ((bootstrap stub -> 'globals' -> 'ui1') \/-> 'enumResult') -> () From: ( | {
+         'ModuleInfo: Module: enumResult InitialContents: FollowSlot\x7fVisibility: public'
+        
+         prototype = ((bootstrap stub -> 'globals' -> 'ui1') \/-> 'enumResult') -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: ((bootstrap stub -> 'globals' -> 'ui1') \/-> 'enumResult') -> () From: ( | {
+         'ModuleInfo: Module: enumResult InitialContents: FollowSlot\x7fVisibility: public'
+        
+         type <- 'enumerations'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'enumResult' -> () From: ( | {

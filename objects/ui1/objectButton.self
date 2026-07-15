@@ -283,7 +283,7 @@ SlotsToOmit: parent.
          'Category: actions\x7fModuleInfo: Module: objectButton InitialContents: FollowSlot\x7fVisibility: private'
         
          findChildren = ( |
-             blueprint = ui1 boxBlueprint copy showWellKnownIndexableSlots.
+             blueprint = boxBlueprint copy showWellKnownIndexableSlots.
              enum.
              limit = 100.
              type = 'children'.
@@ -300,7 +300,7 @@ SlotsToOmit: parent.
          'Category: actions\x7fModuleInfo: Module: objectButton InitialContents: FollowSlot\x7fVisibility: private'
         
          findReferences = ( |
-             blueprint = ui1 boxBlueprint copy showWellKnownIndexableSlots.
+             blueprint = boxBlueprint copy showWellKnownIndexableSlots.
              enum.
              limit = 100.
              type = 'references'.

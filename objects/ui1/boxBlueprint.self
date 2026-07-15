@@ -7,6 +7,77 @@ See the LICENSE file for license information.
 
  '-- Module body'
 
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
+         'ModuleInfo: Module: boxBlueprint InitialContents: FollowSlot'
+        
+         boxBlueprint = bootstrap define: bootstrap stub -> 'globals' -> 'modules' -> 'boxBlueprint' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'directory' From:
+             bootstrap remove: 'fileInTimeString' From:
+             bootstrap remove: 'myComment' From:
+             bootstrap remove: 'postFileIn' From:
+             bootstrap remove: 'revision' From:
+             bootstrap remove: 'subpartNames' From:
+             globals modules init copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'modules' -> 'boxBlueprint' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals modules boxBlueprint.
+
+CopyDowns:
+globals modules init. copy 
+SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNames.
+
+\x7fIsComplete: '.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'boxBlueprint' -> () From: ( | {
+         'ModuleInfo: Module: boxBlueprint InitialContents: FollowSlot\x7fVisibility: public'
+        
+         directory <- 'ui1'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'boxBlueprint' -> () From: ( | {
+         'ModuleInfo: Module: boxBlueprint InitialContents: InitializeToExpression: (_CurrentTimeString)\x7fVisibility: public'
+        
+         fileInTimeString <- _CurrentTimeString.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'boxBlueprint' -> () From: ( | {
+         'ModuleInfo: Module: boxBlueprint InitialContents: FollowSlot'
+        
+         myComment <- 'Slots are shown or hidden on a box according to the following policy:
+              1. If the box is created with a message specifying shown/hidden slots,
+                 those choices are honored.
+              2. Else if the box has appeared on the world before, it is in the
+                 hiddenSlotDict (in traits ui1 objectBody) and the hidden slot list
+                 in that dictionary is used.
+              3. Else the box is looked up in the ui1 boxBlueprint dictionary.
+                 3.1. If the box is not in the ui1 boxBlueprint dictionary, the
+                      default ui1 boxBlueprint is used, which has a hidden slots policy
+                      defined in the object traits ui1 boxBlueprint defaultHiddenSlotsPolicy.
+                 3.2. Else the box is in the ui1 boxBlueprint dictionary, and the
+                      policy it inherits is used.  This policy is defined in the
+                      method \'initialHiddenSlotsFor:\'.'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'boxBlueprint' -> () From: ( | {
+         'ModuleInfo: Module: boxBlueprint InitialContents: FollowSlot'
+        
+         postFileIn = ( |
+            | ui1 boxBlueprintDict init.
+            resend.postFileIn).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'boxBlueprint' -> () From: ( | {
+         'ModuleInfo: Module: boxBlueprint InitialContents: FollowSlot\x7fVisibility: public'
+        
+         revision <- 'Sun-$Revision: 30.8 $'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'boxBlueprint' -> () From: ( | {
+         'ModuleInfo: Module: boxBlueprint InitialContents: FollowSlot\x7fVisibility: private'
+        
+         subpartNames <- ''.
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: boxBlueprint InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -224,77 +295,6 @@ See the LICENSE file for license information.
         
          storeStringIfFail: fb = ( |
             | fb value: 'should never copy me').
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
-         'ModuleInfo: Module: boxBlueprint InitialContents: FollowSlot'
-        
-         boxBlueprint = bootstrap define: bootstrap stub -> 'globals' -> 'modules' -> 'boxBlueprint' -> () ToBe: bootstrap addSlotsTo: (
-             bootstrap remove: 'directory' From:
-             bootstrap remove: 'fileInTimeString' From:
-             bootstrap remove: 'myComment' From:
-             bootstrap remove: 'postFileIn' From:
-             bootstrap remove: 'revision' From:
-             bootstrap remove: 'subpartNames' From:
-             globals modules init copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'modules' -> 'boxBlueprint' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals modules boxBlueprint.
-
-CopyDowns:
-globals modules init. copy 
-SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNames.
-
-\x7fIsComplete: '.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'boxBlueprint' -> () From: ( | {
-         'ModuleInfo: Module: boxBlueprint InitialContents: FollowSlot\x7fVisibility: public'
-        
-         directory <- 'ui1'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'boxBlueprint' -> () From: ( | {
-         'ModuleInfo: Module: boxBlueprint InitialContents: InitializeToExpression: (_CurrentTimeString)\x7fVisibility: public'
-        
-         fileInTimeString <- _CurrentTimeString.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'boxBlueprint' -> () From: ( | {
-         'ModuleInfo: Module: boxBlueprint InitialContents: FollowSlot'
-        
-         myComment <- 'Slots are shown or hidden on a box according to the following policy:
-              1. If the box is created with a message specifying shown/hidden slots,
-                 those choices are honored.
-              2. Else if the box has appeared on the world before, it is in the
-                 hiddenSlotDict (in traits ui1 objectBody) and the hidden slot list
-                 in that dictionary is used.
-              3. Else the box is looked up in the ui1 boxBlueprint dictionary.
-                 3.1. If the box is not in the ui1 boxBlueprint dictionary, the
-                      default ui1 boxBlueprint is used, which has a hidden slots policy
-                      defined in the object traits ui1 boxBlueprint defaultHiddenSlotsPolicy.
-                 3.2. Else the box is in the ui1 boxBlueprint dictionary, and the
-                      policy it inherits is used.  This policy is defined in the
-                      method \'initialHiddenSlotsFor:\'.'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'boxBlueprint' -> () From: ( | {
-         'ModuleInfo: Module: boxBlueprint InitialContents: FollowSlot'
-        
-         postFileIn = ( |
-            | ui1 boxBlueprintDict init.
-            resend.postFileIn).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'boxBlueprint' -> () From: ( | {
-         'ModuleInfo: Module: boxBlueprint InitialContents: FollowSlot\x7fVisibility: public'
-        
-         revision <- 'Sun-$Revision: 30.8 $'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'boxBlueprint' -> () From: ( | {
-         'ModuleInfo: Module: boxBlueprint InitialContents: FollowSlot\x7fVisibility: private'
-        
-         subpartNames <- ''.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'boxBlueprint' -> () From: ( | {

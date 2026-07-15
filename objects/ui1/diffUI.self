@@ -33,6 +33,58 @@ See the LICENSE file for license information.
             lobby).
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
+         'ModuleInfo: Module: diffUI InitialContents: FollowSlot'
+        
+         diffUI = bootstrap define: bootstrap stub -> 'globals' -> 'modules' -> 'diffUI' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'comment' From:
+             bootstrap remove: 'directory' From:
+             bootstrap remove: 'fileInTimeString' From:
+             bootstrap remove: 'myComment' From:
+             bootstrap remove: 'postFileIn' From:
+             bootstrap remove: 'revision' From:
+             bootstrap remove: 'subpartNames' From:
+             globals modules init copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'modules' -> 'diffUI' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals modules diffUI.
+
+CopyDowns:
+globals modules init. copy 
+SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision subpartNames.
+
+\x7fIsComplete: '.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'diffUI' -> () From: ( | {
+         'ModuleInfo: Module: diffUI InitialContents: FollowSlot\x7fVisibility: public'
+        
+         directory <- 'ui1'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'diffUI' -> () From: ( | {
+         'ModuleInfo: Module: diffUI InitialContents: InitializeToExpression: (_CurrentTimeString)\x7fVisibility: public'
+        
+         fileInTimeString <- _CurrentTimeString.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'diffUI' -> () From: ( | {
+         'ModuleInfo: Module: diffUI InitialContents: FollowSlot'
+        
+         myComment <- '\'This modules adds a simple UI (in UI1) for comparing files to the diff algorithm.\''.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'diffUI' -> () From: ( | {
+         'ModuleInfo: Module: diffUI InitialContents: FollowSlot\x7fVisibility: public'
+        
+         revision <- '$Revision: 30.7 $'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'diffUI' -> () From: ( | {
+         'ModuleInfo: Module: diffUI InitialContents: FollowSlot\x7fVisibility: private'
+        
+         subpartNames <- ''.
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: windowing\x7fModuleInfo: Module: diffUI InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -118,58 +170,6 @@ SlotsToOmit: methodView name parent.
          'ModuleInfo: Module: diffUI InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'diffViewer' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
-         'ModuleInfo: Module: diffUI InitialContents: FollowSlot'
-        
-         diffUI = bootstrap define: bootstrap stub -> 'globals' -> 'modules' -> 'diffUI' -> () ToBe: bootstrap addSlotsTo: (
-             bootstrap remove: 'comment' From:
-             bootstrap remove: 'directory' From:
-             bootstrap remove: 'fileInTimeString' From:
-             bootstrap remove: 'myComment' From:
-             bootstrap remove: 'postFileIn' From:
-             bootstrap remove: 'revision' From:
-             bootstrap remove: 'subpartNames' From:
-             globals modules init copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'modules' -> 'diffUI' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals modules diffUI.
-
-CopyDowns:
-globals modules init. copy 
-SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision subpartNames.
-
-\x7fIsComplete: '.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'diffUI' -> () From: ( | {
-         'ModuleInfo: Module: diffUI InitialContents: FollowSlot\x7fVisibility: public'
-        
-         directory <- 'ui1'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'diffUI' -> () From: ( | {
-         'ModuleInfo: Module: diffUI InitialContents: InitializeToExpression: (_CurrentTimeString)\x7fVisibility: public'
-        
-         fileInTimeString <- _CurrentTimeString.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'diffUI' -> () From: ( | {
-         'ModuleInfo: Module: diffUI InitialContents: FollowSlot'
-        
-         myComment <- '\'This modules adds a simple UI (in UI1) for comparing files to the diff algorithm.\''.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'diffUI' -> () From: ( | {
-         'ModuleInfo: Module: diffUI InitialContents: FollowSlot\x7fVisibility: public'
-        
-         revision <- '$Revision: 30.7 $'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'diffUI' -> () From: ( | {
-         'ModuleInfo: Module: diffUI InitialContents: FollowSlot\x7fVisibility: private'
-        
-         subpartNames <- ''.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'diffViewer' -> () From: ( | {

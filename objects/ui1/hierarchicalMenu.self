@@ -7,49 +7,6 @@ See the LICENSE file for license information.
 
  '-- Module body'
 
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
-         'Category: userInterface\x7fModuleInfo: Module: hierarchicalMenu InitialContents: FollowSlot\x7fVisibility: public'
-        
-         hierarchicalMenu = bootstrap define: bootstrap stub -> 'globals' -> 'ui1' -> 'hierarchicalMenu' -> () ToBe: bootstrap addSlotsTo: (
-             bootstrap remove: 'parent' From:
-             globals ui1 menu copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'hierarchicalMenu' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals ui1 hierarchicalMenu.
-
-CopyDowns:
-globals ui1 menu. copy 
-SlotsToOmit: parent.
-
-\x7fIsComplete: '.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'hierarchicalMenu' -> () From: ( | {
-         'ModuleInfo: Module: hierarchicalMenu InitialContents: FollowSlot\x7fVisibility: public'
-        
-         autosort <- bootstrap stub -> 'globals' -> 'false' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
-         'Category: userInterface\x7fModuleInfo: Module: hierarchicalMenu InitialContents: FollowSlot\x7fVisibility: public'
-        
-         hierarchicalMenu = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'hierarchicalMenu' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 hierarchicalMenu.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'hierarchicalMenu' -> () From: ( | {
-         'ModuleInfo: Module: hierarchicalMenu InitialContents: FollowSlot\x7fVisibility: private'
-        
-         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'hierarchicalMenu' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'hierarchicalMenu' -> () From: ( | {
-         'ModuleInfo: Module: hierarchicalMenu InitialContents: FollowSlot\x7fVisibility: private'
-        
-         saveunder <- bootstrap stub -> 'globals' -> 'bitmap' -> ().
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
          'ModuleInfo: Module: hierarchicalMenu InitialContents: FollowSlot'
         
@@ -100,6 +57,49 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'ModuleInfo: Module: hierarchicalMenu InitialContents: FollowSlot\x7fVisibility: private'
         
          subpartNames <- ''.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
+         'Category: userInterface\x7fModuleInfo: Module: hierarchicalMenu InitialContents: FollowSlot\x7fVisibility: public'
+        
+         hierarchicalMenu = bootstrap define: bootstrap stub -> 'globals' -> 'ui1' -> 'hierarchicalMenu' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'parent' From:
+             globals ui1 menu copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'hierarchicalMenu' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 hierarchicalMenu.
+
+CopyDowns:
+globals ui1 menu. copy 
+SlotsToOmit: parent.
+
+\x7fIsComplete: '.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'hierarchicalMenu' -> () From: ( | {
+         'ModuleInfo: Module: hierarchicalMenu InitialContents: FollowSlot\x7fVisibility: public'
+        
+         autosort <- bootstrap stub -> 'globals' -> 'false' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
+         'Category: userInterface\x7fModuleInfo: Module: hierarchicalMenu InitialContents: FollowSlot\x7fVisibility: public'
+        
+         hierarchicalMenu = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'hierarchicalMenu' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 hierarchicalMenu.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'hierarchicalMenu' -> () From: ( | {
+         'ModuleInfo: Module: hierarchicalMenu InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'hierarchicalMenu' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'hierarchicalMenu' -> () From: ( | {
+         'ModuleInfo: Module: hierarchicalMenu InitialContents: FollowSlot\x7fVisibility: private'
+        
+         saveunder <- bootstrap stub -> 'globals' -> 'bitmap' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'hierarchicalMenu' -> () From: ( | {

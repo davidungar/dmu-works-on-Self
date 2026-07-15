@@ -7,6 +7,67 @@ See the LICENSE file for license information.
 
  '-- Module body'
 
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
+         'ModuleInfo: Module: uiNotifier InitialContents: FollowSlot'
+        
+         uiNotifier = bootstrap define: bootstrap stub -> 'globals' -> 'modules' -> 'uiNotifier' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'comment' From:
+             bootstrap remove: 'directory' From:
+             bootstrap remove: 'fileInTimeString' From:
+             bootstrap remove: 'myComment' From:
+             bootstrap remove: 'postFileIn' From:
+             bootstrap remove: 'revision' From:
+             bootstrap remove: 'subpartNames' From:
+             globals modules init copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'modules' -> 'uiNotifier' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals modules uiNotifier.
+
+CopyDowns:
+globals modules init. copy 
+SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision subpartNames.
+
+\x7fIsComplete: '.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'uiNotifier' -> () From: ( | {
+         'ModuleInfo: Module: uiNotifier InitialContents: FollowSlot\x7fVisibility: public'
+        
+         directory <- 'ui1'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'uiNotifier' -> () From: ( | {
+         'ModuleInfo: Module: uiNotifier InitialContents: InitializeToExpression: (_CurrentTimeString)\x7fVisibility: public'
+        
+         fileInTimeString <- _CurrentTimeString.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'uiNotifier' -> () From: ( | {
+         'ModuleInfo: Module: uiNotifier InitialContents: FollowSlot'
+        
+         myComment <- ''.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'uiNotifier' -> () From: ( | {
+         'ModuleInfo: Module: uiNotifier InitialContents: FollowSlot'
+        
+         postFileIn = ( |
+            | 
+            ui1 uiNotifier msg: ui1 messageCpt.
+            resend.postFileIn).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'uiNotifier' -> () From: ( | {
+         'ModuleInfo: Module: uiNotifier InitialContents: FollowSlot\x7fVisibility: public'
+        
+         revision <- 'Sun-$Revision: 30.7 $'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'uiNotifier' -> () From: ( | {
+         'ModuleInfo: Module: uiNotifier InitialContents: FollowSlot\x7fVisibility: public'
+        
+         subpartNames <- ''.
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: uiNotifier InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -69,67 +130,6 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: uiNotifier InitialContents: FollowSlot'
         
          size <- (1)@(1).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
-         'ModuleInfo: Module: uiNotifier InitialContents: FollowSlot'
-        
-         uiNotifier = bootstrap define: bootstrap stub -> 'globals' -> 'modules' -> 'uiNotifier' -> () ToBe: bootstrap addSlotsTo: (
-             bootstrap remove: 'comment' From:
-             bootstrap remove: 'directory' From:
-             bootstrap remove: 'fileInTimeString' From:
-             bootstrap remove: 'myComment' From:
-             bootstrap remove: 'postFileIn' From:
-             bootstrap remove: 'revision' From:
-             bootstrap remove: 'subpartNames' From:
-             globals modules init copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'modules' -> 'uiNotifier' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals modules uiNotifier.
-
-CopyDowns:
-globals modules init. copy 
-SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision subpartNames.
-
-\x7fIsComplete: '.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'uiNotifier' -> () From: ( | {
-         'ModuleInfo: Module: uiNotifier InitialContents: FollowSlot\x7fVisibility: public'
-        
-         directory <- 'ui1'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'uiNotifier' -> () From: ( | {
-         'ModuleInfo: Module: uiNotifier InitialContents: InitializeToExpression: (_CurrentTimeString)\x7fVisibility: public'
-        
-         fileInTimeString <- _CurrentTimeString.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'uiNotifier' -> () From: ( | {
-         'ModuleInfo: Module: uiNotifier InitialContents: FollowSlot'
-        
-         myComment <- ''.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'uiNotifier' -> () From: ( | {
-         'ModuleInfo: Module: uiNotifier InitialContents: FollowSlot'
-        
-         postFileIn = ( |
-            | 
-            ui1 uiNotifier msg: ui1 messageCpt.
-            resend.postFileIn).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'uiNotifier' -> () From: ( | {
-         'ModuleInfo: Module: uiNotifier InitialContents: FollowSlot\x7fVisibility: public'
-        
-         revision <- 'Sun-$Revision: 30.7 $'.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'uiNotifier' -> () From: ( | {
-         'ModuleInfo: Module: uiNotifier InitialContents: FollowSlot\x7fVisibility: public'
-        
-         subpartNames <- ''.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiNotifier' -> () From: ( | {

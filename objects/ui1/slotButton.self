@@ -254,7 +254,7 @@ SlotsToOmit: parent.
          'Category: actions\x7fModuleInfo: Module: slotButton InitialContents: FollowSlot\x7fVisibility: private'
         
          findImplementorsOf: name = ( |
-             blueprint = ui1 boxBlueprint copy showWellKnownIndexableSlots.
+             blueprint = boxBlueprint copy showWellKnownIndexableSlots.
              enum.
              limit = 100.
              type = 'implementors'.
@@ -299,7 +299,7 @@ SlotsToOmit: parent.
          'Category: actions\x7fModuleInfo: Module: slotButton InitialContents: FollowSlot\x7fVisibility: private'
         
          findSendersOf: name = ( |
-             blueprint = ui1 boxBlueprint copy showSendersSlots.
+             blueprint = boxBlueprint copy showSendersSlots.
              enum.
              limit = 100.
              type = 'senders'.
