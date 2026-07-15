@@ -5375,6 +5375,16 @@ fd-blocking. -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents:
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
+         'Category: manipulating\x7fComment: On MacOS27, aka GoldenGate, an XQuartz ui2 window does not receive keystrokes when you click on it
+unless the OS is told to frontmost the XQuartz app. -- dmu 6/26\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+        
+         ensureFrontmost = ( |
+            | 
+            os command: 'open -a XQuartz &' IfFail: [|:e| 'ensureFrontmost, open failed' printLine. ^ self].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
          freezeSize: size = ( |

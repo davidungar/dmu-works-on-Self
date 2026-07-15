@@ -1863,6 +1863,7 @@ SlotsToOmit: name parent.
         
          leftButtonDown = ( |
             | 
+            world ensureFrontmost.
             isearchStop.
             container onTop ifFalse: [ container raise. world display. ].
             hit: loc.

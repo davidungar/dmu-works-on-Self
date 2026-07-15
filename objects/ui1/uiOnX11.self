@@ -97,6 +97,14 @@ SlotsToOmit: gbWindow.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractX11Traits' -> () From: ( | {
+         'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         ensureFrontmost = ( |
+            | 
+            gbWindow xwin ensureFrontmost).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1Graphics' -> 'abstractX11Traits' -> () From: ( | {
          'ModuleInfo: Module: uiOnX11 InitialContents: FollowSlot'
         
          graphicsGlobals = bootstrap stub -> 'globals' -> 'x11Globals' -> ().

@@ -550,6 +550,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
+         'ModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
+        
+         ensureFrontmost = ( |
+            | myUI ensureFrontmost).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'uiWorld' -> () From: ( | {
          'Category: bodyManagement\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          entirelyOffScreen: bod = ( |
