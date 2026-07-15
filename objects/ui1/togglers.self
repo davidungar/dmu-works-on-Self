@@ -95,9 +95,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             t: toggleBody createOn: ui currentWorld
                         OnString: 'animation ON'
                         OffString: 'animation OFF'
-                        OnMessage: (message copy receiver: ui
+                        OnMessage: (message copy receiver: ui currentWorld myUI
                                                  Selector: 'animationOn')
-                        OffMessage: (message copy receiver: ui
+                        OffMessage: (message copy receiver: ui currentWorld myUI
                                                   Selector: 'animationOff')
                         InitiallyOn: true.
              t location: loc: 1.
@@ -117,9 +117,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             t: toggleBody createOn: ui currentWorld
                         OnString: 'anticipation'
                         OffString: 'no anticipation'
-                        OnMessage: (message copy receiver: ui
+                        OnMessage: (message copy receiver: ui currentWorld myUI
                                                  Selector: 'anticipation')
-                        OffMessage: (message copy receiver: ui
+                        OffMessage: (message copy receiver: ui currentWorld myUI
                                                   Selector: 'noAnticipation')
                         InitiallyOn: true.
              t location: loc: 5.
@@ -139,9 +139,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             t: toggleBody createOn: ui currentWorld
                         OnString: 'arcs'
                         OffString: 'straight lines'
-                        OnMessage: (message copy receiver: ui
+                        OnMessage: (message copy receiver: ui currentWorld myUI
                                                  Selector: 'arcs')
-                        OffMessage: (message copy receiver: ui
+                        OffMessage: (message copy receiver: ui currentWorld myUI
                                                   Selector: 'straightLines')
                         InitiallyOn: true.
              t location: loc: 7.
@@ -161,9 +161,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             t: toggleBody createOn: ui currentWorld
                         OnString: 'follow through'
                         OffString: 'no follow through'
-                        OnMessage: (message copy receiver: ui
+                        OnMessage: (message copy receiver: ui currentWorld myUI
                                                  Selector: 'followThrough')
-                        OffMessage: (message copy receiver: ui
+                        OffMessage: (message copy receiver: ui currentWorld myUI
                                                   Selector: 'noFollowThrough')
                         InitiallyOn: true.
              t location: loc: 6.
@@ -174,25 +174,13 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'togglers' -> () From: ( | {
          'ModuleInfo: Module: togglers InitialContents: FollowSlot'
         
-         loc: n = ( | {
-                 'ModuleInfo: Module: togglers InitialContents: FollowSlot'
-                
-                 sz.
-                }  {
-                 'ModuleInfo: Module: togglers InitialContents: FollowSlot'
-                
-                 total = 7.
-                }  {
-                 'ModuleInfo: Module: togglers InitialContents: FollowSlot'
-                
-                 xoffset = 30.
-                }  {
-                 'ModuleInfo: Module: togglers InitialContents: FollowSlot'
-                
-                 yoffset = 50.
-                } 
+         loc: n = ( |
+             sz.
+             total = 7.
+             xoffset = 30.
+             yoffset = 50.
             | 
-            sz: ui window size.
+            sz: ui currentWorld myUI window size.
             xoffset @ (sz y - (yoffset * (total succ - n)))).
         } | ) 
 
@@ -208,9 +196,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             t: toggleBody createOn: ui currentWorld
                         OnString: 'motion blur'
                         OffString: 'no motion blur'
-                        OnMessage: (message copy receiver: ui
+                        OnMessage: (message copy receiver: ui currentWorld myUI
                                                  Selector: 'motionBlur')
-                        OffMessage: (message copy receiver: ui
+                        OffMessage: (message copy receiver: ui currentWorld myUI
                                                   Selector: 'noMotionBlur')
                         InitiallyOn: true.
              t location: loc: 3.
@@ -236,9 +224,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             t: toggleBody createOn: ui currentWorld
                         OnString: 'slow in & slow out'
                         OffString: 'linearly spaced'
-                        OnMessage: (message copy receiver: ui
+                        OnMessage: (message copy receiver: ui currentWorld myUI
                                                  Selector: 'slowInOut')
-                        OffMessage: (message copy receiver: ui
+                        OffMessage: (message copy receiver: ui currentWorld myUI
                                                   Selector: 'linearlySpaced')
                         InitiallyOn: true.
              t location: loc: 4.
@@ -258,9 +246,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             t: toggleBody createOn: ui currentWorld
                         OnString: 'slow motion'
                         OffString: 'full speed'
-                        OnMessage: (message copy receiver: ui
+                        OnMessage: (message copy receiver: ui currentWorld myUI
                                                  Selector: 'slowMotion')
-                        OffMessage: (message copy receiver: ui
+                        OffMessage: (message copy receiver: ui currentWorld myUI
                                                   Selector: 'fullSpeed')
                         InitiallyOn: false.
              t location: loc: 2.
