@@ -422,7 +422,8 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
          buttonName = ( |
-            | buttonName: ui1 button).
+            | 
+            buttonName: button).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xButtonEvent' -> () From: ( | {
@@ -452,7 +453,8 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
          newState = ( |
-            | newStateFrom: state Changing: ui1 button).
+            | 
+            newStateFrom: state Changing: button).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'events' -> 'xButtonEvent' -> () From: ( | {

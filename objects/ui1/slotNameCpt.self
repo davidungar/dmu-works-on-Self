@@ -137,7 +137,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: containing\x7fModuleInfo: Module: slotNameCpt InitialContents: FollowSlot\x7fVisibility: public'
         
          componentsDo: block = ( |
-            | block value: ui1 button).
+            | 
+            block value: button).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slotNameCpt' -> () From: ( | {
@@ -163,7 +164,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          draw = ( |
             | 
-            ui1 button draw.
+            button draw.
             drawBodyText: name
                       At: nameLocation
                     Font: nameFont).
@@ -217,7 +218,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          minSize = ( |
             | 
             boxSizing minSlotNameSize: nameSize
-                           ButtonSize: ui1 button minSize
+                           ButtonSize: button minSize
                            Assignable: isAssignable).
         } | ) 
 
@@ -244,7 +245,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          nameLocation = ( |
             | 
-            boxSizing slotNameLocationWithButtonSize: ui1 button minSize).
+            boxSizing slotNameLocationWithButtonSize: button minSize).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slotNameCpt' -> () From: ( | {
@@ -274,7 +275,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          placeAt: pt = ( |
             | 
             location: pt.
-            ui1 button placeAt: boxSizing slotButtonLocation).
+            button placeAt: boxSizing slotButtonLocation).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slotNameCpt' -> () From: ( | {
@@ -288,7 +289,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: creating\x7fModuleInfo: Module: slotNameCpt InitialContents: FollowSlot\x7fVisibility: public'
         
          recreate = ( |
-            | ui1 button recreate).
+            | 
+            button recreate).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slotNameCpt' -> () From: ( | {
@@ -311,14 +313,15 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          resize: sz = ( |
             | 
             size: sz.
-            ui1 button resize: boxSizing minSlotButtonSize).
+            button resize: boxSizing minSlotButtonSize).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slotNameCpt' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: slotNameCpt InitialContents: FollowSlot\x7fVisibility: public'
         
          setSlotButtonCluster: cluster = ( |
-            | ui1 button joinCluster: cluster).
+            | 
+            button joinCluster: cluster).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slotNameCpt' -> () From: ( | {

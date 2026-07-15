@@ -647,7 +647,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          showContents = ( |
             | 
             cursor shiftKeyDown 
-              ifTrue: [name ui1 button edit]
+              ifTrue: [name button edit]
                False: [contents showContents]. 
             self).
         } | ) 

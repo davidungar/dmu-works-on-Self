@@ -2017,7 +2017,7 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
         
          testDesprouting = ( |
             | 
-            ((world bodies last) slots first) contents ui1 button desprout.
+            ((world bodies last) slots first) contents button desprout.
             world display).
         } | ) 
 
@@ -2068,22 +2068,16 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: testing\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: private'
         
-         testSprouting: n = ( | {
-                 'ModuleInfo: Module: ui InitialContents: FollowSlot'
-                
-                 clickOnMe.
-                }  {
-                 'ModuleInfo: Module: ui InitialContents: FollowSlot'
-                
-                 i <- 0.
-                } 
+         testSprouting: n = ( |
+             clickOnMe.
+             i <- 0.
             | 
             world bodies first showAll.
             world bodies first slots size < n ifTrue: [
                 error: 'not that many slots in this object' ].
             world bodies first slots do: [ | :slot |
                 i: i succ.  
-                i = n ifTrue: [ clickOnMe: slot contents ui1 button ]. ].
+                i = n ifTrue: [ clickOnMe: slot contents button ]. ].
             clickOnMe sprout.
             world display).
         } | ) 
