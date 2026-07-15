@@ -73,6 +73,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+         'Category: ui1\x7fComment: So the demo my fingers know will work. \"togglers all\"\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
+        
+         togglers = ( |
+            | ui1 togglers).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
          'Category: ui1\x7fModuleInfo: Module: ui InitialContents: FollowSlot\x7fVisibility: public'
         
          ui = ( |
@@ -827,7 +834,7 @@ the ui1 togglers all method, run from a descendant of ui1 editorWithReceiver,
 must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers into.
 -- dmu 7/26\x7fModuleInfo: Module: ui InitialContents: InitializeToExpression: (nil)'
         
-         currentWorld.
+         currentWorld <- bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
