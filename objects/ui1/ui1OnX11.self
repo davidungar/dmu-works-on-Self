@@ -69,13 +69,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: prototypes\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
         
          abstractX11 = bootstrap define: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11' -> () ToBe: bootstrap addSlotsTo: (
-             bootstrap remove: 'window' From:
+             bootstrap remove: 'parent' From:
              traits ui1 graphics abstract copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11' -> () From: ( |
              {} = 'ModuleInfo: Creator: traits ui1 graphics abstractX11.
 
 CopyDowns:
 traits ui1 graphics abstract. copy 
-SlotsToOmit: window.
+SlotsToOmit: parent.
 
 '.
             | ) .
@@ -94,6 +94,14 @@ SlotsToOmit: window.
              {} = 'ModuleInfo: Creator: traits ui1 graphics abstractX11Traits boxSizePlatformMixin.
 '.
             | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         copy = ( |
+            | 
+            resend.copy window: windowPrototype copy).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> () From: ( | {
@@ -154,7 +162,6 @@ SlotsToOmit: window.
          tryToOpenWindowForDisplay: disp IfFail: fb = ( |
             | 
             window displayName: optimalNameForDisplay: disp.
-            [todo ui1 dmu experimental]. [xxxxx].
             openWindowOrCanvas: windowDepth IfFail: [|:e| ^ fb value: e].
             window finishOpening.
             checkColor8IfFail: [ 
@@ -451,7 +458,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          checkColor8IfFail: fblock = ( |
              dispName.
@@ -520,7 +527,7 @@ SlotsToOmit: parent.
             r cachedColormap1:               cachedColormap1 copy.
             r cachedColormapBothArrowPlanes: cachedColormapBothArrowPlanes copy.
             r cachedColormapNoAcetate:       cachedColormapNoAcetate       copy.
-            r animatorColormaps:              animatorColormaps copy.
+            r animatorColormaps:             animatorColormaps             copy.
             r).
         } | ) 
 
@@ -711,7 +718,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          finalize = ( |
             | 
@@ -719,7 +726,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          flushCaches = ( |
             | 
@@ -727,7 +734,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
         
          initializeColorCachesColors: uiColors Animator: ranimator = ( |
             | 
@@ -735,7 +742,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          initializeColorsWindow: window Animator: ranimator = ( |
             | 
@@ -824,7 +831,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          moveArrowHeadUsing: moveBlock = ( |
             | 
@@ -837,7 +844,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'Category: layers\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          moveArrows: doBlock Flip: flip = ( |
              windowBitmap.
@@ -858,13 +865,13 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          name = 'x'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          openWindowError = ( |
             | 
@@ -882,7 +889,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
         
          openWindowOrCanvas: depth IfFail: fb = ( |
             | 
@@ -898,20 +905,20 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: prototypes\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          platformColormap = ( |
             | xlib colormap).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'Category: layers\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          postFlip: flipped = ( |
             | 
@@ -921,7 +928,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareForAnimationWithArrows = ( |
             | 
@@ -939,7 +946,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawArrows = ( |
             | 
@@ -948,7 +955,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAcetate = ( |
             | 
@@ -1021,7 +1028,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          prepareToMoveArrow0 = ( |
             | 
@@ -1029,7 +1036,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          prepareToMoveArrow1 = ( |
             | window bitmap planeMask: arrow1Mask. self).
@@ -1045,7 +1052,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToZoom = ( |
             | 
@@ -1053,7 +1060,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          returnFromSnapshot = ( |
             | 
@@ -1067,7 +1074,15 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         uiColorPalette = ( |
+            | 
+            ui1 x11ColormappedColorPalette).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          windowDepth = 8.
         } | ) 
@@ -1102,13 +1117,6 @@ SlotsToOmit: parent.
         
          checkColor8IfFail: fb = ( |
             | self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11OnCanvas' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
-        
-         copy = ( |
-            | resend.copy windowCanvas: windowCanvas copy).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11OnCanvas' -> 'parent' -> () From: ( | {
@@ -1160,6 +1168,14 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
         
          name <- 'Experimental UI on x11OnCanvas'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11OnCanvas' -> 'parent' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         uiColorPalette = ( |
+            | 
+            ui1 x11DirectColorPalette).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11OnCanvas' -> () From: ( | {

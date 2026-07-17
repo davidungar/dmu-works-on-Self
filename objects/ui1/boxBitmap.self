@@ -140,7 +140,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'boxBitmap' -> () From: ( | {
          'ModuleInfo: Module: boxBitmap InitialContents: FollowSlot'
         
-         uiColors <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> ().
+         uiColors <- bootstrap stub -> 'globals' -> 'ui1' -> 'x11ColormappedColorPalette' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'boxBitmap' -> () From: ( | {
@@ -199,7 +199,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          draw = ( |
             | 
-            drawFront.
+            drawFront. [xxxxx].
             drawTop.
             drawSide.
             drawHighlights.

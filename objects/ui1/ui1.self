@@ -211,9 +211,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: InitializeToExpression: (ui1 uiColorPalette)\x7fVisibility: public'
+         'ModuleInfo: Module: ui1 InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
-         uiColors <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> ().
+         uiColors.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
@@ -288,12 +288,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          prevDisplayName <- ''.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstract' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
-        
-         window.
-        } | ) 
-
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: prototypes\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -304,17 +298,34 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: starting and stopping\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
-         copy = ( |
-            | resend.copy window: window copy).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: starting and stopping\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
-        
          couldNotStart = ( |
             | 
             '\nCould not start the ui!\n' printLine.
             process this suspend).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fCategory: erasing layers\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         eraseAcetate: rect Colors: uiColors = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fCategory: erasing layers\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         eraseArrow0: rect Transparent: transparent = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fCategory: erasing layers\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         eraseArrow1: rect Transparent: transparent = ( |
+            | 
+            childResponsibility).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
@@ -416,7 +427,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: preparing to draw\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAll: w = ( |
             | 
@@ -424,7 +435,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: preparing to draw\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAllButArrow0: w = ( |
             | 
@@ -432,7 +443,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: preparing to draw\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow0: w = ( |
             | 
@@ -440,7 +451,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: preparing to draw\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow0InstallingBoth: w = ( |
             | 
@@ -448,7 +459,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: preparing to draw\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow1: w = ( |
             | 
@@ -456,7 +467,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: preparing to draw\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnInvisibleAcetate = ( |
             | 
@@ -517,6 +528,12 @@ traits ui1 graphics abstract. copy
              {} = 'ModuleInfo: Creator: traits ui1 graphics abstractX11Traits.
 '.
             | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11' -> () From: ( | {
+         'ModuleInfo: Module: ui1 InitialContents: FollowSlot'
+        
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
@@ -1131,7 +1148,7 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
         
          initializeColorsAndPatterns = ( |
             | 
-            uiColors: ui1 uiColorPalette copy.
+            uiColors: graphics uiColorPalette copy.
             uiPatterns: ui1 uiPatternPalette copy.
             self).
         } | ) 
@@ -1374,9 +1391,8 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
          openWindowOn: disp = ( |
              rect.
             | 
-            rect: getInitialRectFrom: windowPrototype.
+            rect: getInitialRectFrom: window.
             [todo ui1 dmu experimental].
-            window: windowPrototype copy.
             window name: 'The Self World'.
             window iconName: 'ui'.
             window iconFilename: preferences uiIconFile.

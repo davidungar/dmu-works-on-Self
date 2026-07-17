@@ -967,7 +967,7 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: quartz InitialContents: FollowSlot'
         
          menu = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> 'kinds' -> 'menu' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals quartz event parent kinds ui1 menu.
+             {} = 'ModuleInfo: Creator: globals quartz event parent kinds menu.
 '.
             | ) .
         } | ) 
@@ -6615,7 +6615,8 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          fillRectangle: r GC: g = ( |
-            | shadow fillRectangle: r GC: g. self).
+            | 
+            shadow fillRectangle: r GC: g. self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {

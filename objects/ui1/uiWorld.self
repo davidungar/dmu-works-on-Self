@@ -488,6 +488,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          draw = ( |
             | 
+            'draw here' printLine.
             drawBackground. redrawAllBodies).
         } | ) 
 
@@ -546,6 +547,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          drawBackground = ( |
             | 
+            [xxxxx].
             graphic fillRectangle: size rect Color: uiColors background).
         } | ) 
 
