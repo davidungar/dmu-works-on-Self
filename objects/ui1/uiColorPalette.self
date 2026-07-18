@@ -416,39 +416,45 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((rgbColor copy red: 112) green: 134) blue: 170 )\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         arrow <-  ((rgbColor copy red: 112) green: 134) blue: 170 .
+         arrow <- paint copyRed: 0.437928 Green: 0.522972  Blue: 0.663734.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((rgbColor copy red: 112) green: 134) blue: 170 )\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         arrowPlusTopPlanes <-  ((rgbColor copy red: 112) green: 134) blue: 170 .
+         arrowPlusTopPlanes <- paint copyRed: 0.437928 Green: 0.522972  Blue: 0.663734.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((rgbColor copy red: 161) green: 180) blue: 171 )\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         background <-  ((rgbColor copy red: 161) green: 180) blue: 171 .
+         background <- paint copyRed: 0.628543 Green: 0.702835  Blue: 0.667644.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((rgbColor copy red: 194) green: 191) blue: 185 )\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         body <-  ((rgbColor copy red: 194) green: 191) blue: 185 .
+         body <- paint copyRed: 0.757576 Green: 0.745846  Blue: 0.722385.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((rgbColor copy red: 126) green: 124) blue: 120 )\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         bodyDark <-  ((rgbColor copy red: 126) green: 124) blue: 120 .
+         bodyDark <- paint copyRed: 0.492669 Green: 0.484848  Blue: 0.469208.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((rgbColor copy red: 230) green: 226) blue: 219 )\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         bodyLight <-  ((rgbColor copy red: 230) green: 226) blue: 219 .
+         bodyLight <- paint copyRed: 0.898338 Green: 0.882698  Blue: 0.855327.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
+        
+         ones <- paint named: 'transparent'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
@@ -458,21 +464,27 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((rgbColor copy red: 0) green: 0) blue: 0 )\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         text <-  ((rgbColor copy red: 0) green: 0) blue: 0 .
+         text <- paint named: 'transparent'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((rgbColor copy red: 0) green: 0) blue: 0 )\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         transparent <-  ((rgbColor copy red: 0) green: 0) blue: 0 .
+         transparent <- paint named: 'transparent'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( ((rgbColor copy red: 0) green: 0) blue: 255 )\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
-         unused <-  ((rgbColor copy red: 0) green: 0) blue: 255 .
+         unused <- paint copyRed: 0.0 Green: 0.0  Blue: 0.99609.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
+        
+         zeros <- paint named: 'transparent'.
         } | ) 
 
 
