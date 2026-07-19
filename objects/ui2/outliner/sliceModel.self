@@ -288,7 +288,9 @@ to put in me.\x7fModuleInfo: Module: sliceModel InitialContents: FollowSlot\x7fV
          'Category: controlling me\x7fCategory: filters\x7fModuleInfo: Module: sliceModel InitialContents: FollowSlot\x7fVisibility: public'
         
          fromOutside = ( |
-            | controlPanel fromOutside).
+            | 
+             controlPanel fromOutside.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalSliceModel' -> 'parent' -> () From: ( | {

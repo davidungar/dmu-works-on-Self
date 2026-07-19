@@ -251,7 +251,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractEditorMorph' -> () From: ( | {
          'Category: mouse\x7fModuleInfo: Module: editorMorphs InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
         
-         defaultButtonHolder <- bootstrap stub -> 'globals' -> 'nil' -> ().
+         defaultButtonHolder.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractEditorMorph' -> () From: ( | {
@@ -547,8 +547,9 @@ is selected-- Randy, 1/13/95\x7fModuleInfo: Module: editorMorphs InitialContents
             | 
             evt sourceHand attach:
               enumerationMorphFactory
-                sentFromOutsideOf: textInSelectionOrAll getSelectorFromExpression
-                Event: evt.
+                sendersOf: textInSelectionOrAll getSelectorFromExpression
+                OutsideOf: receiver
+                    Event: evt.
             self).
         } | ) 
 

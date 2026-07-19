@@ -508,7 +508,9 @@ I am also immutable.\x7fModuleInfo: Creator: globals selfGeneralSlotModel parent
             | 
             evt sourceHand attach:
               enumerationMorphFactory
-                sentFromOutside: evt.
+                sendersOf: nameForBrowsing
+                OutsideOf: receiver
+                    Event: evt.
             self).
         } | ) 
 

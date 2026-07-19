@@ -1071,19 +1071,19 @@ This allows experiments that override them.\x7fModuleInfo: Creator: globals enum
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'enumerationMorphFactory' -> 'useStandardEnumerationMorphs' -> () From: ( | {
          'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
-         sendersOf: slotName StartingFrom: mirror Event: evt = ( |
+         sendersOf: slotName OutsideOf: mirror Event: evt = ( |
             | 
-            halt. sendersMorph
-              copySelector: slotName
+            copyForSelectorSentFromOutside: slotName
                      Event: evt).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'enumerationMorphFactory' -> 'useStandardEnumerationMorphs' -> () From: ( | {
          'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
-         sentFromOutsideOf: slotName Event: evt = ( |
+         sendersOf: slotName StartingFrom: mirror Event: evt = ( |
             | 
-            copyForSelectorSentFromOutside: slotName
+            halt. sendersMorph
+              copySelector: slotName
                      Event: evt).
         } | ) 
 
@@ -2197,9 +2197,9 @@ SlotsToOmit: mirror parent prototype.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> () From: ( | {
          'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
-         copyForSelectorSentFromOutside: sel Event: evt = ( |
+         copyOutsideReceiver: mir Selector: sel Event: evt = ( |
             | 
-            ( copyReceiver: nil Selector: sel Event: evt)
+            ( copyReceiver: mir Selector: sel Event: evt)
             limit: limits outside).
         } | ) 
 
