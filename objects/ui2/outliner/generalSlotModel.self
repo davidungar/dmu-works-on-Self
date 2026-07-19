@@ -1,6 +1,6 @@
  '$Revision: 30.22 $'
  '
-Copyright 1992-2014 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -204,6 +204,13 @@ globals generalModel parent buttonDescriptions. _Clone
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalSlotModel' -> 'parent' -> 'buttonDescriptions' -> () From: ( | {
+         'Category: browsing\x7fCategory: the slot\x7fCategory: Sent from outside\x7fModuleInfo: Module: generalSlotModel InitialContents: FollowSlot'
+        
+         sentFromOutside = ( |
+            | target model sentFromOutside: event).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalSlotModel' -> 'parent' -> 'buttonDescriptions' -> () From: ( | {
          'Category: debugging\x7fCategory: stepping\x7fCategory: Step\x7fModuleInfo: Module: generalSlotModel InitialContents: FollowSlot'
         
          step = ( |
@@ -235,7 +242,7 @@ globals generalModel parent buttonDescriptions. _Clone
             | 
             isForEditingNew ifTrue: [^ vector].
             isA: slot exists && [slot isAssignable].
-            r: 'senders' & 'sendersInFamily' & 'implementors' &
+            r: 'senders' & 'sendersInFamily' & 'sentFromOutside' & 'implementors' &
                'implementorsInFamily' & 'findSlot' & nil.
             isA ifTrue: [
               r: r & 'sendersOfAssignment' & 'sendersOfAssignmentInFamily' & 
@@ -301,8 +308,8 @@ globals generalModel parent buttonDescriptions. _Clone
     '  000  ' &
     '   0   ' ) asVector
  Colors: (
-    (paint named: 'black') &
-    (paint named: 'black')) asVector] value) From: ( |
+    (paint named: 'transparent') &
+    (paint named: 'transparent')) asVector] value) From: ( |
              {} = 'ModuleInfo: Creator: globals generalSlotModel parent colonIcon.
 \x7fIsComplete: '.
             | ) .
@@ -359,8 +366,8 @@ leaves the wholeThingEditor open if the method was changed.\x7fModuleInfo: Modul
     '       ' &
     '       ' ) asVector
  Colors: (
-    (paint named: 'black') &
-    (paint named: 'black')) asVector] value) From: ( |
+    (paint named: 'transparent') &
+    (paint named: 'transparent')) asVector] value) From: ( |
              {} = 'ModuleInfo: Creator: globals generalSlotModel parent equalsIcon.
 \x7fIsComplete: '.
             | ) .
@@ -420,8 +427,8 @@ leaves the wholeThingEditor open if the method was changed.\x7fModuleInfo: Modul
     '  0    ' &
     '   0   ' ) asVector
  Colors: (
-    (paint named: 'black') &
-    (paint named: 'black')) asVector] value) From: ( |
+    (paint named: 'transparent') &
+    (paint named: 'transparent')) asVector] value) From: ( |
              {} = 'ModuleInfo: Creator: globals generalSlotModel parent leftArrowIcon.
 \x7fIsComplete: '.
             | ) .
@@ -439,8 +446,8 @@ leaves the wholeThingEditor open if the method was changed.\x7fModuleInfo: Modul
     '0     0' &
     '0000000' ) asVector
  Colors: (
-    (paint named: 'black') &
-    (paint named: 'black')) asVector] value) From: ( |
+    (paint named: 'transparent') &
+    (paint named: 'transparent')) asVector] value) From: ( |
              {} = 'ModuleInfo: Creator: globals generalSlotModel parent methodIcon.
 \x7fIsComplete: '.
             | ) .

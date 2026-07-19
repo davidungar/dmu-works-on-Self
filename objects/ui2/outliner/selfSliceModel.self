@@ -1,6 +1,6 @@
  '$Revision: 30.11 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -148,6 +148,19 @@ See the LICENSE file for license information.
                          desiredText: slotName)
                          startingAt: mirror)
                          findSenders
+                         expandAll: evt) myOutliner]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'enumerationMorphFactory' -> 'usePluggableSliceOutliners' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceModel InitialContents: FollowSlot\x7fVisibility: public'
+        
+         sentFromOutsideOf: slotName Event: evt = ( |
+            | 
+            ifBypassForEvent: evt
+              Then: [resend.sentFromOutsideOf: slotName Event: evt]
+              Else: [((selfSliceModel newOutliner model
+                         desiredText: slotName)
+                         fromOutside
                          expandAll: evt) myOutliner]).
         } | ) 
 

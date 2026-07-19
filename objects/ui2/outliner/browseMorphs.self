@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.12 $'
  '
-Copyright 1992-2016 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -1073,8 +1073,17 @@ This allows experiments that override them.\x7fModuleInfo: Creator: globals enum
         
          sendersOf: slotName StartingFrom: mirror Event: evt = ( |
             | 
-            sendersMorph
+            halt. sendersMorph
               copySelector: slotName
+                     Event: evt).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'enumerationMorphFactory' -> 'useStandardEnumerationMorphs' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+        
+         sentFromOutsideOf: slotName Event: evt = ( |
+            | 
+            copyForSelectorSentFromOutside: slotName
                      Event: evt).
         } | ) 
 
@@ -1433,6 +1442,21 @@ SlotsToOmit: parent prototype.
 
 \x7fIsComplete: '.
             | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
+        
+         all = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'all' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits sendersMorph limits all.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sendersMorph' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: InitializeToExpression: (traits sendersMorph limits all)'
+        
+         limit <- bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'all' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {
@@ -2167,11 +2191,16 @@ SlotsToOmit: mirror parent prototype.
              r.
             | 
             r: browseAndFilter sendersOf: selector.
-            limitToFamily ifFalse: [^ r].
-            (r asList copyFilteredBy: [|:s|
-               (s holder inheritsFrom: receiver)
-            || [receiver inheritsFrom: s holder]
-            ]) asVector).
+            limit filterSlots: r ForReceiver: receiver).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+        
+         copyForSelectorSentFromOutside: sel Event: evt = ( |
+            | 
+            ( copyReceiver: nil Selector: sel Event: evt)
+            limit: limits outside).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> () From: ( | {
@@ -2179,7 +2208,7 @@ SlotsToOmit: mirror parent prototype.
         
          copyReceiver: mir Selector: sel Event: evt = ( |
             | 
-            (resend.copySelector: sel Event: evt) receiver: mir).
+            ((resend.copySelector: sel Event: evt) receiver: mir) limitToFamilyIfHasReceiver).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> () From: ( | {
@@ -2198,11 +2227,117 @@ SlotsToOmit: mirror parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> () From: ( | {
-         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: private'
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
         
-         limitToFamily = ( |
+         limitToFamilyIfHasReceiver = ( |
             | 
-            receiver isNotNil).
+            limit: receiver ifNil: limits all IfNotNil: limits family).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+        
+         limits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits sendersMorph limits.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'all' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
+        
+         filterSlots: slots ForReceiver: r = ( |
+            | 
+            (slots asList copyFilteredBy: [|:s|
+              includeSlot: s ForReceiver: r
+              ]
+            ) asVector).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'all' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
+        
+         includeSlot: s ForReceiver: r = ( |
+            | true).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'all' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
+        
+         isSlot: s InFamilyOf: receiver = ( |
+            | 
+             (s holder inheritsFrom: receiver)
+            || [receiver inheritsFrom: s holder]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'all' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
+        
+         parent* = bootstrap stub -> 'traits' -> 'oddball' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'all' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
+        
+         titlePrefix = ' '.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
+        
+         family = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'family' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits sendersMorph limits family.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'family' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
+        
+         includeSlot: s ForReceiver: r = ( |
+            | 
+            isSlot: s InFamilyOf: r).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'family' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
+        
+         parent* = bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'all' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'family' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
+        
+         titlePrefix = ' in family '.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
+        
+         outside = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'outside' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits sendersMorph limits outside.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'outside' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
+        
+         includeSlot: s ForReceiver: r = ( |
+            | 
+            (isSlot: s InFamilyOf: r) not).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'outside' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
+        
+         parent* = bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'all' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'outside' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
+        
+         titlePrefix = ' from outside '.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> () From: ( | {
@@ -2238,7 +2373,7 @@ SlotsToOmit: mirror parent prototype.
         
          titlePrefix = ( |
             | 
-            'Senders', (limitToFamily ifFalse: ' ' True: ' in family '), 'of:').
+            limit titlePrefix).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'slotHoldersMorph' -> () From: ( | {

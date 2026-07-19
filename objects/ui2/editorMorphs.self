@@ -166,6 +166,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
                 menu addButtonTarget: self ScriptBlock: [target find_slot_cmd:              event] Label: 'Find Slot'.
                 menu addButtonTarget: self ScriptBlock: [target senders_cmd:                event] Label: 'Senders'.
                 menu addButtonTarget: self ScriptBlock: [target sendersInFamily_cmd:        event] Label: 'Senders in Family'.
+                menu addButtonTarget: self ScriptBlock: [target sentFromOutside_cmd:        event] Label: 'Sent From Outside'.
                 menu addButtonTarget: self ScriptBlock: [target methods_containing_cmd:     event] Label: 'Methods Containing'.
                 menu addButtonTarget: self ScriptBlock: [target copy_downs_containing_cmd:  event] Label: 'Copy Downs Containing'.
                 menu addButtonTarget: self ScriptBlock: [target initial_contents_containing_cmd: event] Label: 'Initial Contents Containing'.
@@ -250,7 +251,7 @@ SlotsToOmit: parent prototype rawBox rawColor.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractEditorMorph' -> () From: ( | {
          'Category: mouse\x7fModuleInfo: Module: editorMorphs InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
         
-         defaultButtonHolder.
+         defaultButtonHolder <- bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractEditorMorph' -> () From: ( | {
@@ -536,6 +537,18 @@ is selected-- Randy, 1/13/95\x7fModuleInfo: Module: editorMorphs InitialContents
                  sendersOf: textInSelectionOrAll getSelectorFromExpression 
               StartingFrom: receiver
                      Event: evt.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractEditorMorph' -> () From: ( | {
+         'Category: searching commands\x7fModuleInfo: Module: editorMorphs InitialContents: FollowSlot\x7fVisibility: public'
+        
+         sentFromOutside_cmd: evt = ( |
+            | 
+            evt sourceHand attach:
+              enumerationMorphFactory
+                sentFromOutsideOf: textInSelectionOrAll getSelectorFromExpression
+                Event: evt.
             self).
         } | ) 
 

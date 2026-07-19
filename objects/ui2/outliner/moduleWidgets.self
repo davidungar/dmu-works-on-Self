@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.10 $'
  '
-Copyright 1992-2014 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -218,7 +218,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
               ].
               b: radioButton copyTarget: self Action: lst removeFirst Style: style.
               r addMorphLast: b.
-              lst removeFirst, ':' sendTo: self With: b.
+              [xxxxxx].
+              lst first _Mirror isReflecteeString  || lst first _Mirror isReflecteeByteVector ifTrue: [
+                  lst removeFirst, ':' sendTo: self With: b.
+              ] False: [
+            halt.
+                lst removeFirst
+              ].
               lst isEmpty ifFalse: [
                 r addMorphLast: spacerMorph copyH: 10 Color: color.
               ].

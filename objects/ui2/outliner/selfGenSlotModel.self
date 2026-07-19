@@ -1,6 +1,6 @@
  '$Revision: 30.14 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -498,6 +498,17 @@ I am also immutable.\x7fModuleInfo: Creator: globals selfGeneralSlotModel parent
                   sendersOf: nameForBrowsing, ':'
                  InFamilyOf: receiver
                       Event: evt.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfGeneralSlotModel' -> 'parent' -> () From: ( | {
+         'Category: menu operations\x7fCategory: browsing\x7fCategory: senders\x7fModuleInfo: Module: selfGenSlotModel InitialContents: FollowSlot\x7fVisibility: private'
+        
+         sentFromOutside: evt = ( |
+            | 
+            evt sourceHand attach:
+              enumerationMorphFactory
+                sentFromOutside: evt.
             self).
         } | ) 
 

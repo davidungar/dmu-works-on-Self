@@ -1,6 +1,6 @@
  '$Revision: 30.11 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -516,6 +516,7 @@ given option object.\x7fModuleInfo: Module: sliceControlPanel InitialContents: F
          buttonSelectionIn: nameSpace = ( |
              d.
             | 
+
             (optionsInNameSpace: nameSpace) do: [|:opt|
               (buttonFor: opt) isDown ifTrue: [^ opt].
               opt isDefault ifTrue: [d: opt].

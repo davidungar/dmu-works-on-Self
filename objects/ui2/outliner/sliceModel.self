@@ -1,6 +1,6 @@
  '$Revision: 30.12 $'
  '
-Copyright 1992-2014 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -282,6 +282,13 @@ to put in me.\x7fModuleInfo: Module: sliceModel InitialContents: FollowSlot\x7fV
             | 
             resend.flushModel: evt.
             results: nil).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalSliceModel' -> 'parent' -> () From: ( | {
+         'Category: controlling me\x7fCategory: filters\x7fModuleInfo: Module: sliceModel InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fromOutside = ( |
+            | controlPanel fromOutside).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalSliceModel' -> 'parent' -> () From: ( | {
