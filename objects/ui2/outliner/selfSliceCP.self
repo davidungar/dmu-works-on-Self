@@ -816,7 +816,6 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
         
          enumerationSlotsFor: controlPanel In: m = ( |
             | 
-            halt.
             vector copyAddFirst:
               m at: controlPanel desiredText IfAbsent: [^ vector]).
         } | ) 
