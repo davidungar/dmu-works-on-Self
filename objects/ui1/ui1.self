@@ -213,7 +213,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui1 InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
-         uiColors.
+         uiColors <- bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
@@ -238,6 +238,15 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'ModuleInfo: Module: ui1 InitialContents: InitializeToExpression: (ui1 uiWorld)\x7fVisibility: private'
         
          world <- bootstrap stub -> 'globals' -> 'ui1' -> 'uiWorld' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
+         'ModuleInfo: Module: ui1 InitialContents: FollowSlot'
+        
+         uiColorPalette = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 uiColorPalette.
+'.
+            | ) .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> () From: ( | {

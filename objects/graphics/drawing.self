@@ -294,7 +294,6 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          fillRectangle: rect Color: cme = ( |
             | 
-            thursday.
             image gc foreground8Bit: cme.
             image fillRectangle: rect GC: image gc.
             self).
