@@ -364,7 +364,12 @@ extern "C" __attribute__((naked)) void ReturnTrap() {
     // sp-8 and sp on entry.  A 16-byte frame here would put [fp+8] right on
     // [F.fp+0] and clobber F's saved fp.  32 bytes keeps our record below
     // those words; the space is F's just-freed locals, safe to reuse.
-    "sub   sp, sp, #32\n\t"        // our frame record (stays 16-aligned)
+    // Rounded down to 16 like the NLR entry above: a patched 0-mod-16
+    // record enters here at 8 mod 16, and sp-based stores fault on a
+    // misaligned sp.  -- claude & dmu 7/26
+    "sub   x11, sp, #32\n\t"       // our frame record ...
+    "and   x11, x11, #0xfffffffffffffff0\n\t"
+    "mov   sp, x11\n\t"            // ... 16-aligned
     "str   x10, [sp, #0]\n\t"      // [fp+0] = F  -> our sender() is F
     "adr   x11, 2f\n\t"            // a non-code-zone marker pc
     "str   x11, [sp, #8]\n\t"      // [fp+8] = marker (so we are not a Self frame)
@@ -447,7 +452,7 @@ extern "C" __attribute__((naked)) void PrimCallReturnTrap() {
     "nop\n\t"                      // +4
     // +8: NLR entry -- x0 = result, x1 = NLRHomeReg, x2 = NLRHomeIDReg.
     "adr   x13, 0b\n\t"            // this trap's entry (the patched value)
-    "bl    6f\n\t"                 // -> x10 = F (clobbers x11, x12, x14)
+    "bl    6f\n\t"                 // -> x10 = F (clobbers x11, x12, x14, x15)
     "adr   x11, 1f\n\t"
     "str   x11, [sp, #8]\n\t"      // [fp+8] = marker (not a Self frame)
     "mov   x3, x1\n\t"             // arg3: nlrHome
@@ -459,7 +464,7 @@ extern "C" __attribute__((naked)) void PrimCallReturnTrap() {
     "brk   #0x4f\n\t"
     "3:\n\t"                       // ---- normal entry ----
     "adr   x13, 0b\n\t"            // this trap's entry (the patched value)
-    "bl    6f\n\t"                 // -> x10 = F (clobbers x11, x12, x14)
+    "bl    6f\n\t"                 // -> x10 = F (clobbers x11, x12, x14, x15)
     "adr   x11, 2f\n\t"
     "str   x11, [sp, #8]\n\t"      // [fp+8] = marker (not a Self frame)
     "mov   x1, x10\n\t"            // arg1: sp_of_patched_frame = F
@@ -473,12 +478,20 @@ extern "C" __attribute__((naked)) void PrimCallReturnTrap() {
     // In:  x13 = trap entry address; x30 = caller (not preserved -- both
     //      callers never return).  Out: x10 = F; sp/x29 = our record, with
     //      [sp+0] = F linked for the stack walks ([sp+8] filled by caller).
+    // Probe off a scratch copy of sp, never sp itself: Apple's hardware
+    // sp-alignment check faults ANY sp-based load or store while sp is not
+    // 0 mod 16, and this trap IS entered at 8 mod 16 whenever the returner
+    // leaves sp = record + 8 off a 0-mod-16 record (seen live: an NLR
+    // through C -- ContinueNLRFromC -- into a stepped frame's patched
+    // C-boundary record; SIGBUS/BUS_ADRALN, si_addr 0, on the first probe).
+    // -- claude & dmu 7/26
     "6:\n\t"
-    "ldur  x11, [sp, #-8]\n\t"     // [ (sp-16) + 8 ]: preferred geometry
+    "mov   x15, sp\n\t"
+    "ldur  x11, [x15, #-8]\n\t"    // [ (sp-16) + 8 ]: preferred geometry
     "sub   x10, sp, #16\n\t"
     "cmp   x11, x13\n\t"
     "b.eq  7f\n\t"
-    "ldr   x11, [sp]\n\t"          // [ (sp-8) + 8 ]: method-epilogue shape
+    "ldr   x11, [x15]\n\t"         // [ (sp-8) + 8 ]: method-epilogue shape
     "sub   x10, sp, #8\n\t"
     "cmp   x11, x13\n\t"
     "b.eq  7f\n\t"
