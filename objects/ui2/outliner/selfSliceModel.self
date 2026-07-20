@@ -142,12 +142,13 @@ See the LICENSE file for license information.
         
          sendersOf: slotName OutsideOf: mirror Event: evt = ( |
             | 
+            [monday].
             ifBypassForEvent: evt
               Then: [resend.sendersOf: slotName OutsideOf: mirror Event: evt]
               Else: [(((selfSliceModel newOutliner model
                          desiredText: slotName)
                          startingAt: mirror)
-                         fromOutside
+                         findSendersFromOutside
                          expandAll: evt) myOutliner]).
         } | ) 
 

@@ -369,6 +369,19 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: selfSliceCP InitialContents:
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
+         'Category: controlling me\x7fCategory: filters\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         findSendersFromOutside = ( |
+            | 
+            halt.
+            optionNameSpaces finds senders
+              selectFor: self.
+            optionNameSpaces filters fromOutside
+              selectFor: self.
+            acceptSliceInfo).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
          'Category: accessing\x7fCategory: options & name spaces\x7fCategory: traits\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: private'
         
          findTraits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'findTraits' -> () From: ( |
@@ -444,17 +457,6 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: selfSliceCP InitialContents:
          enumerationSlotsFor: controlPanel = ( |
             | 
             enumerationResultsFor: controlPanel).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
-         'Category: controlling me\x7fCategory: filters\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
-        
-         fromOutside = ( |
-            | 
-            halt.
-            optionNameSpaces filters fromOutside
-              selectFor: self.
-            acceptSliceInfo).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
@@ -592,7 +594,9 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
         
          buildForestFor: controlPanel = ( |
             | 
-            error: 'unimplemented').
+            inheritanceForestSlicer buildAllOf: controlPanel startingAtMirror 
+              BrowseObject: controlPanel browseObject 
+              LimitDescendantsTo: controlPanel organization descendantSupersetFor: controlPanel).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'all' -> () From: ( | {
@@ -1159,7 +1163,8 @@ do not contain slots will still be in tree.\x7fModuleInfo: Module: selfSliceCP I
          'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
         
          descendantSupersetFor: controlPanel = ( |
-            | controlPanel find enumerationMirrorsFor: controlPanel).
+            | 
+            controlPanel find enumerationMirrorsFor: controlPanel).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'organizations' -> 'hierarchical' -> () From: ( | {

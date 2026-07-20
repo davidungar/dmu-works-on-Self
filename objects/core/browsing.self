@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.19 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -319,7 +319,9 @@ See the LICENSE file for license information.
          'Category: senders\x7fComment: Collect methods sending messages with selector s\x7fModuleInfo: Module: browsing InitialContents: FollowSlot\x7fVisibility: public'
         
          sendersOf: s = ( |
-            | sendersOf: s Limit: infinity).
+            | 
+            halt.  
+            sendersOf: s Limit: infinity).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'browse' -> () From: ( | {
