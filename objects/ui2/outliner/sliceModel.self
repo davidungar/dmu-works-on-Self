@@ -248,9 +248,9 @@ to put in me.\x7fModuleInfo: Module: sliceModel InitialContents: FollowSlot\x7fV
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalSliceModel' -> 'parent' -> () From: ( | {
          'Category: controlling me\x7fCategory: filters\x7fModuleInfo: Module: sliceModel InitialContents: FollowSlot\x7fVisibility: public'
         
-         findSendersFromOutside = ( |
+         findSendersToExplicitSelf = ( |
             | 
-             controlPanel findSendersFromOutside.
+             controlPanel findSendersToExplicitSelf.
             self).
         } | ) 
 

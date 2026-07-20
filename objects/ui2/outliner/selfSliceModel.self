@@ -140,20 +140,6 @@ See the LICENSE file for license information.
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'enumerationMorphFactory' -> 'usePluggableSliceOutliners' -> () From: ( | {
          'ModuleInfo: Module: selfSliceModel InitialContents: FollowSlot\x7fVisibility: public'
         
-         sendersOf: slotName OutsideOf: mirror Event: evt = ( |
-            | 
-            ifBypassForEvent: evt
-              Then: [resend.sendersOf: slotName OutsideOf: mirror Event: evt]
-              Else: [(((selfSliceModel newOutliner model
-                         desiredText: slotName)
-                         startingAt: mirror)
-                         findSendersFromOutside
-                         expandAll: evt) myOutliner]).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'enumerationMorphFactory' -> 'usePluggableSliceOutliners' -> () From: ( | {
-         'ModuleInfo: Module: selfSliceModel InitialContents: FollowSlot\x7fVisibility: public'
-        
          sendersOf: slotName StartingFrom: mirror Event: evt = ( |
             | 
             ifBypassForEvent: evt
@@ -162,6 +148,19 @@ See the LICENSE file for license information.
                          desiredText: slotName)
                          startingAt: mirror)
                          findSenders
+                         expandAll: evt) myOutliner]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'enumerationMorphFactory' -> 'usePluggableSliceOutliners' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceModel InitialContents: FollowSlot\x7fVisibility: public'
+        
+         sendersToExplicitSelfOf: slotName Event: evt = ( |
+            | 
+            ifBypassForEvent: evt
+              Then: [resend.sendersToExplicitSelfOf: slotName Event: evt]
+              Else: [((selfSliceModel newOutliner model
+                         desiredText: slotName)
+                         findSendersToExplicitSelf
                          expandAll: evt) myOutliner]).
         } | ) 
 

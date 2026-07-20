@@ -1071,19 +1071,19 @@ This allows experiments that override them.\x7fModuleInfo: Creator: globals enum
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'enumerationMorphFactory' -> 'useStandardEnumerationMorphs' -> () From: ( | {
          'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
-         sendersOf: slotName OutsideOf: mirror Event: evt = ( |
+         sendersOf: slotName StartingFrom: mirror Event: evt = ( |
             | 
-            copyForSelectorSentFromOutside: slotName
+            sendersMorph
+              copySelector: slotName
                      Event: evt).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'enumerationMorphFactory' -> 'useStandardEnumerationMorphs' -> () From: ( | {
          'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
         
-         sendersOf: slotName StartingFrom: mirror Event: evt = ( |
+         sendersToExplicitSelfOf: slotName Event: evt = ( |
             | 
-            halt. sendersMorph
-              copySelector: slotName
+            copyForSelectorSentToExplicitSelf: slotName
                      Event: evt).
         } | ) 
 
@@ -2193,18 +2193,7 @@ SlotsToOmit: mirror parent prototype.
             | 
             r: browseAndFilter sendersOf: selector.
             rr: limit filterSlots: r ForReceiver: receiver.
-            halt. [xxxxx. outside].
             rr).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> () From: ( | {
-         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
-        
-         copyOutsideReceiver: mir Selector: sel Event: evt = ( |
-            | 
-            halt. unused. xxxxx. outside. ui1Stuff.
-            ( copyReceiver: mir Selector: sel Event: evt)
-            limit: limits outside).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> () From: ( | {
@@ -2235,7 +2224,6 @@ SlotsToOmit: mirror parent prototype.
         
          limitToFamilyIfHasReceiver = ( |
             | 
-            halt. unused. xxxxx. outside.
             limit: receiver ifNil: limits all IfNotNil: limits family).
         } | ) 
 
@@ -2316,35 +2304,6 @@ SlotsToOmit: mirror parent prototype.
          'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
         
          titlePrefix = ' in family '.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> () From: ( | {
-         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
-        
-         outside = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'outside' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits sendersMorph limits outside.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'outside' -> () From: ( | {
-         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
-        
-         includeSlot: s ForReceiver: r = ( |
-            | 
-            (isSlot: s InFamilyOf: r) not).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'outside' -> () From: ( | {
-         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
-        
-         parent* = bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'all' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'outside' -> () From: ( | {
-         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
-        
-         titlePrefix = ' from outside '.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> () From: ( | {

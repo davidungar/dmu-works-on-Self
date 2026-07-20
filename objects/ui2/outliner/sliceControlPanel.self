@@ -80,27 +80,6 @@ Use sawParent flag to turn joins into multiple trees.\x7fModuleInfo: Module: sli
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'inheritanceForestSlicer' -> 'parent' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: public'
         
-         buildAllOf: mir BrowseObject: bo LimitDescendantsTo: limitMirs = ( |
-             r.
-            | 
-            halt. [xxxxx. outside].
-
-
-            r: copyRemoveAll browseObject: bo.
-            r roots: limitMirs.
-            [
-            r limitSet: limitMirs ifNotNil: [limitMirs asSet].
-            r ascendFrom: mir.
-            r stopSet removeAll.
-            r descendFrom: mir.
-            ].
-            halt.
-            r).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'inheritanceForestSlicer' -> 'parent' -> () From: ( | {
-         'Category: creating\x7fModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: public'
-        
          buildAncestorsOf: mir = ( |
              r.
             | 
@@ -147,22 +126,12 @@ Use sawParent flag to turn joins into multiple trees.\x7fModuleInfo: Module: sli
          buildFamilyOf: mir BrowseObject: bo LimitDescendantsTo: limitMirs = ( |
              r.
             | 
-            [xxxxx. outside].
             r: copyRemoveAll browseObject: bo.
             r limitSet: limitMirs ifNotNil: [limitMirs asSet].
             r ascendFrom: mir.
             r stopSet remove: mir.
             r descendFrom: mir.
             r).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'inheritanceForestSlicer' -> 'parent' -> () From: ( | {
-         'Category: creating\x7fModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: public'
-        
-         buildOutsideOf: mir BrowseObject: bo = ( |
-            | 
-            buildOutsideOf: mir BrowseObject: bo
-            LimitDescendantsTo: nil).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'inheritanceForestSlicer' -> 'parent' -> () From: ( | {
@@ -550,10 +519,6 @@ given option object.\x7fModuleInfo: Module: sliceControlPanel InitialContents: F
 
             (optionsInNameSpace: nameSpace) do: [|:opt|
               (buttonFor: opt) isDown ifTrue: [^ opt].
-              opt isDefault " && [subjectName = 'graphic']" ifTrue: [
-            [xxxxx outside]. 
-            [('defaulted ', subjectName, ' ', opt printString) printLine.].
-            d: opt].
             ].
             d).
         } | ) 
@@ -801,8 +766,6 @@ does no remapping.\x7fModuleInfo: Module: sliceControlPanel InitialContents: Fol
                   IfPresent: [|:s| s holder reflectee]
                   IfAbsent: [ error: 'what?'].
             (optionsInNameSpace: ns) do: [|:o|
-            [oustside].
-              o == opt ifTrue: [('option down: ', o printString) printLine.].
               (buttonFor: o) isDown: o == opt
             ].
             self).

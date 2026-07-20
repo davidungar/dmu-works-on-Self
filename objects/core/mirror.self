@@ -1901,7 +1901,7 @@ respecting copy-downs.
             | 
             everyMessageReflecteeSendsToExplicitSelfDo: [|:msg|
              ( msg = aSelector) ifTrue: [^true]
-            ]. [monday see hasAnyMissingSlots].
+            ].
             false).
         } | ) 
 

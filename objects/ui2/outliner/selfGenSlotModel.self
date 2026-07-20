@@ -504,12 +504,11 @@ I am also immutable.\x7fModuleInfo: Creator: globals selfGeneralSlotModel parent
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfGeneralSlotModel' -> 'parent' -> () From: ( | {
          'Category: menu operations\x7fCategory: browsing\x7fCategory: senders\x7fModuleInfo: Module: selfGenSlotModel InitialContents: FollowSlot\x7fVisibility: private'
         
-         sentFromOutside: evt = ( |
+         sentToExplicitSelf: evt = ( |
             | 
             evt sourceHand attach:
               enumerationMorphFactory
-                sendersOf: nameForBrowsing
-                OutsideOf: receiver
+                sendersToExplicitSelfOf: nameForBrowsing
                     Event: evt.
             self).
         } | ) 
