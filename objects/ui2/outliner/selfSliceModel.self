@@ -151,6 +151,19 @@ See the LICENSE file for license information.
                          expandAll: evt) myOutliner]).
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'enumerationMorphFactory' -> 'usePluggableSliceOutliners' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceModel InitialContents: FollowSlot\x7fVisibility: public'
+        
+         sendersToExplicitSelfOf: slotName Event: evt = ( |
+            | 
+            ifBypassForEvent: evt
+              Then: [resend.sendersToExplicitSelfOf: slotName Event: evt]
+              Else: [((selfSliceModel newOutliner model
+                         desiredText: slotName)
+                         findSendersToExplicitSelf
+                         expandAll: evt) myOutliner]).
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> () From: ( | {
          'ModuleInfo: Module: selfSliceModel InitialContents: FollowSlot'
         

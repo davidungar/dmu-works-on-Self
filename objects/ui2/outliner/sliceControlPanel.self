@@ -561,10 +561,12 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: sliceControlPanel InitialCon
          'ModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: private'
         
          enumerationResultsFor: controlPanel = ( |
+             r.
             | 
-            enumerationSelector 
+            r: enumerationSelector 
               sendTo:   controlPanel browseObject
-                With:  controlPanel subjectName).
+                With:  controlPanel subjectName.
+            controlPanel filtering filterResults: r For: controlPanel).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> 'findTraits' -> () From: ( | {

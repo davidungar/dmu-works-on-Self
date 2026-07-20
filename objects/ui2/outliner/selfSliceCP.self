@@ -1,6 +1,6 @@
  '$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -362,6 +362,18 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: selfSliceCP InitialContents:
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
+         'Category: controlling me\x7fCategory: filters\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         findSendersToExplicitSelf = ( |
+            | 
+            optionNameSpaces finds senders
+              selectFor: self.
+            optionNameSpaces filters toExplicitSelf
+              selectFor: self.
+            acceptSliceInfo).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
          'Category: accessing\x7fCategory: options & name spaces\x7fCategory: traits\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: private'
         
          findTraits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'findTraits' -> () From: ( |
@@ -402,15 +414,6 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: selfSliceCP InitialContents:
             sn: controlPanel desiredText.
             (enumerationMirrorsFor: controlPanel)
               copyMappedBy: [|:mir| mir at: sn]).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'findTraits' -> () From: ( | {
-         'Category: result type mixins\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: private'
-        
-         resultsAreObjectsMixin = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'findTraits' -> 'resultsAreObjectsMixin' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals selfSliceControlPanel parent findTraits resultsAreObjectsMixin.
-'.
-            | ) .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'findTraits' -> () From: ( | {
@@ -513,11 +516,12 @@ does no remapping.\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlo
             dict if:          ancestorsButton IsPresentDo: [|:n|          ancestorsButton: n].
             dict if:        descendantsButton IsPresentDo: [|:n|        descendantsButton: n].
             dict if:             familyButton IsPresentDo: [|:n|             familyButton: n].
+            dict if:     toExplicitSelfButton IsPresentDo: [|:n|     toExplicitSelfButton: n].
             dict if:         categoriesButton IsPresentDo: [|:n|         categoriesButton: n].
             dict if:       implementorsButton IsPresentDo: [|:n|       implementorsButton: n].
             dict if:  methodsContainingButton IsPresentDo: [|:n|  methodsContainingButton: n].
-            dict if:         referencesButton IsPresentDo: [|:n|            sendersButton: n].
-            dict if:            sendersButton IsPresentDo: [|:n|             familyButton: n].
+            dict if:         referencesButton IsPresentDo: [|:n|         referencesButton: n].
+            dict if:            sendersButton IsPresentDo: [|:n|            sendersButton: n].
             dict if:               flatButton IsPresentDo: [|:n|               flatButton: n].
             dict if:   fullHierarchicalButton IsPresentDo: [|:n|   fullHierarchicalButton: n].
             dict if:       hierarchicalButton IsPresentDo: [|:n|       hierarchicalButton: n].
@@ -572,7 +576,7 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
         
          buildForestFor: controlPanel = ( |
             | 
-            error: 'unimplemented').
+            error: 'hierarchy makes no sense for all').
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'all' -> () From: ( | {
@@ -581,6 +585,14 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
          descriptionStartingAt: ignored = ( |
             | 
             '').
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'all' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
+        
+         filterResults: r For: controlPanel = ( |
+            | 
+            r).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'all' -> () From: ( | {
@@ -619,6 +631,18 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'ancestors' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
+        
+         filterResults: r For: controlPanel = ( |
+             ancestors.
+             m.
+            | 
+            m: controlPanel startingAtMirror.
+            ancestors: (m ancestorsUpTo: m) asSet add: m.
+            r asList copyFilteredBy: [|:x| ancestors includes: x "holder"]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'ancestors' -> () From: ( | {
          'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
         
          name = 'ancestors'.
@@ -648,6 +672,18 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
                buildDescendantsOf: controlPanel startingAtMirror
                      BrowseObject: controlPanel browseObject
                LimitDescendantsTo: controlPanel organization descendantSupersetFor: controlPanel).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'descendants' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
+        
+         filterResults: r For: controlPanel = ( |
+             descendants.
+             m.
+            | 
+            m: controlPanel startingAtMirror.
+            descendants: (browseWellKnown descendantsOfReflectee: m Limit: 100) asSet add: m.
+            r asList copyFilteredBy: [|:x| descendants includes: x holder]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'descendants' -> () From: ( | {
@@ -683,12 +719,71 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'family' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
+        
+         filterResults: r For: controlPanel = ( |
+             decs.
+             filters.
+             inAn.
+             inDec.
+            | 
+            filters: selfSliceControlPanel optionNameSpaces filters.
+            inAn: (filters ancestors filterResults: r For: controlPanel) asSet.
+            [xxxxx].
+            decs: (browseWellKnown descendantsOfReflectee: controlPanel startingAtMirror Limit: 100) asSet.
+            decs add: controlPanel startingAtMirror.
+            inDec: r asList copyFilteredBy: [|:s| decs includes: s "holder"].
+            inAn addAll: inDec).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'family' -> () From: ( | {
          'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
         
          name = 'family'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'family' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> 'optionTraits' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         toExplicitSelf = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'toExplicitSelf' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals selfSliceControlPanel parent optionNameSpaces filters toExplicitSelf.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'toExplicitSelf' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         buildForestFor: controlPanel = ( |
+            | 
+            error: 'hierarchy makes no sense here').
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'toExplicitSelf' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
+        
+         filterResults: r For: controlPanel = ( |
+             sentMessage.
+            | 
+            sentMessage: controlPanel subjectName.
+            r asList copyFilteredBy: [|:s|
+              s contents containsExplicitSelfSendOf: sentMessage
+            ]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'toExplicitSelf' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         name = 'toExplicitSelf'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'toExplicitSelf' -> () From: ( | {
          'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> 'optionTraits' -> ().
@@ -723,6 +818,7 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
         
          enumerationSlotsFor: controlPanel In: m = ( |
             | 
+            halt.
             m asList copyFilteredBy: [|:s| s categories includes: controlPanel category]).
         } | ) 
 
@@ -820,6 +916,7 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
          enumerationSlotsFor: controlPanel In: m = ( |
              desiredText.
             | 
+            halt.
             desiredText: controlPanel desiredText.
             m asList copyFilteredBy: [|:s| s contents sourceString matchesPattern: desiredText]).
         } | ) 
@@ -927,7 +1024,9 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'senders' -> () From: ( | {
          'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
         
-         name = 'senders'.
+         name = ( |
+            | 
+            'senders').
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'senders' -> () From: ( | {
@@ -1101,7 +1200,8 @@ do not contain slots will still be in tree.\x7fModuleInfo: Module: selfSliceCP I
          'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
         
          descendantSupersetFor: controlPanel = ( |
-            | controlPanel find enumerationMirrorsFor: controlPanel).
+            | 
+            controlPanel find enumerationMirrorsFor: controlPanel).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'organizations' -> 'hierarchical' -> () From: ( | {
@@ -1327,6 +1427,12 @@ do not contain slots will still be in tree.\x7fModuleInfo: Module: selfSliceCP I
          'Category: Self slice control panel state\x7fModuleInfo: Module: selfSliceCP InitialContents: InitializeToExpression: (lobby asMirror)\x7fVisibility: public'
         
          startingAtMirror <- lobby asMirror.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> () From: ( | {
+         'Category: Self slice control panel state\x7fCategory: subparts\x7fCategory: buttons\x7fCategory: filters\x7fModuleInfo: Module: selfSliceCP InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
+        
+         toExplicitSelfButton.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> () From: ( | {

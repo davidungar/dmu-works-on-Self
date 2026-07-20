@@ -119,7 +119,7 @@ SlotsToOmit: parent.
              m.
              s.
             | 
-            [xxxxx]. "add highlighting"
+            "add highlighting"
             referrent node isBlockNode ifTrue:[
               s: referrent node slotIfNone: [ ^vector]
             ] False: [

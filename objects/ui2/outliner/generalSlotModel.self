@@ -204,6 +204,14 @@ globals generalModel parent buttonDescriptions. _Clone
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalSlotModel' -> 'parent' -> 'buttonDescriptions' -> () From: ( | {
+         'Category: browsing\x7fCategory: the slot\x7fCategory: Sent to explicit self\x7fModuleInfo: Module: generalSlotModel InitialContents: FollowSlot'
+        
+         sentToExplicitSelf = ( |
+            | 
+            target model sentToExplcitSelf: event).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'generalSlotModel' -> 'parent' -> 'buttonDescriptions' -> () From: ( | {
          'Category: debugging\x7fCategory: stepping\x7fCategory: Step\x7fModuleInfo: Module: generalSlotModel InitialContents: FollowSlot'
         
          step = ( |
@@ -235,7 +243,7 @@ globals generalModel parent buttonDescriptions. _Clone
             | 
             isForEditingNew ifTrue: [^ vector].
             isA: slot exists && [slot isAssignable].
-            r: 'senders' & 'sendersInFamily' & 'implementors' &
+            r: 'senders' & 'sendersInFamily' & 'sentToExplicitSelf' & 'implementors' &
                'implementorsInFamily' & 'findSlot' & nil.
             isA ifTrue: [
               r: r & 'sendersOfAssignment' & 'sendersOfAssignmentInFamily' & 

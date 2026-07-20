@@ -1,6 +1,6 @@
  'Sun-$Revision: 30.12 $'
  '
-Copyright 1992-2016 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -1075,6 +1075,15 @@ This allows experiments that override them.\x7fModuleInfo: Creator: globals enum
             | 
             sendersMorph
               copySelector: slotName
+                     Event: evt).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'enumerationMorphFactory' -> 'useStandardEnumerationMorphs' -> () From: ( | {
+         'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot\x7fVisibility: public'
+        
+         sendersToExplicitSelfOf: slotName Event: evt = ( |
+            | 
+            copyForSelectorSentToExplicitSelf: slotName
                      Event: evt).
         } | ) 
 

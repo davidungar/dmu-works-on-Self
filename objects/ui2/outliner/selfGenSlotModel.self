@@ -502,6 +502,18 @@ I am also immutable.\x7fModuleInfo: Creator: globals selfGeneralSlotModel parent
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfGeneralSlotModel' -> 'parent' -> () From: ( | {
+         'Category: menu operations\x7fCategory: browsing\x7fCategory: senders\x7fModuleInfo: Module: selfGenSlotModel InitialContents: FollowSlot\x7fVisibility: private'
+        
+         sentToExplicitSelf: evt = ( |
+            | 
+            evt sourceHand attach:
+              enumerationMorphFactory
+                sendersToExplicitSelfOf: nameForBrowsing
+                    Event: evt.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfGeneralSlotModel' -> 'parent' -> () From: ( | {
          'Category: updating\x7fModuleInfo: Module: selfGenSlotModel InitialContents: FollowSlot\x7fVisibility: private'
         
          setCachedIsMethod = ( |
