@@ -1,6 +1,6 @@
  '$Revision: 30.12 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -119,7 +119,7 @@ SlotsToOmit: parent.
              m.
              s.
             | 
-            [xxxxx]. "add highlighting"
+            "add highlighting"
             referrent node isBlockNode ifTrue:[
               s: referrent node slotIfNone: [ ^vector]
             ] False: [

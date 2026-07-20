@@ -362,7 +362,7 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: selfSliceCP InitialContents:
         
          findSenders = ( |
             | 
-            [xxxxx halt.].
+            [xxxxx outside. halt.].
             optionNameSpaces finds senders
               selectFor: self.
             acceptSliceInfo).
@@ -451,6 +451,7 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: selfSliceCP InitialContents:
         
          fromOutside = ( |
             | 
+            halt.
             optionNameSpaces filters fromOutside
               selectFor: self.
             acceptSliceInfo).
@@ -491,6 +492,7 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: selfSliceCP InitialContents:
         
          inFamily = ( |
             | 
+            halt.
             optionNameSpaces filters family
               selectFor: self.
             acceptSliceInfo).
@@ -726,9 +728,8 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
         
          buildForestFor: controlPanel = ( |
             | 
-            [xxxxx].
             inheritanceForestSlicer
-                   buildFamilyOf: controlPanel startingAtMirror
+                   buildOutsideOf: controlPanel startingAtMirror
                     BrowseObject: controlPanel browseObject
               LimitDescendantsTo: controlPanel organization descendantSupersetFor: controlPanel).
         } | ) 
@@ -983,7 +984,7 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
         
          name = ( |
             | 
-            [xxxxx].
+            [xxxxx outside].
             'senders').
         } | ) 
 

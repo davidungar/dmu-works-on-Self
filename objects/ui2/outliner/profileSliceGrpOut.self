@@ -1,6 +1,6 @@
  '$Revision: 30.5 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -132,13 +132,6 @@ SlotsToOmit: parent prototype.
          redo: event = ( |
             | 
             enclosingOutlinerIfPresent: [|:o| o redo: event]).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'profileSliceGroupOutliner' -> 'parent' -> () From: ( | {
-         'ModuleInfo: Module: profileSliceGrpOut InitialContents: FollowSlot'
-        
-         xxxxxx = ( |
-            | xxxxx is this object needed).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'profileSliceGroupOutliner' -> () From: ( | {

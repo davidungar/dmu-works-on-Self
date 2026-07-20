@@ -2189,9 +2189,12 @@ SlotsToOmit: mirror parent prototype.
         
          action = ( |
              r.
+             rr.
             | 
             r: browseAndFilter sendersOf: selector.
-            limit filterSlots: r ForReceiver: receiver).
+            rr: limit filterSlots: r ForReceiver: receiver.
+            halt. [xxxxx. outside].
+            rr).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> () From: ( | {
@@ -2199,6 +2202,7 @@ SlotsToOmit: mirror parent prototype.
         
          copyOutsideReceiver: mir Selector: sel Event: evt = ( |
             | 
+            halt. unused. xxxxx. outside.
             ( copyReceiver: mir Selector: sel Event: evt)
             limit: limits outside).
         } | ) 
@@ -2231,6 +2235,7 @@ SlotsToOmit: mirror parent prototype.
         
          limitToFamilyIfHasReceiver = ( |
             | 
+            halt. unused. xxxxx. outside.
             limit: receiver ifNil: limits all IfNotNil: limits family).
         } | ) 
 
@@ -2258,7 +2263,9 @@ SlotsToOmit: mirror parent prototype.
          'ModuleInfo: Module: browseMorphs InitialContents: FollowSlot'
         
          includeSlot: s ForReceiver: r = ( |
-            | true).
+            | 
+            halt.
+             true).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'sendersMorph' -> 'limits' -> 'all' -> () From: ( | {

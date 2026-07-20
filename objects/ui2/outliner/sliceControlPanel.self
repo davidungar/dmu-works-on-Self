@@ -126,6 +126,31 @@ Use sawParent flag to turn joins into multiple trees.\x7fModuleInfo: Module: sli
          buildFamilyOf: mir BrowseObject: bo LimitDescendantsTo: limitMirs = ( |
              r.
             | 
+            halt. [xxxxx. outside].
+            r: copyRemoveAll browseObject: bo.
+            r limitSet: limitMirs ifNotNil: [limitMirs asSet].
+            r ascendFrom: mir.
+            r stopSet remove: mir.
+            r descendFrom: mir.
+            r).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'inheritanceForestSlicer' -> 'parent' -> () From: ( | {
+         'Category: creating\x7fModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: public'
+        
+         buildOutsideOf: mir BrowseObject: bo = ( |
+            | 
+            buildOutsideOf: mir BrowseObject: bo
+            LimitDescendantsTo: nil).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'inheritanceForestSlicer' -> 'parent' -> () From: ( | {
+         'Category: creating\x7fModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: public'
+        
+         buildOutsideOf: mir BrowseObject: bo LimitDescendantsTo: limitMirs = ( |
+             r.
+            | 
+            do something like buildFamily. [xxxxx outside].
             r: copyRemoveAll browseObject: bo.
             r limitSet: limitMirs ifNotNil: [limitMirs asSet].
             r ascendFrom: mir.

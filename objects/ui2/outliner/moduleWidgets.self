@@ -218,13 +218,17 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
               ].
               b: radioButton copyTarget: self Action: lst removeFirst Style: style.
               r addMorphLast: b.
-              [xxxxxx].
-              lst first _Mirror isReflecteeString  || lst first _Mirror isReflecteeByteVector ifTrue: [
-                  lst removeFirst, ':' sendTo: self With: b.
-              ] False: [
-            halt.
-                lst removeFirst
+              [
+                [xxxxxx. familyButton: nil].
+                lst first _Mirror isReflecteeString  || lst first _Mirror isReflecteeByteVector ifTrue: [
+                    ('set button: ', lst first) printLine.
+                    lst removeFirst, ':' sendTo: self With: b.
+                ] False: [
+                  halt.
+                  lst removeFirst
               ].
+              ].
+              lst removeFirst, ':' sendTo: self With: b.
               lst isEmpty ifFalse: [
                 r addMorphLast: spacerMorph copyH: 10 Color: color.
               ].
