@@ -1895,6 +1895,17 @@ respecting copy-downs.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'mirrors' -> 'abstractMirror' -> () From: ( | {
+         'Category: programming environment\x7fModuleInfo: Module: mirror InitialContents: FollowSlot\x7fVisibility: public'
+        
+         containsExplicitSelfSendOf: aSelector = ( |
+            | 
+            everyMessageReflecteeSendsToExplicitSelfDo: [|:msg|
+             ( msg = aSelector) ifTrue: [^true]
+            ]. [monday see hasAnyMissingSlots].
+            false).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'mirrors' -> 'abstractMirror' -> () From: ( | {
          'Category: programming\x7fCategory: adding a slot\x7fModuleInfo: Module: mirror InitialContents: FollowSlot\x7fVisibility: public'
         
          copyAddSlot: slot = ( |
@@ -2483,6 +2494,16 @@ a new slot before adding it.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'mirrors' -> 'abstractMirror' -> () From: ( | {
+         'Category: programming environment\x7fModuleInfo: Module: mirror InitialContents: FollowSlot\x7fVisibility: public'
+        
+         everyMessageReflecteeSendsToExplicitSelfDo: blk = ( |
+            | 
+            isReflecteeMethod ifFalse: [vector] True: [ 
+              allExplicitSelfSendsDo: [|:x| blk value: x]
+            ]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'mirrors' -> 'abstractMirror' -> () From: ( | {
          'Category: programming environment\x7fCategory: missing slots\x7fComment: Iterates through all the selectors which are sent implicitly to self
 in all of the reflectee\'s methods, but which the reflectee does not
 understand. -- Adam, 6/05\x7fModuleInfo: Module: mirror InitialContents: FollowSlot\x7fVisibility: public'
@@ -2498,7 +2519,7 @@ understand. -- Adam, 6/05\x7fModuleInfo: Module: mirror InitialContents: FollowS
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'mirrors' -> 'abstractMirror' -> () From: ( | {
-         'Category: programming environment\x7fCategory: missing slots\x7fComment: Iterates through all the non-primitive selectors sent implicitly
+         'Category: programming environment\x7fComment: Iterates through all the non-primitive selectors sent implicitly
 to self in all of the reflectee\'s methods. Does not yield any
 selector more than once. -- Adam, 6/05\x7fModuleInfo: Module: mirror InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -5591,6 +5612,21 @@ x = start, y = end
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'mirrors' -> 'method' -> () From: ( | {
          'Category: iterating\x7fModuleInfo: Module: mirror InitialContents: FollowSlot\x7fVisibility: public'
         
+         allExplicitSelfSendsDo: blk = ( |
+             alreadySeen.
+            | 
+            alreadySeen: set copyRemoveAll.
+            meAndAllBlockMethodsDo: [|:m|
+              m explicitSelfSendsDo: [|:n|
+                alreadySeen if: n IsAbsentAddAndDo: blk.
+              ].
+            ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'mirrors' -> 'method' -> () From: ( | {
+         'Category: iterating\x7fModuleInfo: Module: mirror InitialContents: FollowSlot\x7fVisibility: public'
+        
          allImplicitSelfSendsDo: b = ( |
              alreadySeen.
             | 
@@ -5874,6 +5910,14 @@ and returns the receiver of the outermost method activation.\x7fModuleInfo: Modu
          evaluate: aMethodMirror = ( |
             | 
             error: 'eval doesn\'t work for methods yet').
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'mirrors' -> 'method' -> () From: ( | {
+         'Category: iterating\x7fModuleInfo: Module: mirror InitialContents: FollowSlot\x7fVisibility: public'
+        
+         explicitSelfSendsDo: b = ( |
+            | 
+            ((explicitSelfSendFinder copyInterpretMethod: self) asSet remove: '') do: b).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'mirrors' -> 'method' -> () From: ( | {

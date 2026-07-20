@@ -1,6 +1,6 @@
  '$Revision: 30.6 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -88,6 +88,45 @@ of selector sent or \'\'\x7fModuleInfo: Creator: globals selectorFinder parent.
          'ModuleInfo: Module: selectorFinder InitialContents: InitializeToExpression: (vector)'
         
          selectors <- ((bootstrap stub -> 'globals') \/-> 'vector') -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {
+         'Category: system\x7fCategory: Virtual Machine interface\x7fCategory: bytecode interpreters\x7fModuleInfo: Module: selectorFinder InitialContents: FollowSlot\x7fVisibility: public'
+        
+         explicitSelfSendFinder = bootstrap define: bootstrap stub -> 'globals' -> 'explicitSelfSendFinder' -> () ToBe: bootstrap addSlotsTo: (
+             bootstrap remove: 'parent' From:
+             globals selectorFinder copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'explicitSelfSendFinder' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals explicitSelfSendFinder.
+
+CopyDowns:
+globals selectorFinder. copy 
+SlotsToOmit: parent.
+
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'explicitSelfSendFinder' -> () From: ( | {
+         'ModuleInfo: Module: selectorFinder InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'explicitSelfSendFinder' -> 'parent' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals explicitSelfSendFinder parent.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'explicitSelfSendFinder' -> 'parent' -> () From: ( | {
+         'ModuleInfo: Module: selectorFinder InitialContents: FollowSlot\x7fVisibility: private'
+        
+         isInterestedInSendBytecode: bc = ( |
+            | 
+            bc isSelfExplicit).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'explicitSelfSendFinder' -> 'parent' -> () From: ( | {
+         'ModuleInfo: Module: selectorFinder InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'globals' -> 'selectorFinder' -> 'parent' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> () From: ( | {

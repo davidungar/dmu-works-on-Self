@@ -493,7 +493,6 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: selfSliceCP InitialContents:
         
          inFamily = ( |
             | 
-            halt.
             optionNameSpaces filters family
               selectFor: self.
             acceptSliceInfo).
@@ -787,11 +786,11 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
          'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
         
          filterResults: r For: controlPanel = ( |
+             sentMessage.
             | 
-            halt.
-            r asList copyFilteredBy: [|:s| halt.
-              s isMethod ifFalse: [halt].
-              [s isNotSentToSelf].
+            sentMessage: controlPanel subjectName.
+            r asList copyFilteredBy: [|:s|
+              s contents containsExplicitSelfSendOf: sentMessage
             ]).
         } | ) 
 
