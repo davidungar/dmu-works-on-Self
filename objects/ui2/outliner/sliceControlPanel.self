@@ -166,21 +166,6 @@ Use sawParent flag to turn joins into multiple trees.\x7fModuleInfo: Module: sli
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'inheritanceForestSlicer' -> 'parent' -> () From: ( | {
-         'Category: creating\x7fModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: public'
-        
-         buildOutsideOf: mir BrowseObject: bo LimitDescendantsTo: limitMirs = ( |
-             r.
-            | 
-            do something like buildFamily. [xxxxx outside].
-            r: copyRemoveAll browseObject: bo.
-            r limitSet: limitMirs ifNotNil: [limitMirs asSet].
-            r ascendFrom: mir.
-            r stopSet remove: mir.
-            r descendFrom: mir.
-            r).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'inheritanceForestSlicer' -> 'parent' -> () From: ( | {
          'Category: accessing finished tree\x7fModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: public'
         
          childrenOf: aMirror Do: blk = ( |
@@ -611,10 +596,12 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: sliceControlPanel InitialCon
          'ModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: private'
         
          enumerationResultsFor: controlPanel = ( |
+             r.
             | 
-            enumerationSelector 
+            r: enumerationSelector 
               sendTo:   controlPanel browseObject
-                With:  controlPanel subjectName).
+                With:  controlPanel subjectName.
+            controlPanel filtering filterResults: r For: controlPanel).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> 'findTraits' -> () From: ( | {

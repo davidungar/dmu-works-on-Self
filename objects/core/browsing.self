@@ -320,7 +320,6 @@ See the LICENSE file for license information.
         
          sendersOf: s = ( |
             | 
-            halt.  
             sendersOf: s Limit: infinity).
         } | ) 
 

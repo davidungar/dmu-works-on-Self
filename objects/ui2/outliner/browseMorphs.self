@@ -2202,7 +2202,7 @@ SlotsToOmit: mirror parent prototype.
         
          copyOutsideReceiver: mir Selector: sel Event: evt = ( |
             | 
-            halt. unused. xxxxx. outside.
+            halt. unused. xxxxx. outside. ui1Stuff.
             ( copyReceiver: mir Selector: sel Event: evt)
             limit: limits outside).
         } | ) 
