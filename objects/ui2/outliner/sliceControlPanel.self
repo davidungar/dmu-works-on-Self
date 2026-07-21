@@ -1,6 +1,6 @@
  '$Revision: 30.11 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -558,15 +558,27 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: sliceControlPanel InitialCon
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> 'findTraits' -> () From: ( | {
+         'ModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: public'
+        
+         enumerationMirrorsFromSlotsFor: controlPanel = ( |
+            | 
+            (enumerationResultsFor: controlPanel)
+              copyMappedBy: [|:s| s holder]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> 'findTraits' -> () From: ( | {
          'ModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: private'
         
          enumerationResultsFor: controlPanel = ( |
-             r.
+             mirs.
+             slots.
             | 
-            r: enumerationSelector 
+            mirs: enumerationSelector 
               sendTo:   controlPanel browseObject
                 With:  controlPanel subjectName.
-            controlPanel filtering filterResults: r For: controlPanel).
+            [enumerationSelector = 'implementorsOf:'] assert.
+            slots: mirs copyMappedBy: [|:m| m at: controlPanel subjectName].
+            controlPanel filterSlots: slots).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> 'findTraits' -> () From: ( | {
@@ -577,13 +589,28 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: sliceControlPanel InitialCon
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> 'findTraits' -> () From: ( | {
+         'ModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot'
+        
+         enumerationSlotsFromMirrorsFor: controlPanel = ( |
+             sn.
+            | 
+            sn: controlPanel desiredText.
+            (enumerationResultsFor: controlPanel)
+              copyMappedBy: [|:mir| mir at: sn]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> 'findTraits' -> () From: ( | {
          'ModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: public'
         
          flatEnumerationOutlinersFor: controlPanel = ( |
+             ersa.
+             ersb.
              slotOutliners.
              sortedSlots.
             | 
-            sortedSlots: (enumerationSlotsFor: controlPanel) asVector copySortBy: (|
+            ersa: enumerationResultsFor: controlPanel.
+            ersb: ersa.
+            sortedSlots: ersb asVector copySortBy: (|
                 element: a Precedes: b = ( a holder name < b holder name)
             |).
             slotOutliners: sortedSlots copyMappedBy: [|:s|
@@ -701,6 +728,14 @@ does no remapping.\x7fModuleInfo: Module: sliceControlPanel InitialContents: Fol
          descriptionStartingAt: objName = ( |
             | 
             ' in ', name, ' of ', (quote: objName)).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> 'optionTraits' -> () From: ( | {
+         'ModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot'
+        
+         filterResults: r For: controlPanel = ( |
+            | 
+            r copyFilteredBy: controlPanel filterPredicate).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> 'optionTraits' -> () From: ( | {
