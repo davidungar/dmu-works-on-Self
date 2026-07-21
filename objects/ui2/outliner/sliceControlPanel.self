@@ -576,8 +576,14 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: sliceControlPanel InitialCon
             mirs: enumerationSelector 
               sendTo:   controlPanel browseObject
                 With:  controlPanel subjectName.
-            [enumerationSelector = 'implementorsOf:'] assert.
-            slots: mirs copyMappedBy: [|:m| m at: controlPanel subjectName].
+            [xxxxx hacky].
+            'implementorsOf:' = enumerationSelector ifTrue: [
+              slots: mirs copyMappedBy: [|:m| m at: controlPanel subjectName].
+            ].
+            'sendersOf:' = enumerationSelector ifTrue: [
+              slots: mirs
+            ].
+            [slots != nil] assert.
             controlPanel filterSlots: slots).
         } | ) 
 
