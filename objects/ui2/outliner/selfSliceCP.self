@@ -336,7 +336,6 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: selfSliceCP InitialContents:
         
          filtering = ( |
             | 
-            [xxxxx]. "remove all senders of filters?"
             buttonSelectionIn: optionNameSpaces filters).
         } | ) 
 
@@ -738,24 +737,6 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'family' -> () From: ( | {
-         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
-        
-         filterResultXXXs: r For: controlPanel = ( |
-             decs.
-             filters.
-             inAn.
-             inDec.
-            | 
-            filters: selfSliceControlPanel optionNameSpaces filters.
-            inAn: (filters ancestors filterResults: r For: controlPanel) asSet.
-            [xxxxx].
-            decs: (browseWellKnown descendantsOfReflectee: controlPanel startingAtMirror Limit: 100) asSet.
-            decs add: controlPanel startingAtMirror.
-            inDec: r asList copyFilteredBy: [|:s| decs includes: s "holder"].
-            inAn addAll: inDec).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'family' -> () From: ( | {
          'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
         
          name = 'family'.
@@ -900,7 +881,6 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
         
          enumerationSlotsFor: controlPanel In: m = ( |
             | 
-            [xxxxx].
             vector copyAddFirst:
               m at: controlPanel desiredText IfAbsent: [^ vector]).
         } | ) 
