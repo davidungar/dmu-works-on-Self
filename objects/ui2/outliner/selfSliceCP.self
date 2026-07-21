@@ -315,7 +315,7 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: selfSliceCP InitialContents:
             toExplicitSelfButton isDown ifTrue: [ 
             ^ slots copyFilteredBy: [|:s| s contents isMethod && [s contents containsExplicitSelfSendOf: subjectName]] 
             ]. 
-            ancestorsButton isDown || [descdantsButton isDown || [familyButtonIsDown]] ifTrue: [ 
+            ancestorsButton isDown || [descendantsButton isDown || [familyButton isDown]] ifTrue: [ 
               |desiredHolders| 
               desiredHolders: set copyRemoveAll. 
               desiredHolders add: startingAtMirror. 
@@ -323,7 +323,7 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: selfSliceCP InitialContents:
                 desiredHolders addAll: startingAtMirror ancestorsUpTo: startingAtMirror. 
               ]. 
               descendantsButton isDown || [familyButton isDown] ifTrue: [ |b| 
-                b: browseWellKnownButton isDown ifTrue: browseWellKnown False: browse. 
+                b: wellKnownButton isDown ifTrue: browseWellKnown False: browse. 
                 desiredHolders addAll: b descendantsOfReflectee: startingAtMirror Limit: 100. 
               ]. 
               ^ slots asList copyFilteredBy: [|:s| desiredHolders includes: s holder ] 
