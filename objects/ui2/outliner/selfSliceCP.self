@@ -313,7 +313,7 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: selfSliceCP InitialContents:
             'filtering' printLine. [filtering].
             allButton isDown ifTrue: [^slots]. 
             toExplicitSelfButton isDown ifTrue: [ 
-            ^ slots copyFilteredBy: [|:s| s contents isMethod && [s contents containsExplicitSelfSendOf: subjectName]] 
+            ^ slots asList copyFilteredBy: [|:s| s contents isReflecteeMethod && [s contents containsExplicitSelfSendOf: subjectName]] 
             ]. 
             ancestorsButton isDown || [descendantsButton isDown || [familyButton isDown]] ifTrue: [ 
               |desiredHolders| 
