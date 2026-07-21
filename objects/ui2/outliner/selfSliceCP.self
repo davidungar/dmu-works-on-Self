@@ -615,22 +615,6 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'all' -> () From: ( | {
-         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
-        
-         filterResultObjects: r For: controlPanel = ( |
-            | 
-            r).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'all' -> () From: ( | {
-         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
-        
-         filterResultSlots: r For: controlPanel = ( |
-            | 
-            r).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'all' -> () From: ( | {
          'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
         
          isDefault = bootstrap stub -> 'globals' -> 'true' -> ().
@@ -663,18 +647,6 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
          buildForestFor: controlPanel = ( |
             | 
             inheritanceForestSlicer buildAncestorsOf: controlPanel startingAtMirror).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'ancestors' -> () From: ( | {
-         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
-        
-         filterResultObjects: r For: controlPanel = ( |
-             ancestors.
-             m.
-            | 
-            m: controlPanel startingAtMirror.
-            ancestors: (m ancestorsUpTo: m) asSet add: m.
-            r asList copyFilteredBy: [|:x| ancestors includes: x]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'ancestors' -> () From: ( | {
@@ -719,18 +691,6 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
                buildDescendantsOf: controlPanel startingAtMirror
                      BrowseObject: controlPanel browseObject
                LimitDescendantsTo: controlPanel organization descendantSupersetFor: controlPanel).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'descendants' -> () From: ( | {
-         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
-        
-         filterResultObjects: r For: controlPanel = ( |
-             descendants.
-             m.
-            | 
-            m: controlPanel startingAtMirror.
-            descendants: (browseWellKnown descendantsOfReflectee: m Limit: 100) asSet add: m.
-            r asList copyFilteredBy: [|:x| descendants includes: x ]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'filters' -> 'descendants' -> () From: ( | {
