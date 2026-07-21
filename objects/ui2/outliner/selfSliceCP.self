@@ -829,6 +829,15 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'categories' -> () From: ( | {
          'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
         
+         enumerationMirrorsFor: controlPanel = ( |
+            | 
+            (enumerationSlotsFor: controlPanel)
+              copyMappedBy: [|:s| s holder]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'categories' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
+        
          enumerationSelector = 'slotsInCategory:'.
         } | ) 
 
@@ -866,6 +875,24 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
              {} = 'ModuleInfo: Creator: globals selfSliceControlPanel parent optionNameSpaces finds implementors.
 '.
             | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'implementors' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
+        
+         enumerationMirrorsFor: controlPanel = ( |
+            | enumerationResultsFor: controlPanel).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'implementors' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
+        
+         enumerationSlotsFor: controlPanel = ( |
+             sn.
+            | 
+            sn: controlPanel desiredText.
+            (enumerationMirrorsFor: controlPanel)
+              copyMappedBy: [|:mir| mir at: sn]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'implementors' -> () From: ( | {
@@ -909,6 +936,15 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
              {} = 'ModuleInfo: Creator: globals selfSliceControlPanel parent optionNameSpaces finds methodsContaining.
 '.
             | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'methodsContaining' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
+        
+         enumerationMirrorsFor: controlPanel = ( |
+            | 
+            (enumerationSlotsFor: controlPanel)
+              copyMappedBy: [|:s| s holder]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'methodsContaining' -> () From: ( | {
@@ -963,6 +999,15 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'references' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
+        
+         enumerationMirrorsFor: controlPanel = ( |
+            | 
+            (enumerationSlotsFor: controlPanel)
+              copyMappedBy: [|:s| s holder]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'references' -> () From: ( | {
          'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
         
          enumerationResultsFor: controlPanel = ( |
@@ -1005,6 +1050,22 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
              {} = 'ModuleInfo: Creator: globals selfSliceControlPanel parent optionNameSpaces finds senders.
 '.
             | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'senders' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
+        
+         enumerationMirrorsFor: controlPanel = ( |
+            | 
+            (enumerationSlotsFor: controlPanel)
+              copyMappedBy: [|:s| s holder]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'senders' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
+        
+         enumerationSlotsFor: controlPanel = ( |
+            | enumerationResultsFor: controlPanel).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'senders' -> () From: ( | {
