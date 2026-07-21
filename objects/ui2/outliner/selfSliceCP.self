@@ -326,7 +326,7 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: selfSliceCP InitialContents:
                 b: browseWellKnownButton isDown ifTrue: browseWellKnown False: browse. 
                 desiredHolders addAll: b descendantsOfReflectee: startingAtMirror Limit: 100. 
               ]. 
-              ^ slots copyFilteredBy: [|:s| desiredHolders includes: s holder ] 
+              ^ slots asList copyFilteredBy: [|:s| desiredHolders includes: s holder ] 
             ].
             slots).
         } | ) 
@@ -336,6 +336,7 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: selfSliceCP InitialContents:
         
          filtering = ( |
             | 
+            [xxxxx]. "remove all senders of filters?"
             buttonSelectionIn: optionNameSpaces filters).
         } | ) 
 
