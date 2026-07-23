@@ -2324,7 +2324,6 @@ SlotsToOmit: parent.
          fillRectangle: rect GC: gc = ( |
             | 
             [xxxxx].
-            'fillR 2' printLine.
             [gc plane_mask: 255.].
             [gc foreground: 500.].
             display xFillRectangle: self
