@@ -60,6 +60,15 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
+         'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot'
+        
+         uiColorPalette = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiColorPalette' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals ui1 uiColorPalette.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
          uiPatternPalette = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> () From: ( |

@@ -1,6 +1,6 @@
  '$Revision: 30.7 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -306,6 +306,16 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: selfSliceCP InitialContents:
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
+         'Category: filtering\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
+        
+         filterBySentTo: slots = ( |
+             st.
+            | 
+            st: mySentTo.
+            slots filterBy: [|:s| s isMethod not || [st doesMirror: s contents ContainSendOf: desiredText]] Into: list copyRemoveAll).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
          'Category: accessing\x7fCategory: selected options\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
         
          filtering = ( |
@@ -516,8 +526,11 @@ does no remapping.\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlo
             dict if:         categoriesButton IsPresentDo: [|:n|         categoriesButton: n].
             dict if:       implementorsButton IsPresentDo: [|:n|       implementorsButton: n].
             dict if:  methodsContainingButton IsPresentDo: [|:n|  methodsContainingButton: n].
-            dict if:         referencesButton IsPresentDo: [|:n|            sendersButton: n].
-            dict if:            sendersButton IsPresentDo: [|:n|             familyButton: n].
+            dict if:         referencesButton IsPresentDo: [|:n|         referencesButton: n].
+            dict if:            sendersButton IsPresentDo: [|:n|            sendersButton: n].
+            dict if:          sentToAllButton IsPresentDo: [|:n|          sentToAllButton: n].
+            dict if: sentToExplicitSelfButton IsPresentDo: [|:n| sentToExplicitSelfButton: n].
+            dict if: sentToImplicitSelfButton IsPresentDo: [|:n| sentToImplicitSelfButton: n].
             dict if:               flatButton IsPresentDo: [|:n|               flatButton: n].
             dict if:   fullHierarchicalButton IsPresentDo: [|:n|   fullHierarchicalButton: n].
             dict if:       hierarchicalButton IsPresentDo: [|:n|       hierarchicalButton: n].
@@ -533,6 +546,20 @@ does no remapping.\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlo
          'Category: basics\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
         
          morphTypeName = 'selfSliceControlPanel'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
+         'Category: accessing\x7fCategory: options & name spaces\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: private'
+        
+         mySentTo = ( |
+             ns.
+            | 
+            [sentToAllButton]. "browsing"
+            ns: optionNameSpaces sentTo.
+            (ns explicitReceiver & ns implicitSelf & ns all) asVector
+            findFirst: [|:st| (st buttonName sendTo: self) isDown] 
+            IfPresent: [|:st| st]
+            IfAbsent: [ns all]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
@@ -917,11 +944,32 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'senders' -> () From: ( | {
          'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
         
+         descriptionFor: controlPanel = ( |
+             st.
+             std.
+            | 
+            st: controlPanel sentTo.
+            std: st descriptionFor: controlPanel.
+            (resend.descriptionFor: controlPanel), std).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'senders' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
          enumerationSlotsFor: controlPanel In: m = ( |
              sn.
             | 
             sn: controlPanel desiredText.
-            m asList copyFilteredBy: [|:s| s contents messages includes: sn]).
+            m asList copyFilteredBy: [|:s|
+              controlPanel sentTo doesMirror: s contents ContainSendOf: sn]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'senders' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: private'
+        
+         filter: slots BySentToFor: controlPanel = ( |
+            | 
+            controlPanel filterBySentTo: slots).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'senders' -> () From: ( | {
@@ -971,6 +1019,7 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
         
          enumerationOutlinersFor: controlPanel = ( |
             | 
+            [here].
             controlPanel find flatEnumerationOutlinersFor: controlPanel).
         } | ) 
 
@@ -1131,6 +1180,159 @@ do not contain slots will still be in tree.\x7fModuleInfo: Module: selfSliceCP I
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> () From: ( | {
          'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
         
+         sentTo = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals selfSliceControlPanel parent optionNameSpaces sentTo.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         all = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'all' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals selfSliceControlPanel parent optionNameSpaces sentTo all.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'all' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         buttonName = 'sentToAllButton'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'all' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         descriptionFor: controlPanel = ( |
+            | 
+            '').
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'all' -> () From: ( | {
+         'Comment: Any send of the selector counts,
+whatever the receiver. -- claude & dmu 7/2026\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         doesMirror: mir ContainSendOf: sn = ( |
+            | 
+            mir messages includes: sn).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'all' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         isDefault = bootstrap stub -> 'globals' -> 'true' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'all' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         name = 'all'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'all' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> 'optionTraits' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         explicitReceiver = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'explicitReceiver' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals selfSliceControlPanel parent optionNameSpaces sentTo explicitReceiver.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'explicitReceiver' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         buttonName = 'sentToExplicitReceiverButton'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'explicitReceiver' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         descriptionFor: controlPanel = ( |
+            | 
+            ' to ', name).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'explicitReceiver' -> () From: ( | {
+         'Comment: Only sends of the selector to an explicit receiver count,
+including those in block methods. -- claude & dmu 7/2026\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         doesMirror: mir ContainSendOf: sn = ( |
+            | 
+            mir containsExplicitSelfSendOf: sn).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'explicitReceiver' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         name = 'explicit receiver'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'explicitReceiver' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> 'optionTraits' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         implicitSelf = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'implicitSelf' -> () From: ( |
+             {} = 'ModuleInfo: Creator: globals selfSliceControlPanel parent optionNameSpaces sentTo implicitSelf.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'implicitSelf' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         buttonName = 'sentToImplicitSelfButton'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'implicitSelf' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         descriptionFor: controlPanel = ( |
+            | 
+            ' to ', name).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'implicitSelf' -> () From: ( | {
+         'Comment: Only sends of the selector to implicit self count,
+including those in block methods. -- claude & dmu 7/2026\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         doesMirror: mir ContainSendOf: sn = ( |
+            | 
+            mir containsImplicitSelfSendOf: sn).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'implicitSelf' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         name = 'implicit self'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'implicitSelf' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> 'optionTraits' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: private'
+        
+         parent* = bootstrap stub -> 'traits' -> 'oddball' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
          visibilities = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'visibilities' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals selfSliceControlPanel parent optionNameSpaces visibilities.
 '.
@@ -1218,6 +1420,53 @@ do not contain slots will still be in tree.\x7fModuleInfo: Module: selfSliceCP I
          'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
+         'Category: building\x7fCategory: option button rows\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: private'
+        
+         rowLabelForNameSpaceNamed: rn = ( |
+            | 
+            rn = 'sentTo' ifTrue: ['Sent to:']
+                          False: [resend.rowLabelForNameSpaceNamed: rn]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
+         'Category: accessing\x7fCategory: selected options\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         sentTo = ( |
+            | 
+            buttonSelectionIn: optionNameSpaces sentTo).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
+         'Category: controlling me\x7fCategory: sent to\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         sentToAll = ( |
+            | 
+            optionNameSpaces sentTo all
+              selectFor: self.
+            acceptSliceInfo).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
+         'Category: controlling me\x7fCategory: sent to\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         sentToImplicitSelf = ( |
+            | 
+            optionNameSpaces sentTo implicitSelf
+              selectFor: self.
+            acceptSliceInfo).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
+         'Category: controlling me\x7fCategory: sent to\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
+         sentToOther = ( |
+            | 
+            optionNameSpaces sentTo explicitReceiver
+              selectFor: self.
+            acceptSliceInfo).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
@@ -1315,6 +1564,24 @@ do not contain slots will still be in tree.\x7fModuleInfo: Module: selfSliceCP I
          'Category: Self slice control panel state\x7fCategory: subparts\x7fCategory: buttons\x7fCategory: finds\x7fModuleInfo: Module: selfSliceCP InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
         
          sendersButton.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> () From: ( | {
+         'Category: Self slice control panel state\x7fCategory: subparts\x7fCategory: buttons\x7fCategory: sent to\x7fModuleInfo: Module: selfSliceCP InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
+        
+         sentToAllButton.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> () From: ( | {
+         'Category: Self slice control panel state\x7fCategory: subparts\x7fCategory: buttons\x7fCategory: sent to\x7fModuleInfo: Module: selfSliceCP InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
+        
+         sentToExplicitReceiverButton.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> () From: ( | {
+         'Category: Self slice control panel state\x7fCategory: subparts\x7fCategory: buttons\x7fCategory: sent to\x7fModuleInfo: Module: selfSliceCP InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
+        
+         sentToImplicitSelfButton.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> () From: ( | {
