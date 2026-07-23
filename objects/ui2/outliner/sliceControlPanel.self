@@ -468,7 +468,7 @@ SlotsToOmit: parent prototype.
             rowNameColumn: columnMorph copy beShrinkWrap leftJustify borderWidth: 0.
             buttonsColumn: columnMorph copy beShrinkWrap leftJustify borderWidth: 0.
             rowNames do: [|:rn. ns. lst| 
-              rowNameColumn addMorphLast: buildLabel: rn capitalize, ':' Style: style.
+              rowNameColumn addMorphLast: buildLabel: (rowLabelForNameSpaceNamed: rn) Style: style.
               lst: list copyRemoveAll add: ''.
               ns: (rn sendTo: optionNameSpaces).
               (optionsInNameSpace: ns) do: [|:opt|
@@ -484,6 +484,14 @@ SlotsToOmit: parent prototype.
             (allOptions copyFilteredBy: [|:opt| opt isDefault])
               do: [|:opt|  selectOption: opt].
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> () From: ( | {
+         'Category: building\x7fCategory: option button rows\x7fModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: private'
+        
+         rowLabelForNameSpaceNamed: rn = ( |
+            | 
+            rn capitalize, ':').
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> () From: ( | {
