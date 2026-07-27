@@ -1906,6 +1906,17 @@ respecting copy-downs.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'mirrors' -> 'abstractMirror' -> () From: ( | {
+         'Category: programming environment\x7fModuleInfo: Module: mirror InitialContents: FollowSlot\x7fVisibility: public'
+        
+         containsImplicitSelfSendOf: aSelector = ( |
+            | 
+            everyMessageReflecteeSendsToImplicitSelfDo: [|:msg|
+             ( msg = aSelector) ifTrue: [^true]
+            ].
+            false).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'mirrors' -> 'abstractMirror' -> () From: ( | {
          'Category: programming\x7fCategory: adding a slot\x7fModuleInfo: Module: mirror InitialContents: FollowSlot\x7fVisibility: public'
         
          copyAddSlot: slot = ( |
@@ -2500,6 +2511,16 @@ a new slot before adding it.
             | 
             isReflecteeMethod ifFalse: [vector] True: [ 
               allExplicitSelfSendsDo: [|:x| blk value: x]
+            ]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'mirrors' -> 'abstractMirror' -> () From: ( | {
+         'Category: programming environment\x7fModuleInfo: Module: mirror InitialContents: FollowSlot\x7fVisibility: public'
+        
+         everyMessageReflecteeSendsToImplicitSelfDo: blk = ( |
+            | 
+            isReflecteeMethod ifFalse: [vector] True: [ 
+              allImplicitSelfSendsDo: [|:x| blk value: x]
             ]).
         } | ) 
 

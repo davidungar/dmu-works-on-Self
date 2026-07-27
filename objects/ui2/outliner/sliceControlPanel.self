@@ -1,6 +1,6 @@
  '$Revision: 30.11 $'
  '
-Copyright 1992-2012 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -487,14 +487,6 @@ SlotsToOmit: parent prototype.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> () From: ( | {
-         'Category: building\x7fCategory: option button rows\x7fModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: private'
-        
-         rowLabelForNameSpaceNamed: rn = ( |
-            | 
-            rn capitalize, ':').
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> () From: ( | {
          'Category: building\x7fCategory: string fields\x7fModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: private'
         
          buildStringFields = ( |
@@ -586,10 +578,14 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: sliceControlPanel InitialCon
          'ModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: public'
         
          flatEnumerationOutlinersFor: controlPanel = ( |
+             filtered.
              slotOutliners.
              sortedSlots.
+             unfiltered.
             | 
-            sortedSlots: (enumerationSlotsFor: controlPanel) asVector copySortBy: (|
+            unfiltered: enumerationSlotsFor: controlPanel.
+            filtered: controlPanel filterBySentTo: unfiltered.
+            sortedSlots: filtered asVector copySortBy: (|
                 element: a Precedes: b = ( a holder name < b holder name)
             |).
             slotOutliners: sortedSlots copyMappedBy: [|:s|
@@ -759,6 +755,14 @@ does no remapping.\x7fModuleInfo: Module: sliceControlPanel InitialContents: Fol
          'ModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'abstractAnnotationMorph' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> () From: ( | {
+         'Category: building\x7fCategory: option button rows\x7fModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: private'
+        
+         rowLabelForNameSpaceNamed: rn = ( |
+            | 
+            rn capitalize, ':').
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> () From: ( | {
