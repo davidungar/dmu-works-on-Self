@@ -695,7 +695,7 @@ does no remapping.\x7fModuleInfo: Module: sliceControlPanel InitialContents: Fol
         
          descriptionFor: controlPanel = ( |
             | 
-            isDefault ifTrue: '' False: [' to ', name]).
+            name).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> 'optionTraits' -> () From: ( | {
