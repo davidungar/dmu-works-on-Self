@@ -309,15 +309,10 @@ to add to the sliceOutliner.\x7fModuleInfo: Module: selfSliceCP InitialContents:
          'Category: filtering\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot'
         
          filterBySentTo: slots = ( |
+             st.
             | 
-            sentToAllButton   isDown ifTrue: [^slots].
-            sentToImplicitSelfButton  isDown ifTrue: [
-              ^ slots filterBy: [|:s| s isMethod not || [s contents containsImplicitSelfSendOf: desiredText]] Into: list copyRemoveAll
-            ].
-            sentToExplicitReceiverButton isDown ifTrue: [
-              ^ slots filterBy: [|:s| s isMethod not || [s contents containsExplicitSelfSendOf: desiredText]] Into: list copyRemoveAll
-            ].
-            slots).
+            st: mySentTo.
+            slots filterBy: [|:s| s isMethod not || [st doesMirror: s contents ContainSendOf: desiredText]] Into: list copyRemoveAll).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
@@ -552,6 +547,20 @@ does no remapping.\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlo
          'Category: basics\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
         
          morphTypeName = 'selfSliceControlPanel'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
+         'Category: accessing\x7fCategory: options & name spaces\x7fModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: private'
+        
+         mySentTo = ( |
+             ns.
+            | 
+            [sentToAllButton]. "browsing"
+            ns: optionNameSpaces sentTo.
+            (ns explicitReceiver & ns implicitSelf & ns all) asVector
+            findFirst: [|:st| (st buttonName sendTo: self) isDown] 
+            IfPresent: [|:st| st]
+            IfAbsent: [ns all]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> () From: ( | {
@@ -1249,10 +1258,7 @@ including those in block methods. -- claude & dmu 7/2026\x7fModuleInfo: Module: 
         
          doesMirror: mir ContainSendOf: sn = ( |
             | 
-            mir isReflecteeMethod ifFalse: [^ false].
-            [xxxxx redundant].
-            mir allExplicitSelfSendsDo: [|:sel| sel = sn ifTrue: [^ true]].
-            false).
+            mir containsExplicitSelfSendOf: sn).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'explicitReceiver' -> () From: ( | {
@@ -1296,9 +1302,7 @@ including those in block methods. -- claude & dmu 7/2026\x7fModuleInfo: Module: 
         
          doesMirror: mir ContainSendOf: sn = ( |
             | 
-            mir isReflecteeMethod ifFalse: [^ false].
-            mir allImplicitSelfSendsDo: [|:sel| sel = sn ifTrue: [^ true]].
-            false).
+            mir containsImplicitSelfSendOf: sn).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'sentTo' -> 'implicitSelf' -> () From: ( | {
