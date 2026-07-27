@@ -936,6 +936,18 @@ globals sliceControlPanel parent optionNameSpaces. _Clone
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'senders' -> () From: ( | {
          'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
         
+         descriptionFor: controlPanel = ( |
+             st.
+             std.
+            | 
+            st: controlPanel sentTo.
+            std: st descriptionFor: controlPanel.
+            (resend.descriptionFor: controlPanel), std).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'selfSliceControlPanel' -> 'parent' -> 'optionNameSpaces' -> 'finds' -> 'senders' -> () From: ( | {
+         'ModuleInfo: Module: selfSliceCP InitialContents: FollowSlot\x7fVisibility: public'
+        
          enumerationSlotsFor: controlPanel In: m = ( |
              sn.
             | 

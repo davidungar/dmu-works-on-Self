@@ -694,7 +694,8 @@ does no remapping.\x7fModuleInfo: Module: sliceControlPanel InitialContents: Fol
          'ModuleInfo: Module: sliceControlPanel InitialContents: FollowSlot\x7fVisibility: public'
         
          descriptionFor: controlPanel = ( |
-            | name).
+            | 
+            isDefault ifTrue: '' False: [' to ', name]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'sliceControlPanel' -> 'parent' -> 'optionTraits' -> () From: ( | {
