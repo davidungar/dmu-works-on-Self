@@ -897,7 +897,7 @@ SlotsToOmit: parent.
             window display: xlib display 
                 open: window displayName
                 IfFail: [
-                    ^ fblock value: 'Could not open X display \'', window interpretedDisplayName, '\'.' 
+                    ^ fb value: 'Could not open X display \'', window interpretedDisplayName, '\'.' 
                 ].
             window xwin: xlib window createOnDisplay: window display
                                          At: window position Size: window size Depth: depth.
