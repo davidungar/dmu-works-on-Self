@@ -79,6 +79,7 @@ xIconMaker
 spline
 fontSpec
 quartz
+paint
 '.
         } | ) 
 
@@ -109,6 +110,7 @@ quartz
  bootstrap read: 'spline' From: 'graphics'
  bootstrap read: 'fontSpec' From: 'graphics'
  bootstrap read: 'quartz' From: 'graphics'
+ bootstrap read: 'paint' From: 'ui2'
 
 
 

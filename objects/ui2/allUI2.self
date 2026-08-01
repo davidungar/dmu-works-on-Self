@@ -58,7 +58,6 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'ModuleInfo: Module: allUI2 InitialContents: FollowSlot\x7fVisibility: private'
         
          subpartNames <- 'sunRasterFile
-paint
 scalableFont
 canvas
 ui2Event
@@ -123,7 +122,6 @@ windowMorph
  '-- Sub parts'
 
  bootstrap read: 'sunRasterFile' From: 'ui2'
- bootstrap read: 'paint' From: 'ui2'
  bootstrap read: 'scalableFont' From: 'ui2'
  bootstrap read: 'canvas' From: 'ui2'
  bootstrap read: 'ui2Event' From: 'ui2'
