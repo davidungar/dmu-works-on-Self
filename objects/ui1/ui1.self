@@ -1880,7 +1880,7 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
         
          setBoxSizing = ( |
             | 
-            boxSizing: ui1 boxSize copyFor: window BoxSizeMixin: graphics boxSizePlatformMixin).
+            halt. boxSizing: ui1 boxSize copyFor: window BoxSizeMixin: graphics boxSizePlatformMixin).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
