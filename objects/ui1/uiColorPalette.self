@@ -209,6 +209,48 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             | ) .
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.437928 asFloat / 1024 Green: 0.522972 asFloat / 1024 Blue: 0.663734 asFloat / 1024 )\x7fVisibility: public'
+        
+         arrow <- paint copyRed: 0.437928 asFloat / 1024 Green: 0.522972 asFloat / 1024 Blue: 0.663734 asFloat / 1024 .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.437928 asFloat / 1024 Green: 0.522972 asFloat / 1024 Blue: 0.663734 asFloat / 1024)\x7fVisibility: public'
+        
+         arrowPlusTopPlanes <- paint copyRed: 0.437928 asFloat / 1024 Green: 0.522972 asFloat / 1024 Blue: 0.663734 asFloat / 1024.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.628543 asFloat / 1024 Green: 0.702835 asFloat / 1024 Blue: 0.667644 asFloat / 1024)\x7fVisibility: public'
+        
+         background <- paint copyRed: 0.628543 asFloat / 1024 Green: 0.702835 asFloat / 1024 Blue: 0.667644 asFloat / 1024.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( paint copyRed: 0.757576 asFloat / 1024 Green: 0.745846 asFloat / 1024 Blue: 0.722385 asFloat / 1024)\x7fVisibility: public'
+        
+         body <-  paint copyRed: 0.757576 asFloat / 1024 Green: 0.745846 asFloat / 1024 Blue: 0.722385 asFloat / 1024.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.492669 asFloat / 1024 Green: 0.484848 asFloat / 1024 Blue: 0.469208 asFloat / 1024)\x7fVisibility: public'
+        
+         bodyDark <- paint copyRed: 0.492669 asFloat / 1024 Green: 0.484848 asFloat / 1024 Blue: 0.469208 asFloat / 1024.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.898338 asFloat / 1024 Green: 0.882698 asFloat / 1024 Blue: 0.855327 asFloat / 1024)\x7fVisibility: public'
+        
+         bodyLight <- paint copyRed: 0.898338 asFloat / 1024 Green: 0.882698 asFloat / 1024 Blue: 0.855327 asFloat / 1024.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
+         'Category: index entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024)\x7fVisibility: public'
+        
+         ones <- paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024.
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -222,6 +264,30 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot'
         
          parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024)\x7fVisibility: public'
+        
+         text <- paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024)\x7fVisibility: public'
+        
+         transparent <- paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.99609 asFloat / 1024)\x7fVisibility: public'
+        
+         unused <- paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.99609 asFloat / 1024.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
+         'Category: index entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024)\x7fVisibility: public'
+        
+         zeros <- paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiPatternPalette' -> () From: ( | {
@@ -406,125 +472,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         arrow = ( |
-            | reconstitutedArrow ifNil: [reconstitute]. ^ reconstitutedArrow).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         arrow: p = ( |
-            | reconsitutedArrow: p).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         arrowPlusTopPlanes = ( |
-            | reconstitutedArrowPlusTopPlanes ifNil: [reconstitute]. ^ reconstitutedArrowPlusTopPlanes).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         arrowPlusTopPlanes: p = ( |
-            | reconsitutedArrowPlusTopPlanes: p).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         background = ( |
-            | reconstitutedBackground ifNil: [reconstitute]. ^ reconstitutedBackground).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         background: p = ( |
-            | reconsitutedBackground: p).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         body = ( |
-            | reconstitutedBody ifNil: [reconstitute]. ^ reconstitutedBody).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         body: p = ( |
-            | reconsitutedBody: p).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         bodyDark = ( |
-            | reconstitutedBodyDark ifNil: [reconstitute]. ^ reconstitutedBodyDark).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         bodyDark: p = ( |
-            | reconsitutedBodyDark: p).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         bodyLight = ( |
-            | reconstitutedBodyLight ifNil: [reconstitute]. ^ reconstitutedBodyLight).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         bodyLight: p = ( |
-            | reconsitutedBodyLight: p).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         ones = ( |
-            | reconstitutedOnes ifNil: [reconstitute]. ^ reconstitutedOnes).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         ones: p = ( |
-            | reconsitutedOnes: p).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
          'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'x11AbstractColorPalette' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Comment: because paint files in AFTER uiColorPalette\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot'
-        
-         reconstitute = ( |
-            | 
-            reconstitutedArrow <- paint copyRed: 0.437928 asFloat / 1024 Green: 0.522972 asFloat / 1024 Blue: 0.663734 asFloat / 1024.
-            reconstitutedArrowPlusTopPlanes <- paint copyRed: 0.437928 asFloat / 1024 Green: 0.522972 asFloat / 1024 Blue: 0.663734 asFloat / 1024.
-            reconstitutedBackground <- paint copyRed: 0.628543 asFloat / 1024 Green: 0.702835 asFloat / 1024 Blue: 0.667644 asFloat / 1024.
-            reconstitutedBody <- paint copyRed: 0.757576 asFloat / 1024 Green: 0.745846 asFloat / 1024 Blue: 0.722385 asFloat / 1024.
-            reconstitutedBodyDark <- paint copyRed: 0.492669 asFloat / 1024 Green: 0.484848 asFloat / 1024 Blue: 0.469208 asFloat / 1024.
-            reconstitutedBodyLight <- paint copyRed: 0.898338 asFloat / 1024 Green: 0.882698 asFloat / 1024 Blue: 0.855327 asFloat / 1024.
-            reconstitutedOnes <- paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024.
-            reconstitutedText <- paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024.
-            reconstitutedTransparent <- paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024.
-            reconstitutedUnused <- paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.99609 asFloat / 1024.
-            reconstitutedZeros <- paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
@@ -568,62 +518,6 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             f close.
             ('Saved ui colors to file: ', filename, '.') printLine.
             self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         text = ( |
-            | reconstitutedText ifNil: [reconstitute]. ^ reconstitutedText).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         text: p = ( |
-            | reconsitutedText: p).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         transparent = ( |
-            | reconstitutedTransparent ifNil: [reconstitute]. ^ reconstitutedTransparent).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         transparent: p = ( |
-            | reconsitutedTransparent: p).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         unused = ( |
-            | reconstitutedUnused ifNil: [reconstitute]. ^ reconstitutedUnused).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         unused: p = ( |
-            | reconsitutedUnused: p).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         zeros = ( |
-            | reconstitutedZeros ifNil: [reconstitute]. ^ reconstitutedZeros).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
-        
-         zeros: p = ( |
-            | reconsitutedZeros: p).
         } | ) 
 
 

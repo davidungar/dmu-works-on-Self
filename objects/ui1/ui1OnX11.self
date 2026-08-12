@@ -1124,10 +1124,19 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11OnCanvas' -> 'parent' -> 'boxSizePlatformMixin' -> () From: ( | {
          'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
+         loadFont: name For: win IfFail: fb = ( |
+            | 
+            [xxxxxxx].
+            font copyName: name On: win IfFail: fb).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11OnCanvas' -> 'parent' -> 'boxSizePlatformMixin' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
+        
          loadFont: name Style: style Size: size For: win IfFail: fb = ( |
              middle.
             | 
-            halt. "see canvanse graphics label morph painting"
+            [xxxxxxx]. "see canvanse graphics label morph painting"
             middle: style isEmpty 
                 ifTrue: '-' 
                 False: ['-', style uncapitalize, '-'].

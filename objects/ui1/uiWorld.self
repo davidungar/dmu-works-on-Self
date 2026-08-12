@@ -393,7 +393,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          createForUI: aui = ( |
             | 
             myUI: aui.
-            halt.
+            [xxxxxxx].
             bodies:         bodies         copyRemoveAll.
             bodiesToUpdate: bodiesToUpdate copyRemoveAll.
             arrows: arrows copyRemoveAll.
@@ -548,8 +548,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          drawBackground = ( |
             | 
-            [xxxxx].
-            halt.
+            [xxxxxxx].
             graphic fillRectangle: size rect Color: uiColors background).
         } | ) 
 

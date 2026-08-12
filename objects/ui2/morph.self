@@ -598,21 +598,6 @@ is the representee.\x7fModuleInfo: Module: morph InitialContents: FollowSlot\x7f
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'morph' -> () From: ( | {
-         'Category: basics\x7fModuleInfo: Module: morph InitialContents: FollowSlot\x7fVisibility: public'
-        
-         colorTransparent = ( |
-            | 
-            color: paint named: 'transparent'. self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'morph' -> () From: ( | {
-         'Category: copying\x7fModuleInfo: Module: morph InitialContents: FollowSlot\x7fVisibility: public'
-        
-         copyTransparent = ( |
-            | copy colorTransparent).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'morph' -> () From: ( | {
          'Category: basics\x7fComment: Color all my parts that within reason should change to a new
 color when the user so asks (with a colorChangerMorph for example).\x7fModuleInfo: Module: morph InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -633,6 +618,14 @@ color when the user so asks (with a colorChangerMorph for example).\x7fModuleInf
             | 
             evt sourceHand attach: (colorChangerMorph copyTarget: self).
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'morph' -> () From: ( | {
+         'Category: basics\x7fModuleInfo: Module: morph InitialContents: FollowSlot\x7fVisibility: public'
+        
+         colorTransparent = ( |
+            | 
+            color: paint named: 'transparent'. self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'morph' -> () From: ( | {
@@ -736,6 +729,13 @@ the given mapping dictionary.\x7fModuleInfo: Module: morph InitialContents: Foll
             new rawMorphs: vector.
             new privateSetOwner: nil.
             new).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'morph' -> () From: ( | {
+         'Category: copying\x7fModuleInfo: Module: morph InitialContents: FollowSlot\x7fVisibility: public'
+        
+         copyTransparent = ( |
+            | copy colorTransparent).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'morph' -> () From: ( | {
@@ -2272,7 +2272,7 @@ and rawOwner.\x7fModuleInfo: Module: morph InitialContents: FollowSlot\x7fVisibi
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'morph' -> () From: ( | {
          'Category: drawing\x7fModuleInfo: Module: morph InitialContents: FollowSlot\x7fVisibility: public'
         
-         shadowColor <- paint named: 'black'.
+         shadowColor <- paint named: 'transparent'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'morph' -> () From: ( | {
@@ -2628,6 +2628,7 @@ owner is nil. This morph is typically a worldMorph.\x7fModuleInfo: Module: morph
              w.
             | 
             w: topmostOwner.
+            w isWorldMorph ifFalse: [desktop worlds first]. "HACK" [xxxxxxx].
             w isWorldMorph ifFalse: [ error: 'I am not in any world; send isInWorld to me first.' ].
             w).
         } | ) 
