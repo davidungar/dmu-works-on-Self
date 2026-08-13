@@ -2628,7 +2628,7 @@ owner is nil. This morph is typically a worldMorph.\x7fModuleInfo: Module: morph
              w.
             | 
             w: topmostOwner.
-            w isWorldMorph ifFalse: [desktop worlds first]. "HACK" [xxxxxxx].
+            w isWorldMorph ifFalse: [^desktop worlds first]. "HACK" [xxxxxxx].
             w isWorldMorph ifFalse: [ error: 'I am not in any world; send isInWorld to me first.' ].
             w).
         } | ) 
