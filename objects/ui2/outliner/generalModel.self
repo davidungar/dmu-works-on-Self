@@ -1,6 +1,6 @@
  '$Revision: 30.19 $'
  '
-Copyright 1992-2016 AUTHORS.
+Copyright 1992-2026 AUTHORS.
 See the LICENSE file for license information.
 '
 
@@ -1458,6 +1458,8 @@ and calling \"expand:\"\x7fModuleInfo: Module: generalModel InitialContents: Fol
                    True: [^ o ]
             ].
             o: newOutlinerFor: whatever.
+            o addBezelForNewborn.
+
             w reifiedObjects at: whatever Put: o.
             o).
         } | ) 
