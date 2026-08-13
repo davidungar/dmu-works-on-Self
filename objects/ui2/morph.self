@@ -2272,7 +2272,7 @@ and rawOwner.\x7fModuleInfo: Module: morph InitialContents: FollowSlot\x7fVisibi
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'morph' -> () From: ( | {
          'Category: drawing\x7fModuleInfo: Module: morph InitialContents: FollowSlot\x7fVisibility: public'
         
-         shadowColor <- paint named: 'transparent'.
+         shadowColor <- paint named: 'black'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'morph' -> () From: ( | {

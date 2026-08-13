@@ -696,7 +696,8 @@ lots of images. It quantizes in RGB space.\x7fModuleInfo: Module: paint InitialC
             == c ifTrue: [ ^true ].  "optimization"
              (rawRed   = c   rawRed) &&
             [(rawBlue  = c  rawBlue) &&
-            [(rawGreen = c rawGreen)]]).
+            [(rawGreen = c rawGreen) &&
+            [(rawAlpha = c rawAlpha)]]]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'paint' -> () From: ( | {
@@ -746,7 +747,7 @@ lots of images. It quantizes in RGB space.\x7fModuleInfo: Module: paint InitialC
         
          hash = ( |
             | 
-            rawRed + rawGreen + rawBlue).
+            rawRed + rawGreen + rawBlue + rawAlpha).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'paint' -> () From: ( | {
@@ -1007,7 +1008,8 @@ lots of images. It quantizes in RGB space.\x7fModuleInfo: Module: paint InitialC
             ].
             'paint copyRed: ', (red   printString),
                    ' Green: ', (green printString),
-                   '  Blue: ', (blue  printString)).
+                   '  Blue: ', (blue  printString),
+                   ' Alpha: ', (alpha printString)).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'paint' -> () From: ( | {
