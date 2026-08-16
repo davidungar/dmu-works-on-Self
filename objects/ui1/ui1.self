@@ -213,7 +213,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui1 InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
-         uiColors.
+         uiColors <- bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
@@ -387,7 +387,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: starting and stopping\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          makeOffscreenFor: win Size: sz = ( |
-            | bitmap copyFor: win Size: sz).
+            | 
+            subclassResponsibility).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {

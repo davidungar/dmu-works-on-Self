@@ -57,10 +57,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'modules' -> 'allUI2' -> () From: ( | {
          'ModuleInfo: Module: allUI2 InitialContents: FollowSlot\x7fVisibility: private'
         
-         subpartNames <- 'sunRasterFile
-scalableFont
-canvas
-ui2Event
+         subpartNames <- 'ui2Event
 ui2ResultReporter
 morphSaving
 morph
@@ -121,9 +118,6 @@ windowMorph
 
  '-- Sub parts'
 
- bootstrap read: 'sunRasterFile' From: 'ui2'
- bootstrap read: 'scalableFont' From: 'ui2'
- bootstrap read: 'canvas' From: 'ui2'
  bootstrap read: 'ui2Event' From: 'ui2'
  bootstrap read: 'ui2ResultReporter' From: 'ui2'
  bootstrap read: 'morphSaving' From: 'ui2'

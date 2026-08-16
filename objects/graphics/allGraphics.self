@@ -80,6 +80,10 @@ spline
 fontSpec
 quartz
 paint
+sunRasterFile
+scalableFont
+canvas
+ui2Image
 '.
         } | ) 
 
@@ -111,6 +115,10 @@ paint
  bootstrap read: 'fontSpec' From: 'graphics'
  bootstrap read: 'quartz' From: 'graphics'
  bootstrap read: 'paint' From: 'ui2'
+ bootstrap read: 'sunRasterFile' From: 'ui2'
+ bootstrap read: 'scalableFont' From: 'ui2'
+ bootstrap read: 'canvas' From: 'ui2'
+ bootstrap read: 'ui2Image' From: 'ui2'
 
 
 

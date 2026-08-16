@@ -110,6 +110,18 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> () From: ( | {
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         makeOffscreenFor: win Size: sz = ( |
+             b.
+            | 
+            b: bitmap copy.
+            halt ui2Image.
+            b image: (quartz rgbaPixmap createForSameScreenAs: win bitmap image Size: sz Depth: 32).
+            b).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> () From: ( | {
          'Category: window\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          optimalNameForDisplay: disp = ( |
@@ -831,6 +843,13 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         makeOffscreenFor: win Size: sz = ( |
+            | bitmap copyFor: win Size: sz).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
          'Category: layers\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          moveArrowHeadUsing: moveBlock = ( |
@@ -1150,6 +1169,18 @@ SlotsToOmit: parent.
         
          checkColor8IfFail: fb = ( |
             | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11OnCanvas' -> 'parent' -> () From: ( | {
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         makeOffscreenFor: win Size: sz = ( |
+             b.
+             screen.
+            | 
+            screen: win display screen.
+            b: xlib pixmap createForSameScreenAs: win Size: screen size Depth: screen depth.
+            b).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11OnCanvas' -> 'parent' -> () From: ( | {
