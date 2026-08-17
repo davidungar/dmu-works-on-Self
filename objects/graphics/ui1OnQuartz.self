@@ -352,7 +352,7 @@ SlotsToOmit: parent.
          platformPixmap = ( |
             | 
             [xxxxx].
-            quartz indexedPixmap).
+            quartz rgbaPixmap).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'newQuartz' -> () From: ( | {
