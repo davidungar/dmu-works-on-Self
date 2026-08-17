@@ -138,9 +138,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'boxBitmap' -> () From: ( | {
-         'ModuleInfo: Module: boxBitmap InitialContents: FollowSlot'
+         'ModuleInfo: Module: boxBitmap InitialContents: InitializeToExpression: (nil)'
         
-         uiColors <- bootstrap stub -> 'globals' -> 'ui1' -> 'x11ColormappedColorPalette' -> ().
+         uiColors.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'boxBitmap' -> () From: ( | {
