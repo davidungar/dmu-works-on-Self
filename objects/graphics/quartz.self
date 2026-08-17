@@ -67,7 +67,6 @@ cgDirectDisplay
 quartz_wrappers
 quartzForFF
 ui1OnQuartzHacks
-ui1OnQuartz
 '.
         } | ) 
 
@@ -7853,7 +7852,6 @@ converters). -- claude & dmu 5/2026\x7fModuleInfo: Module: quartz InitialContent
  bootstrap read: 'quartz_wrappers' From: 'glue'
  bootstrap read: 'quartzForFF' From: 'graphics'
  bootstrap read: 'ui1OnQuartzHacks' From: 'graphics'
- bootstrap read: 'ui1OnQuartz' From: 'graphics'
 
 
 

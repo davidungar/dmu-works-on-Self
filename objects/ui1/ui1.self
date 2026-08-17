@@ -517,20 +517,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
-         'Category: prototypes\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
-        
-         abstractQuartz = bootstrap define: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractQuartz' -> () ToBe: bootstrap addSlotsTo: (
-             traits ui1 graphics abstract copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractQuartz' -> () From: ( |
-             {} = 'Comment: under construction\x7fModuleInfo: Creator: traits ui1 graphics abstractQuartz.
-
-CopyDowns:
-traits ui1 graphics abstract. copy
-
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
          'Category: traits\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
         
          abstractX11Traits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> () From: ( |
@@ -554,22 +540,6 @@ traits ui1 graphics abstract. copy
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
-         'Category: prototypes\x7fComment: the true-colour RGBA graphics backend (Phase 2). Inherits the quartz backend; overrides makeOffscreenFor: (rgbaPixmap offscreens) and installShadowOn: (no shadow -> window draws true colour). Draw-targets are inherited for now (plane masks are no-ops on rgbaContext; arrow colormap installs are harmless); the acetate/arrow multi-surface facade comes in 2.2.\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: private'
-        
-         newQuartz = bootstrap define: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'newQuartz' -> () ToBe: bootstrap addSlotsTo: (
-             bootstrap remove: 'parent' From:
-             traits ui1 graphics abstractQuartz copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'newQuartz' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 graphics newQuartz.
-
-CopyDowns:
-traits ui1 graphics abstractQuartz. copy 
-SlotsToOmit: parent.
-
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
          'ModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'oddball' -> ().
@@ -580,26 +550,12 @@ SlotsToOmit: parent.
         
          prototypeNamed: nm = ( |
             | 
+            nm = ':0' ifFalse: ['remove the relics' printLine.].
             nm = 'newQuartz' ifTrue: [ ^ newQuartz ].
             nm = 'quartz' ifTrue: [^ quartz].
             nm = 'x11OnCanvas' ifTrue: [^ x11OnCanvas].
+            nm = 'direct' ifTrue: [^ direct].
             x11).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
-         'Category: prototypes\x7fComment: the original 8-bit indexed graphics backend (Phase 1.5 dual-backend). Its factory methods reproduce setGraphicAndOffScreen exactly (bitmap copyFor:Size:), so selecting it changes no behaviour. parent* = lobby so the factory bodies can see the bitmap global.\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: private'
-        
-         quartz = bootstrap define: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartz' -> () ToBe: bootstrap addSlotsTo: (
-             bootstrap remove: 'parent' From:
-             traits ui1 graphics abstractQuartz copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartz' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 graphics quartz.
-
-CopyDowns:
-traits ui1 graphics abstractQuartz. copy 
-SlotsToOmit: parent.
-
-'.
-            | ) .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {

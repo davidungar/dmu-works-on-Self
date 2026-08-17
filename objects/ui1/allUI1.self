@@ -95,6 +95,7 @@ togglers
 diffUI
 uiDemo
 ui1OnX11
+ui1OnQuartz
 '.
         } | ) 
 
@@ -157,6 +158,7 @@ ui1OnX11
  bootstrap read: 'diffUI' From: 'ui1'
  bootstrap read: 'uiDemo' From: 'ui1'
  bootstrap read: 'ui1OnX11' From: 'ui1'
+ bootstrap read: 'ui1OnQuartz' From: 'ui1'
 
 
 
