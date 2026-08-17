@@ -69,7 +69,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: ui2\x7fCategory: Applications\x7fCategory: Histogram\x7fModuleInfo: Module: ui2Image InitialContents: FollowSlot\x7fVisibility: public'
         
          ui2Image = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui2Image' -> () From: ( |
-             {} = 'ModuleInfo: Creator: globals ui2Image.
+             {} = 'Comment: A graphics-layer-indepdendent image, originally built for ui2.\x7fModuleInfo: Creator: globals ui2Image.
 \x7fIsComplete: '.
             | ) .
         } | ) 

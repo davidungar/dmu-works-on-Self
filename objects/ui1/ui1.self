@@ -213,7 +213,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
          'ModuleInfo: Module: ui1 InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
         
-         uiColors <- bootstrap stub -> 'globals' -> 'nil' -> ().
+         uiColors.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'ui' -> () From: ( | {
@@ -504,6 +504,14 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: prototypes\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          windowPrototype = ( |
+            | 
+            childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: prototypes\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         worldPrototype = ( |
             | 
             childResponsibility).
         } | ) 
@@ -1903,7 +1911,7 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
 
             graphics initializeColorsWindow: window Animator: ranimator.
 
-            world: (window isColor8 ifTrue: [ui1 uiWorld] False: [ui1 uiWorld32]) copy createForUI: self.
+            world: graphics worldPrototype copy createForUI: self.
 
             initAnimators.
 

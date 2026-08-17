@@ -113,12 +113,8 @@ SlotsToOmit: parent.
          'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          makeOffscreenFor: win Size: sz = ( |
-             b.
             | 
-            b: bitmap copy.
-            halt ui2Image.
-            b image: (quartz rgbaPixmap createForSameScreenAs: win bitmap image Size: sz Depth: 32).
-            b).
+            subclassResponsibility).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> () From: ( | {
@@ -1106,6 +1102,14 @@ SlotsToOmit: parent.
          windowDepth = 8.
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
+         'Category: prototypes\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         worldPrototype = ( |
+            | 
+            ui1 uiWorld).
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
          'Category: prototypes\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
@@ -1175,12 +1179,13 @@ SlotsToOmit: parent.
          'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          makeOffscreenFor: win Size: sz = ( |
-             b.
-             screen.
+             pm.
             | 
-            screen: win display screen.
-            b: xlib pixmap createForSameScreenAs: win Size: screen size Depth: screen depth.
-            b).
+            pm: xlib pixmap
+                createForSameScreenAs: win bitmap image
+                                 Size: sz
+                                Depth: win bitmap depth.
+            bitmap copy image: pm).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11OnCanvas' -> 'parent' -> () From: ( | {
@@ -1240,6 +1245,14 @@ SlotsToOmit: parent.
          uiColorPalette = ( |
             | 
             ui1 x11DirectColorPalette).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11OnCanvas' -> 'parent' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         worldPrototype = ( |
+            | 
+            ui1 uiWorld32).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11OnCanvas' -> () From: ( | {
