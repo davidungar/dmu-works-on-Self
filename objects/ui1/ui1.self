@@ -1910,7 +1910,6 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
             initializePatterns.
 
             graphics initializeColorsWindow: window Animator: ranimator.
-
             world: graphics worldPrototype copy createForUI: self.
 
             initAnimators.

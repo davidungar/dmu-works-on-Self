@@ -642,6 +642,37 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
+         'Category: fading\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         dissolve = ( |
+            | 
+            acetateFadeOutMapsFast do: [|:m|
+                m installImmediately.
+                times delay: delay.
+            ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
+         'Category: fading\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         dissolve: bod InWorld: world = ( |
+            | 
+            world prepareToDrawOnAcetate.
+            bod displayThru.
+            world prepareToDrawOnBackground.
+            world display.
+            animatorColormaps acetateFadeOutMaps do: [|:m|
+                m installImmediately.
+                times delay: delay.
+            ].
+            world eraseAcetate.
+            animatorColormaps acetateFadeOutMaps first installImmediately.
+            world prepareToDrawOnAll.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> () From: ( | {
          'Category: layers\x7fCategory: erasing layers\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseAcetate: rect Colors: uiColors = ( |
