@@ -507,102 +507,102 @@ SlotsToOmit: parent.
          parent* = bootstrap stub -> 'traits' -> 'pattern' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
-         black = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> 'black' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 graphics abstractX11Traits patterns black.
+         black = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> 'black' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 graphics x11Traits patterns black.
 \x7fIsComplete: '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> 'black' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> 'black' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
         
          image <- bootstrap stub -> 'globals' -> 'nullImage' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> 'black' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> 'black' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'globals' -> 'x11Globals' -> 'pattern' -> 'parent' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> 'black' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> 'black' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: InitializeToExpression: (\'X\' asTextLines)\x7fVisibility: private'
         
          template <- 'X' asTextLines.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
          gray = bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> 'blurBody' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
          lightGray = bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> 'blurArrow' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
-         null = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> 'null' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 graphics abstractX11Traits patterns null.
+         null = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> 'null' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 graphics x11Traits patterns null.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> 'null' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> 'null' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
          createFor: win Foreground: fg Background: bg = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> 'null' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> 'null' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
          isNull = bootstrap stub -> 'globals' -> 'true' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> 'null' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> 'null' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'globals' -> 'x11Globals' -> 'pattern' -> 'parent' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> 'null' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> 'null' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
          release = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
-         white = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> 'white' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 graphics abstractX11Traits patterns white.
+         white = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> 'white' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 graphics x11Traits patterns white.
 \x7fIsComplete: '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> 'white' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> 'white' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
         
          image <- bootstrap stub -> 'globals' -> 'nullImage' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> 'white' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> 'white' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'globals' -> 'x11Globals' -> 'pattern' -> 'parent' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractX11Traits' -> 'patterns' -> 'white' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'patterns' -> 'white' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: InitializeToExpression: (\'o\' asTextLines)\x7fVisibility: private'
         
          template <- 'o' asTextLines.

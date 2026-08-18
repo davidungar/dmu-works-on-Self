@@ -778,7 +778,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             isMethod ifTrue: boxCodeFont False: boxObjectNameFont).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'newQuartz' -> 'boxSizePlatformMixin' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'attic' -> 'newQuartz' -> 'boxSizePlatformMixin' -> () From: ( | {
          'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
         
          loadFont: name Style: style Size: size For: win IfFail: fb = ( |
@@ -789,7 +789,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                 copyForFontSpec: fs  Port: win gc).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> 'boxSizePlatformMixin' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'boxSizePlatformMixin' -> () From: ( | {
          'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
         
          loadFont: name For: win IfFail: fb = ( |
@@ -797,7 +797,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             font copyName: name On: win IfFail: fb).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11' -> 'parent' -> 'boxSizePlatformMixin' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> 'boxSizePlatformMixin' -> () From: ( | {
          'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
         
          loadFont: name Style: style Size: size For: win IfFail: fb = ( |
