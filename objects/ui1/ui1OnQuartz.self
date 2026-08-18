@@ -487,6 +487,23 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
+         openWindowOrCanvas: depth IfFail: fb = ( |
+            | 
+            [addWindowOnDisplay: dispName Bounds: b Limited: false].
+            [xxxxx].
+            windowCanvas: windowCanvas copyOpenForWorld: phoneyBaloneyUI2World
+               OnDisplay: window displayName 
+                      At: window position
+                   Width: window size x 
+                  Height: window size y.
+            window display: windowCanvas display.
+            window xwin: windowCanvas platformWindow.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
          parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> ().
         } | ) 
 
