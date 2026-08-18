@@ -1057,9 +1057,7 @@ SlotsToOmit: parent.
         
          tryToOpenWindowForDisplay: disp IfFail: fb = ( |
             | 
-            window displayName: optimalNameForDisplay: disp.
-            openWindowOrCanvas: windowDepth IfFail: [|:e| ^ fb value: e].
-            window finishOpening.
+            resend.tryToOpenWindowForDisplay: disp IfFail: [|:e| ^ fb value: e].
             checkColor8IfFail: [ 
               openWindowError.
               couldNotStart

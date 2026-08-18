@@ -488,6 +488,17 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+        
+         tryToOpenWindowForDisplay: disp IfFail: fb = ( |
+            | 
+            window displayName: optimalNameForDisplay: disp.
+            openWindowOrCanvas: windowDepth IfFail: [|:e| ^ fb value: e].
+            window finishOpening.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: window\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          window = ( |
