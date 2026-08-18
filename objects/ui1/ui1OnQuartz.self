@@ -308,15 +308,6 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'attic' -> 'newQuartz' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
-        
-         boxSizePlatformMixin = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'attic' -> 'newQuartz' -> 'boxSizePlatformMixin' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 graphics attic newQuartz boxSizePlatformMixin.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'attic' -> 'newQuartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          makeOffscreenFor: win Size: sz = ( |
@@ -452,6 +443,12 @@ SlotsToOmit: parent.
             | ) .
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'direct' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (nil)'
+        
+         bufferCanvas.
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
          'Category: traits\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
@@ -473,6 +470,21 @@ SlotsToOmit: parent.
          window.
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'direct' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (nil)'
+        
+         windowCanvas.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         boxSizePlatformMixin = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> 'boxSizePlatformMixin' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 graphics directTraits boxSizePlatformMixin.
+'.
+            | ) .
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
@@ -487,24 +499,64 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
+         ersatzWorldMorphNameHolder = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> 'ersatzWorldMorphNameHolder' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 graphics directTraits ersatzWorldMorphNameHolder.
+'.
+            | ) .
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> 'ersatzWorldMorphNameHolder' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         name <- 'anon'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> 'ersatzWorldMorphNameHolder' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         p* = bootstrap stub -> 'traits' -> 'clonable' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
          openWindowOrCanvas: depth IfFail: fb = ( |
             | 
             [addWindowOnDisplay: dispName Bounds: b Limited: false].
-            [xxxxx].
-            windowCanvas: windowCanvas copyOpenForWorld: phoneyBaloneyUI2World
-               OnDisplay: window displayName 
-                      At: window position
-                   Width: window size x 
-                  Height: window size y.
-            window display: windowCanvas display.
-            window xwin: windowCanvas platformWindow.
+            windowCanvas: 
+              quartzGlobals windowCanvas
+                copyOpenForWorld: (ersatzWorldMorphNameHolder copy name: window displayName)
+                       OnDisplay: window displayName 
+                              At: window position
+                           Width: window size x 
+                          Height: window size y.
+
+            bufferCanvas: windowCanvas bufferCanvasForMyScreenBounds: (0@0) ## window size.
             self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
+         optimalNameForDisplay: disp = ( |
+            | 
+            'ui1 on ', disp).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
          parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         tryToOpenWindowForDisplay: disp IfFail: fb = ( |
+            | 
+            resend.tryToOpenWindowForDisplay: disp IfFail: [|:e| ^ fb value: e].
+            window platformWindow: windowCanvas platformWindow.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {

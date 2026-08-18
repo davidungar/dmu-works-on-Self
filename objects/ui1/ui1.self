@@ -494,7 +494,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             | 
             window displayName: optimalNameForDisplay: disp.
             openWindowOrCanvas: windowDepth IfFail: [|:e| ^ fb value: e].
-            window finishOpening.
+            [window finishOpening.]. 'unimp window finishOpenening equivalent' printLine.
             self).
         } | ) 
 
@@ -1405,6 +1405,7 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
             window position: rect topLeft.
             window size: rect size.
             window useQueueingHandlerFor: self.
+            halt.
             graphics tryToOpenWindowForDisplay: disp IfFail: [ | :err |
                 ('\n', err) printLine.
                graphics openWindowError.
