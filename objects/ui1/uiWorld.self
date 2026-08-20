@@ -1626,7 +1626,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             graphic copy: arect To: windowBitmap At: arect topLeft.
             draw3dExtension: (arect bottomLeft addY: 1)
                          To: (arect bottomRight addY: 1).
-            myUI graphics prepareToCopyAllLayers
+            myUI graphics prepareToCopyAllLayers.
             sliver: bitmap copyFor: window Size: rect size.
             bod graphic copy: rect To: sliver.
 
