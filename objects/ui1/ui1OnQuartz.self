@@ -331,13 +331,6 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'attic' -> 'newQuartz' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
-        
-         patterns = ( |
-            | macToolboxGlobals patterns).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'attic' -> 'newQuartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          platformPixmap = ( |
@@ -550,14 +543,30 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         patterns = ( |
+            | macToolboxGlobals patterns).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          tryToOpenWindowForDisplay: disp IfFail: fb = ( |
             | 
             resend.tryToOpenWindowForDisplay: disp IfFail: [|:e| ^ fb value: e].
             window platformWindow: windowCanvas platformWindow.
-            window xFinishOpening.
+
+            window createBitmap.
+            [window xFinishOpening.]. [xxxxxxx].
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         uiColorPalette = ( |
+            | ui1 x11DirectColorPalette).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
@@ -565,6 +574,15 @@ SlotsToOmit: parent.
         
          windowPrototype = ( |
             | macToolboxGlobals window).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         worldPrototype = ( |
+            | 
+            [xxxxxxx].
+            ui1 uiWorld).
         } | ) 
 
 
