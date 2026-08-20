@@ -556,6 +556,7 @@ SlotsToOmit: parent.
             | 
             resend.tryToOpenWindowForDisplay: disp IfFail: [|:e| ^ fb value: e].
             window platformWindow: windowCanvas platformWindow.
+            window xFinishOpening.
             self).
         } | ) 
 

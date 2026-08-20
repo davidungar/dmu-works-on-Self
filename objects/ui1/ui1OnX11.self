@@ -1053,11 +1053,12 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> () From: ( | {
-         'Category: window\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
         
          tryToOpenWindowForDisplay: disp IfFail: fb = ( |
             | 
             resend.tryToOpenWindowForDisplay: disp IfFail: [|:e| ^ fb value: e].
+            window finishOpening.
             checkColor8IfFail: [ 
               openWindowError.
               couldNotStart
