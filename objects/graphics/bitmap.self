@@ -271,7 +271,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          initializeForPixmap: pix Size: size Depth: depth = ( |
             | 
-            image: pix platformPixmap 
+            image: (pix platformPixmapForDepth: depth) 
                 createForSameScreenAs: pix
                 Size: size
                 Depth: depth).
@@ -382,11 +382,11 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'windowBitmap' -> () From: ( | {
-         'ModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: the platform drawable this windowBitmap draws into. X and 8-bit Quartz: the native window (depth 8). Direct Quartz: the 32-bit RGBA shadow pixmap.\x7fModuleInfo: Module: bitmap InitialContents: FollowSlot\x7fVisibility: public'
         
          image = ( |
             | 
-            window platformWindow).
+            window platformWindow bitmapImage).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'windowBitmap' -> () From: ( | {

@@ -576,6 +576,7 @@ SlotsToOmit: graphic parent.
         
          drawBase = ( |
             | 
+            world myUI graphics checkDepthOf: window bitmap. [xxxxxxx].
             graphic:
                 ((graphic copyFor: window Size: size)
                     createDepth: boxSizing baseSideFaceWidth @

@@ -1594,7 +1594,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          setGraphicAndOffScreen = ( |
             | 
-            graphic: myUI graphics makeOffscreenFor: window Size: window size.
+            graphic:   myUI graphics makeOffscreenFor: window Size: window size.
             offScreen: myUI graphics makeOffscreenFor: window Size: window size).
         } | ) 
 

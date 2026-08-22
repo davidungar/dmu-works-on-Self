@@ -5582,6 +5582,20 @@ unless the OS is told to frontmost the XQuartz app. -- dmu 6/26\x7fModuleInfo: M
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
+         'Comment: windowBitmap image: on X the window is the drawable.\x7fModuleInfo: Module: xlib InitialContents: FollowSlot'
+        
+         bitmapImage = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
+         'ModuleInfo: Module: xlib InitialContents: FollowSlot'
+        
+         platformPixmapForDepth: d = ( |
+            | xlib pixmap).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
          'Category: manipulating\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
          raise = ( |

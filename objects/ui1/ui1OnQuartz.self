@@ -145,6 +145,17 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'Comment: windowBitmap image. Direct (32-bit RGBA shadow) uses that pixmap so depth is 32; 8-bit indexed keeps the platformWindow facade.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         bitmapImage = ( |
+            | 
+            shadow ifNotNil: [
+                shadow depth > 8 ifTrue: [ ^ shadow ].
+            ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          makeRGBAShadow = ( |
@@ -155,12 +166,11 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
-         platformPixmap = ( |
+         platformPixmapForDepth: d = ( |
             | 
-            [xxxxx].
-             quartz indexedPixmap).
+            d <= 8 ifTrue: [quartz indexedPixmap] False: [quartz rgbaPixmap]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaContext' -> () From: ( | {
@@ -254,17 +264,16 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
-         'Comment: build a 32-bit BGRA true-colour offscreen via the raw RGBA prim, typed as an rgbaContext (so foreground8Bit: draws RGB). Same bottom-up text-matrix flip as the indexed offscreen. -- claude & dmu 6/10\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
+         'Comment: build a 32-bit BGRA true-colour offscreen via the generated wrapper (retries asSmallInteger on badTypeError). Same bottom-up text-matrix flip as the indexed offscreen.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
         
          initOffscreenSize: sz = ( |
             | 
             width:  sz x.
             height: sz y.
-            context: (sz x
-                _MakeRGBAOffscreen_wrapmakeRGBAOffscreenWidthHeight: sz y
-                Opaque: opaque
-                ResultProxy: quartz rgbaContext deadCopy
-                IfFail: [| :e | ^ error: 'makeRGBAOffscreen failed: ', e]).
+            context: (quartz context
+                makeRGBAOffscreenWidth: sz x
+                                Height: sz y
+                                Opaque: opaque).
             context setTextMatrix_A: 1 B: 0 C: 0 D: -1 TX: 0 TY: 0.
             self).
         } | ) 
@@ -290,6 +299,14 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
+         'Comment: sibling pixmap prototype for bitmap copyFor: when this rgbaPixmap is the windowBitmap image.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         platformPixmapForDepth: d = ( |
+            | 
+            d <= 8 ifTrue: [quartz indexedPixmap] False: [quartz rgbaPixmap]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          presentToWindow: pw = ( |
@@ -305,17 +322,6 @@ SlotsToOmit: parent.
         
          size = ( |
             | width @ height).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'attic' -> 'newQuartz' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
-        
-         makeOffscreenFor: win Size: sz = ( |
-             b.
-            | 
-            b: bitmap copy.
-            b image: (quartz rgbaPixmap createForSameScreenAs: win bitmap image Size: sz Depth: 32).
-            b).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'attic' -> 'newQuartz' -> () From: ( | {
@@ -458,15 +464,31 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'direct' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (nil)'
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
-         window.
+         window = ( |
+            | ww).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'direct' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         window: w = ( |
+            | 
+
+            ww: w).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'direct' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (nil)'
         
          windowCanvas.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'direct' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (nil)'
+        
+         ww.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
@@ -479,13 +501,23 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         checkDepthOf: bitmap = ( |
+            | 
+            [bitmap depth = 32] assert. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          copy = ( |
              r.
             | 
+             [xxxxxx].
             r: resend.copy.
             r window:                        windowPrototype copy.
+
             r).
         } | ) 
 
@@ -508,6 +540,17 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          p* = bootstrap stub -> 'traits' -> 'clonable' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         makeOffscreenFor: win Size: sz = ( |
+             b.
+            | 
+            b: bitmap copy.
+            b image: (quartz rgbaPixmap createForSameScreenAs: win bitmap image Size: sz Depth: 32).
+            b).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
@@ -556,6 +599,7 @@ SlotsToOmit: parent.
             | 
             resend.tryToOpenWindowForDisplay: disp IfFail: [|:e| ^ fb value: e].
             window platformWindow: windowCanvas platformWindow.
+            window platformWindow makeRGBAShadow.
 
             window createBitmap.
             [window xFinishOpening.]. [xxxxxxx].
@@ -573,7 +617,12 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          windowPrototype = ( |
-            | macToolboxGlobals window).
+             w.
+            | 
+            w:  macToolboxGlobals window.
+            [xxxxxxx].
+            [[w bitmap depth > 8] assert.].
+            w).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {

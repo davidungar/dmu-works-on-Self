@@ -1398,6 +1398,7 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
             | 
             rect: getInitialRectFrom: window.
             [todo ui1 dmu experimental].
+
             window name: 'The Self World'.
             window iconName: 'ui'.
             window iconFilename: preferences uiIconFile.

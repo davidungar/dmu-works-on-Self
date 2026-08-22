@@ -376,6 +376,13 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         checkDepthOf: bitmap = ( |
+            | [(bitmap depth = 8) || [bitmap depth = 1]] assert. self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> () From: ( | {
          'Category: colormaps\x7fCategory: behavior\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: private'
         
          colormapCacheFinalize = ( |
@@ -1092,13 +1099,6 @@ SlotsToOmit: parent.
          worldPrototype = ( |
             | 
             ui1 uiWorld).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'window' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
-        
-         platformPixmap = ( |
-            | xlib pixmap).
         } | ) 
 
 
