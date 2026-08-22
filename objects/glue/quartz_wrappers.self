@@ -3286,11 +3286,11 @@ traits quartz context _AddSlots: ( |
         ||  ['deadProxyError' isPrefixOf: e]
            ifFalse: [^fb value: e] 
               True: [
-                  ( reviveIfFail: [|:e| ^ fb value: e]) _FillIndexedAreaMasked_wrapfillIndexedMaskedX:
-                    t0 floor asSmallInteger Y: t1 floor asSmallInteger
-                    Width: t2 ceil asSmallInteger Height:
-                    t3 ceil asSmallInteger Index:
-                    t4 asSmallInteger Mask:
+                  ( reviveIfFail: [|:e| ^ fb value: e]) _FillIndexedAreaMasked_wrapfillIndexedMaskedX: 
+                    t0 asSmallInteger Y: t1 asSmallInteger 
+                    Width: t2 asSmallInteger Height: 
+                    t3 asSmallInteger Index: 
+                    t4 asSmallInteger Mask: 
                     t5 asSmallInteger Function: 
                     t6 asSmallInteger IfFail: fb 
            ]] .
@@ -3374,8 +3374,8 @@ traits quartz context _AddSlots: ( |
     |
 
       t0 _MakeRGBAOffscreen_wrapmakeRGBAOffscreenWidthHeight: t1 
-        Opaque: t2 ResultProxy:  quartz context deadCopy  
-        IfFail: 
+        Opaque: t2 ResultProxy: 
+         quartz rgbaContext deadCopy  IfFail: 
         
       [|:e| ('badTypeError'   isPrefixOf: e)
         ||  ['deadProxyError' isPrefixOf: e]
@@ -3383,8 +3383,9 @@ traits quartz context _AddSlots: ( |
               True: [
                   t0 asSmallInteger _MakeRGBAOffscreen_wrapmakeRGBAOffscreenWidthHeight: 
                     t1 asSmallInteger Opaque: t2 
-                    ResultProxy:  quartz context deadCopy  
-                    IfFail: fb 
+                    ResultProxy: 
+                     quartz rgbaContext deadCopy  IfFail: 
+                    fb 
            ]] ).
 
 

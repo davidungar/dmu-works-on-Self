@@ -290,7 +290,7 @@ primitiveMaker reader copy beNoisy staticLinking create: 'quartz' Flag: 'quartz_
    CGContext drawCTText: cbv_len char* FontName: cbv_len char* Size: float X: float Y: float = void call DrawTextCoreText_wrap
 
    -- ui1-on-Quartz TRUE-COLOUR offscreen (RGBA rewrite): 32-bit BGRA bitmap context, antialiasing ON, for the base (Opaque: true) + acetate/arrow overlay (Opaque: false) layers composited into the window.  Acetate erase reuses clearRectX:Y:Width:Height: above. -- claude & dmu 6/10
-   void makeRGBAOffscreenWidth: int Height: int Opaque: bool = CGContext { quartz context deadCopy } call MakeRGBAOffscreen_wrap
+   void makeRGBAOffscreenWidth: int Height: int Opaque: bool = CGContext { quartz rgbaContext deadCopy } call MakeRGBAOffscreen_wrap
    -- snapshot an RGBA offscreen to a CGImage for the Self-side source-over composite (caller releases). -- claude & dmu 6/10
    CGContext createImageSnapshot = CGImage { quartz image deadCopy } call CGImageFromOffscreen_wrap
 
