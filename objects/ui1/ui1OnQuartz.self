@@ -112,21 +112,15 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
-         'Comment: CGLayer created from the window gc. The object drawLayer: receives.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
-        
-         layer.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
-         'Comment: window CGContext the layer was created from; sibling pixmaps create from this too.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
-        
-         windowContext.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
         
          height <- 0.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
+         'Comment: CGLayer created from the window gc. The object drawLayer: receives.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
+        
+         layer.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
@@ -156,11 +150,34 @@ SlotsToOmit: parent.
          width <- 0.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
-         'Comment: CGLayerCreateWithContext needs the window gc, as UI2 asLayerSize: does.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
+         'Comment: window CGContext the layer was created from; sibling pixmaps create from this too.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
         
-         windowContextForLayer = ( |
-            | quartzWindow gc).
+         windowContext.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'Comment: indexed ui1 passes a colormapEntry (index as gray byte). Direct/UI2-style paints have red/green/blue in 0-1 and no index slot. Layer gcs are quartz context proxies and cannot have their parent changed.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         foregroundColor: cme = ( |
+             gray.
+            | 
+            ((reflect: cme) includesKey: 'index') ifTrue: [
+                indexFG: cme index.
+                gray: cme index asFloat / 255.0.
+                setGrayFillColorGray:   gray Alpha: 1.0.
+                setGrayStrokeColorGray: gray Alpha: 1.0.
+                ^ self
+            ].
+            setFillColorRed:   cme red
+                       Green:  cme green
+                        Blue:  cme blue
+                       Alpha:  1.0.
+            setStrokeColorRed: cme red
+                        Green: cme green
+                         Blue: cme blue
+                        Alpha: 1.0.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
@@ -192,28 +209,11 @@ SlotsToOmit: parent.
             d <= 8 ifTrue: [quartz indexedPixmap] False: [quartz rgbaPixmap]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
-         'Comment: indexed ui1 passes a colormapEntry (index as gray byte). Direct/UI2-style paints have red/green/blue in 0-1 and no index slot. Layer gcs are quartz context proxies and cannot have their parent changed.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'Comment: CGLayerCreateWithContext needs the window gc, as UI2 asLayerSize: does.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
-         foregroundColor: cme = ( |
-             gray.
-            | 
-            ((reflect: cme) includesKey: 'index') ifTrue: [
-                indexFG: cme index.
-                gray: cme index asFloat / 255.0.
-                setGrayFillColorGray:   gray Alpha: 1.0.
-                setGrayStrokeColorGray: gray Alpha: 1.0.
-                ^ self
-            ].
-            setFillColorRed:   cme red
-                       Green:  cme green
-                        Blue:  cme blue
-                       Alpha:  1.0.
-            setStrokeColorRed: cme red
-                        Green: cme green
-                         Blue: cme blue
-                        Alpha: 1.0.
-            self).
+         windowContextForLayer = ( |
+            | quartzWindow gc).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaContext' -> () From: ( | {
@@ -257,9 +257,6 @@ SlotsToOmit: parent.
         
          copyArea: srcRect To: destImage At: destPt GC: g = ( |
             | 
-            ('copyArea src=', width printString, '@', height printString,
-             ' destH=', destImage height printString,
-             ' at=', destPt printString) printLine.
             layer copyArea: srcRect To: destImage At: destPt GC: g).
         } | ) 
 
@@ -357,9 +354,6 @@ SlotsToOmit: parent.
         
          presentToWindow: pw = ( |
             | 
-            ('PTW layer=', width printString, '@', height printString,
-             ' win=', pw quartzWindow width printString, '@',
-             pw quartzWindow height printString) printLine.
             layer copyArea: size rect To: pw quartzWindow At: 0@0 GC: gc.
             pw quartzWindow gc flush.
             self).
@@ -373,17 +367,17 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
-        
-         windowContextForLayer = ( |
-            | windowContext).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          size = ( |
             | width @ height).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         windowContextForLayer = ( |
+            | windowContext).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'attic' -> 'newQuartz' -> () From: ( | {
@@ -571,18 +565,6 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
-         'Comment: Body copies land on the world graphic (destH=300 at=30@40). graphic copyTo: offScreen at 0@0 never hits rgbaPixmap copyArea, so the shadow is empty. drawLayer of the shadow showed only the probe. Present the graphic, where drawBackground and body display actually painted.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
-        
-         present: w = ( |
-            | 
-            ('present g=', w graphic image printString,
-             ' gSz=', w graphic size printString,
-             ' off=', w offScreen image printString) printLine.
-            w graphic image presentToWindow: w window platformWindow.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          copy = ( |
@@ -664,6 +646,24 @@ SlotsToOmit: parent.
         
          patterns = ( |
             | macToolboxGlobals patterns).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         platformPixmap = ( |
+            | 
+            [xxxxx].
+            quartz rgbaPixmap).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'Comment: Body copies land on the world graphic (destH=300 at=30@40). graphic copyTo: offScreen at 0@0 never hits rgbaPixmap copyArea, so the shadow is empty. drawLayer of the shadow showed only the probe. Present the graphic, where drawBackground and body display actually painted.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         present: w = ( |
+            | 
+            w graphic image presentToWindow: w window platformWindow.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {

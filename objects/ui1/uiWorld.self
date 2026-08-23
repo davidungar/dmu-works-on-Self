@@ -489,7 +489,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          draw = ( |
             | 
-            'draw here' printLine.
             drawBackground. redrawAllBodies).
         } | ) 
 
