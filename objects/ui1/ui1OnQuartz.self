@@ -97,7 +97,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: graphics (ui1)\x7fComment: ui1 TRUE-COLOUR offscreen pixmap on Quartz (RGBA rewrite): a 32-bit BGRA drawable backed by an rgbaContext, antialiasing ON. Like indexedPixmap but true colour -- the only blit that differs is copyArea: (snapshot + drawImage). -- claude & dmu 6/10\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: graphics (ui1)\x7fComment: ui1 true-colour offscreen: a CGLayer created from the window context, same object UI2 uses. copyArea:/presentToWindow: are drawLayer (traits quartz drawable). -- claude & dmu 6/10\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          rgbaPixmap = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'rgbaPixmap' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals quartz rgbaPixmap.
@@ -109,6 +109,18 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (quartz rgbaContext deadCopy)\x7fVisibility: private'
         
          context.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
+         'Comment: CGLayer created from the window gc. The object drawLayer: receives.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
+        
+         layer.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
+         'Comment: window CGContext the layer was created from; sibling pixmaps create from this too.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
+        
+         windowContext.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
@@ -145,6 +157,13 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
+         'Comment: CGLayerCreateWithContext needs the window gc, as UI2 asLayerSize: does.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         windowContextForLayer = ( |
+            | quartzWindow gc).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
          'Comment: windowBitmap image. Direct (32-bit RGBA shadow) uses that pixmap so depth is 32; 8-bit indexed keeps the platformWindow facade.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          bitmapImage = ( |
@@ -173,18 +192,42 @@ SlotsToOmit: parent.
             d <= 8 ifTrue: [quartz indexedPixmap] False: [quartz rgbaPixmap]).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaContext' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'Comment: indexed ui1 passes a colormapEntry (index as gray byte). Direct/UI2-style paints have red/green/blue in 0-1 and no index slot. Layer gcs are quartz context proxies and cannot have their parent changed.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
-         foreground8Bit: cme = ( |
+         foregroundColor: cme = ( |
+             gray.
             | 
-            setFillColorRed:   cme red   asFloat / 255.0
-                       Green:  cme green asFloat / 255.0
-                        Blue:  cme blue  asFloat / 255.0
+            ((reflect: cme) includesKey: 'index') ifTrue: [
+                indexFG: cme index.
+                gray: cme index asFloat / 255.0.
+                setGrayFillColorGray:   gray Alpha: 1.0.
+                setGrayStrokeColorGray: gray Alpha: 1.0.
+                ^ self
+            ].
+            setFillColorRed:   cme red
+                       Green:  cme green
+                        Blue:  cme blue
                        Alpha:  1.0.
-            setStrokeColorRed: cme red   asFloat / 255.0
-                        Green: cme green asFloat / 255.0
-                         Blue: cme blue  asFloat / 255.0
+            setStrokeColorRed: cme red
+                        Green: cme green
+                         Blue: cme blue
+                        Alpha: 1.0.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaContext' -> () From: ( | {
+         'Comment: paint red/green/blue are already 0-1 (CG range); do not divide by 255.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         foregroundColor: cme = ( |
+            | 
+            setFillColorRed:   cme red
+                       Green:  cme green
+                        Blue:  cme blue
+                       Alpha:  1.0.
+            setStrokeColorRed: cme red
+                        Green: cme green
+                         Blue: cme blue
                         Alpha: 1.0.
             self).
         } | ) 
@@ -210,36 +253,32 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
-         'Comment: true-colour blit: snapshot this offscreen to a CGImage and drawImage it into the destination drawables context at destPt. Replaces the indexed byte-copy. srcRect partial-area + plane mask are ignored for now (whole-buffer snapshot); refine with dirty rects later. -- claude & dmu 6/10\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: UI2 blit: identity CTM, dest Y flipped, drawLayer. Source must be the CGLayer.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          copyArea: srcRect To: destImage At: destPt GC: g = ( |
-             img.
             | 
-            img: context createImageSnapshot.
-            destImage gc drawImage: img X: destPt x Y: destPt y Width: width Height: height.
-            img release.
-            self).
+            ('copyArea src=', width printString, '@', height printString,
+             ' destH=', destImage height printString,
+             ' at=', destPt printString) printLine.
+            layer copyArea: srcRect To: destImage At: destPt GC: g).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          createForSameScreenAs: db Size: sz Depth: dp = ( |
-            | copy initOffscreenSize: sz).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
-        
-         createImageSnapshot = ( |
-            | context createImageSnapshot).
+            | copy initOffscreenSize: sz WindowContext: db windowContextForLayer).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          delete = ( |
-            | context release. self).
+            | 
+            layer ifNotNil: [ layer close ].
+            layer: nil.
+            context: nil.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
@@ -250,7 +289,16 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
-         'Comment: ui1 draws through this objects own context (an rgbaContext), which answers the X11-GC protocol in true colour. -- claude & dmu 6/10\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: skip fillRectInteger (plane-mask/indexed byte path). Layer is true colour; fillRectX matches the window gc fills that already worked.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fillRectangle: r GC: gc = ( |
+            | 
+            gc fillRectX: r left Y: r top Width: r width Height: r height.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
+         'Comment: the layer CGContext (y-down). Paint RGB via traits quartz context foregroundColor:.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          gc = ( |
             | context).
@@ -264,17 +312,15 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
-         'Comment: build a 32-bit BGRA true-colour offscreen via the generated wrapper (retries asSmallInteger on badTypeError). Same bottom-up text-matrix flip as the indexed offscreen.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
+         'Comment: same construction as UI2 quartzBufferCanvas: a CGLayer from the window gc. Layer initialize already setCTMForZeroAtTopHeight:. Layer gc is a quartz context (proxy); paint RGB is handled by traits quartz context foregroundColor: after this module files in.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
         
-         initOffscreenSize: sz = ( |
+         initOffscreenSize: sz WindowContext: wgc = ( |
             | 
             width:  sz x.
             height: sz y.
-            context: (quartz context
-                makeRGBAOffscreenWidth: sz x
-                                Height: sz y
-                                Opaque: opaque).
-            context setTextMatrix_A: 1 B: 0 C: 0 D: -1 TX: 0 TY: 0.
+            windowContext: wgc.
+            layer: quartz layer createWithContext: wgc Size: sz.
+            context: layer gc.
             self).
         } | ) 
 
@@ -282,7 +328,7 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          isLive = ( |
-            | context ifNil: false IfNotNil: [|:c| c isLive]).
+            | layer ifNil: false IfNotNil: [|:l| l isLive]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
@@ -307,14 +353,30 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+         'Comment: same dest as UI2 buffer-to-window: the quartz window, identity CTM, drawLayer at the flipped origin.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          presentToWindow: pw = ( |
-             g.
             | 
-            g: pw quartzWindow gc.
-            g drawImage: createImageSnapshot X: 0 Y: 0 Width: width * 2 Height: height * 2.
+            ('PTW layer=', width printString, '@', height printString,
+             ' win=', pw quartzWindow width printString, '@',
+             pw quartzWindow height printString) printLine.
+            layer copyArea: size rect To: pw quartzWindow At: 0@0 GC: gc.
+            pw quartzWindow gc flush.
             self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         restoreCleanGStateIfPresent = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
+         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+        
+         windowContextForLayer = ( |
+            | windowContext).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
@@ -509,6 +571,18 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'Comment: Body copies land on the world graphic (destH=300 at=30@40). graphic copyTo: offScreen at 0@0 never hits rgbaPixmap copyArea, so the shadow is empty. drawLayer of the shadow showed only the probe. Present the graphic, where drawBackground and body display actually painted.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         present: w = ( |
+            | 
+            ('present g=', w graphic image printString,
+             ' gSz=', w graphic size printString,
+             ' off=', w offScreen image printString) printLine.
+            w graphic image presentToWindow: w window platformWindow.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          copy = ( |
@@ -593,16 +667,14 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
-         'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+         'Comment: Same shape as x11Traits tryToOpenWindowForDisplay: open the window, then window finishOpening. Direct uses a windowCanvas, so install that platformWindow first. -- claude & dmu 8/23\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          tryToOpenWindowForDisplay: disp IfFail: fb = ( |
             | 
             resend.tryToOpenWindowForDisplay: disp IfFail: [|:e| ^ fb value: e].
             window platformWindow: windowCanvas platformWindow.
             window platformWindow makeRGBAShadow.
-
-            window createBitmap.
-            [window xFinishOpening.]. [xxxxxxx].
+            window finishOpening.
             self).
         } | ) 
 

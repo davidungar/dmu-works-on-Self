@@ -4322,7 +4322,7 @@ an object with these slots:
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'graphicsContext' -> () From: ( | {
          'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
-         background8Bit: cme = ( |
+         backgroundColor: cme = ( |
             | 
             [todo ui1 dmu experimental].
             background: cme index).
@@ -4532,7 +4532,7 @@ an object with these slots:
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'graphicsContext' -> () From: ( | {
          'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
-         foreground8Bit: cme = ( |
+         foregroundColor: cme = ( |
             | 
             [todo ui1 dmu experimental].
             foreground: cme index).
@@ -5944,7 +5944,7 @@ unless the OS is told to frontmost the XQuartz app. -- dmu 6/26\x7fModuleInfo: M
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'xGCValues' -> () From: ( | {
          'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
-         background8Bit: cme = ( |
+         backgroundColor: cme = ( |
             | 
             [todo ui1 dmu experimental].
             background: cme index).
@@ -5953,7 +5953,7 @@ unless the OS is told to frontmost the XQuartz app. -- dmu 6/26\x7fModuleInfo: M
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'xGCValues' -> () From: ( | {
          'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
-         foreground8Bit: cme = ( |
+         foregroundColor: cme = ( |
             | 
             [todo ui1 dmu experimental].
             foreground: cme index).

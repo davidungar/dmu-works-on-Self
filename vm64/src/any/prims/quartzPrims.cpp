@@ -149,6 +149,33 @@ int32 OffscreenPixelAt_wrap(CGContextRef ctx, int32 x, int32 y) {
   return (int32)data[row * bpr + (size_t)x];
 }
 
+// 4-byte pixel from an RGBA/BGRA bitmap context. Logical (x,y) is ui1 top-down.
+// Returns objVector of 4 smis: bytes in memory order (little-endian B,G,R,A/X).
+// -- claude & dmu 8/26
+oop RGBAPixelAt_wrap(CGContextRef ctx, int32 x, int32 y) {
+  objVectorOop r = Memory->objVectorObj->cloneSize(4);
+  r->obj_at_put(0, as_smiOop(-1), false);
+  r->obj_at_put(1, as_smiOop(-1), false);
+  r->obj_at_put(2, as_smiOop(-1), false);
+  r->obj_at_put(3, as_smiOop(-1), false);
+  if (ctx == NULL)  return r;
+  u_char* data = (u_char*)CGBitmapContextGetData(ctx);
+  size_t  w    = CGBitmapContextGetWidth(ctx);
+  size_t  h    = CGBitmapContextGetHeight(ctx);
+  size_t  bpr  = CGBitmapContextGetBytesPerRow(ctx);
+  size_t  bpp  = (size_t)CGBitmapContextGetBitsPerPixel(ctx) / 8;
+  if ((data == NULL) || (bpp < 4) || (x < 0) || (y < 0)
+      || ((size_t)x >= w) || ((size_t)y >= h))
+    return r;
+  size_t row = h - 1 - (size_t)y;
+  u_char* p = data + row * bpr + ((size_t)x * bpp);
+  r->obj_at_put(0, as_smiOop(p[0]), false);
+  r->obj_at_put(1, as_smiOop(p[1]), false);
+  r->obj_at_put(2, as_smiOop(p[2]), false);
+  r->obj_at_put(3, as_smiOop(p[3]), false);
+  return r;
+}
+
 // Index-preserving bitblt between two 8-bit indexed offscreens (the X path got
 // this free from the server's XCopyArea; CG has no equivalent that leaves the
 // palette-index bytes untouched, so we copy the backing bytes ourselves).  This

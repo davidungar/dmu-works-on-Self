@@ -497,6 +497,19 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractWindow' -> () From: ( | {
+         'Category: creating\x7fComment: Shared ui1 finish after the platform window exists. Subclasses do platform-specific setup then resend. spawnEventWatcherProcess is on macWindow and xWindow. -- claude & dmu 8/23\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: private'
+        
+         finishOpening = ( |
+            | 
+            createBitmap.
+            createCursor.
+            init.
+            spawnEventWatcherProcess.
+            synchronous ifTrue: [ display synchronize: true ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'abstractWindow' -> () From: ( | {
          'Category: forwardToDisplay\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
         
          eventsPending = ( |
@@ -677,6 +690,15 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
+         'Category: creating\x7fComment: Quartz-only: display defaults to the X connection, so install ui1EventSource before the shared finish (bitmap, cursor, watcher). Direct opens a windowCanvas instead of openIfFail:, so it must call this after the canvas is up. -- claude & dmu 8/23\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: private'
+        
+         finishOpening = ( |
+            | 
+            display: quartz ui1EventSource forPlatformWindow: platformWindow.
+            resend.finishOpening).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macWindow' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVisibility: public'
         
          openIfFail: fblock = ( |
@@ -687,16 +709,7 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
                BoundingBox: position ## size
                 WindowName: name.
             platformWindow makeRGBAShadow.
-            display: quartz ui1EventSource forPlatformWindow: platformWindow. "ui1-on-Quartz: feed the watcher Cocoa events (display defaults to the X connection) -- claude & dmu 5/26"
-
-            createBitmap.
-            createCursor.
-
-            init.
-            spawnEventWatcherProcess.
-
-            synchronous ifTrue: [ display synchronize: true ].
-
+            finishOpening.
             self).
         } | ) 
 
@@ -764,18 +777,8 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
              [todo ui1 dmu experimental].
             icon: createIcon: iconFilename.
             xwin configureAsTopLevelNamed: name IconName: iconName Icon: icon EventMask: handler eventsToCatch.
-
             display gc graphics_exposures: false.
-
-            createBitmap.
-            createCursor.
-
-            init.
-            spawnEventWatcherProcess.
-
-            synchronous ifTrue: [ display synchronize: true ].
-
-            self).
+            resend.finishOpening).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xWindow' -> () From: ( | {
@@ -817,19 +820,7 @@ for UI2 windows\x7fModuleInfo: Module: window InitialContents: FollowSlot\x7fVis
                                           interpretedDisplayName,
                                           '\'.' ].
             xwin: xlib window createOnDisplay: display At: position Size: size.
-            icon: createIcon: iconFilename.
-            xwin configureAsTopLevelNamed: name IconName: iconName Icon: icon EventMask: handler eventsToCatch.
-
-            display gc graphics_exposures: false.
-
-            createBitmap.
-            createCursor.
-
-            init.
-            spawnEventWatcherProcess.
-
-            synchronous ifTrue: [ display synchronize: true ].
-
+            finishOpening.
             self).
         } | ) 
 

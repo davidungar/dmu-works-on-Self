@@ -581,7 +581,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          prototypeNamed: nm = ( |
             | 
-            nm = ':0' ifFalse: ['remove the relics' printLine.].
             nm = 'newQuartz' ifTrue: [ ^ newQuartz ].
             nm = 'quartz' ifTrue: [^ quartz].
             nm = 'x11OnCanvas' ifTrue: [^ x11OnCanvas].

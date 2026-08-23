@@ -3413,6 +3413,27 @@ traits quartz context _AddSlots: ( |
            ]] ).
 
 
+  rgbaPixelAtX: t0 Y: t1  = (
+
+       rgbaPixelAtX: t0 Y: t1 IfFail: 
+        [|:e| ^error: 'rgbaPixelAtX:Y: failed: ', e] ).
+
+  rgbaPixelAtX: t0 Y: t1 IfFail: fb = (
+    |
+
+    |
+
+       _RGBAPixelAt_wraprgbaPixelAtX: t0 Y: t1 IfFail: 
+        
+      [|:e| ('badTypeError'   isPrefixOf: e)
+        ||  ['deadProxyError' isPrefixOf: e]
+           ifFalse: [^fb value: e] 
+              True: [
+                  ( reviveIfFail: [|:e| ^ fb value: e]) _RGBAPixelAt_wraprgbaPixelAtX: t0 asSmallInteger Y: 
+                    t1 asSmallInteger IfFail: fb 
+           ]] ).
+
+
   setShadowOffsetX: t0 OffsetY: t1 Blur: t2 Color: t3  = (
 
        setShadowOffsetX: t0 OffsetY: t1 Blur: t2 Color: t3 IfFail: 

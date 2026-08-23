@@ -73,7 +73,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          arcWithin: rect From: startAngle Spanning: spanAngle Color: cme = ( |
             | 
-            image gc foreground8Bit: cme.
+            image gc foregroundColor: cme.
             image drawArcWithin: rect
                            From: startAngle
                        Spanning: spanAngle
@@ -153,7 +153,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          fillArcWithin: rect From: startAngle Spanning: spanAngle Color: cme = ( |
             | 
-            image gc foreground8Bit: cme.
+            image gc foregroundColor: cme.
             image fillArcWithin: rect
                            From: startAngle
                        Spanning: spanAngle
@@ -186,7 +186,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                   Spanning: spanAngle Color: cme ].
             image gc fillOpaqueStippled.
             image gc stipple: pattern image.
-            image gc background8Bit: bgcme.
+            image gc backgroundColor: bgcme.
             fillArcWithin: rect From: startAngle Spanning: spanAngle Color: cme.
             image gc fillSolid.
             self).
@@ -236,7 +236,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                 ^ fillCircle centeredAt: ctr Diameter: d Color: cme ].
             image gc fillOpaqueStippled.
             image gc stipple: pattern image.
-            image gc background8Bit: bgcme.
+            image gc backgroundColor: bgcme.
             fillCircleCenteredAt: ctr Diameter: d Color: cme.
             image gc fillSolid.
             self).
@@ -257,7 +257,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          fillPolygon: pointList Color: cme = ( |
             | 
-            image gc foreground8Bit: cme.
+            image gc foregroundColor: cme.
             image fillPolygon: pointList GC: image gc.
             self).
         } | ) 
@@ -283,7 +283,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             pattern isNull ifTrue: [ ^ fillPolygon: pointList Color: cme ].
             image gc fillOpaqueStippled.
             image gc stipple: pattern image.
-            image gc background8Bit: bgcme.
+            image gc backgroundColor: bgcme.
             fillPolygon: pointList Color: cme.
             image gc fillSolid.
             self).
@@ -295,7 +295,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          fillRectangle: rect Color: cme = ( |
             | 
             [xxxxx].
-            image gc foreground8Bit: cme.
+            image gc foregroundColor: cme.
             image fillRectangle: rect GC: image gc.
             self).
         } | ) 
@@ -321,7 +321,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             pattern isNull ifTrue: [ ^ fillRectangle: rect Color: cme ].
             image gc fillOpaqueStippled.
             image gc stipple: pattern image.
-            image gc background8Bit: bgcme.
+            image gc backgroundColor: bgcme.
             fillRectangle: rect Color: cme.
             image gc fillSolid.
             self).
@@ -332,7 +332,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          line: pt1 To: pt2 Color: cme = ( |
             | 
-            image gc foreground8Bit: cme.
+            image gc foregroundColor: cme.
             image drawLine: pt1 To: pt2 GC: image gc.
             self).
         } | ) 
@@ -353,7 +353,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          lines: pointList Width: width Color: cme = ( |
             | 
-            image gc foreground8Bit: cme.
+            image gc foregroundColor: cme.
             image gc lineWidth: width.
             image drawLines: pointList GC: image gc.
             image gc lineWidth: 0.
@@ -365,7 +365,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          point: pt Color: cme = ( |
             | 
-            image gc foreground8Bit: cme.
+            image gc foregroundColor: cme.
             image drawPoint: pt GC: image gc.
             self).
         } | ) 
@@ -393,7 +393,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          rectangle: rect Color: cme = ( |
             | 
-            image gc foreground8Bit: cme.
+            image gc foregroundColor: cme.
             image drawRectangle: rect GC: image gc.
             self).
         } | ) 
@@ -416,7 +416,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
              y.
             | 
             y: pt y + (font height - font descender).
-            image gc foreground8Bit: cme.
+            image gc foregroundColor: cme.
             image gc font: font xfont.
             image drawString: string At: pt x @ y GC: image gc.
             self).
@@ -429,7 +429,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
              y.
             | 
             y: pt y + (font height - font descender).
-            image gc foreground8Bit: cme.
+            image gc foregroundColor: cme.
             image gc font: font xfont.
             txt lines do: [ | :aLine |
                 image drawString: aLine At: pt x @ y GC: image gc.

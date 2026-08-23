@@ -100,7 +100,7 @@ See the LICENSE file for license information.
         
          point: pt Color: c GC: gc = ( |
             | 
-            gc foreground8Bit: c.
+            gc foregroundColor: c.
             image drawPoint: pt GC: gc.
             self).
         } | ) 

@@ -304,7 +304,7 @@ SlotsToOmit: parent.
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'context' -> () From: ( | {
          'Category: ui1 GC state\x7fComment: per-context GC state CG cannot represent on its 8-bit indexed bytes: the raw
-palette index of the last foreground8Bit: (the fill colour, always set on the
+palette index of the last foregroundColor: (the fill colour, always set on the
 same context it draws into). The plane mask + raster function are SHARED, not
 per-context (see globals quartz gcPlaneMask/gcRasterFn) because ui1/X use one
 display gc. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
@@ -3946,7 +3946,7 @@ and the X font struct object (used to measure text).\x7fModuleInfo: Module: quar
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'drawable' -> () From: ( | {
          'Category: drawing\x7fComment: ui1 draws single pixels (cursor/ui1 caret feedback, scatter plots) via
 drawPoint:GC:; the X drawable has it as a primitive. Realise it as a 1x1 fill
-so the index byte is written with the gcs foreground8Bit colour, same as
+so the index byte is written with the gcs foregroundColor colour, same as
 fillRectangle:. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          drawPoint: pt GC: gc = ( |
@@ -4918,7 +4918,7 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
          'Comment: background colour only matters for stippled/opaque fills, which are deferred; record nothing for now. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
-         background8Bit: i = ( |
+         backgroundColor: i = ( |
             | self).
         } | ) 
 
@@ -4946,6 +4946,12 @@ SlotsToOmit: parent.
          'ModuleInfo: Module: quartz InitialContents: FollowSlot'
         
          color = 14.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> 'blendMode' -> () From: ( | {
+         'Comment: kCGBlendModeCopy -- source RGB replaces dest, ignores source alpha.\x7fModuleInfo: Module: quartz InitialContents: FollowSlot'
+        
+         copy = 17.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> 'blendMode' -> () From: ( | {
@@ -5179,7 +5185,7 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
-         'Comment: Remaining X11-GC protocol for ui1. Colour/line/clip map to live CGContext state (foreground8Bit:/lineWidth:/font: already do). The raster-op functions (gx*) return the real X11 GXfunction codes but function: is a no-op for now (everything draws in copy mode -- XOR rubber-banding deferred); plane_mask:, stipple/stippled fills, clipping and dashes are likewise deferred to self so a basic ui1 draw runs without error. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: Remaining X11-GC protocol for ui1. Colour/line/clip map to live CGContext state (foregroundColor:/lineWidth:/font: already do). The raster-op functions (gx*) return the real X11 GXfunction codes but function: is a no-op for now (everything draws in copy mode -- XOR rubber-banding deferred); plane_mask:, stipple/stippled fills, clipping and dashes are likewise deferred to self so a basic ui1 draw runs without error. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          fillSolid = ( |
             | self).
@@ -5205,7 +5211,7 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
          'Comment: ui1 drives its drawable through an X11-style GC; teach a quartz context that protocol by translating to CGContext state. The arg is a colormapEntry (cme); its `index` is the 8-bit palette index (the X GC does `foreground: cme index`). Write it as the gray byte -- the indexed offscreen is 8-bit grayscale with antialiasing off, so the byte survives intact (verified: fill 137 -> pixelValueAt: = 137). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
-         foreground8Bit: cme = ( |
+         foregroundColor: cme = ( |
              gray.
             | 
             indexFG: cme index.

@@ -210,45 +210,45 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.437928 asFloat / 1024 Green: 0.522972 asFloat / 1024 Blue: 0.663734 asFloat / 1024 )\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.437928 Green: 0.522972 Blue: 0.663734 )\x7fVisibility: public'
         
-         arrow <- paint copyRed: 0.437928 asFloat / 1024 Green: 0.522972 asFloat / 1024 Blue: 0.663734 asFloat / 1024 .
+         arrow <- paint copyRed: 0.437928 Green: 0.522972 Blue: 0.663734 .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.437928 asFloat / 1024 Green: 0.522972 asFloat / 1024 Blue: 0.663734 asFloat / 1024)\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.437928 Green: 0.522972 Blue: 0.663734)\x7fVisibility: public'
         
-         arrowPlusTopPlanes <- paint copyRed: 0.437928 asFloat / 1024 Green: 0.522972 asFloat / 1024 Blue: 0.663734 asFloat / 1024.
+         arrowPlusTopPlanes <- paint copyRed: 0.437928 Green: 0.522972 Blue: 0.663734.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.628543 asFloat / 1024 Green: 0.702835 asFloat / 1024 Blue: 0.667644 asFloat / 1024)\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.628543 Green: 0.702835 Blue: 0.667644)\x7fVisibility: public'
         
-         background <- paint copyRed: 0.628543 asFloat / 1024 Green: 0.702835 asFloat / 1024 Blue: 0.667644 asFloat / 1024.
+         background <- paint copyRed: 0.628543 Green: 0.702835 Blue: 0.667644.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( paint copyRed: 0.757576 asFloat / 1024 Green: 0.745846 asFloat / 1024 Blue: 0.722385 asFloat / 1024)\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: ( paint copyRed: 0.757576 Green: 0.745846 Blue: 0.722385)\x7fVisibility: public'
         
-         body <-  paint copyRed: 0.757576 asFloat / 1024 Green: 0.745846 asFloat / 1024 Blue: 0.722385 asFloat / 1024.
+         body <-  paint copyRed: 0.757576 Green: 0.745846 Blue: 0.722385.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.492669 asFloat / 1024 Green: 0.484848 asFloat / 1024 Blue: 0.469208 asFloat / 1024)\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.492669 Green: 0.484848 Blue: 0.469208)\x7fVisibility: public'
         
-         bodyDark <- paint copyRed: 0.492669 asFloat / 1024 Green: 0.484848 asFloat / 1024 Blue: 0.469208 asFloat / 1024.
+         bodyDark <- paint copyRed: 0.492669 Green: 0.484848 Blue: 0.469208.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.898338 asFloat / 1024 Green: 0.882698 asFloat / 1024 Blue: 0.855327 asFloat / 1024)\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.898338 Green: 0.882698 Blue: 0.855327)\x7fVisibility: public'
         
-         bodyLight <- paint copyRed: 0.898338 asFloat / 1024 Green: 0.882698 asFloat / 1024 Blue: 0.855327 asFloat / 1024.
+         bodyLight <- paint copyRed: 0.898338 Green: 0.882698 Blue: 0.855327.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: index entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024)\x7fVisibility: public'
+         'Category: index entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 Green: 0.0 Blue: 0.0)\x7fVisibility: public'
         
-         ones <- paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024.
+         ones <- paint copyRed: 0.0 Green: 0.0 Blue: 0.0.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {
@@ -267,27 +267,27 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024)\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 Green: 0.0 Blue: 0.0)\x7fVisibility: public'
         
-         text <- paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024.
+         text <- paint copyRed: 0.0 Green: 0.0 Blue: 0.0.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024)\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 Green: 0.0 Blue: 0.0)\x7fVisibility: public'
         
-         transparent <- paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024.
+         transparent <- paint copyRed: 0.0 Green: 0.0 Blue: 0.0.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.99609 asFloat / 1024)\x7fVisibility: public'
+         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 Green: 0.0 Blue: 0.99609)\x7fVisibility: public'
         
-         unused <- paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.99609 asFloat / 1024.
+         unused <- paint copyRed: 0.0 Green: 0.0 Blue: 0.99609.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: index entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024)\x7fVisibility: public'
+         'Category: index entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 Green: 0.0 Blue: 0.0)\x7fVisibility: public'
         
-         zeros <- paint copyRed: 0.0 asFloat / 1024 Green: 0.0 asFloat / 1024 Blue: 0.0 asFloat / 1024.
+         zeros <- paint copyRed: 0.0 Green: 0.0 Blue: 0.0.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiPatternPalette' -> () From: ( | {

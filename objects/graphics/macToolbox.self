@@ -2414,7 +2414,7 @@ works (e.g. open factory).\x7fModuleInfo: Module: macToolbox InitialContents: Fo
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macToolbox' -> 'grafPtr' -> () From: ( | {
          'Category: colors\x7fModuleInfo: Module: macToolbox InitialContents: FollowSlot\x7fVisibility: public'
         
-         background8Bit: cme = ( |
+         backgroundColor: cme = ( |
             | 
             [todo ui1 dmu experimental].
             settingPortDo: [bacground: cme color]).
@@ -2483,7 +2483,7 @@ works (e.g. open factory).\x7fModuleInfo: Module: macToolbox InitialContents: Fo
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macToolbox' -> 'grafPtr' -> () From: ( | {
          'Category: colors\x7fModuleInfo: Module: macToolbox InitialContents: FollowSlot\x7fVisibility: public'
         
-         foreground8Bit: cme = ( |
+         foregroundColor: cme = ( |
             | 
             [todo ui1 dmu experimental].
             settingPortDo: [ foreground:  cme color ]).

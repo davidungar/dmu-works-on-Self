@@ -293,6 +293,7 @@ primitiveMaker reader copy beNoisy staticLinking create: 'quartz' Flag: 'quartz_
    void makeRGBAOffscreenWidth: int Height: int Opaque: bool = CGContext { quartz rgbaContext deadCopy } call MakeRGBAOffscreen_wrap
    -- snapshot an RGBA offscreen to a CGImage for the Self-side source-over composite (caller releases). -- claude & dmu 6/10
    CGContext createImageSnapshot = CGImage { quartz image deadCopy } call CGImageFromOffscreen_wrap
+   CGContext rgbaPixelAtX: int Y: int = oop call RGBAPixelAt_wrap
 
    CGContext setShadowOffsetX: float OffsetY: float Blur: float Color: CGColor = void call CGContextSetShadowWithColor_wrap
    CGContext setShadowOffsetX: float OffsetY: float Blur: float Red: float Green: float Blue: float Alpha: float \
