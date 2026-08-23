@@ -359,11 +359,13 @@ gets stuck.
          contributeToBackgroundMenu: m = ( |
             | 
             m addButton:
-                ( ( ui2Button copy
-                   scriptBlock: [event sourceHand attach:
-                                   selfObjectModel newOutlinerFor: (reflect: shell copy)
-                                                          InWorld: event sourceHand world] )
-                   label: 'New shell' )
+                ( ( ui2Button copy scriptBlock: [
+                       | o |
+                       o:  selfObjectModel newOutlinerFor: (reflect: shell copy)
+                                                  InWorld: event sourceHand world.
+                       o model addEvaluator: event.
+                       event sourceHand attach: o]
+                )  label: 'New shell' )
             ToGroup: 'top'.
 
             m addButton:
