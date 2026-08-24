@@ -273,9 +273,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: color entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 Green: 0.0 Blue: 0.0)\x7fVisibility: public'
+         'Category: color entries\x7fComment: alpha 0 so a BGRA body pixmap leaves dest alone (sage through the 3-D corners). RGB 0 with alpha 1 would be opaque black.\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 Green: 0.0 Blue: 0.0 Alpha: 0.0)\x7fVisibility: public'
         
-         transparent <- paint copyRed: 0.0 Green: 0.0 Blue: 0.0.
+         transparent <- paint copyRed: 0.0 Green: 0.0 Blue: 0.0 Alpha: 0.0.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
