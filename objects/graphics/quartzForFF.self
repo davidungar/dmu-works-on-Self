@@ -68,6 +68,18 @@ quartzFontFamily
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
+         'Category: quartz font objects\x7fComment: Substitute for X11 lucidasans (ui1 boxFont). Indexed (AA off) uses Verdana. Direct (AA on) uses Avenir Next; bold style uses lucidaSansBoldSuffix (Demi Bold, not Bold — Verdana/Lucida Grande Bold is too heavy). "Lucida Grande Semibold" is not a real face (CT silently substitutes Helvetica). -- claude & dmu 5/26, 8/23\x7fModuleInfo: Module: quartzForFF InitialContents: InitializeToExpression: (\'Verdana\')\x7fVisibility: public'
+        
+         lucidaSansFamily <- 'Verdana'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
+         'Category: quartz font objects\x7fComment: Appended to lucidaSansFamily for style bold. Indexed: Bold. Direct: Demi Bold (Avenir Next Demi Bold).\x7fModuleInfo: Module: quartzForFF InitialContents: InitializeToExpression: (\'Bold\')\x7fVisibility: public'
+        
+         lucidaSansBoldSuffix <- 'Bold'.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
          'Category: quartz font objects\x7fModuleInfo: Module: quartzForFF InitialContents: FollowSlot\x7fVisibility: private'
         
          atsFontOrFontFamily = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'atsFontOrFontFamily' -> () From: ( |
@@ -172,9 +184,14 @@ quartzFontFamily
             ((nm = 'lucidasanstypewriter') || [nm = 'lucidatypewriter']
                                            || [nm = 'fixed'] || [nm = 'screen'] || [nm = 'monospace'])
               ifTrue: [^ 'Menlo', (fs style isEmpty ifTrue: '' False: [' ', fs style capitalize])].
-            "X11 proportional Lucida (lucidasans is the ui1 default boxFont, used for slot names/titles/buttons) has no exact macOS name; CTFontCreateWithName 'Lucidasans' silently substitutes Helvetica AND drops the bold weight (so the bold slot-name labels rendered plain). The ui1 offscreen draws WITHOUT antialiasing (8-bit indexed: glyph bytes must be exact palette indices), so a thin outline font (Lucida Grande/Helvetica) looks broken; Verdana is designed for crisp small-size SCREEN rendering and stays legible at 1-bit (David picked it from a no-AA comparison). Map the Lucida proportional family to 'Verdana'; the appended style yields 'Verdana Bold', which resolves to the real bold face. -- claude & dmu 5/26"
             ((nm = 'lucidasans') || [nm = 'lucida'] || [nm = 'lucidabright'])
-              ifTrue: [^ 'Verdana', (fs style isEmpty ifTrue: '' False: [' ', fs style capitalize])].
+              ifTrue: [
+                fs style isEmpty ifTrue: [^ quartz lucidaSansFamily].
+                (fs style = 'bold') ifTrue: [
+                    ^ quartz lucidaSansFamily, ' ', quartz lucidaSansBoldSuffix
+                ].
+                ^ quartz lucidaSansFamily, ' ', fs style capitalize
+              ].
             (nm first isDigit "e.g. 6x13"
                     ifTrue: 'Courier' False: [nm capitalize]),
             (fs style isEmpty ifTrue: '' False: [' ', fs style capitalize])).

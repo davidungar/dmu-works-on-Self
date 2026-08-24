@@ -742,10 +742,12 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
-         'Comment: Same shape as x11Traits tryToOpenWindowForDisplay: open the window, then window finishOpening. Direct uses a windowCanvas, so install that platformWindow first. -- claude & dmu 8/23\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+         'Comment: Same shape as x11Traits tryToOpenWindowForDisplay: open the window, then window finishOpening. Direct uses a windowCanvas, so install that platformWindow first. Avenir Next Demi Bold for slot names (Lucida Grande has no Semibold). -- claude & dmu 8/23\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          tryToOpenWindowForDisplay: disp IfFail: fb = ( |
             | 
+            quartz lucidaSansFamily: 'Avenir Next'.
+            quartz lucidaSansBoldSuffix: 'Demi Bold'.
             resend.tryToOpenWindowForDisplay: disp IfFail: [|:e| ^ fb value: e].
             window platformWindow: windowCanvas platformWindow.
             window platformWindow makeRGBAShadow.
