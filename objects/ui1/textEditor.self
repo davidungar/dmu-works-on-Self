@@ -595,10 +595,17 @@ SlotsToOmit: name parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
-         'ModuleInfo: Module: textEditor InitialContents: FollowSlot'
+         'Comment: Min width must fit the footer: printString at x=10, then Dismiss (64) + gap + Eval (50) + handle. Use ui (world myUI), not boxSizing: copyOn:Size: runs before container is set, so boxSizing -> container myUI misses the loaded fonts (textEditorFont nil).\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot'
         
          computeSize: s = ( |
-            | (s x max: 200)@(s y max: 70)).
+             minW.
+             tw <- 130.
+            | 
+            ui boxSizing textEditorFont ifNotNil: [| :f |
+                tw: f widthOfString: printString.
+            ].
+            minW: 10 + tw + 8 + 64 + 10 + 50 + 16.
+            (s x max: minW max: 200) @ (s y max: 70)).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {

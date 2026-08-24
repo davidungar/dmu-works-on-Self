@@ -68,13 +68,13 @@ quartzFontFamily
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: quartz font objects\x7fComment: Substitute for X11 lucidasans (ui1 boxFont). Indexed (AA off) uses Verdana. Direct (AA on) uses Avenir Next; bold style uses lucidaSansBoldSuffix (Demi Bold, not Bold — Verdana/Lucida Grande Bold is too heavy). "Lucida Grande Semibold" is not a real face (CT silently substitutes Helvetica). -- claude & dmu 5/26, 8/23\x7fModuleInfo: Module: quartzForFF InitialContents: InitializeToExpression: (\'Verdana\')\x7fVisibility: public'
+         'Category: quartz font objects\x7fComment: Substitute for X11 lucidasans (ui1 boxFont). Indexed (AA off): Verdana. Direct (AA on): Helvetica Neue, bold suffix Medium (semibold, line height ~14.7 like Lucida; Avenir Next descent is 4.4 and inflates slot rows). "Lucida Grande Semibold" and "Helvetica Neue Semibold" are not real faces (CT substitutes Helvetica).\x7fModuleInfo: Module: quartzForFF InitialContents: InitializeToExpression: (\'Verdana\')\x7fVisibility: public'
         
          lucidaSansFamily <- 'Verdana'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: quartz font objects\x7fComment: Appended to lucidaSansFamily for style bold. Indexed: Bold. Direct: Demi Bold (Avenir Next Demi Bold).\x7fModuleInfo: Module: quartzForFF InitialContents: InitializeToExpression: (\'Bold\')\x7fVisibility: public'
+         'Category: quartz font objects\x7fComment: Appended to lucidaSansFamily for style bold. Indexed: Bold. Direct: Medium (Helvetica Neue Medium).\x7fModuleInfo: Module: quartzForFF InitialContents: InitializeToExpression: (\'Bold\')\x7fVisibility: public'
         
          lucidaSansBoldSuffix <- 'Bold'.
         } | ) 
