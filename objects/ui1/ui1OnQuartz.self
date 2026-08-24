@@ -253,11 +253,38 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
-         'Comment: UI2 blit: identity CTM, dest Y flipped, drawLayer. Source must be the CGLayer.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: gxAnd=1 -> multiply, gxOr=7 -> screen: 0/1 analogue of the indexed AND/OR stencil (box 3-D corners). Else normal.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
         
-         copyArea: srcRect To: destImage At: destPt GC: g = ( |
+         blendModeForRasterFn: fn = ( |
             | 
-            layer copyArea: srcRect To: destImage At: destPt GC: g).
+            fn = 1 ifTrue: [ ^ context blendMode multiply ].
+            fn = 7 ifTrue: [ ^ context blendMode screen ].
+            context blendMode normal).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
+         'Comment: UI2 blit: identity CTM, dest Y flipped, drawLayer. copy:Mask: sets gxAnd then gxOr on the shared raster fn; indexed honours that (copyIndexedMaskedAreaTo) so sage shows through the box-shape corners. Direct used to ignore the fn and always copy, which squared the 3-D slab. Map AND/OR to CG blend modes that match bitwise AND/OR on 0/1 colours; gxCopy keeps the UI2 drawLayer path.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         copyArea: srcRect To: destImage At: destPt GC: g = ( | {
+                 'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+                
+                 dgc.
+                }  {
+                 'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+                
+                 fn.
+                } 
+            | 
+            dgc: destImage gc.
+            fn: quartz gcRasterFn.
+            fn = dgc gxCopy ifTrue: [
+                layer copyArea: srcRect To: destImage At: destPt GC: g.
+                ^ self
+            ].
+            dgc withBlendMode: (blendModeForRasterFn: fn) Do: [
+                layer copyArea: srcRect To: destImage At: destPt GC: g
+            ].
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
@@ -265,6 +292,19 @@ SlotsToOmit: parent.
         
          createForSameScreenAs: db Size: sz Depth: dp = ( |
             | copy initOffscreenSize: sz WindowContext: db windowContextForLayer).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
+         'Comment: Axis-aligned thin lines already use 1px fillRects. Diagonals still stroked at succ (between pixels when AA is off) so the chamfer is crooked and the cut/mask disagree. Plot the same Bresenham pixels the mask uses.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         drawLine: pt1 To: pt2 GC: gc = ( |
+            | 
+            (gc lineWidthValue <= 1) && [(pt1 x = pt2 x) || [pt1 y = pt2 y]]
+                ifTrue: [ ^ resend.drawLine: pt1 To: pt2 GC: gc ].
+            gc lineWidthValue <= 1 ifTrue: [
+                ^ plotBresenhamFrom: pt1 To: pt2 GC: gc
+            ].
+            resend.drawLine: pt1 To: pt2 GC: gc).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
@@ -309,7 +349,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
-         'Comment: same construction as UI2 quartzBufferCanvas: a CGLayer from the window gc. Layer initialize already setCTMForZeroAtTopHeight:. Layer gc is a quartz context (proxy); paint RGB is handled by traits quartz context foregroundColor: after this module files in.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
+         'Comment: same construction as UI2 quartzBufferCanvas: a CGLayer from the window gc. Layer initialize already setCTMForZeroAtTopHeight:. Layer gc is a quartz context (proxy); paint RGB is handled by traits quartz context foregroundColor: after this module files in. AA off so the box-mask stencil is 0/1 (AA gray on the chamfer becomes a thin black line under multiply/screen).\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
         
          initOffscreenSize: sz WindowContext: wgc = ( |
             | 
@@ -318,6 +358,7 @@ SlotsToOmit: parent.
             windowContext: wgc.
             layer: quartz layer createWithContext: wgc Size: sz.
             context: layer gc.
+            context setShouldAntialias: false.
             self).
         } | ) 
 
@@ -339,6 +380,39 @@ SlotsToOmit: parent.
         
          pixelValueAt: pt = ( |
             | 0).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
+         'Comment: 1px diagonal as integer pixels so the box chamfer is a straight staircase and the mask punch uses the same pixels.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         plotBresenhamFrom: p1 To: p2 GC: gc = ( |
+             dx.
+             dy.
+             e2.
+             err.
+             sx.
+             sy.
+             x0.
+             x1.
+             y0.
+             y1.
+            | 
+            x0: p1 x asSmallInteger.
+            y0: p1 y asSmallInteger.
+            x1: p2 x asSmallInteger.
+            y1: p2 y asSmallInteger.
+            dx: (x1 - x0) absoluteValue.
+            dy: (y1 - y0) absoluteValue negate.
+            sx: x0 < x1 ifTrue: [1] False: [-1].
+            sy: y0 < y1 ifTrue: [1] False: [-1].
+            err: dx + dy.
+            [ gc fillRectX: x0 Y: y0 Width: 1 Height: 1.
+              (x0 = x1) && [y0 = y1] ifTrue: [^ self].
+              e2: err + err.
+              e2 >= dy ifTrue: [err: err + dy. x0: x0 + sx].
+              e2 <= dx ifTrue: [err: err + dx. y0: y0 + sy].
+            ] loop.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {

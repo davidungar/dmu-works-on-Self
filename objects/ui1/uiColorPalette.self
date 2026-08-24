@@ -246,9 +246,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'x11DirectColorPalette' -> () From: ( | {
-         'Category: index entries\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 0.0 Green: 0.0 Blue: 0.0)\x7fVisibility: public'
+         'Category: index entries\x7fComment: indexed ones is index 255 (all bits). Direct mask blit multiplies/screens 0/1 colours, so this must be white, not black like zeros.\x7fModuleInfo: Module: uiColorPalette InitialContents: InitializeToExpression: (paint copyRed: 1.0 Green: 1.0 Blue: 1.0)\x7fVisibility: public'
         
-         ones <- paint copyRed: 0.0 Green: 0.0 Blue: 0.0.
+         ones <- paint copyRed: 1.0 Green: 1.0 Blue: 1.0.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> () From: ( | {

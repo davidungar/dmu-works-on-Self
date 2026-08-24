@@ -195,20 +195,23 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'boxBitmap' -> () From: ( | {
-         'Category: drawing\x7fModuleInfo: Module: boxBitmap InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: drawing\x7fComment: Corner cuts last would cover the chamfer lines (CG fill includes the shared edge; X11 tiling left it for the highlight). Cut first, then paint the straight edges on top.\x7fModuleInfo: Module: boxBitmap InitialContents: FollowSlot\x7fVisibility: public'
         
          draw = ( |
             | 
             drawFront. [xxxxx].
             drawTop.
             drawSide.
-            drawHighlights.
             drawCornersAndMask.
+            drawHighlights.
+            line: frontBound bottomRight + drawOffset
+              To: backBound  bottomRight + drawOffset
+            Color: uiColors bodyDark.
             self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'boxBitmap' -> () From: ( | {
-         'Category: drawing\x7fModuleInfo: Module: boxBitmap InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: drawing\x7fComment: 8-bit strokes the corner for X11 tiling. Direct: third vertex is exclusive size so CG pixel-centers include the last row/col (maxPoint left a black L); then un-punch the chamfer diagonals in the mask so drawHighlights can paint a straight edge.\x7fModuleInfo: Module: boxBitmap InitialContents: FollowSlot\x7fVisibility: private'
         
          drawCornersAndMask = ( | {
                  'ModuleInfo: Module: boxBitmap InitialContents: FollowSlot'
@@ -225,12 +228,22 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             mask fillPolygon: corner Color: uiColors ones.
             corner at: 0 Put: frontBound bottomRight + drawOffset.
             corner at: 1 Put: backBound  bottomRight + drawOffset.
-            corner at: 2 Put: desiredSize maxPoint + drawOffset.
+            corner at: 2 Put: depth <= 8
+                ifTrue: [desiredSize maxPoint + drawOffset]
+                 False: [desiredSize + drawOffset].
             fillPolygon: corner Color: uiColors transparent.
             mask fillPolygon: corner Color: uiColors ones.
-            "to make up for fillPolygon doing polygon tiling"
-            polygon: corner Color: uiColors transparent.
-            mask polygon: corner Color: uiColors ones.
+            depth <= 8 ifTrue: [
+                polygon: corner Color: uiColors transparent.
+                mask polygon: corner Color: uiColors ones.
+            ] False: [
+                mask line: frontBound topLeft + drawOffset
+                       To: backBound  topLeft + drawOffset
+                    Color: uiColors zeros.
+                mask line: frontBound bottomRight + drawOffset
+                       To: backBound  bottomRight + drawOffset
+                    Color: uiColors zeros.
+            ].
             self).
         } | ) 
 
