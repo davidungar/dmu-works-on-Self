@@ -406,13 +406,9 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'boxSize' -> () From: ( | {
-         'Category: sizes\x7fComment: this ain\'t pretty--Bay will be back to clean up\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: sizes\x7fComment: Center the radio in the actual contents row (contentsSize y), not (slotTopMargin + font height + slotBottomMargin). Quartz font.height is a float CT line box; that formula was tuned for X11 height=11 (which equals slotTopMargin). The +1 is the original visual tweak; same Y as slotButtonLocationNameSize:ButtonSize:. -- claude & dmu 8/26\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: public'
         
          contentsButtonLocationContentsSize: contentsSize ButtonSize: buttonSize TextFont: textFont = ( | {
-                 'ModuleInfo: Module: boxSize InitialContents: FollowSlot'
-                
-                 centerHeight <- 0.
-                }  {
                  'ModuleInfo: Module: boxSize InitialContents: FollowSlot'
                 
                  x <- 0.
@@ -423,9 +419,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                 } 
             | 
             x: contentsSize x - slotContentsRightMargin - buttonSize x.
-            centerHeight: (slotTopMargin + textFont height + slotBottomMargin)
-                          / 2.
-            y: (centerHeight - (buttonSize y / 2)) + 1.
+            y: ((contentsSize y - buttonSize y) / 2) + 1.
             x @ y).
         } | ) 
 
@@ -745,6 +739,14 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          slotButtonLocation = ( |
             | slotNameLeftMargin @ slotTopMargin).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'boxSize' -> () From: ( | {
+         'Category: sizes\x7fComment: Same Y as the contents radio: center in the name row plus the original +1 tweak. Used to be a fixed slotTopMargin, which left the checkbox high once slot rows grew to the CT line height. -- claude & dmu 8/26\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: public'
+        
+         slotButtonLocationNameSize: nameSize ButtonSize: buttonSize = ( |
+            | 
+            slotNameLeftMargin @ (((nameSize y - buttonSize y) / 2) + 1)).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'boxSize' -> () From: ( | {

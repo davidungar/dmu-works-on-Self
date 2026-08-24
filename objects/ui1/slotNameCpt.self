@@ -275,7 +275,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          placeAt: pt = ( |
             | 
             location: pt.
-            button placeAt: boxSizing slotButtonLocation).
+            button placeAt:
+                boxSizing slotButtonLocationNameSize: size
+                                          ButtonSize: button minSize).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slotNameCpt' -> () From: ( | {

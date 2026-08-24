@@ -5840,11 +5840,11 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
-         'Comment: X11 drawing.self places the baseline at top + (height - descender). Match that: descender is CT descent (ATS stores it negated). Do not substitute capHeight; that raised labels in fixed-height evaluator buttons (16px, textOffset y=1) and in slot rows that are already sized from sizeOfString. -- claude & dmu 8/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: X11 drawing.self places the baseline at top + (height - descender). Ceil to a pixel so Helvetica Neue and Helvetica Neue Medium (12pt 2.56 vs 2.60) share a descender and therefore a baseline. -- claude & dmu 8/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          descender = ( |
             | 
-            descent).
+            descent ceil asSmallInteger).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
@@ -5863,11 +5863,11 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: X11 font.height is an integer (ascent+descent). Ceil the CT line box so 12pt Helvetica Neue (14.32) and Medium (14.65) both become 15; round() split them 14 vs 15 and slot names no longer lined up with contents. -- claude & dmu 8/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          height = ( |
             | 
-            [todo ui1 dmu experimental]. maxCharHeight).
+            maxCharHeight ceil asSmallInteger).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
@@ -5919,8 +5919,7 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
          sizeOfString: s = ( |
             | 
             ((boundsOfString: s) width ceil asSmallInteger)
-              @ (((s occurrencesOf: '\n') succ * maxCharHeight)
-                    round asSmallInteger)).
+              @ ((s occurrencesOf: '\n') succ * height)).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {

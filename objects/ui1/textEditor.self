@@ -674,18 +674,35 @@ SlotsToOmit: name parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
-         'ModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: Footer title shares the Dismiss/Eval row (buttons at size y-20, textOffset y=1). drawing.self then adds height-descender per font. Menlo (textEditorFont) ceils to 14, Helvetica Neue (fixedEditorFont) to 15, so a fixed y left the title 2px high. Place the title so the two baselines match. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: public'
         
          drawTitle = ( | {
                  'ModuleInfo: Module: textEditor InitialContents: FollowSlot'
                 
+                 bf.
+                }  {
+                 'ModuleInfo: Module: textEditor InitialContents: FollowSlot'
+                
                  disableTitle = bootstrap stub -> 'globals' -> 'false' -> ().
+                }  {
+                 'ModuleInfo: Module: textEditor InitialContents: FollowSlot'
+                
+                 tf.
+                }  {
+                 'ModuleInfo: Module: textEditor InitialContents: FollowSlot'
+                
+                 y.
                 } 
             | 
             disableTitle ifTrue: [ ^ self "temporarily disable this feature" ].
+            tf: boxSizing textEditorFont.
+            bf: boxSizing fixedEditorFont.
+            y: (size y - 20) + 1.
+            y: y + (bf height - bf descender).
+            y: y - (tf height - tf descender).
             drawBodyText: printString
-                      At: (10@(size y - 20))
-                    Font: boxSizing textEditorFont).
+                      At: 10 @ y
+                    Font: tf).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
