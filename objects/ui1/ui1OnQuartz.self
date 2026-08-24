@@ -256,6 +256,46 @@ SlotsToOmit: parent.
             | self).
         } | ) 
 
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaContext' -> () From: ( | {
+         'Comment: X11 setClipRectangle replaces the clip. Quartz clipToRect intersects, so restore the post-CTM GState saved at pixmap init, then clip. withClip: on this context uses clipToRectX directly so it does not pop that clean state.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         setClipRectangle: r = ( |
+            | 
+            restoreGState.
+            saveGState.
+            r ifNotNil: [
+                clipToRectX: r left Y: r top Width: r width Height: r height
+            ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaContext' -> () From: ( | {
+         'Comment: X11 setNoClipMask. Pair of restore+save returns to the unclipped CTM saved at pixmap init.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         setNoClipMask = ( |
+            | 
+            restoreGState.
+            saveGState.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaContext' -> () From: ( | {
+         'Comment: Intersect clip under a nested GState. Must not call setClipRectangle: (that pops the clean state).\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         withClip: newClip Do: blk = ( |
+            | 
+            withNewGStateDo: [
+                newClip ifNotNil: [
+                    clipToRectX: newClip left
+                               Y: newClip top
+                           Width: newClip width
+                          Height: newClip height
+                ].
+                blk value
+            ].
+            self).
+        } | ) 
+
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
          'Comment: Same dest math as UI2 drawLayer (identity CTM, Y flipped). Source is a BGRA bitmap snapshot so alpha 0 corners source-over onto sage. Do not use y-down DrawImage with negative height (no-op / black).\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
@@ -352,6 +392,7 @@ SlotsToOmit: parent.
                                 Height: sz y
                                 Opaque: false.
             context setCTMForZeroAtTopHeight: sz y.
+            context saveGState.
             self).
         } | ) 
 
