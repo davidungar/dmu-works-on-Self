@@ -733,12 +733,11 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
-         'Comment: Body copies land on the world graphic (destH=300 at=30@40). graphic copyTo: offScreen at 0@0 never hits rgbaPixmap copyArea, so the shadow is empty. drawLayer of the shadow showed only the probe. Present the graphic, where drawBackground and body display actually painted.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: Abstract present: graphic copyTo: offScreen, arrows on offScreen, offScreen copyTo: shadow, displayShadow presentToWindow. 0@0 BGRA snapshot copies carry sage+lobby pixels (sampled). Do not skip to graphic-only blit.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          present: w = ( |
             | 
-            w graphic image presentToWindow: w window platformWindow.
-            self).
+            resend.present: w).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
