@@ -595,18 +595,148 @@ SlotsToOmit: name parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
-         'Comment: Min width must fit the footer: printString at x=10, then Dismiss (64) + gap + Eval (50) + handle. Use ui (world myUI), not boxSizing: copyOn:Size: runs before container is set, so boxSizing -> container myUI misses the loaded fonts (textEditorFont nil).\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot'
+         'Comment: Size of the Apply/Eval button from its label and footerButtonTextInset. Used both to create the button and to compute min width, because copyOn:Size: calls computeSize: before init. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot'
+        
+         applyButtonSize = ( |
+            | footerButtonSizeFor: applyButtonName).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
+         'Comment: Min width fits the footer from widget sizes: title at footerTitleLeft, then Dismiss, Eval, and the resize handle packed by resize:. Use ui (world myUI), not boxSizing: copyOn:Size: runs before container is set, so boxSizing -> container myUI misses the loaded fonts. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot'
         
          computeSize: s = ( |
              minW.
-             tw <- 130.
+             tw <- 0.
             | 
             ui boxSizing textEditorFont ifNotNil: [| :f |
                 tw: f widthOfString: printString.
             ].
-            minW: 10 + tw + 8 + 64 + 10 + 50 + 16.
-            (s x max: minW max: 200) @ (s y max: 70)).
+            minW: footerTitleLeft + tw + footerWidgetGap +
+                  dismissButtonSize x + footerWidgetGap +
+                  applyButtonSize x + footerWidgetGap +
+                  footerHandleLeftFromRight.
+            (s x max: minW) @ (s y max: footerMinHeight)).
         } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
+         'Comment: Bottom gap under Dismiss/Eval; sideMargin succ keeps the 16px button clear of the 3-D bottom. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: private'
+        
+         footerButtonBottomMargin = ( |
+            | sideMargin succ).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
+         'Comment: Width @ height for a footer button: twice the text inset plus the label, and inset y plus the button font height. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot'
+        
+         footerButtonSizeFor: label = ( |
+             f.
+             h.
+             w.
+            | 
+            f: ui boxSizing fixedEditorFont.
+            f ifNil: [ ^ (50) @ 16 ].
+            w: (footerButtonTextInset x * 2) + (f widthOfString: label).
+            h: footerButtonTextInset y + f height.
+            w @ h).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
+         'Comment: Inset of the label inside a footer button; same point as traits ui1 button textInset. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot'
+        
+         footerButtonTextInset = ( |
+            | ui1 button textInset).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
+         'Comment: Top of the Dismiss/Eval row. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: private'
+        
+         footerButtonTop = ( |
+            | 
+            (size y - footerButtonBottomMargin) - applyButtonSize y).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
+         'Comment: Gap under the resize handle; same as the body sideMargin. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: private'
+        
+         footerHandleBottomMargin = ( |
+            | sideMargin).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
+         'Comment: Distance from the editor right edge to the handle left: handle width plus the 3-D side face. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: private'
+        
+         footerHandleLeftFromRight = ( |
+            | 
+            footerResizeHandleExtent x + footerHandleRightMargin).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
+         'Comment: Sit the handle just past the 3-D side face. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: private'
+        
+         footerHandleRightMargin = ( |
+            | boxSizing baseSideFaceWidth succ).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
+         'Comment: Height reserved under the text field for the footer row and the 3-D bottom. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: private'
+        
+         footerReservedHeight = ( |
+            | 
+            (applyButtonSize y + footerButtonBottomMargin)
+                + boxSizing baseBottomMargin).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
+         'Comment: Default editor height before the user stretches it. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: private'
+        
+         footerMinHeight = 70.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
+         'Comment: Size of the resize handle; init copySize: uses this so computeSize: can match before the handle exists. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot'
+        
+         footerResizeHandleExtent = (10) @ (10).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
+         'Comment: Left edge of the footer title, twice the object-body left margin. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: private'
+        
+         footerTitleLeft = ( |
+            | boxSizing baseLeftMargin * 2).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
+         'Comment: Gap between footer title, Dismiss, Eval, and the handle. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: private'
+        
+         footerWidgetGap = 10.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
+         'Comment: Size of the Dismiss button from its label. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot'
+        
+         dismissButtonSize = ( |
+            | footerButtonSizeFor: dismissButtonName).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
+         'Comment: Shorten the footer title until it fits to the left of Dismiss, so glyphs cannot leak into the button (the black speck). -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: private'
+        
+         footerTitleFitting: s Font: f = ( |
+             maxW.
+             t.
+            | 
+            t: s.
+            maxW: size x - footerHandleLeftFromRight.
+            cancelButton ifNotNil: [
+                maxW: cancelButton offset x - footerWidgetGap.
+            ].
+            maxW: maxW - footerTitleLeft.
+            [ (f widthOfString: t) <= maxW ] whileFalse: [
+                t isEmpty ifTrue: [ ^ t ].
+                t: t copySize: t size pred.
+            ].
+            t).
+        } | )   
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
          'ModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: public'
@@ -674,7 +804,7 @@ SlotsToOmit: name parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textApplication' -> () From: ( | {
-         'Comment: Footer title shares the Dismiss/Eval row (buttons at size y-20, textOffset y=1). drawing.self then adds height-descender per font. Menlo (textEditorFont) ceils to 14, Helvetica Neue (fixedEditorFont) to 15, so a fixed y left the title 2px high. Place the title so the two baselines match. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: Footer title on the Dismiss/Eval row. drawing.self adds height-descender per font; Menlo vs Helvetica Neue differ, so match the button baseline (footerButtonTop + text inset). Truncate so the title cannot paint into Dismiss. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: public'
         
          drawTitle = ( | {
                  'ModuleInfo: Module: textEditor InitialContents: FollowSlot'
@@ -697,11 +827,11 @@ SlotsToOmit: name parent.
             disableTitle ifTrue: [ ^ self "temporarily disable this feature" ].
             tf: boxSizing textEditorFont.
             bf: boxSizing fixedEditorFont.
-            y: (size y - 20) + 1.
+            y: footerButtonTop + footerButtonTextInset y.
             y: y + (bf height - bf descender).
             y: y - (tf height - tf descender).
-            drawBodyText: printString
-                      At: 10 @ y
+            drawBodyText: (footerTitleFitting: printString Font: tf)
+                      At: footerTitleLeft @ y
                     Font: tf).
         } | ) 
 
@@ -802,7 +932,7 @@ SlotsToOmit: name parent.
         
          addApply = ( |
             | 
-            applyButton: (ui1 button copySize: 50@16) name: applyButtonName.
+            applyButton: (ui1 button copySize: applyButtonSize) name: applyButtonName.
             applyButton  command: (|
                 p* = traits clonable.
                 textEditor.
@@ -842,7 +972,7 @@ SlotsToOmit: name parent.
 
             addApply.
 
-            cancelButton: (ui1 button copySize: 64@16) name: dismissButtonName.
+            cancelButton: (ui1 button copySize: dismissButtonSize) name: dismissButtonName.
             cancelButton  command: (| 
                 p* = traits clonable.
                 textEditor.
@@ -861,9 +991,9 @@ SlotsToOmit: name parent.
                                        (topMargin @ sideMargin).
             methodSlider value: 0.
 
-            resizeHandle: ui1 resizeButton copySize: 10@10.
-            addContext: resizeHandle At: 10@10.
-            resize: size).
+            resizeHandle: ui1 resizeButton copySize: footerResizeHandleExtent.
+            addContext: resizeHandle At: footerResizeHandleExtent.
+            resize: computeSize: size).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'textEditor' -> () From: ( | {
@@ -891,29 +1021,29 @@ SlotsToOmit: name parent.
                 }  {
                  'ModuleInfo: Module: textEditor InitialContents: FollowSlot'
                 
-                 w = 10.
-                }  {
-                 'ModuleInfo: Module: textEditor InitialContents: FollowSlot'
-                
                  y.
                 } 
             | 
             resend.resize: ext Reallocate: reallocate.
 
-            methodView resize: (faceSize x - (2 * sideMargin) - 18)@
-                               (faceSize y - topMargin - 26).
+            methodView resize:
+                ((faceSize x - (2 * sideMargin))
+                    - (methodSlider size x + boxSizing baseSideFaceWidth))
+                @ (faceSize y - (topMargin + footerReservedHeight)).
 
-            methodSlider resize: 13@(faceSize y - topMargin - 26) succ.
+            methodSlider resize: methodSlider size x @
+                ((faceSize y - (topMargin + footerReservedHeight)) succ).
 
-            line: size y - 20.
-            y: size x - 16.
-            resizeHandle offset: y@(size y - 13).
+            line: footerButtonTop.
+            y: (size x - footerHandleRightMargin) - resizeHandle size x.
+            resizeHandle offset:
+                y @ ((size y - footerHandleBottomMargin) - resizeHandle size y).
 
-            y: y - applyButton extent x - w.
-            applyButton offset: y@line.
+            y: (y - applyButton size x) - footerWidgetGap.
+            applyButton offset: y @ line.
 
-            y: y - cancelButton extent x - w.
-            cancelButton offset: y@line.
+            y: (y - cancelButton size x) - footerWidgetGap.
+            cancelButton offset: y @ line.
 
             draw.
             self).
@@ -2937,8 +3067,14 @@ SlotsToOmit: parent size.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'button' -> () From: ( | {
          'Category: positioning\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: private'
         
+         textInset = (8) @ (1).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'button' -> () From: ( | {
+         'Category: positioning\x7fComment: Label origin inside the button; matches footerButtonTextInset. -- claude & dmu 8/26\x7fModuleInfo: Module: textEditor InitialContents: FollowSlot\x7fVisibility: private'
+        
          textOffset = ( |
-            | bound topLeft + (8 @ 1)).
+            | bound topLeft + textInset).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'caret' -> () From: ( | {
@@ -3084,7 +3220,7 @@ SlotsToOmit: parent size.
         
          addApply = ( |
             | 
-            applyButton: (ui1 button copySize: 50@16) name: applyButtonName.
+            applyButton: (ui1 button copySize: applyButtonSize) name: applyButtonName.
             applyButton  command: (|
                 p* = traits clonable.
                 editor.
@@ -3191,7 +3327,7 @@ SlotsToOmit: parent size.
         
          addApply = ( |
             | 
-            applyButton: (ui1 button copySize: 50@16) name: applyButtonName.
+            applyButton: (ui1 button copySize: applyButtonSize) name: applyButtonName.
             applyButton  command: (|
                 p* = traits clonable.
                 editor.
