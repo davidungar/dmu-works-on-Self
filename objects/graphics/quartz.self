@@ -5840,11 +5840,11 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
-         'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: ui1 drawing.self draws at top + (height - descender) (the baseline). Core Text ascent is ~3px taller than capHeight (accent room). X11 bitmap lucidasans filled its ascent, so using CT descent here dropped every label. Return height - capHeight - 1 so the baseline is one pixel below capHeight. -- claude & dmu 8/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          descender = ( |
             | 
-            [todo ui1 dmu experimental.]. descent).
+            height - capHeight - 1).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
@@ -5914,13 +5914,13 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
-         'Comment: must return a POINT (width@height) per the font contract (font.self sizeOfString:); ui1 layout does `aSize x`. Returning a rectangle broke ui1 boxSize. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: X11 sizeOfString is width @ (nLines * font height). The ATSU unjustified-bounds vector is (0, ascent, width, descent); turning that into a rectangle and taking its height collapsed to ascent, so ui1 boxes were too short and labels sat on the bottom (4 more slots). Width still comes from the layout bounds. -- claude & dmu 8/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          sizeOfString: s = ( |
-             r.
             | 
-            r: (0@0)# (boundsOfString: s) corner.
-            (r width) @ (r height)).
+            ((boundsOfString: s) width ceil asSmallInteger)
+              @ (((s occurrencesOf: '\n') succ * maxCharHeight)
+                    round asSmallInteger)).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
