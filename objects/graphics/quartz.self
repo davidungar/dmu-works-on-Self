@@ -5840,11 +5840,11 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
-         'Comment: ui1 drawing.self draws at top + (height - descender) (the baseline). Core Text ascent is ~3px taller than capHeight (accent room). X11 bitmap lucidasans filled its ascent, so using CT descent here dropped every label. Return height - capHeight - 1 so the baseline is one pixel below capHeight. -- claude & dmu 8/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: X11 drawing.self places the baseline at top + (height - descender). Match that: descender is CT descent (ATS stores it negated). Do not substitute capHeight; that raised labels in fixed-height evaluator buttons (16px, textOffset y=1) and in slot rows that are already sized from sizeOfString. -- claude & dmu 8/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          descender = ( |
             | 
-            height - capHeight - 1).
+            descent).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'fontIDAndStruct' -> () From: ( | {
