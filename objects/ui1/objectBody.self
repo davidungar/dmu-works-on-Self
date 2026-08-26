@@ -1902,7 +1902,7 @@ SlotsToOmit: graphic parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objectBody' -> () From: ( | {
-         'Category: enumerating\x7fModuleInfo: Module: objectBody InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: enumerating\x7fComment: Acetate fade lives on the world (contentsButton uses world too). dummyAnimator no-ops the selector; realAnimator does not implement it. -- grok 08/26/26\x7fModuleInfo: Module: objectBody InitialContents: FollowSlot\x7fVisibility: public'
         
          sprout: er Blueprint: blueprint FromCpt: cpt = ( |
             | 
@@ -1918,7 +1918,7 @@ SlotsToOmit: graphic parent.
                                           To: leftSproutConstraintLocation: cpt.
                              animator sproutBody: bod
                                        FromPoint: cpt absoluteCenter.
-                             animator displayAndFadeOutAcetate.
+                             world displayAndFadeOutAcetate.
                              bod ]).
         } | ) 
 
@@ -1959,7 +1959,7 @@ SlotsToOmit: graphic parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objectBody' -> () From: ( | {
-         'Category: enumerating\x7fModuleInfo: Module: objectBody InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: enumerating\x7fComment: referencesOfReflectee: returns slots, not mirrors. Map those to the holder before the mirror/reflectee conversion. -- grok 08/26/26\x7fModuleInfo: Module: objectBody InitialContents: FollowSlot\x7fVisibility: public'
         
          sproutEnumeration: enum Type: type Blueprint: blueprint SlotName: slotName FromCpt: cpt = ( |
              er.
@@ -1968,11 +1968,13 @@ SlotsToOmit: graphic parent.
             er type:        type.
             er desiredText: slotName.
             er fromMirror:  objMirror.
-            enum mapBy: [ | :m |
-                  type = 'senders' ifTrue: [ m ] False: [
-                  type = 'implementors' ifTrue: [ m reflectee ] False: [
-                  m isReflecteeMethod ifTrue: [ m mirror ]
-                                             False: [ m reflectee ] ] ] ]
+            enum mapBy: [ | :m. x. |
+                  x: m.
+                  type = 'references' ifTrue: [ x: m holder ].
+                  type = 'senders' ifTrue: [ x ] False: [
+                  type = 'implementors' ifTrue: [ x reflectee ] False: [
+                  x isReflecteeMethod ifTrue: [ x mirror ]
+                                             False: [ x reflectee ] ] ] ]
                   Into: er.
             er: reflect: er.
             sprout: er Blueprint: blueprint FromCpt: cpt.
