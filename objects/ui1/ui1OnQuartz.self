@@ -183,11 +183,12 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
-         'Comment: windowBitmap image. Direct (32-bit RGBA shadow) uses that pixmap so depth is 32; 8-bit indexed keeps the platformWindow facade.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+         'Comment: windowBitmap image. Direct (32-bit RGBA shadow) uses that pixmap so depth is 32; 8-bit indexed keeps the platformWindow facade. ensureShadowSize before the return so a Cocoa resize recreates the BGRA shadow and IOSurface before update copies onto it.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          bitmapImage = ( |
             | 
             shadow ifNotNil: [
+                ensureShadowSize.
                 shadow depth > 8 ifTrue: [ ^ shadow ].
             ].
             self).

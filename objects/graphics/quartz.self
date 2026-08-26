@@ -6582,15 +6582,16 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'platformWindow' -> () From: ( | {
-         'Comment: recreate the shadow at the current window size if it has changed (window resize). Frees the old offscreens CGContext. No-op for ui2 (no shadow). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: Recreate the ui1 shadow (32-bit BGRA or 8-bit indexed) when the Cocoa window size has changed, then beginContext so ensureBitmapContext rebuilds the IOSurface. No-op for ui2 (shadow nil). -- dmu 8/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          ensureShadowSize = ( |
-            | shadow ifNil: [^ self].
-            (shadow size = size) ifFalse: [
-              shadow delete. makeShadow.
-              "the true-colour windows gc (and its IOSurface) is cached at open; re-initialize it so beginContext/ensureBitmapContext rebuilds the IOSurface at the new size -- else the shadow blit lands in the old-size surface and the resized view never updates. -- claude & dmu 5/26"
-              quartzWindow initialize.
-            ].
+            | 
+            shadow ifNil: [^ self].
+            (shadow size = size) ifTrue: [^ self].
+            (shadow depth > 8)
+                ifTrue: [makeRGBAShadow]
+                 False: [shadow delete. makeShadow].
+            quartzWindow grafPort initialize.
             self).
         } | ) 
 
