@@ -410,7 +410,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'drawing' -> () From: ( | {
-         'ModuleInfo: Module: drawing InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: ui1 text is bilevel (AA off), matching indexed/X11. Direct offscreens keep AA on for 3-D corners; only glyphs go aliased. -- grok 08/26/26\x7fModuleInfo: Module: drawing InitialContents: FollowSlot\x7fVisibility: public'
         
          text: string At: pt Font: font Color: cme = ( |
              y.
@@ -418,12 +418,13 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             y: pt y + (font height - font descender).
             image gc foregroundColor: cme.
             image gc font: font xfont.
-            image drawString: string At: pt x @ y GC: image gc.
+            image withAntialiasing: false Do: [
+                image drawString: string At: pt x @ y GC: image gc ].
             self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'drawing' -> () From: ( | {
-         'ModuleInfo: Module: drawing InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: Same aliased glyphs as text:At:Font:Color:. -- grok 08/26/26\x7fModuleInfo: Module: drawing InitialContents: FollowSlot\x7fVisibility: public'
         
          textLines: txt At: pt Font: font Color: cme = ( |
              y.
@@ -431,9 +432,10 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             y: pt y + (font height - font descender).
             image gc foregroundColor: cme.
             image gc font: font xfont.
-            txt lines do: [ | :aLine |
-                image drawString: aLine At: pt x @ y GC: image gc.
-                y: y + font height ].
+            image withAntialiasing: false Do: [
+                txt lines do: [ | :aLine |
+                    image drawString: aLine At: pt x @ y GC: image gc.
+                    y: y + font height ]].
             self).
         } | ) 
 

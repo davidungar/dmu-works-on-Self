@@ -4081,12 +4081,13 @@ fillRectangle:. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialConten
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'drawable' -> () From: ( | {
-         'Category: drawing modes\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: drawing modes\x7fComment: Font smoothing follows AA: ui1 slot labels want both off so 12pt Verdana is bilevel like indexed. -- grok 08/26/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          withAntialiasing: bool Do: blk = ( |
             | 
             gc withNewGStateDo: [
               gc setShouldAntialias: bool.
+              gc setShouldSmoothFonts: bool.
               blk value.
             ].
             self).
