@@ -800,12 +800,11 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
-         'Category: layers\x7fComment: X11 erase of acetate/arrow planes: fill those bitplanes with transparent so the stationary graphic shows through. 32-bit analog: copy that rect from the world graphic (static scene) onto the window bitmap.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: layers\x7fComment: X11 erase of acetate/arrow planes: fill those bitplanes with transparent so the last-presented background shows through. 32-bit analog: copy that rect from offScreen (last present:), not graphic. sproutBodyFor: already displays the new body onto graphic before the acetate grow; copying graphic flashed the full object, then the expanding slab drew on top. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
         
          restoreStatic: rect = ( |
             | 
-            window handler target world graphic
-                copy: rect To: window bitmap At: rect origin.
+            window handler target world update: rect.
             self).
         } | ) 
 
