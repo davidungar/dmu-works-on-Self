@@ -1535,6 +1535,60 @@ void QDEndCGContext_wrap(OpaqueGrafPtr* port, CGContext* carg, void* FH) {
 }
 
 
+// Integer screen-font advances (Verdana 12 "g"=8, not CTLine's 7.477) with the
+// working CTLineDraw path. CTFontDrawGlyphs of a screen font into the ui1
+// offscreen painted nothing (text vanished). Per-character CTLineDraw uses the
+// same text matrix as indexed; positions come from
+// NSFontIntegerAdvancementsRenderingMode. -- grok 08/26/26
+void DrawTextCoreText_wrap( CGContextRef ctx,
+                            char* text,     uint32 textLen,
+                            char* fontName, uint32 fontNameLen,
+                            float size, float x, float y) {
+  if ((ctx == NULL) || (text == NULL) || (fontName == NULL) || (textLen == 0))
+    return;
+  @autoreleasepool {
+    NSString* fn = [[NSString alloc] initWithBytes:fontName
+                                            length:fontNameLen
+                                          encoding:NSUTF8StringEncoding];
+    NSString* str = [[NSString alloc] initWithBytes:text
+                                             length:textLen
+                                           encoding:NSMacOSRomanStringEncoding];
+    if (fn == nil || str == nil)  return;
+    NSFont* outline = [NSFont fontWithName:fn size:(CGFloat)size];
+    if (outline == nil)  outline = [NSFont systemFontOfSize:(CGFloat)size];
+    NSFont* screen = [outline screenFontWithRenderingMode:
+                        NSFontIntegerAdvancementsRenderingMode];
+    if (screen == nil)  screen = outline;
+    CTFontRef ctOutline = (__bridge CTFontRef)outline;
+    CTFontRef ctScreen  = (__bridge CTFontRef)screen;
+    CFStringRef keys[] = { kCTFontAttributeName, kCTForegroundColorFromContextAttributeName };
+    CFTypeRef   vals[] = { ctOutline, kCFBooleanTrue };
+    CFDictionaryRef attrs = CFDictionaryCreate(NULL, (const void**)keys, (const void**)vals, 2,
+                          &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    NSUInteger n = [str length];
+    CGFloat pen = (CGFloat)floor((double)x + 0.5);
+    CGFloat py  = (CGFloat)floor((double)y + 0.5);
+    for (NSUInteger i = 0; i < n; i++) {
+      unichar c = [str characterAtIndex:i];
+      CFStringRef one = CFStringCreateWithCharacters(NULL, &c, 1);
+      CFAttributedStringRef astr = CFAttributedStringCreate(NULL, one, attrs);
+      CTLineRef line = CTLineCreateWithAttributedString(astr);
+      CGContextSetTextPosition(ctx, pen, py);
+      CTLineDraw(line, ctx);
+      CFRelease(line);
+      CFRelease(astr);
+      CFRelease(one);
+      CGGlyph g = 0;
+      CTFontGetGlyphsForCharacters(ctScreen, &c, &g, 1);
+      NSSize adv = [screen advancementForGlyph:(NSGlyph)g];
+      if (adv.width <= 0)  adv.width = 1;
+      pen += adv.width;
+    }
+    CFRelease(attrs);
+  }
+}
+
+
 // ======================================================================
 // ATSU compatibility types - destructor implementations
 // ======================================================================

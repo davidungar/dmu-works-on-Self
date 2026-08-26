@@ -390,8 +390,15 @@ CGImageRef CGImageFromOffscreen_wrap(CGContextRef ctx) {
 // makes CTLineDraw paint with the context's current fill colour -- for the 8-bit
 // indexed offscreen that fill is the palette index as a gray byte, so glyphs land
 // the right index (no colour conversion).  Honours the context text matrix, so
-// the indexed offscreen's vertical flip still yields upright glyphs.  Strings are
-// passed as counted bytes (not necessarily NUL-terminated).  -- claude & dmu 5/26
+// the indexed offscreen's vertical flip still yields upright glyphs.
+// ARM64 implementation is in quartzWindow.mm (integer screen-font advances).
+// -- claude & grok & dmu 5/26, 8/26
+# if defined(__aarch64__)
+extern void DrawTextCoreText_wrap( CGContextRef ctx,
+                            char* text,     uint32 textLen,
+                            char* fontName, uint32 fontNameLen,
+                            float size, float x, float y);
+# else
 void DrawTextCoreText_wrap( CGContextRef ctx,
                             char* text,     uint32 textLen,
                             char* fontName, uint32 fontNameLen,
@@ -421,6 +428,7 @@ void DrawTextCoreText_wrap( CGContextRef ctx,
   CFRelease(str);
   CFRelease(font);
 }
+# endif
 
 
 void CGContextSelectFont_wrap(CGContext* c, const char* s, float siz) {
