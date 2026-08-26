@@ -123,6 +123,45 @@ elseif(CMAKE_OSX_VARS_NEED_INITIALIZATION)
   endif()
 endif()
 
+# Re-point CMAKE_OSX_SYSROOT when the cached SDK is gone or belongs to a
+# different Xcode than DEVELOPER_DIR. Arch / deployment target stay as first
+# configured. configure.sh exports DEVELOPER_DIR to the newest Xcode.app;
+# xcode-select on this machine is often Command Line Tools.
+if(IS_MACOS)
+  set(_sdk_stale FALSE)
+  if(NOT CMAKE_OSX_SYSROOT)
+    set(_sdk_stale TRUE)
+  elseif(IS_ABSOLUTE "${CMAKE_OSX_SYSROOT}" AND NOT EXISTS "${CMAKE_OSX_SYSROOT}")
+    message(STATUS "Cached OSX SDK is missing: ${CMAKE_OSX_SYSROOT}")
+    set(_sdk_stale TRUE)
+  elseif(DEFINED ENV{DEVELOPER_DIR} AND EXISTS "$ENV{DEVELOPER_DIR}")
+    get_filename_component(_selected_xcode "$ENV{DEVELOPER_DIR}/../.." ABSOLUTE)
+    if(IS_ABSOLUTE "${CMAKE_OSX_SYSROOT}")
+      string(FIND "${CMAKE_OSX_SYSROOT}" "${_selected_xcode}" _sdk_under_selected)
+      if(NOT _sdk_under_selected EQUAL 0)
+        message(STATUS "Cached OSX SDK is not under ${_selected_xcode}; re-detecting")
+        set(_sdk_stale TRUE)
+      endif()
+    endif()
+  endif()
+  if(_sdk_stale)
+    execute_process(
+      COMMAND xcrun --sdk macosx --show-sdk-path
+      OUTPUT_VARIABLE _sdkpath
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+      RESULT_VARIABLE _failed)
+    if(_failed OR NOT _sdkpath)
+      message(FATAL_ERROR
+        "Could not find compatible OS X SDK (xcrun --sdk macosx --show-sdk-path failed). "
+        "Set DEVELOPER_DIR to an Xcode.app (vm64/select-xcode.sh).")
+    endif()
+    set(CMAKE_OSX_SYSROOT "${_sdkpath}" CACHE FILEPATH
+      "The product will be built against the headers and libraries located inside the indicated SDK."
+      FORCE)
+    message(STATUS "Using SDK: ${CMAKE_OSX_SYSROOT}")
+  endif()
+endif()
+
 year(YEAR)
 
 # Bundle metadata: shared between macOS and embedded so CMake's auto-generated

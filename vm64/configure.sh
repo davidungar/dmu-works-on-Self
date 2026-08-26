@@ -15,11 +15,15 @@
 # Extra args after the subcommand are forwarded to cmake (macos/visionos only).
 # Set CONFIG=Debug for a faster, unoptimized xcframework (default RelWithDebInfo
 # keeps DWARF so AVP crashes stay debuggable).
-# -- claude & dmu 5/26
+# Sources select-xcode.sh so cmake/xcodebuild use the newest /Applications/Xcode*.app
+# (override with DEVELOPER_DIR). xcode-select is often Command Line Tools.
+# -- claude & grok & dmu 5/26; xcode select 8/26
 
 set -e
 HERE="$(cd "$(dirname "$0")" && pwd)"
 cd "$HERE"   # so cmake --preset finds CMakePresets.json next to CMakeLists.txt
+# shellcheck source=select-xcode.sh
+. "$HERE/select-xcode.sh"
 
 # configure_one <preset> <binaryDir> [extra cmake args...]
 configure_one() {
