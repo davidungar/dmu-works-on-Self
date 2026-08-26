@@ -334,9 +334,16 @@ void space::compact(mapOop unmarked_map_map,
       // skip to next object
       // (can't use object's map to compute object size,
       //  since it might be destroyed by now)
-      for (p += 2;      // skip mark and map
-           !is_object_start(*p);
-           p++) ;
+      // Do not always skip two words: a one-word "object start" that is
+      // merely a mark-tagged data slot (seen: 0xffffffff00000007) sits
+      // immediately before a real marked object. Unconditional p+=2 then
+      // steps over that object's header (from-space missed 2 marked
+      // objects; zap-blocks later SIGSEGV'd on the dangling map).
+      // -- grok 08/26/26
+      p += 1;                 // skip mark
+      if (p < objs_top && !is_object_start(*p))
+        p += 1;               // skip map only if it is not an object start
+      for (; p < objs_top && !is_object_start(*p); p++) ;
       assert(p <= objs_top, "compacter ran off end");
     }
   }
