@@ -450,6 +450,33 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
+         'Category: animating\x7fComment: Direct zooms this front-face bitmap (text on body fill) with the slab. Close copies the already-drawn menu; open renders items. X11 never asks.\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
+        
+         contentsBitmapFromScreen: fromScreen = ( |
+             bm.
+             origin.
+             sz.
+            | 
+            sz: body front size.
+            (sz x <= 1) || [sz y <= 1] ifTrue: [^ nil].
+            bm: world myUI graphics makeOffscreenFor: world window Size: sz.
+            fromScreen ifTrue: [
+                world windowBitmap copy: body front To: bm At: 0@0.
+                ^ bm
+            ].
+            origin: body front origin.
+            bm fillRectangle: ((0@0) ##! sz) Color: uiColors body.
+            items size do: [ | :i. it. |
+                it: items at: i.
+                bm text: (itemName: it)
+                      At: (textLocationOfItem: i) - origin
+                    Font: (itemFont: it)
+                   Color: uiColors text.
+            ].
+            bm).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'ModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'clonable' -> ().
@@ -582,7 +609,13 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'Category: animating\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
          unzoom = ( |
-            | animator zoomSlab: body To: originSlab).
+            | 
+            world myUI graphics
+                zoomMenu: self
+                    From: body
+                      To: originSlab
+              FromScreen: true
+                Animator: animator).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
@@ -596,7 +629,13 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
          'Category: animating\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
          zoom = ( |
-            | animator zoomSlab: originSlab To: body).
+            | 
+            world myUI graphics
+                zoomMenu: self
+                    From: originSlab
+                      To: body
+              FromScreen: false
+                Animator: animator).
         } | ) 
 
 

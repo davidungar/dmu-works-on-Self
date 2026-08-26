@@ -331,6 +331,32 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
+         'Comment: Stretch this pixmap onto destRect of destImage. Same identity-CTM dest math as copyArea:. Used to scale menu text with the zooming slab.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         copy: srcRect StretchedTo: destRect On: destImage = ( |
+             dgc.
+             img.
+             qDstX.
+             qDstY.
+            | 
+            (destRect width <= 0) || [destRect height <= 0] ifTrue: [^ self].
+            dgc: destImage gc.
+            img: context createImageSnapshot.
+            qDstX: destRect left.
+            qDstY: destImage height - destRect bottom.
+            dgc withClip: destRect Do: [
+                dgc setIdentityCTM.
+                dgc drawImage: img
+                            X: qDstX
+                            Y: qDstY
+                        Width: destRect width
+                       Height: destRect height.
+            ].
+            img release.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          createForSameScreenAs: db Size: sz Depth: dp = ( |
@@ -943,6 +969,42 @@ SlotsToOmit: parent.
          prepareToZoom = ( |
             | noPlaneMask).
         } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'Category: layers\x7fComment: Direct: 3-D slab plus front-face text scaled every frame. X11 zooms an empty slab then fades text in via colormap. fromScreen true is close (copy the drawn menu); false is open (render items).\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         zoomMenu: menu From: s To: e FromScreen: fromScreen Animator: anim = ( |
+             c.
+             pib.
+             prev.
+             w.
+            | 
+            c: menu contentsBitmapFromScreen: fromScreen.
+            pib: peakingInBetweener.
+            anim noSlowInOut ifTrue: [ pib: linearInBetweener ].
+            w: menu world.
+            w prepareToDrawOnAcetate.
+            prev: s.
+            ((pib copyFrom: s To: e Steps: 8) delay: anim delay) do: [ | :newSlab |
+                w eraseAcetate: (prev bound extend: 6).
+                newSlab drawOn: w windowBitmap UIColors: menu uiColors.
+                c ifNotNil: [
+                    (newSlab front width > 0) && [newSlab front height > 0] ifTrue: [
+                        c image copy: c size rect
+                          StretchedTo: newSlab front
+                                    On: w windowBitmap image.
+                    ].
+                ].
+                w syncGraphics.
+                prev: newSlab.
+            ].
+            fromScreen ifTrue: [
+                w eraseAcetate: (prev bound extend: 6).
+                w syncGraphics.
+            ].
+            w prepareToDrawOnAll.
+            self).
+        } | )  
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
