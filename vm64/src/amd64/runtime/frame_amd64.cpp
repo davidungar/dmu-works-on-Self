@@ -335,10 +335,16 @@ Location frame::location_of_interpreter_of_block_scope(void* entry_point) {
 
 frame* frame::get_patched_self_frame(char* sp_of_patched_frame) {
   // Validated against the interpreted return-trap path (tests runAllTests):
-  // sp_of_patched_frame is the patched frame itself.  Keep a WizardMode-only
-  // note rather than warning on every trap.
-  if (interpreterIsTier0() && WizardMode)
-    warning("get_patched_self_frame: using sp_of_patched_frame as the frame");
+  // sp_of_patched_frame is the patched frame itself.
+  if (interpreterIsTier0() && WizardMode) {
+    // Fires on every prim return trap; say so once. -- grok 08/26/26
+    static bool warned = false;
+    if (!warned) {
+      warned = true;
+      warning("get_patched_self_frame: using sp_of_patched_frame as the frame");
+      warning("suppressing further warnings");
+    }
+  }
 # if TARGET_ARCH == AARCH64_ARCH
   // PrimCallReturnTrap's entry sp is running_sp+8 for a true prim return
   // but running_sp for a method-shaped epilogue, so the stub's sp-16 guess
