@@ -1674,6 +1674,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
+         'Category: sprouting\x7fComment: Set by find-slot while the Slot to find editor is still up; sproutToRight places the found body here (editor right + gap). Cleared when the search finishes. -- grok 08/26/26\x7fModuleInfo: Module: uiWorld InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
+        
+         findSlotSproutDest.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: sprouting\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          sproutBound = ( |

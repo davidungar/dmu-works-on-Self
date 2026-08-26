@@ -691,7 +691,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'contentsButton' -> () From: ( | {
-         'Category: sprouting\x7fModuleInfo: Module: contentsButton InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: sprouting\x7fComment: If the world has findSlotSproutDest (set while Apply on Slot to find is still up), put the new body there — to the right of that editor, same as eval PutResultAt:. Else the usual slot-row sprout. -- grok 08/26/26\x7fModuleInfo: Module: contentsButton InitialContents: FollowSlot\x7fVisibility: private'
         
          sproutToRight = ( | {
                  'ModuleInfo: Module: contentsButton InitialContents: FollowSlot'
@@ -699,6 +699,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                  space = 20.
                 } 
             | 
+            world findSlotSproutDest ifNotNil: [ | :dest |
+                ^ sproutAndConstrain: [ | :b | b location ] To: dest ].
             sproutAndConstrain: [ | :b |
                                   b absoluteBound left @
                                   b sproutCursorPosition y ]

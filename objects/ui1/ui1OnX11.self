@@ -1073,6 +1073,7 @@ SlotsToOmit: parent.
          tryToOpenWindowForDisplay: disp IfFail: fb = ( |
             | 
             quartz lucidaSansFamily: 'Verdana'.
+            quartz lucidaSansRomanSuffix: ''.
             quartz lucidaSansBoldSuffix: 'Bold'.
             resend.tryToOpenWindowForDisplay: disp IfFail: [|:e| ^ fb value: e].
             window finishOpening.

@@ -457,13 +457,40 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiBody' -> () From: ( | {
-         'Category: placing\x7fModuleInfo: Module: uiBody InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: placing\x7fComment: Keep a body that fits entirely inside world sproutBound.
+If it is too wide or too tall, pin that axis to the sproutBound
+origin rather than centering or building a negative-size rect.
+Find-slot dest: do not slide left over the Slot to find editor. -- grok 08/26/26\x7fModuleInfo: Module: uiBody InitialContents: FollowSlot\x7fVisibility: public'
         
-         constrainFullBodyToWorld = ( |
+         constrainFullBodyToWorld = ( | {
+                 'ModuleInfo: Module: uiBody InitialContents: FollowSlot'
+                
+                 sb.
+                }  {
+                 'ModuleInfo: Module: uiBody InitialContents: FollowSlot'
+                
+                 x.
+                }  {
+                 'ModuleInfo: Module: uiBody InitialContents: FollowSlot'
+                
+                 y.
+                } 
             | 
-            location: location restrictTo:
-                        world sproutBound shrinkBottomRight:
-                          size min: world size).
+            sb: world sproutBound.
+            x: location x.
+            y: location y.
+            world findSlotSproutDest ifNotNil: [
+                x < sb left ifTrue: [x: sb left].
+                y < sb top ifTrue: [y: sb top].
+                location: x @ y.
+                ^ self ].
+            (size x >= sb width) ifTrue: [x: sb left] False: [
+                x < sb left ifTrue: [x: sb left].
+                (x + size x) > sb right ifTrue: [x: sb right - size x]].
+            (size y >= sb height) ifTrue: [y: sb top] False: [
+                y < sb top ifTrue: [y: sb top].
+                (y + size y) > sb bottom ifTrue: [y: sb bottom - size y]].
+            location: x @ y).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiBody' -> () From: ( | {

@@ -2064,13 +2064,13 @@ SlotsToOmit: graphic parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objectBody' -> () From: ( | {
-         'ModuleInfo: Module: objectBody InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: Find-slot Apply still has the Slot to find editor on screen. Capture its right edge, sprout synchronously (the ui1 ui client path queues, then Apply banishes the editor first), and put the found body there. -- grok 08/26/26\x7fModuleInfo: Module: objectBody InitialContents: FollowSlot\x7fVisibility: public'
         
-         sproutToSlot: str = ( | {
-                 'ModuleInfo: Module: objectBody InitialContents: FollowSlot'
-                
-                 paths.
-                } 
+         sproutToSlot: str = ( |
+             dest.
+             ey.
+             paths.
+             space = 20.
             | 
             paths:  body objMirror pathsToKey: str.
             paths isEmpty ifTrue: [
@@ -2079,16 +2079,34 @@ SlotsToOmit: graphic parent.
                                   At: location + (20@20).
               ^ false.
             ].
+            dest: (absoluteBound right + space) @ location y.
+            world bodies do: [ | :b |
+                ((reflect: b) inheritsFrom: (reflect: traits ui1 textApplication)) &&
+                [b name = 'Slot to find'] ifTrue: [
+                    dest: (b absoluteBound right + space) @ b location y.
+                ].
+            ].
+            ey: dest y.
+            world findSlotSproutDest: dest.
             paths do: [| :path. current. |
               current:  body objMirror.
               path doFirstMiddle: [|:el|
-                ui1 ui show:   el On: current.
-                ui1 ui sprout: el On: current.
+                world findBody: current IfFound: [ | :bod |
+                    bod show:   el IfAbsent: [].
+                    bod sprout: el IfAbsent: [].
+                ] IfNone: [].
                 current:  (current at: el) contents.
+                world findBody: current IfFound: [ | :b |
+                    world findSlotSproutDest: (b absoluteBound right + space) @ ey.
+                ] IfNone: [].
               ] Last: [|:el|
-                ui1 ui showContentsOf: el On: current "only sprout if needed"
+                world findBody: current IfFound: [ | :bod |
+                    bod showContentsOf: el IfAbsent: [].
+                ] IfNone: [].
               ] IfEmpty: [].
             ].
+            world findSlotSproutDest: nil.
+            world display.
             true).
         } | ) 
 
