@@ -499,17 +499,8 @@ static uint32 cocoaCharToMacCharCode(unichar ch) {
 @implementation SelfWindowDelegate
 
 - (void)windowDidResize:(NSNotification *)notification {
-    if (_quartzWindow) {
-        _quartzWindow->set_bounds_changed();
-
-        OpaqueEventRef* evt = new OpaqueEventRef();
-        evt->eventClass = kEventClassWindow;
-        evt->eventKind = kEventWindowBoundsChanged;
-        evt->eventTime = [[NSProcessInfo processInfo] systemUptime];
-        evt->setParam_ptr(kEventParamWindowRef, typeWindowRef, _quartzWindow->my_window());
-        _quartzWindow->put_event(evt);
-        evt->release();
-    }
+    if (_quartzWindow)
+        _quartzWindow->queue_bounds_changed();
 }
 
 - (void)windowDidMove:(NSNotification *)notification {
@@ -888,6 +879,18 @@ void QuartzWindow::init_font_info() {
 }
 
 
+void QuartzWindow::queue_bounds_changed() {
+  set_bounds_changed();
+  OpaqueEventRef* evt = new OpaqueEventRef();
+  evt->eventClass = kEventClassWindow;
+  evt->eventKind = kEventWindowBoundsChanged;
+  evt->eventTime = [[NSProcessInfo processInfo] systemUptime];
+  evt->setParam_ptr(kEventParamWindowRef, typeWindowRef, my_window());
+  put_event(evt);
+  evt->release();
+}
+
+
 void QuartzWindow::activate() {
   @autoreleasepool {
     NSWindow* nsWin = (__bridge NSWindow*)_ns_window;
@@ -896,6 +899,9 @@ void QuartzWindow::activate() {
       [nsWin orderFront:nil];
     [nsWin makeKeyAndOrderFront:nil];
     [nsWin makeFirstResponder:view];
+    // Cocoa does not send windowDidResize on first show; ui1 first paint
+    // waits on boundsChanged (configureNotify). Same event as a user resize.
+    queue_bounds_changed();
   }
 }
 
