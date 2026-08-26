@@ -641,6 +641,17 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'Category: window\x7fComment: X11 does open -a XQuartz so the window gets keystrokes after a click. Native Cocoa: order front and make key. Do not call C++ QuartzWindow::activate (that queues boundsChanged for first show).\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         ensureFrontmost = ( |
+            | 
+            window platformWindow quartzWindow bringToFront.
+            window platformWindow quartzWindow activate: true.
+            window platformWindow quartzWindow setUserFocus.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          copy = ( |
