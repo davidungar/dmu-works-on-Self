@@ -1128,11 +1128,12 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
-         'Comment: Same shape as x11Traits tryToOpenWindowForDisplay: open the window, then window finishOpening. Direct uses a windowCanvas, so install that platformWindow first. Helvetica Neue Medium for slot names: semibold weight, Lucida-like line height (Avenir Next descent is ~2px extra and pushed 4 more slots down).\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
+         'Comment: Same shape as x11Traits tryToOpenWindowForDisplay: open the window, then window finishOpening. Direct uses a windowCanvas, so install that platformWindow first. Helvetica Neue Light for undeclared (roman) slot names, Medium for public: Regular sat too close to Medium. Lucida-like line height (Avenir Next descent is ~2px extra and pushed 4 more slots down).\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          tryToOpenWindowForDisplay: disp IfFail: fb = ( |
             | 
             quartz lucidaSansFamily: 'Helvetica Neue'.
+            quartz lucidaSansRomanSuffix: 'Light'.
             quartz lucidaSansBoldSuffix: 'Medium'.
             resend.tryToOpenWindowForDisplay: disp IfFail: [|:e| ^ fb value: e].
             window platformWindow: windowCanvas platformWindow.

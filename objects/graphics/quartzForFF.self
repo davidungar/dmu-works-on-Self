@@ -68,13 +68,19 @@ quartzFontFamily
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: quartz font objects\x7fComment: Substitute for X11 lucidasans (ui1 boxFont). Indexed (AA off): Verdana. Direct (AA on): Helvetica Neue, bold suffix Medium (semibold, line height ~14.7 like Lucida; Avenir Next descent is 4.4 and inflates slot rows). "Lucida Grande Semibold" and "Helvetica Neue Semibold" are not real faces (CT substitutes Helvetica).\x7fModuleInfo: Module: quartzForFF InitialContents: InitializeToExpression: (\'Verdana\')\x7fVisibility: public'
+         'Category: quartz font objects\x7fComment: Substitute for X11 lucidasans (ui1 boxFont). Indexed (AA off): Verdana. Direct (AA on): Helvetica Neue, roman suffix Light (undeclared), bold suffix Medium (public). Light vs Medium is the visibility contrast; Regular sat too close to Medium. Line height ~14.7 like Lucida; Avenir Next descent is 4.4 and inflates slot rows. "Lucida Grande Semibold" and "Helvetica Neue Semibold" are not real faces (CT substitutes Helvetica).\x7fModuleInfo: Module: quartzForFF InitialContents: InitializeToExpression: (\'Verdana\')\x7fVisibility: public'
         
          lucidaSansFamily <- 'Verdana'.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
-         'Category: quartz font objects\x7fComment: Appended to lucidaSansFamily for style bold. Indexed: Bold. Direct: Medium (Helvetica Neue Medium).\x7fModuleInfo: Module: quartzForFF InitialContents: InitializeToExpression: (\'Bold\')\x7fVisibility: public'
+         'Category: quartz font objects\x7fComment: Appended to lucidaSansFamily for empty/roman style (undeclared slots). Indexed: empty (Verdana). Direct: Light (Helvetica Neue Light). Empty means use the family name alone.\x7fModuleInfo: Module: quartzForFF InitialContents: InitializeToExpression: (\'\')\x7fVisibility: public'
+        
+         lucidaSansRomanSuffix <- ''.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
+         'Category: quartz font objects\x7fComment: Appended to lucidaSansFamily for style bold (public slots). Indexed: Bold. Direct: Medium (Helvetica Neue Medium).\x7fModuleInfo: Module: quartzForFF InitialContents: InitializeToExpression: (\'Bold\')\x7fVisibility: public'
         
          lucidaSansBoldSuffix <- 'Bold'.
         } | ) 
@@ -186,7 +192,11 @@ quartzFontFamily
               ifTrue: [^ 'Menlo', (fs style isEmpty ifTrue: '' False: [' ', fs style capitalize])].
             ((nm = 'lucidasans') || [nm = 'lucida'] || [nm = 'lucidabright'])
               ifTrue: [
-                fs style isEmpty ifTrue: [^ quartz lucidaSansFamily].
+                fs style isEmpty ifTrue: [
+                  quartz lucidaSansRomanSuffix isEmpty
+                    ifTrue: [^ quartz lucidaSansFamily]
+                     False: [^ quartz lucidaSansFamily, ' ', quartz lucidaSansRomanSuffix]
+                ].
                 (fs style = 'bold') ifTrue: [
                     ^ quartz lucidaSansFamily, ' ', quartz lucidaSansBoldSuffix
                 ].
