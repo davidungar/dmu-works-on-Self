@@ -308,6 +308,15 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
+         'Category: drawing\x7fComment: Direct menu-text fade draws items in an interpolated color on the full-size slab.\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
+        
+         drawItemsColor: c = ( |
+            | 
+            items size do: [ | :i | drawFeaturesOfItem: i Color: c ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
          'Category: drawing\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: private'
         
          drawHighlighting: i = ( |

@@ -80,6 +80,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             anticipation.
             followThrough.
             arcs.
+            menuTextScale.
             self).
         } | ) 
 
@@ -176,13 +177,35 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          loc: n = ( |
              sz.
-             total = 7.
+             total = 8.
              xoffset = 30.
              yoffset = 50.
             | 
             sz: ui1 ui currentWorld myUI window size.
             xoffset @ (sz y - (yoffset * (total succ - n)))).
         } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
+         'ModuleInfo: Module: togglers InitialContents: FollowSlot'
+        
+         menuTextScale = ( | {
+                 'ModuleInfo: Module: togglers InitialContents: FollowSlot'
+                
+                 t.
+                } 
+            | 
+            t: ui1 toggleBody createOn: ui1 ui currentWorld
+                        OnString: 'menu text scales'
+                        OffString: 'menu text fades in'
+                        OnMessage: (message copy receiver: ui1 ui currentWorld myUI
+                                                 Selector: 'menuTextScalesWithSlab')
+                        OffMessage: (message copy receiver: ui1 ui currentWorld myUI
+                                                  Selector: 'fadeMenuTextIn')
+                        InitiallyOn: true.
+             t location: loc: 8.
+             t swoopDown.
+             t).
+        } | )  
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
          'ModuleInfo: Module: togglers InitialContents: FollowSlot'

@@ -488,6 +488,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fComment: Direct stores the flag on its traits. X11 ignores; zoomMenu still does colormap acetate.\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         scaleMenuText: b = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: starting and stopping\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
         
          tryToOpenWindowForDisplay: disp IfFail: fb = ( |
@@ -730,6 +737,24 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             | 
             preferences blurBodies: true.
             animator: ranimator.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Direct: zoom an empty slab then fade item color body → text (old ui1 colormap acetate). No-op setter on X11 graphics.\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+        
+         fadeMenuTextIn = ( |
+            | 
+            graphics scaleMenuText: false.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Direct: stretch item text with the zooming slab. No-op setter on X11 graphics.\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+        
+         menuTextScalesWithSlab = ( |
+            | 
+            graphics scaleMenuText: true.
             self).
         } | ) 
 

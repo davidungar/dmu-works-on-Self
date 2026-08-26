@@ -650,6 +650,12 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'Comment: true: stretch item text with the zooming slab. false: zoom an empty slab then fade text body-color → text-color (32-bit analog of X11 colormap acetate). Shared on traits so a running ui sees the slot after file-in.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (true)\x7fVisibility: public'
+        
+         scaleMenuText <- bootstrap stub -> 'globals' -> 'true' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          boxSizePlatformMixin = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> 'boxSizePlatformMixin' -> () From: ( |
@@ -974,6 +980,27 @@ SlotsToOmit: parent.
          'Category: layers\x7fComment: Direct: 3-D slab plus front-face text scaled every frame. X11 zooms an empty slab then fades text in via colormap. fromScreen true is close (copy the drawn menu); false is open (render items).\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          zoomMenu: menu From: s To: e FromScreen: fromScreen Animator: anim = ( |
+            | 
+            scaleMenuText ifTrue: [
+                ^ zoomMenuScaling: menu From: s To: e FromScreen: fromScreen Animator: anim
+            ].
+            fromScreen ifTrue: [
+                fadeMenuText: menu In: false Animator: anim.
+                zoomEmptySlabFrom: s To: e Animator: anim Menu: menu.
+                menu world eraseAcetate: (e bound extend: 6).
+                menu world syncGraphics.
+            ] False: [
+                zoomEmptySlabFrom: s To: e Animator: anim Menu: menu.
+                fadeMenuText: menu In: true Animator: anim.
+            ].
+            menu world prepareToDrawOnAll.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'Category: layers\x7fComment: Zoom the 3-D slab with item text stretched onto the front face.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         zoomMenuScaling: menu From: s To: e FromScreen: fromScreen Animator: anim = ( |
              c.
              pib.
              prev.
@@ -1003,6 +1030,53 @@ SlotsToOmit: parent.
                 w syncGraphics.
             ].
             w prepareToDrawOnAll.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'Category: layers\x7fComment: Slab-only zoom (no text). Used when menu text fades in after open / out before close.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         zoomEmptySlabFrom: s To: e Animator: anim Menu: menu = ( |
+             pib.
+             prev.
+             w.
+            | 
+            pib: peakingInBetweener.
+            anim noSlowInOut ifTrue: [ pib: linearInBetweener ].
+            w: menu world.
+            w prepareToDrawOnAcetate.
+            prev: s.
+            ((pib copyFrom: s To: e Steps: 8) delay: anim delay) do: [ | :newSlab |
+                w eraseAcetate: (prev bound extend: 6).
+                newSlab drawOn: w windowBitmap UIColors: menu uiColors.
+                w syncGraphics.
+                prev: newSlab.
+            ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'Category: layers\x7fComment: 32-bit analog of X11 colormap acetate: interpolate item color between body (invisible on the slab) and text. In: true fades in after the slab is full size; false fades out before the slab shrinks.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         fadeMenuText: menu In: fadingIn Animator: anim = ( |
+             c.
+             fromC.
+             steps = 8.
+             t.
+             toC.
+             w.
+            | 
+            w: menu world.
+            fromC: fadingIn ifTrue: [menu uiColors body] False: [menu uiColors text].
+            toC:   fadingIn ifTrue: [menu uiColors text] False: [menu uiColors body].
+            0 to: steps Do: [ | :i |
+                t: i asFloat / steps asFloat.
+                c: fromC interpolate: t From: toC.
+                w windowBitmap fillRectangle: menu body front Color: menu uiColors body.
+                menu drawItemsColor: c.
+                w syncGraphics.
+                times delay: anim delay.
+            ].
             self).
         } | )  
 
