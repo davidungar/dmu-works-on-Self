@@ -251,6 +251,33 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaContext' -> () From: ( | {
+         'Comment: Restore opaque drawing after a stippled fill. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fillSolid = ( |
+            | 
+            setAlpha: 1.0.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaContext' -> () From: ( | {
+         'Comment: 32-bit analog of X11 fillStippled: body-coloured paint at default 50% alpha. Density from stippleAlphaFrom:. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fillStippled = ( |
+            | 
+            setAlpha: 0.5.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaContext' -> () From: ( | {
+         'Comment: Pattern template density as CG alpha (gray 0.5, lightGray 0.25). -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         stippleAlphaFrom: pattern = ( |
+            | 
+            setAlpha: pattern stippleAlpha.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaContext' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          plane_mask: m = ( |

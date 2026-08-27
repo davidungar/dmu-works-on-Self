@@ -2470,6 +2470,13 @@ works (e.g. open factory).\x7fModuleInfo: Module: macToolbox InitialContents: Fo
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macToolbox' -> 'grafPtr' -> () From: ( | {
+         'Comment: Direct maps stipple density to CG alpha. Carbon already set the pen pattern. -- grok 08/26/26\x7fModuleInfo: Module: macToolbox InitialContents: FollowSlot\x7fVisibility: public'
+        
+         stippleAlphaFrom: pattern = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'macToolbox' -> 'grafPtr' -> () From: ( | {
          'Category: fonts\x7fModuleInfo: Module: macToolbox InitialContents: FollowSlot\x7fVisibility: public'
         
          font: aFontIDAndStruct = ( |

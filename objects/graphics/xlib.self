@@ -4448,6 +4448,13 @@ an object with these slots:
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'graphicsContext' -> () From: ( | {
+         'Comment: Direct maps stipple density to CG alpha. X11 already installed the pixmap via stipple:. -- grok 08/26/26\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+        
+         stippleAlphaFrom: pattern = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'graphicsContext' -> () From: ( | {
          'ModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
          fillStyle: style = ( |

@@ -162,19 +162,14 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'drawing' -> () From: ( | {
-         'ModuleInfo: Module: drawing InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: Stipple or Direct alpha via withStipple:Do:. -- grok 08/26/26\x7fModuleInfo: Module: drawing InitialContents: FollowSlot\x7fVisibility: public'
         
          fillArcWithin: rect From: startAngle Spanning: spanAngle Pattern: pattern Color: cme = ( |
             | 
-            pattern isNull ifTrue: [
-                ^ fillArcWithin: rect From: startAnmgle
-                  Spanning: spanAngle Color: cme ].
-            image gc fillStippled.
-            image gc stipple: pattern image.
-            fillArcWithin: rect From: startAngle Spanning: spanAngle Color: cme.
-            image gc fillSolid.
-            self).
-        } | ) 
+            withStipple: pattern Do: [
+                fillArcWithin: rect From: startAngle Spanning: spanAngle Color: cme
+            ]).
+        } | )  
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'drawing' -> () From: ( | {
          'ModuleInfo: Module: drawing InitialContents: FollowSlot\x7fVisibility: public'
@@ -214,17 +209,13 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'drawing' -> () From: ( | {
-         'ModuleInfo: Module: drawing InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: Stipple or Direct alpha via withStipple:Do:. -- grok 08/26/26\x7fModuleInfo: Module: drawing InitialContents: FollowSlot\x7fVisibility: public'
         
          fillCircleCenteredAt: ctr Diameter: d Pattern: pattern Color: cme = ( |
             | 
-            pattern isNull ifTrue: [
-                ^ fillCircle centeredAt: ctr Diameter: d Color: cme ].
-            image gc fillStippled.
-            image gc stipple: pattern image.
-            fillCircleCenteredAt: ctr Diameter: d Color: cme.
-            image gc fillSolid.
-            self).
+            withStipple: pattern Do: [
+                fillCircleCenteredAt: ctr Diameter: d Color: cme
+            ]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'drawing' -> () From: ( | {
@@ -263,14 +254,23 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'drawing' -> () From: ( | {
-         'ModuleInfo: Module: drawing InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: Stipple or Direct alpha via withStipple:Do:. Motion blur uses this. -- grok 08/26/26\x7fModuleInfo: Module: drawing InitialContents: FollowSlot\x7fVisibility: public'
         
          fillPolygon: pointList Pattern: pattern Color: cme = ( |
             | 
-            pattern isNull ifTrue: [ ^ fillPolygon: pointList Color: cme ].
+            withStipple: pattern Do: [ fillPolygon: pointList Color: cme ]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'drawing' -> () From: ( | {
+         'Comment: X11: 1-bit stipple. Direct 32-bit: CG alpha from pattern stippleAlpha. Null pattern skips to a solid fill in the caller. -- grok 08/26/26\x7fModuleInfo: Module: drawing InitialContents: FollowSlot\x7fVisibility: private'
+        
+         withStipple: pattern Do: blk = ( |
+            | 
+            pattern isNull ifTrue: [ ^ blk value ].
             image gc fillStippled.
             image gc stipple: pattern image.
-            fillPolygon: pointList Color: cme.
+            image gc stippleAlphaFrom: pattern.
+            blk value.
             image gc fillSolid.
             self).
         } | ) 
@@ -301,16 +301,11 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'drawing' -> () From: ( | {
-         'ModuleInfo: Module: drawing InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: Stipple or Direct alpha via withStipple:Do:. -- grok 08/26/26\x7fModuleInfo: Module: drawing InitialContents: FollowSlot\x7fVisibility: public'
         
          fillRectangle: rect Pattern: pattern Color: cme = ( |
             | 
-            pattern isNull ifTrue: [ ^ fillRectangle: rect Color: cme ].
-            image gc fillStippled.
-            image gc stipple: pattern image.
-            fillRectangle: rect Color: cme.
-            image gc fillSolid.
-            self).
+            withStipple: pattern Do: [ fillRectangle: rect Color: cme ]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'drawing' -> () From: ( | {

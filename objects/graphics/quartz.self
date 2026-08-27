@@ -4396,10 +4396,9 @@ SlotsToOmit: parent.
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> () From: ( | {
          'Category: graphics (ui1)\x7fComment: ui1 fetches its blur/acetate stipple patterns (gray/lightGray/...) from
-macToolbox qdGlobals. Stippled fills are currently degraded to solid (see
-traits quartz context fillStippled), so these pattern images are inert; return
-nullImage placeholders so pattern creation does not crash. A real CG-pattern
-stipple is a later refinement. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+macToolbox qdGlobals. Direct 32-bit uses the pattern template as CG alpha
+(see rgbaContext fillStippled); the 1-bit image is unused, so these stay
+nullImage placeholders. -- claude & grok & dmu 5/26, 8/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          qdGlobals = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'quartz' -> 'qdGlobals' -> () From: ( |
              {} = 'ModuleInfo: Creator: globals quartz qdGlobals.
@@ -5186,7 +5185,7 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
-         'Comment: Remaining X11-GC protocol for ui1. Colour/line/clip map to live CGContext state (foregroundColor:/lineWidth:/font: already do). The raster-op functions (gx*) return the real X11 GXfunction codes but function: is a no-op for now (everything draws in copy mode -- XOR rubber-banding deferred); plane_mask:, stipple/stippled fills, clipping and dashes are likewise deferred to self so a basic ui1 draw runs without error. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: Remaining X11-GC protocol for ui1. Colour/line/clip map to live CGContext state (foregroundColor:/lineWidth:/font: already do). The raster-op functions (gx*) return the real X11 GXfunction codes but function: is a no-op for now (everything draws in copy mode -- XOR rubber-banding deferred); plane_mask:, clipping and dashes are likewise deferred. Indexed 8-bit: stipple stays a no-op (no alpha channel). Direct 32-bit rgbaContext maps stipple to setAlpha:. -- claude & grok & dmu 5/26, 8/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          fillSolid = ( |
             | self).
@@ -5196,6 +5195,13 @@ integer ui1/X logical pixels. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz
          'ModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
         
          fillStippled = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'context' -> () From: ( | {
+         'Comment: Direct rgbaContext sets CG alpha from the pattern density. Indexed no-op. -- grok 08/26/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         stippleAlphaFrom: pattern = ( |
             | self).
         } | ) 
 

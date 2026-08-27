@@ -90,6 +90,25 @@ See the LICENSE file for license information.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'pattern' -> () From: ( | {
+         'Category: creating\x7fComment: Fraction of set pixels in the stipple template. Direct uses this as CG alpha instead of a 1-bit stipple (gray 0.5, lightGray 0.25). -- grok 08/26/26\x7fModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
+        
+         stippleAlpha = ( |
+             n <- 0.
+             on <- 0.
+            | 
+            template do: [ | :line |
+                line do: [ | :c |
+                    (setChar = c) || [clrChar = c] ifTrue: [
+                        n: n + 1.
+                        setChar = c ifTrue: [ on: on + 1 ].
+                    ].
+                ].
+            ].
+            n = 0 ifTrue: [ ^ 0.5 ].
+            on asFloat / n asFloat).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'pattern' -> () From: ( | {
          'ModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: private'
         
          parent* = bootstrap stub -> 'traits' -> 'bitmap' -> ().
