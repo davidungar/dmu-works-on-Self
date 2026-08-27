@@ -76,6 +76,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             animation.
             slowMotion.
             motionBlur.
+            arrowMotionBlur.
             slowInOut.
             anticipation.
             followThrough.
@@ -177,7 +178,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          loc: n = ( |
              sz.
-             total = 8.
+             total = 9.
              xoffset = 30.
              yoffset = 50.
             | 
@@ -215,7 +216,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | )  
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
-         'ModuleInfo: Module: togglers InitialContents: FollowSlot'
+         'Comment: Box/body blur only. Arrows have arrowMotionBlur. -- grok 08/26/26\x7fModuleInfo: Module: togglers InitialContents: FollowSlot'
         
          motionBlur = ( | {
                  'ModuleInfo: Module: togglers InitialContents: FollowSlot'
@@ -224,14 +225,36 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
                 } 
             | 
             t: ui1 toggleBody createOn: ui1 ui currentWorld
-                        OnString: 'motion blur'
-                        OffString: 'no motion blur'
+                        OnString: 'box motion blur'
+                        OffString: 'no box motion blur'
                         OnMessage: (message copy receiver: ui1 ui currentWorld myUI
                                                  Selector: 'motionBlur')
                         OffMessage: (message copy receiver: ui1 ui currentWorld myUI
                                                   Selector: 'noMotionBlur')
                         InitiallyOn: true.
              t location: loc: 3.
+             t swoopDown.
+             t).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
+         'Comment: Independent of box motionBlur. -- grok 08/26/26\x7fModuleInfo: Module: togglers InitialContents: FollowSlot'
+        
+         arrowMotionBlur = ( | {
+                 'ModuleInfo: Module: togglers InitialContents: FollowSlot'
+                
+                 t.
+                } 
+            | 
+            t: ui1 toggleBody createOn: ui1 ui currentWorld
+                        OnString: 'arrow motion blur'
+                        OffString: 'no arrow motion blur'
+                        OnMessage: (message copy receiver: ui1 ui currentWorld myUI
+                                                 Selector: 'arrowMotionBlur')
+                        OffMessage: (message copy receiver: ui1 ui currentWorld myUI
+                                                  Selector: 'noArrowMotionBlur')
+                        InitiallyOn: false.
+             t location: loc: 9.
              t swoopDown.
              t).
         } | ) 

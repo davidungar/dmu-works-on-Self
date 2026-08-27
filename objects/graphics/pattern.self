@@ -90,7 +90,7 @@ See the LICENSE file for license information.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'pattern' -> () From: ( | {
-         'Category: creating\x7fComment: Fraction of set pixels in the stipple template. Direct uses this as CG alpha instead of a 1-bit stipple (gray 0.5, lightGray 0.25). -- grok 08/26/26\x7fModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: creating\x7fComment: Fraction of set pixels in the stipple template. Direct maps this through 1-(1-p)^2 to CG alpha. -- grok 08/26/26\x7fModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
          stippleAlpha = ( |
              n <- 0.
@@ -106,6 +106,31 @@ See the LICENSE file for license information.
             ].
             n = 0 ifTrue: [ ^ 0.5 ].
             on asFloat / n asFloat).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'pattern' -> () From: ( | {
+         'Category: creating\x7fComment: 4x4 Bayer dither for density p in 0-1. X11 createFor builds a 1-bit pixmap from the template; Direct counts X pixels as CG alpha. -- grok 08/26/26\x7fModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
+        
+         setDensity: p = ( |
+             bayer.
+             lines <- ''.
+             thresh.
+            | 
+            bayer: (0 & 8 & 2 & 10 & 12 & 4 & 14 & 6
+                  & 3 & 11 & 1 & 9 & 15 & 7 & 13 & 5) asVector.
+            thresh: (((p asFloat max: 0.0) min: 1.0) * 16.0).
+            0 to: 3 Do: [ | :y. row <- ''. |
+                0 to: 3 Do: [ | :x |
+                    ((bayer at: ((y * 4) + x)) asFloat < thresh)
+                      ifTrue: [ row: row, 'X' ]
+                       False: [ row: row, 'o' ].
+                ].
+                y = 0 ifTrue: [ lines: row ]
+                       False: [ lines: lines, '
+', row ].
+            ].
+            template: lines asTextLines.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'pattern' -> () From: ( | {
@@ -177,19 +202,11 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'pattern' -> 'parent' -> () From: ( | {
-         'Category: creating\x7fModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: creating\x7fComment: Direct has no 1-bit stipple pixmap; alpha comes from template density. -- grok 08/26/26\x7fModuleInfo: Module: pattern InitialContents: FollowSlot\x7fVisibility: public'
         
          createForPixmap: pix = ( |
-             macPattern.
-             n <- ''.
             | 
-            "hack: use reflection and qdGlobals"
-            (reflect: macToolboxGlobals patterns)
-               findFirst: [|:s| s contents reflectee template = template]
-               IfPresent: [|:s| n: s name]
-                IfAbsent:  [^error: 'mac pattern hack failed, could not find name'].
-            [gray]. "browsing"
-            image: n sendTo: macToolbox qdGlobals. "really a mac pattern"
+            image: nullImage.
             self).
         } | ) 
 
@@ -286,15 +303,11 @@ oX' asTextLines .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'patterns' -> 'lightGray' -> () From: ( | {
-         'ModuleInfo: Module: pattern InitialContents: InitializeToExpression: ( \'Xo
-oo
-oX
-oo\' asTextLines )\x7fVisibility: private'
+         'Comment: Arrow blur. Was 25% (too faint on sage). 75% on X11 stipple and Direct alpha. -- grok 08/26/26\x7fModuleInfo: Module: pattern InitialContents: InitializeToExpression: ( \'XX
+Xo\' asTextLines )\x7fVisibility: private'
         
-         template <-  'Xo
-oo
-oX
-oo' asTextLines .
+         template <-  'XX
+Xo' asTextLines .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'macToolboxGlobals' -> 'patterns' -> () From: ( | {
@@ -432,15 +445,11 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> 'blurArrow' -> () From: ( | {
-         'ModuleInfo: Module: pattern InitialContents: InitializeToExpression: ( \'Xo
-oo
-oX
-oo\' asTextLines )\x7fVisibility: private'
+         'Comment: Arrow blur. Was 25% (too faint on sage). 75% on X11 stipple and Direct alpha. -- grok 08/26/26\x7fModuleInfo: Module: pattern InitialContents: InitializeToExpression: ( \'XX
+Xo\' asTextLines )\x7fVisibility: private'
         
-         template <-  'Xo
-oo
-oX
-oo' asTextLines .
+         template <-  'XX
+Xo' asTextLines .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> 'blurBody' -> () From: ( | {

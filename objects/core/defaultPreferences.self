@@ -93,10 +93,15 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'preferences' -> () From: ( | {
-         'Category: user interface preferences (mostly for ui1)\x7fComment: If true, paint motion blur for arrows.
-	      Experimental--dmu 2/91\x7fModuleInfo: Module: defaultPreferences InitialContents: InitializeToExpression: (false)\x7fVisibility: public'
+         'Category: user interface preferences (mostly for ui1)\x7fComment: If true, paint motion blur for arrows. Independent of blurBodies. Direct uses alpha, X11 a stipple. -- dmu 2/91, grok 08/26/26\x7fModuleInfo: Module: defaultPreferences InitialContents: InitializeToExpression: (false)\x7fVisibility: public'
         
          blurArrows <- bootstrap stub -> 'globals' -> 'false' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'preferences' -> () From: ( | {
+         'Category: user interface preferences (mostly for ui1)\x7fComment: Arrow motion-blur density 0-1. X11 stipple fraction and Direct CG alpha. Set with ui arrowBlur: 0.33 -- grok 08/26/26\x7fModuleInfo: Module: defaultPreferences InitialContents: InitializeToExpression: (0.33)\x7fVisibility: public'
+        
+         arrowBlur <- 0.33.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'preferences' -> () From: ( | {

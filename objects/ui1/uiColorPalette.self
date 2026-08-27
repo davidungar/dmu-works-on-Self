@@ -69,6 +69,20 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
+         'Category: userInterface\x7fComment: Forward to ui so ui1 arrowBlur: works from the prompt. Implementation is on traits ui1 ui (lobby parent). -- grok 08/26/26\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
+        
+         arrowBlur = ( |
+            | ui arrowBlur).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
+         'Category: userInterface\x7fComment: Forward to ui so ui1 arrowBlur: works from the prompt. -- grok 08/26/26\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
+        
+         arrowBlur: p = ( |
+            | ui arrowBlur: p).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> () From: ( | {
          'Category: userInterface\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
          uiPatternPalette = bootstrap setObjectAnnotationOf: bootstrap stub -> 'globals' -> 'ui1' -> 'uiPatternPalette' -> () From: ( |
@@ -318,12 +332,13 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiPatternPalette' -> () From: ( | {
-         'ModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: Arrow density from preferences arrowBlur (ui1 arrowBlur: p). -- grok 08/26/26\x7fModuleInfo: Module: uiColorPalette InitialContents: FollowSlot\x7fVisibility: public'
         
          initializeFor: win Patterns: patterns = ( |
             | 
-            blurBody:  patterns      gray createFor: win.
-            blurArrow: patterns lightGray createFor: win.
+            blurBody:  patterns gray createFor: win.
+            blurArrow: (patterns lightGray copy setDensity: preferences arrowBlur)
+                         createFor: win.
             self).
         } | ) 
 

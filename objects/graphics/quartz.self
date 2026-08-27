@@ -3103,7 +3103,7 @@ via the events X-canonical newState. -- claude & dmu 5/2026\x7fModuleInfo: Modul
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
-         'Category: converting to ui1 events\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: converting to ui1 events\x7fComment: Button number only on down/up. Wheel and synthetic leave have no mbtn. -- grok 08/26/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
         
          setUI1Mouse: aUI1Evt = ( |
              bn.
@@ -3117,9 +3117,12 @@ via the events X-canonical newState. -- claude & dmu 5/2026\x7fModuleInfo: Modul
                              (getUnsignedParam: parameters mouseChord   Type: types uint32 IfFail: 0)
                                        Modifiers:
                              (getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0).
-            bn: case if: [ui1ButtonNumber = 2] Then: 'middle'
-                     If: [ui1ButtonNumber = 3] Then: 'right'
-                                               Else: 'left'.
+            bn: 'left'.
+            (k = kinds mouse down) || [k = kinds mouse up] ifTrue: [
+                bn: case if: [ui1ButtonNumber = 2] Then: 'middle'
+                         If: [ui1ButtonNumber = 3] Then: 'right'
+                                                   Else: 'left'.
+            ].
             aUI1Evt type:
              case if: [k = kinds mouse down] Then: [bn, 'MouseDown']
                   If: [k = kinds mouse up  ] Then: [bn, 'MouseUp']
@@ -3653,13 +3656,13 @@ here). -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: Follo
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'quartz' -> 'event' -> 'parent' -> () From: ( | {
          'Category: converting to ui1 events\x7fComment: a Mac one-ui1 button mouse fakes the middle/right ui1 button with
 option/control/command, the same mapping ui2s whichButton uses. Returns the X
-ui1 button number 1/2/3. -- claude & dmu 5/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
+ui1 button number 1/2/3. Wheel and synthetic leave have no mbtn; IfFail: 1. -- claude & grok & dmu 5/26, 8/26\x7fModuleInfo: Module: quartz InitialContents: FollowSlot\x7fVisibility: private'
         
          ui1ButtonNumber = ( |
              b.
              m.
             | 
-            b: getUnsignedShortParam: parameters mouseButton Type: types mouseButton.
+            b: getUnsignedShortParam: parameters mouseButton Type: types mouseButton IfFail: 1.
             b = 1 ifTrue: [
               m: getUnsignedParam: parameters keyModifiers Type: types uint32 IfFail: 0.
               b: case if: [(m && modifierMasks option ) != 0] Then: 2

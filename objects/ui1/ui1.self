@@ -508,6 +508,19 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fComment: Direct paces presents to this fps. X11 moveArrows already delays 1. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         targetFPS = 0.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         targetFPS: n = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: layers\x7fComment: Alias of scaleText. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          scaleMenuText = ( |
@@ -1422,10 +1435,65 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: animationControl\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+         'Category: animationControl\x7fComment: Box (body) motion blur only. Arrows have arrowMotionBlur. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
         
          motionBlur = ( |
             | preferences blurBodies: true).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Arrow motion blur only. Boxes have motionBlur. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+        
+         arrowMotionBlur = ( |
+            | preferences blurArrows: true).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Direct motion-blur present cap. ui targetFPS: 60 -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         targetFPS = ( |
+            | graphics targetFPS).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Direct only. 0 = uncapped. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         targetFPS: n = ( |
+            | 
+            graphics targetFPS: n.
+            n).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: 0-1 density for arrow motion blur (X11 stipple and Direct alpha). ui arrowBlur: 0.5 -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         arrowBlur = ( |
+            | preferences arrowBlur).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Set density 0-1 and rebuild every live ui clone. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         arrowBlur: p = ( |
+            | 
+            preferences arrowBlur: p asFloat.
+            runningUIsDo: [ | :u |
+                u uiPatterns blurArrow setDensity: preferences arrowBlur.
+                u uiPatterns blurArrow createFor: u window.
+            ].
+            preferences arrowBlur).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Every ui clone whose process is active (same census as closeAllWindows). -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         runningUIsDo: blk = ( |
+            | 
+            (browse childrenOf: traits ui1 ui) do: [ | :m. u. |
+                u: m reflectee.
+                u uiProcess isActive ifTrue: [ blk value: u ].
+            ].
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
@@ -1463,10 +1531,17 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: animationControl\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+         'Category: animationControl\x7fComment: Box (body) motion blur only. Arrows have noArrowMotionBlur. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
         
          noMotionBlur = ( |
             | preferences blurBodies: false).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Arrow motion blur only. Boxes have noMotionBlur. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+        
+         noArrowMotionBlur = ( |
+            | preferences blurArrows: false).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {

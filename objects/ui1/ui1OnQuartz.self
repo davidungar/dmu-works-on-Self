@@ -269,7 +269,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaContext' -> () From: ( | {
-         'Comment: Pattern template density as CG alpha (gray 0.5, lightGray 0.25). -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: Direct CG alpha is the pattern density (ui1 arrowBlur: p). -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          stippleAlphaFrom: pattern = ( |
             | 
@@ -683,6 +683,18 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'Comment: Cap motion-blur presents at this many frames per second. 0 = uncapped. ui targetFPS: 60 -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (60)\x7fVisibility: public'
+        
+         targetFPS <- 60.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'Comment: Time of last paced present. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
+        
+         lastFrameTime.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          boxSizePlatformMixin = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> 'boxSizePlatformMixin' -> () From: ( |
@@ -873,7 +885,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
-         'Category: layers\x7fComment: X11 clears the hidden arrow bitplane, draws, then colormap-flips. 32-bit: restore the static scene first so the previous body/arrow pixels go away, then draw. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fComment: X11 colormap-flips then times delay: 1. Direct restores the whole scene every frame; pace to targetFPS so Cocoa vsync can show the smear. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          moveArrows: doBlock Flip: flip = ( |
             | 
@@ -882,6 +894,30 @@ SlotsToOmit: parent.
             doBlock value.
             skipAcetateErase: false.
             window sync.
+            paceFrame.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'Category: layers\x7fComment: Sleep only the leftover of 1/targetFPS since the last present. Late frames skip the wait. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         paceFrame = ( |
+             elapsed.
+             now.
+             period.
+             wait.
+            | 
+            (targetFPS asSmallInteger <= 0) ifTrue: [
+                lastFrameTime: nil.
+                ^ self
+            ].
+            now: times real.
+            lastFrameTime ifNil: [ lastFrameTime: now. ^ self ].
+            period: 1000.0 / (targetFPS asFloat max: 1.0).
+            elapsed: now - lastFrameTime.
+            wait: period - elapsed.
+            wait >= 1 ifTrue: [ times delay: wait asInteger ].
+            lastFrameTime: times real.
             self).
         } | ) 
 
