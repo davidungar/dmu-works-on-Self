@@ -688,10 +688,12 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiNester' -> () From: ( | {
-         'Category: drawing\x7fModuleInfo: Module: uiNester InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: drawing\x7fComment: Direct layer-text fade binds world fadeTextColor (body → text). -- grok 08/26/26\x7fModuleInfo: Module: uiNester InitialContents: FollowSlot\x7fVisibility: public'
         
          textColor = ( |
-            | uiColors text).
+            | 
+            world fadeTextColor ifNotNil: [^ world fadeTextColor].
+            uiColors text).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiNester' -> () From: ( | {

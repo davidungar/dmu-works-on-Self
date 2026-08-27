@@ -229,6 +229,57 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'boxBody' -> () From: ( | {
+         'Category: animating\x7fComment: Full-size 3-D slab for layer zoom/fade. -- grok 08/26/26\x7fModuleInfo: Module: uiBody InitialContents: FollowSlot\x7fVisibility: public'
+        
+         zoomSlab = ( |
+            | asSlab).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'boxBody' -> () From: ( | {
+         'Category: animating\x7fComment: Front-face pixels (text on body fill) for Direct slab-scale. -- grok 08/26/26\x7fModuleInfo: Module: uiBody InitialContents: FollowSlot\x7fVisibility: public'
+        
+         contentsBitmapFromScreen: fromScreen = ( |
+             bm.
+             fb.
+             sz.
+            | 
+            fb: graphic frontBound.
+            sz: fb size.
+            (sz x <= 1) || [sz y <= 1] ifTrue: [^ nil].
+            bm: world myUI graphics makeOffscreenFor: world window Size: sz.
+            fromScreen ifTrue: [
+                world windowBitmap copy: (fb translateBy: location) To: bm At: 0@0.
+                ^ bm
+            ].
+            graphic copy: fb To: bm At: 0@0.
+            bm).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'boxBody' -> () From: ( | {
+         'Category: animating\x7fComment: Direct layer-text fade: redraw front contents in interpolated color onto the window. Restored from contentsBitmap after the fade. -- grok 08/26/26\x7fModuleInfo: Module: uiBody InitialContents: FollowSlot\x7fVisibility: public'
+        
+         drawItemsColor: c = ( |
+             fb.
+            | 
+            fb: graphic frontBound.
+            graphic fillRectangle: fb Color: uiColors body.
+            world fadeTextColor: c.
+            drawFrontContents.
+            world fadeTextColor: nil.
+            graphic copy: fb To: world windowBitmap At: location + fb origin.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'boxBody' -> () From: ( | {
+         'Category: animating\x7fComment: Nested components on the front face. objectBody also draws the name. -- grok 08/26/26\x7fModuleInfo: Module: uiBody InitialContents: FollowSlot\x7fVisibility: public'
+        
+         drawFrontContents = ( |
+            | 
+            componentsDo: [ | :cpt | cpt draw ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'boxBody' -> () From: ( | {
          'ModuleInfo: Module: uiBody InitialContents: FollowSlot'
         
          boxDepthSize = ( |

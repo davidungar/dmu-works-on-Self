@@ -495,9 +495,43 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: layers\x7fComment: Direct stores the flag on its traits. X11 ignores; zoomMenu still does colormap acetate.\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fComment: Direct stores the flag on its traits. X11 ignores; zoom still does colormap acetate. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         scaleText = bootstrap stub -> 'globals' -> 'false' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fComment: Direct stores the flag on its traits. X11 ignores; zoom still does colormap acetate. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         scaleText: b = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fComment: Alias of scaleText. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         scaleMenuText = ( |
+            | scaleText).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fComment: Alias of scaleText:. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          scaleMenuText: b = ( |
+            | scaleText: b).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fComment: Direct interpolates text body → text after the slab is full size. X11 no-op (colormap acetate). -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fadeLayerText: layer In: fadingIn Animator: anim = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fComment: Direct stretches a contents bitmap onto the slab front. X11 no-op. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         stretchContents: c Onto: slab Window: wb = ( |
             | self).
         } | ) 
 
@@ -748,21 +782,35 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: animationControl\x7fComment: Direct: zoom an empty slab then fade item color body → text (old ui1 colormap acetate). No-op setter on X11 graphics.\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+         'Category: animationControl\x7fComment: Direct: zoom an empty slab then fade text color body → text (old ui1 colormap acetate). Menus and sprouted bodies. No-op setter on X11 graphics. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
         
-         fadeMenuTextIn = ( |
+         fadeTextIn = ( |
             | 
-            graphics scaleMenuText: false.
+            graphics scaleText: false.
             self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: animationControl\x7fComment: Direct: stretch item text with the zooming slab. No-op setter on X11 graphics.\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+         'Category: animationControl\x7fComment: Alias of fadeTextIn. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+        
+         fadeMenuTextIn = ( |
+            | fadeTextIn).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Direct: stretch text with the zooming slab. Menus and sprouted bodies. No-op setter on X11 graphics. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+        
+         textScalesWithSlab = ( |
+            | 
+            graphics scaleText: true.
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Alias of textScalesWithSlab. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
         
          menuTextScalesWithSlab = ( |
-            | 
-            graphics scaleMenuText: true.
-            self).
+            | textScalesWithSlab).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {

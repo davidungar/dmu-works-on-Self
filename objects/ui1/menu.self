@@ -308,7 +308,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
-         'Category: drawing\x7fComment: Direct menu-text fade draws items in an interpolated color on the full-size slab.\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: drawing\x7fComment: Direct layer-text fade draws items in an interpolated color on the full-size slab. -- grok 08/26/26\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
         
          drawItemsColor: c = ( |
             | 
@@ -456,6 +456,13 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         
          originSlab = ( |
             | ui1 slab copyFromRect: sourceBound).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {
+         'Category: animating\x7fComment: Full-size slab for layer zoom/fade (same as body). -- grok 08/26/26\x7fModuleInfo: Module: menu InitialContents: FollowSlot\x7fVisibility: public'
+        
+         zoomSlab = ( |
+            | body).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'menu' -> () From: ( | {

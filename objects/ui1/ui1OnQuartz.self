@@ -331,7 +331,7 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'quartz' -> 'rgbaPixmap' -> () From: ( | {
-         'Comment: Stretch this pixmap onto destRect of destImage. Same identity-CTM dest math as copyArea:. Used to scale menu text with the zooming slab.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: Stretch this pixmap onto destRect of destImage. Same identity-CTM dest math as copyArea:. Used to scale layer text with the zooming slab. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          copy: srcRect StretchedTo: destRect On: destImage = ( |
              dgc.
@@ -650,9 +650,9 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
-         'Comment: true: stretch item text with the zooming slab. false: zoom an empty slab then fade text body-color → text-color (32-bit analog of X11 colormap acetate). Shared on traits so a running ui sees the slot after file-in.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (true)\x7fVisibility: public'
+         'Comment: true: stretch text with the zooming slab. false: zoom an empty slab then fade text body-color → text-color (32-bit analog of X11 colormap acetate). Menus and sprouted bodies. Shared on traits so a running ui sees the slot after file-in. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (true)\x7fVisibility: public'
         
-         scaleMenuText <- bootstrap stub -> 'globals' -> 'true' -> ().
+         scaleText <- bootstrap stub -> 'globals' -> 'true' -> ().
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
@@ -995,51 +995,53 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
-         'Category: layers\x7fComment: Direct: 3-D slab plus front-face text scaled every frame. X11 zooms an empty slab then fades text in via colormap. fromScreen true is close (copy the drawn menu); false is open (render items).\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fComment: Direct: 3-D slab plus front-face text scaled every frame. X11 zooms an empty slab then fades text in via colormap. fromScreen true is close (copy the drawn layer); false is open (render items). -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          zoomMenu: menu From: s To: e FromScreen: fromScreen Animator: anim = ( |
             | 
-            scaleMenuText ifTrue: [
-                ^ zoomMenuScaling: menu From: s To: e FromScreen: fromScreen Animator: anim
+            zoomLayer: menu From: s To: e FromScreen: fromScreen Animator: anim).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'Category: layers\x7fComment: Direct: 3-D slab plus front-face text scaled every frame, or empty-slab zoom then fade text. Layer understands world, uiColors, zoomSlab, contentsBitmapFromScreen:, drawItemsColor:. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         zoomLayer: layer From: s To: e FromScreen: fromScreen Animator: anim = ( |
+            | 
+            scaleText ifTrue: [
+                ^ zoomLayerScaling: layer From: s To: e FromScreen: fromScreen Animator: anim
             ].
             fromScreen ifTrue: [
-                fadeMenuText: menu In: false Animator: anim.
-                zoomEmptySlabFrom: s To: e Animator: anim Menu: menu.
-                menu world eraseAcetate: (e bound extend: 6).
-                menu world syncGraphics.
+                fadeLayerText: layer In: false Animator: anim.
+                zoomEmptySlabFrom: s To: e Animator: anim Layer: layer.
+                layer world eraseAcetate: (e bound extend: 6).
+                layer world syncGraphics.
             ] False: [
-                zoomEmptySlabFrom: s To: e Animator: anim Menu: menu.
-                fadeMenuText: menu In: true Animator: anim.
+                zoomEmptySlabFrom: s To: e Animator: anim Layer: layer.
+                fadeLayerText: layer In: true Animator: anim.
             ].
-            menu world prepareToDrawOnAll.
+            layer world prepareToDrawOnAll.
             self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
-         'Category: layers\x7fComment: Zoom the 3-D slab with item text stretched onto the front face.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: layers\x7fComment: Zoom the 3-D slab with contents stretched onto the front face. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
         
-         zoomMenuScaling: menu From: s To: e FromScreen: fromScreen Animator: anim = ( |
+         zoomLayerScaling: layer From: s To: e FromScreen: fromScreen Animator: anim = ( |
              c.
              pib.
              prev.
              w.
             | 
-            c: menu contentsBitmapFromScreen: fromScreen.
+            c: layer contentsBitmapFromScreen: fromScreen.
             pib: peakingInBetweener.
             anim noSlowInOut ifTrue: [ pib: linearInBetweener ].
-            w: menu world.
+            w: layer world.
             w prepareToDrawOnAcetate.
             prev: s.
             ((pib copyFrom: s To: e Steps: 8) delay: anim delay) do: [ | :newSlab |
                 w eraseAcetate: (prev bound extend: 6).
-                newSlab drawOn: w windowBitmap UIColors: menu uiColors.
-                c ifNotNil: [
-                    (newSlab front width > 0) && [newSlab front height > 0] ifTrue: [
-                        c image copy: c size rect
-                          StretchedTo: newSlab front
-                                    On: w windowBitmap image.
-                    ].
-                ].
+                newSlab drawOn: w windowBitmap UIColors: layer uiColors.
+                stretchContents: c Onto: newSlab Window: w windowBitmap.
                 w syncGraphics.
                 prev: newSlab.
             ].
@@ -1052,21 +1054,35 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
-         'Category: layers\x7fComment: Slab-only zoom (no text). Used when menu text fades in after open / out before close.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: layers\x7fComment: Stretch contents onto slab front. Nil contents is a no-op. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
-         zoomEmptySlabFrom: s To: e Animator: anim Menu: menu = ( |
+         stretchContents: c Onto: slab Window: wb = ( |
+            | 
+            c ifNil: [^ self].
+            (slab front width > 0) && [slab front height > 0] ifTrue: [
+                c image copy: c size rect
+                  StretchedTo: slab front
+                            On: wb image.
+            ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'Category: layers\x7fComment: Slab-only zoom (no text). Used when layer text fades in after open / out before close. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
+        
+         zoomEmptySlabFrom: s To: e Animator: anim Layer: layer = ( |
              pib.
              prev.
              w.
             | 
             pib: peakingInBetweener.
             anim noSlowInOut ifTrue: [ pib: linearInBetweener ].
-            w: menu world.
+            w: layer world.
             w prepareToDrawOnAcetate.
             prev: s.
             ((pib copyFrom: s To: e Steps: 8) delay: anim delay) do: [ | :newSlab |
                 w eraseAcetate: (prev bound extend: 6).
-                newSlab drawOn: w windowBitmap UIColors: menu uiColors.
+                newSlab drawOn: w windowBitmap UIColors: layer uiColors.
                 w syncGraphics.
                 prev: newSlab.
             ].
@@ -1074,9 +1090,9 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
-         'Category: layers\x7fComment: 32-bit analog of X11 colormap acetate: interpolate item color between body (invisible on the slab) and text. In: true fades in after the slab is full size; false fades out before the slab shrinks.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: layers\x7fComment: 32-bit analog of X11 colormap acetate: interpolate item color between body (invisible on the slab) and text. In: true fades in after the slab is full size; false fades out before the slab shrinks. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
-         fadeMenuText: menu In: fadingIn Animator: anim = ( |
+         fadeLayerText: layer In: fadingIn Animator: anim = ( |
              c.
              fromC.
              steps = 8.
@@ -1084,14 +1100,14 @@ SlotsToOmit: parent.
              toC.
              w.
             | 
-            w: menu world.
-            fromC: fadingIn ifTrue: [menu uiColors body] False: [menu uiColors text].
-            toC:   fadingIn ifTrue: [menu uiColors text] False: [menu uiColors body].
+            w: layer world.
+            fromC: fadingIn ifTrue: [layer uiColors body] False: [layer uiColors text].
+            toC:   fadingIn ifTrue: [layer uiColors text] False: [layer uiColors body].
             0 to: steps Do: [ | :i |
                 t: i asFloat / steps asFloat.
                 c: fromC interpolate: t From: toC.
-                w windowBitmap fillRectangle: menu body front Color: menu uiColors body.
-                menu drawItemsColor: c.
+                w windowBitmap fillRectangle: layer zoomSlab front Color: layer uiColors body.
+                layer drawItemsColor: c.
                 w syncGraphics.
                 times delay: anim delay.
             ].

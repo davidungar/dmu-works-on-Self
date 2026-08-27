@@ -504,6 +504,15 @@ SlotsToOmit: graphic parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objectBody' -> () From: ( | {
+         'Category: animating\x7fComment: Name is drawn in drawBase, not via componentsDo. -- grok 08/26/26\x7fModuleInfo: Module: objectBody InitialContents: FollowSlot\x7fVisibility: public'
+        
+         drawFrontContents = ( |
+            | 
+            drawBodyText: name At: nameLocation Font: nameFont.
+            resend.drawFrontContents).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'objectBody' -> () From: ( | {
          'Category: creating\x7fModuleInfo: Module: objectBody InitialContents: FollowSlot\x7fVisibility: private'
         
          computeSize = ( |

@@ -334,10 +334,10 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slotNameCpt' -> () From: ( | {
-         'Category: drawing\x7fModuleInfo: Module: slotNameCpt InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: drawing\x7fComment: Use uiNester so Direct layer-text fade recolors slot names too. -- grok 08/26/26\x7fModuleInfo: Module: slotNameCpt InitialContents: FollowSlot\x7fVisibility: public'
         
          textColor = ( |
-            | uiColors text).
+            | resend.textColor).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'slotNameCpt' -> () From: ( | {

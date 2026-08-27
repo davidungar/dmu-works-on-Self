@@ -1718,7 +1718,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
-         'Category: sprouting\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: sprouting\x7fComment: Direct: same scaleText switch as menus — stretch front contents with the slab, or zoom empty then fade text. -- grok 08/26/26\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          sproutBody: nb FromPoint: pt HasArrow: hasArrow FromCpt: cpt IsParent: isParent = ( | {
                  'ModuleInfo: Module: animator InitialContents: FollowSlot'
@@ -1755,6 +1755,10 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                 }  {
                  'ModuleInfo: Module: animator InitialContents: FollowSlot'
                 
+                 savedFront.
+                }  {
+                 'ModuleInfo: Module: animator InitialContents: FollowSlot'
+                
                  t.
                 } 
             | 
@@ -1773,6 +1777,9 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             ].
             world eraseArrowLayers.
             world prepareToDrawOnAcetate.
+            savedFront: world myUI graphics scaleText
+                ifTrue: [ nb contentsBitmapFromScreen: false ]
+                 False: nil.
             (
                 (pib_proto copyFrom: os To: ns Steps: sproutSteps)
                   delay: delay
@@ -1784,12 +1791,25 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                                  False: [ prevSlab bound ] ].
                  prevSlab: newSlab.
                  newSlab drawOn: world windowBitmap UIColors: uiColors.
+                 world myUI graphics
+                     stretchContents: savedFront
+                                Onto: newSlab
+                              Window: world windowBitmap.
                  hasArrow ifTrue: [
                      narr setToCpt: newSlab.
                      narr drawOn: world windowBitmap Color: uiColors arrow.
                      arrowBound: narr bound.
                  ].
                  world syncGraphics.
+             ].
+             world myUI graphics scaleText ifFalse: [
+                 savedFront: nb contentsBitmapFromScreen: false.
+                 world myUI graphics fadeLayerText: nb In: true Animator: self.
+                 savedFront ifNotNil: [
+                     savedFront copy: savedFront size rect
+                                   To: nb graphic
+                                   At: nb graphic frontBound origin.
+                 ].
              ].
              world prepareToDrawOnAll.
              self).

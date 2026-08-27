@@ -1047,11 +1047,19 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> () From: ( | {
-         'Category: layers\x7fComment: Direct scales menu text with the slab. X11 keeps colormap acetate: zoom the empty slab, then draw text.\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fComment: Direct scales layer text with the slab. X11 keeps colormap acetate: zoom the empty slab, then draw text. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         zoomLayer: layer From: s To: e FromScreen: fromScreen Animator: anim = ( |
+            | 
+            anim zoomSlab: s To: e).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> () From: ( | {
+         'Category: layers\x7fComment: Direct scales layer text with the slab. X11 keeps colormap acetate: zoom the empty slab, then draw text. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot\x7fVisibility: public'
         
          zoomMenu: menu From: s To: e FromScreen: fromScreen Animator: anim = ( |
             | 
-            anim zoomSlab: s To: e).
+            zoomLayer: menu From: s To: e FromScreen: fromScreen Animator: anim).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> () From: ( | {

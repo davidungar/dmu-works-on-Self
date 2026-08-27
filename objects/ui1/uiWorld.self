@@ -541,6 +541,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
+         'Category: layers\x7fComment: Bound during Direct layer-text fade so drawBodyText uses the interpolated color. Nil otherwise. -- grok 08/26/26\x7fModuleInfo: Module: uiWorld InitialContents: InitializeToExpression: (nil)\x7fVisibility: public'
+        
+         fadeTextColor.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: layers\x7fComment: X11 ones-on-bitplane vs direct arrow paint. -- grok 08/26/26\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
         
          arrowAnimColor = ( |

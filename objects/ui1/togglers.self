@@ -80,7 +80,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             anticipation.
             followThrough.
             arcs.
-            menuTextScale.
+            textScale.
             self).
         } | ) 
 
@@ -186,25 +186,32 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
-         'ModuleInfo: Module: togglers InitialContents: FollowSlot'
+         'Comment: Same switch as menus: stretch text with the expanding slab, or fade it in after. -- grok 08/26/26\x7fModuleInfo: Module: togglers InitialContents: FollowSlot'
         
-         menuTextScale = ( | {
+         textScale = ( | {
                  'ModuleInfo: Module: togglers InitialContents: FollowSlot'
                 
                  t.
                 } 
             | 
             t: ui1 toggleBody createOn: ui1 ui currentWorld
-                        OnString: 'menu text scales'
-                        OffString: 'menu text fades in'
+                        OnString: 'text scales'
+                        OffString: 'text fades in'
                         OnMessage: (message copy receiver: ui1 ui currentWorld myUI
-                                                 Selector: 'menuTextScalesWithSlab')
+                                                 Selector: 'textScalesWithSlab')
                         OffMessage: (message copy receiver: ui1 ui currentWorld myUI
-                                                  Selector: 'fadeMenuTextIn')
+                                                  Selector: 'fadeTextIn')
                         InitiallyOn: true.
              t location: loc: 8.
              t swoopDown.
              t).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
+         'Comment: Alias of textScale. -- grok 08/26/26\x7fModuleInfo: Module: togglers InitialContents: FollowSlot'
+        
+         menuTextScale = ( |
+            | textScale).
         } | )  
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'ui1' -> 'togglers' -> () From: ( | {
