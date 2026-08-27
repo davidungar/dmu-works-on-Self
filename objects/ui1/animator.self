@@ -1073,7 +1073,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
-         'Category: arrowSprouting\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: arrowSprouting\x7fComment: Draw with arrowAnimColor (X11 ones, direct arrow). -- grok 08/26/26\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          desproutArrow: a = ( | {
                  'ModuleInfo: Module: animator InitialContents: FollowSlot'
@@ -1090,7 +1090,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                delay: delay) do: [ | :pt |
                 world eraseArrow0.
                 ((a copy setHead: pt) setTail: a tail)
-                  drawOn: world windowBitmap Color: uiColors ones.
+                  drawOn: world windowBitmap Color: world arrowAnimColor.
                 world syncGraphics.
              ].
             world eraseArrow0.
@@ -1684,7 +1684,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
-         'Category: arrowSprouting\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: arrowSprouting\x7fComment: Draw with arrowAnimColor (X11 ones, direct arrow). -- grok 08/26/26\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          sproutArrow: a = ( | {
                  'ModuleInfo: Module: animator InitialContents: FollowSlot'
@@ -1699,7 +1699,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                delay: delay) do: [ | :pt |
                 world eraseArrow0.
                 ((a copy setHead: pt) setTail: a tail)
-                  drawOn: world windowBitmap Color: uiColors ones.
+                  drawOn: world windowBitmap Color: world arrowAnimColor.
                 world syncGraphics. ].
             world prepareToDrawOnBackground.
             a drawOn: world windowBitmap Color: uiColors arrow.
@@ -1796,7 +1796,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'realAnimator' -> () From: ( | {
-         'Category: wiggling\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: wiggling\x7fComment: Draw with arrowAnimColor (X11 ones, direct arrow). -- grok 08/26/26\x7fModuleInfo: Module: animator InitialContents: FollowSlot\x7fVisibility: public'
         
          sproutWiggleArrow: arr Init: init = ( | {
                  'ModuleInfo: Module: animator InitialContents: FollowSlot'
@@ -1826,7 +1826,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             ) do: [ | :pt |
                 world eraseArrow0.
                 ((arr copy setHead: pt) setTail: arr tail)
-                  drawOn: world windowBitmap Color: uiColors ones.
+                  drawOn: world windowBitmap Color: world arrowAnimColor.
                 world syncGraphics. ].
             init ifTrue: [ arr installNoWorld ].
             noFollowThrough ifFalse: [

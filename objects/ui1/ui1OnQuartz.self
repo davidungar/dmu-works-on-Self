@@ -800,19 +800,35 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
-         'Category: layers\x7fComment: X11 erase of acetate/arrow planes: fill those bitplanes with transparent so the last-presented background shows through. 32-bit analog: copy that rect from offScreen (last present:), not graphic. sproutBodyFor: already displays the new body onto graphic before the acetate grow; copying graphic flashed the full object, then the expanding slab drew on top. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: layers\x7fComment: Direct ones is white; paint moving arrows with the arrow colour. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+        
+         arrowAnimColorFrom: uiColors = ( |
+            | uiColors arrow).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'Category: layers\x7fComment: moveArrows restores the whole static scene then draws; the X11 acetate erase in that block would punch the new arrows. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (false)\x7fVisibility: private'
+        
+         skipAcetateErase <- bootstrap stub -> 'globals' -> 'false' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+         'Category: layers\x7fComment: X11 erase of acetate/arrow planes: fill those bitplanes with transparent so the last-presented background shows through. 32-bit analog: copy that rect from acetateStatic (offScreen after present:, or graphic while a body is moving). sproutBodyFor: displays the new body onto graphic before the acetate grow, so restoring graphic flashed it. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
         
          restoreStatic: rect = ( |
             | 
-            window handler target world update: rect.
+            window handler target world acetateStatic
+                copy: rect To: window bitmap At: rect origin.
             self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
-         'Category: layers\x7fCategory: erasing layers\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fCategory: erasing layers\x7fComment: no-op inside moveArrows after the full-window restore. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseAcetate: rect Colors: uiColors = ( |
-            | restoreStatic: rect).
+            | 
+            skipAcetateErase ifTrue: [ ^ self ].
+            restoreStatic: rect).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
@@ -830,11 +846,14 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
-         'Category: layers\x7fComment: X11 clears one arrow bitplane, runs the draw block, then colormap-flips. 32-bit: restore is via eraseAcetate in the block; flush the shadow so the frame is visible.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fComment: X11 clears the hidden arrow bitplane, draws, then colormap-flips. 32-bit: restore the static scene first so the previous body/arrow pixels go away, then draw. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          moveArrows: doBlock Flip: flip = ( |
             | 
+            restoreStatic: window bitmap size rect.
+            skipAcetateErase: true.
             doBlock value.
+            skipAcetateErase: false.
             window sync.
             self).
         } | ) 

@@ -806,15 +806,15 @@ Find-slot dest: do not slide left over the Slot to find editor. -- grok 08/26/26
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiBody' -> () From: ( | {
-         'Category: arrowing managing\x7fComment: see caveat for setArrowsAnd:\x7fModuleInfo: Module: uiBody InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: arrowing managing\x7fComment: see caveat for setArrowsAnd:. Color is ones on X11 (bitplane+colormap), arrow on direct. -- grok 08/26/26\x7fModuleInfo: Module: uiBody InitialContents: FollowSlot\x7fVisibility: public'
         
          setAndDrawArrowsOn: bm = ( |
             | 
             setArrowsAnd: [ | :a. |
                 a blurOn: bm
                  Pattern: uiPatterns blurArrow
-                   Color: uiColors ones.
-                a drawOn: bm Color: uiColors ones. ]).
+                   Color: world arrowAnimColor.
+                a drawOn: bm Color: world arrowAnimColor. ]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiBody' -> () From: ( | {

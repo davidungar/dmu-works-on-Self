@@ -527,6 +527,27 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
+         'Category: layers\x7fComment: Bitmap eraseAcetate copies from during 32-bit animation. -- grok 08/26/26\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
+        
+         acetateStatic = ( |
+            | 
+            acetateRestoreFromGraphic ifTrue: [ graphic ] False: [ offScreen ]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
+         'Category: layers\x7fComment: Direct acetate restore uses graphic while a body is off the stationary scene (prepareForAnimation / grabArrow); otherwise offScreen (last present:). On traits so a live file-in sees it. -- grok 08/26/26\x7fModuleInfo: Module: uiWorld InitialContents: InitializeToExpression: (false)\x7fVisibility: public'
+        
+         acetateRestoreFromGraphic <- bootstrap stub -> 'globals' -> 'false' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
+         'Category: layers\x7fComment: X11 ones-on-bitplane vs direct arrow paint. -- grok 08/26/26\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: public'
+        
+         arrowAnimColor = ( |
+            | myUI graphics arrowAnimColorFrom: uiColors).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
          'Category: screenOperations\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot\x7fVisibility: private'
         
          drawArrows: bm Color: col = ( |
@@ -805,7 +826,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
-         'Category: arrowGrabbing\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
+         'Category: arrowGrabbing\x7fComment: Direct restores from graphic while the grabbed arrow is off the list. -- grok 08/26/26\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          grabArrow: arr = ( |
              body.
@@ -825,6 +846,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             saveStatic.
             arrows remove: arr.
             drawArrows: graphic.
+            acetateRestoreFromGraphic: true.
             graphic copyTo: windowBitmap.
 
             arr findBoundsOfFromCpt.
@@ -839,6 +861,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
 
             "clean up after moving"
             myUI graphics prepareToCopyAllLayers.
+            acetateRestoreFromGraphic: false.
             reinstateStatic.
             arrows add: arr.
 
@@ -1247,7 +1270,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
-         'Category: arrowGrabbing\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
+         'Category: arrowGrabbing\x7fComment: Color is ones on X11 (bitplane+colormap), arrow on direct. -- grok 08/26/26\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          moveHeadOfArrow: arr To: loc = ( |
             | 
@@ -1256,8 +1279,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
             arr clipToBoundsOfFromCpt.
             arr blurOn: windowBitmap
                Pattern: uiPatterns blurArrow
-                 Color: uiColors ones.
-            arr drawWithTargetheadOn: windowBitmap Color: uiColors ones.
+                 Color: arrowAnimColor.
+            arr drawWithTargetheadOn: windowBitmap Color: arrowAnimColor.
             self).
         } | ) 
 
@@ -1340,7 +1363,7 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
-         'Category: bodyMoving\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
+         'Category: bodyMoving\x7fComment: Direct then restores from graphic (body off the stationary scene, remaining arrows drawn). -- grok 08/26/26\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          prepareForAnimation: bod IncludeArrows: withArr = ( |
             | 
@@ -1359,6 +1382,8 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
                         ] False: [
                             reclipArrows: bod absoluteBound.
                             drawArrows: graphic ].
+
+                        acetateRestoreFromGraphic: true.
 
                         prepareToDrawOnAcetate.
                         eraseAcetate.
@@ -1475,11 +1500,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'uiWorld' -> () From: ( | {
-         'Category: bodyMoving\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
+         'Category: bodyMoving\x7fComment: Clears acetateRestoreFromGraphic so later sprout acetate restore uses offScreen again. -- grok 08/26/26\x7fModuleInfo: Module: uiWorld InitialContents: FollowSlot'
         
          recoverFromAnimation: bod IncludeArrows: withArr = ( |
             | 
             prepareToDrawOnAll.
+            acetateRestoreFromGraphic: false.
             reinstateStatic.
             addBodyOnTop: bod.
             bod display.

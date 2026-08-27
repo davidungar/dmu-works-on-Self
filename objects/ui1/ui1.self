@@ -329,6 +329,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fComment: X11 paints ones on an arrow bitplane; the colormap shows it as arrow. Direct ones is white paint. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         arrowAnimColorFrom: uiColors = ( |
+            | uiColors ones).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: fading acetate\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          fadeInAcetate = ( |
