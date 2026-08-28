@@ -289,6 +289,13 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fComment: X11 paints ones on an arrow bitplane; the colormap shows it as arrow. Direct ones is white paint. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         arrowAnimColorFrom: uiColors = ( |
+            | uiColors ones).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: prototypes\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          boxSizePlatformMixin = ( |
@@ -329,18 +336,18 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: layers\x7fComment: X11 paints ones on an arrow bitplane; the colormap shows it as arrow. Direct ones is white paint. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         arrowAnimColorFrom: uiColors = ( |
-            | uiColors ones).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: fading acetate\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          fadeInAcetate = ( |
             | 
             childResponsibility).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fComment: Direct interpolates text body \xe2\x86\x92 text after the slab is full size. X11 no-op (colormap acetate). -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         fadeLayerText: layer In: fadingIn Animator: anim = ( |
+            | self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
@@ -495,32 +502,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: layers\x7fComment: Direct stores the flag on its traits. X11 ignores; zoom still does colormap acetate. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         scaleText = bootstrap stub -> 'globals' -> 'false' -> ().
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: layers\x7fComment: Direct stores the flag on its traits. X11 ignores; zoom still does colormap acetate. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         scaleText: b = ( |
-            | self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: layers\x7fComment: Direct paces presents to this fps. X11 moveArrows already delays 1. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         targetFPS = 0.
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: layers\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         targetFPS: n = ( |
-            | self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
          'Category: layers\x7fComment: Alias of scaleText. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          scaleMenuText = ( |
@@ -535,9 +516,15 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
-         'Category: layers\x7fComment: Direct interpolates text body → text after the slab is full size. X11 no-op (colormap acetate). -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: layers\x7fComment: Direct stores the flag on its traits. X11 ignores; zoom still does colormap acetate. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
-         fadeLayerText: layer In: fadingIn Animator: anim = ( |
+         scaleText = bootstrap stub -> 'globals' -> 'false' -> ().
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fComment: Direct stores the flag on its traits. X11 ignores; zoom still does colormap acetate. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         scaleText: b = ( |
             | self).
         } | ) 
 
@@ -545,6 +532,19 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          'Category: layers\x7fComment: Direct stretches a contents bitmap onto the slab front. X11 no-op. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          stretchContents: c Onto: slab Window: wb = ( |
+            | self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fComment: Direct paces presents to this fps. X11 moveArrows already delays 1. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         targetFPS = 0.
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> () From: ( | {
+         'Category: layers\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         targetFPS: n = ( |
             | self).
         } | ) 
 
@@ -585,42 +585,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
          worldPrototype = ( |
             | 
             childResponsibility).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: FollowSlot'
-        
-         attic = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'attic' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 graphics attic.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'attic' -> () From: ( | {
-         'Comment: the true-colour RGBA graphics backend (Phase 2). Inherits the quartz backend; overrides makeOffscreenFor: (rgbaPixmap offscreens) and installShadowOn: (no shadow -> window draws true colour). Draw-targets are inherited for now (plane masks are no-ops on rgbaContext; arrow colormap installs are harmless); the acetate/arrow multi-surface facade comes in 2.2.\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: private'
-        
-         newQuartz = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'attic' -> 'newQuartz' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 graphics attic newQuartz.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'attic' -> () From: ( | {
-         'ModuleInfo: Module: ui1 InitialContents: FollowSlot'
-        
-         newQuartzTraits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'attic' -> 'newQuartzTraits' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 graphics attic newQuartzTraits.
-'.
-            | ) .
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'attic' -> () From: ( | {
-         'Comment: the original 8-bit indexed graphics backend (Phase 1.5 dual-backend). Its factory methods reproduce setGraphicAndOffScreen exactly (bitmap copyFor:Size:), so selecting it changes no behaviour. parent* = lobby so the factory bodies can see the bitmap global.\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: private'
-        
-         quartz = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'attic' -> 'quartz' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 graphics attic quartz.
-'.
-            | ) .
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
@@ -795,38 +759,6 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: animationControl\x7fComment: Direct: zoom an empty slab then fade text color body → text (old ui1 colormap acetate). Menus and sprouted bodies. No-op setter on X11 graphics. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
-        
-         fadeTextIn = ( |
-            | 
-            graphics scaleText: false.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: animationControl\x7fComment: Alias of fadeTextIn. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
-        
-         fadeMenuTextIn = ( |
-            | fadeTextIn).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: animationControl\x7fComment: Direct: stretch text with the zooming slab. Menus and sprouted bodies. No-op setter on X11 graphics. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
-        
-         textScalesWithSlab = ( |
-            | 
-            graphics scaleText: true.
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: animationControl\x7fComment: Alias of textScalesWithSlab. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
-        
-         menuTextScalesWithSlab = ( |
-            | textScalesWithSlab).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
         
          anticipation = ( |
@@ -845,6 +777,33 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         
          areEventsPending = ( |
             | handler messagesReady || [stdin dataReady]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: 0-1 density for arrow motion blur (X11 stipple and Direct alpha). ui arrowBlur: 0.5 -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         arrowBlur = ( |
+            | preferences arrowBlur).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Set density 0-1 and rebuild every live ui clone. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         arrowBlur: p = ( |
+            | 
+            preferences arrowBlur: p asFloat.
+            runningUIsDo: [ | :u |
+                u uiPatterns blurArrow setDensity: preferences arrowBlur.
+                u uiPatterns blurArrow createFor: u window.
+            ].
+            preferences arrowBlur).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Arrow motion blur only. Boxes have motionBlur. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+        
+         arrowMotionBlur = ( |
+            | preferences blurArrows: true).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
@@ -1016,6 +975,22 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
         
          exists: mirr = ( |
             | world exists: mirr).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Alias of fadeTextIn. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+        
+         fadeMenuTextIn = ( |
+            | fadeTextIn).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Direct: zoom an empty slab then fade text color body \xe2\x86\x92 text (old ui1 colormap acetate). Menus and sprouted bodies. No-op setter on X11 graphics. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+        
+         fadeTextIn = ( |
+            | 
+            graphics scaleText: false.
+            self).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
@@ -1363,6 +1338,13 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Alias of textScalesWithSlab. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+        
+         menuTextScalesWithSlab = ( |
+            | textScalesWithSlab).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: windowEvents\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          middleButtonDownAt: pos Event: event = ( |
@@ -1442,61 +1424,6 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: animationControl\x7fComment: Arrow motion blur only. Boxes have motionBlur. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
-        
-         arrowMotionBlur = ( |
-            | preferences blurArrows: true).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: animationControl\x7fComment: Direct motion-blur present cap. ui targetFPS: 60 -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         targetFPS = ( |
-            | graphics targetFPS).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: animationControl\x7fComment: Direct only. 0 = uncapped. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         targetFPS: n = ( |
-            | 
-            graphics targetFPS: n.
-            n).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: animationControl\x7fComment: 0-1 density for arrow motion blur (X11 stipple and Direct alpha). ui arrowBlur: 0.5 -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         arrowBlur = ( |
-            | preferences arrowBlur).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: animationControl\x7fComment: Set density 0-1 and rebuild every live ui clone. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         arrowBlur: p = ( |
-            | 
-            preferences arrowBlur: p asFloat.
-            runningUIsDo: [ | :u |
-                u uiPatterns blurArrow setDensity: preferences arrowBlur.
-                u uiPatterns blurArrow createFor: u window.
-            ].
-            preferences arrowBlur).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: animationControl\x7fComment: Every ui clone whose process is active (same census as closeAllWindows). -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
-        
-         runningUIsDo: blk = ( |
-            | 
-            (browse childrenOf: traits ui1 ui) do: [ | :m. u. |
-                u: m reflectee.
-                u uiProcess isActive ifTrue: [ blk value: u ].
-            ].
-            self).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          move: mirr To: pos = ( |
@@ -1524,6 +1451,13 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Arrow motion blur only. Boxes have noMotionBlur. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+        
+         noArrowMotionBlur = ( |
+            | preferences blurArrows: false).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: animationControl\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
         
          noFollowThrough = ( |
@@ -1535,13 +1469,6 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
         
          noMotionBlur = ( |
             | preferences blurBodies: false).
-        } | ) 
-
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: animationControl\x7fComment: Arrow motion blur only. Boxes have noMotionBlur. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
-        
-         noArrowMotionBlur = ( |
-            | preferences blurArrows: false).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
@@ -1987,6 +1914,18 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Every ui clone whose process is active (same census as closeAllWindows). -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         runningUIsDo: blk = ( |
+            | 
+            (browse childrenOf: traits ui1 ui) do: [ | :m. u. |
+                u: m reflectee.
+                u uiProcess isActive ifTrue: [ blk value: u ].
+            ].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: requests client\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          send: msg CatchErrorsAndPutResultAt: pt = ( | {
@@ -2186,6 +2125,22 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Direct motion-blur present cap. ui targetFPS: 60 -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         targetFPS = ( |
+            | graphics targetFPS).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Direct only. 0 = uncapped. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         targetFPS: n = ( |
+            | 
+            graphics targetFPS: n.
+            n).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: testing\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          test = ( |
@@ -2348,6 +2303,15 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
             world bodies do: [|:e |
              ((reflect: e) lookupKey: 'methodView') isEmpty ifFalse: [
                e onTop ifTrue: [ e methodView draw. e methodView basicDraw ]]].
+            self).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: animationControl\x7fComment: Direct: stretch text with the zooming slab. Menus and sprouted bodies. No-op setter on X11 graphics. -- grok 08/26/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot'
+        
+         textScalesWithSlab = ( |
+            | 
+            graphics scaleText: true.
             self).
         } | ) 
 

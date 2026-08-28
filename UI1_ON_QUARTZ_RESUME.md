@@ -8,9 +8,13 @@ Paste into the next session:
 > opaque CGLayer. 3-D corners are **source-over alpha**, not AND/OR.
 > First screen (sage + lobby + 3-D slab) **works**. Fonts: Helvetica Neue
 > Medium. `present:` is the abstract path again (`displayNoUpdate` +
-> `update` + `syncGraphics`). Next: window resize (and initial
-> `boundsChanged` so first paint does not need a drag).
-> Start Self with `-f objects/all2.self` only. **No snapshots.** Do not
+> `update` + `syncGraphics`). Window resize + initial Cocoa
+> `boundsChanged` are on disk (confirm visually). Next: leftover
+> hardcoded footer sizes (`diffUI` / transcript / notifier), and
+> visually confirm arrows / swoop / world-grow triangle.
+> Start Self with `-f objects/all2.self` only. **No snapshots.** Use the
+> **Release** VM (`cmake-build-xcode-macos/Release/Self.app`), not
+> RelWithDebInfo and not Debug, unless David says otherwise. Do not
 > launch a second VM if one is already running.
 
 Branch: `cont-ui1-on-quartz` (tracks `dmu-works-on-Self/cont-ui1-on-quartz`).
@@ -19,6 +23,7 @@ Hub file: `objects/ui1/ui1OnQuartz.self` (uncommitted; file-in, do not guess).
 
 Self comments go in slot annotations, not method bodies.
 After a failed start: `0 as printError`. After a visual miss: instrument and measure.
+UI1 VM: **Release only** unless David says otherwise. Not RelWithDebInfo. Not Debug.
 
 ---
 
@@ -27,7 +32,8 @@ After a failed start: `0 as printError`. After a visual miss: instrument and mea
 First sage-green ui1 world + lobby body: **done**.
 3-D slab (lid, side, sage chamfers): **done** (alpha, not stencil).
 
-Next: window resize. Fold first-paint into that (queue an initial Cocoa `boundsChanged`). Do not reopen 3-D corners or the `0@0` present path unless a flaw proves they regressed.
+Window resize + first-show `boundsChanged`: **on disk** (confirm visually).
+Do not reopen 3-D corners or the `0@0` present path unless a flaw proves they regressed.
 
 ---
 
@@ -118,6 +124,7 @@ Hub: `objects/ui1/ui1OnQuartz.self`
 - `rgbaContext setClipRectangle:` / `setNoClipMask` = restore+save the init GState (X11 replace). `withClip:Do:` clips via `clipToRectX:` inside `withNewGStateDo` (must **not** call `setClipRectangle:`).
 - `directTraits present:` → `resend.present:` (`displayNoUpdate` + `update` + `syncGraphics`). Do not skip to graphic-only `presentToWindow:`.
 - `directTraits tryToOpenWindowForDisplay:` sets Helvetica Neue / Medium, canvas `platformWindow`, `makeRGBAShadow`, `window finishOpening`.
+- `platformWindow bitmapImage` calls `ensureShadowSize` so a Cocoa resize recreates the BGRA shadow before `update`.
 
 Also this effort:
 
@@ -126,7 +133,8 @@ Also this effort:
 - `objects/ui1/uiColorPalette.self` — `x11DirectColorPalette transparent` alpha 0; `ones` white (indexed stencil; unused for direct display).
 - `objects/graphics/quartzForFF.self` — `lucidaSansFamily` / `lucidaSansBoldSuffix`.
 - `objects/ui1/ui1OnX11.self` — indexed resets Verdana/Bold.
-- `objects/graphics/quartz.self` — `sizeOfString:` / integer `height` / `descender` (canonical; do not copy into ui1OnQuartz).
+- `objects/graphics/quartz.self` — `sizeOfString:` / integer `height` / `descender` (canonical; do not copy into ui1OnQuartz). `ensureShadowSize` uses `makeRGBAShadow` when `shadow depth > 8`, then `grafPort initialize`.
+- `vm64/src/any/os/quartzWindow.mm` / `.hh` — `queue_bounds_changed` from `windowDidResize:` and first `activate`.
 - `objects/ui1/boxSize.self` / `slotNameCpt.self` — radio/checkbox Y from actual row height.
 - `objects/ui1/textEditor.self` — named footer geometry; `computeSize:` from widget sizes; `init` does `resize: computeSize: size`; title baseline + fit-to-Dismiss.
 - `objects/graphics/window.self` — `finishOpening` split (still needed).
@@ -139,26 +147,22 @@ Also this effort:
 2. **Swoop / arrows** — path is now the shadow present; confirm visually on the live window.
 3. **World grow triangle** — same; confirm visually (`draw3dExtension` on `windowBitmap`, then `sync` = `displayShadow`).
 4. ~~Inset of identity blit~~ **not real** on BGRA snapshots (corners of 400×300 are sage).
-5. **First paint still needs a resize/move** unless Cocoa sends an initial `boundsChanged`. Fold into window resize; do not reopen as its own campaign.
+5. ~~First paint still needs a resize/move~~ **on disk** — `QuartzWindow::activate` queues the same `boundsChanged` as `windowDidResize`. Confirm the first paint no longer needs a drag.
 6. **Evaluator vs lobby width** — editor is now as wide as the footer (title + Dismiss + Eval + handle); wider than the lobby is expected.
 7. **Resize handle** — 10×10 sunken square next to Eval; showed in the last shot.
 8. **diffUI / transcript / notifier** still use hardcoded footer button sizes (`58@16`, `50@16`, `65@16`) and diffUI still packs with `size y - 20`. Same overlap/baseline class as the evaluator was.
 
-**Next task: window resize** (`windowChanged` already resizes `graphic`/`offScreen`; Cocoa `windowDidResize:` already queues `boundsChanged`). Also send an initial `boundsChanged` on first show.
+**Window resize (2026-08-26):** `windowChanged` already resizes `graphic`/`offScreen`. Direct also needs the 32-bit shadow + IOSurface: `ensureShadowSize` now `makeRGBAShadow` when `shadow depth > 8`, then `quartzWindow grafPort initialize`. `bitmapImage` calls `ensureShadowSize` so `update` (offScreen→shadow) sees the new size. Cocoa first show: `queue_bounds_changed` from `activate` (not only `windowDidResize:`). Release `Self.app` is the UI1 VM (not RelWithDebInfo, not Debug unless David says otherwise). Confirm visually: first paint without a drag, then drag-resize.
 
 ---
 
-## Session state at quit (2026-08-24)
+## Session state at quit (2026-08-26)
 
-Live VM: PID **77197**, TTY **ttys002** (Terminal window whose processes include `Self`). Started `Self -f x.self` which reads `objects/all2.self`. Direct ui1 **is running** (`ui copy startOn: 'direct'`). Prompt was `"Self 14"` after the last file-in of clean `ui1OnQuartz.self`. **Do not start a second VM.** Do not kill this Self unless the user says to.
+No live VM (old PID 77197 is gone). UI1 uses the **Release** VM (`cmake-build-xcode-macos/Release/Self.app`), not RelWithDebInfo, not Debug, unless David says otherwise. **Do not start a second VM if one is already up.** Start with `-f objects/all2.self` (no snapshot), then file in and `ui copy startOn: 'direct'`.
 
-Dirty on disk (uncommitted): `objects/ui1/ui1OnQuartz.self`, `UI1_ON_QUARTZ_RESUME.md`. Hub file-in already done for the present-path restore; probes (`copyAreaProbeN` / `logProbe` / `sampleBitmap`) are gone from the file. A leftover `copyAreaProbeN` slot may still sit on the live traits — harmless; a new VM will not have it.
+Dirty on disk: `objects/ui1/ui1OnQuartz.self`, `objects/graphics/quartz.self`, `vm64/src/any/os/quartzWindow.mm`, `vm64/src/any/os/quartzWindow.hh`, `vm64/configure.sh`, `vm64/select-xcode.sh`, `vm64/cmake/mac_osx.cmake`, `UI1_ON_QUARTZ_RESUME.md`.
 
-To talk to this VM: AppleScript `do script … in` the ttys002 tab. Writing to `/dev/ttys002` from another process does **not** inject stdin.
-
-Visual still on the user: arrows, swoop, world-grow triangle (cannot screenshot — no Screen Recording). First paint may still need a window drag.
-
-Next session: window resize. Do not reopen 3-D corners or the `0@0` present path unless a flaw proves they regressed.
+Visual still on the user (cannot screenshot): first paint without a drag, window resize, arrows, swoop, world-grow triangle.
 
 ---
 
@@ -170,15 +174,16 @@ Next session: window resize. Do not reopen 3-D corners or the `0@0` present path
 - Trust `GetData` / `rgbaPixelAt` on GPU bitmaps.
 - Dest-rect guess `DrawImage` in y-down (no-op; **black**, not white).
 - File in `macToolbox.self` (stack overflow).
-- `xcodebuild` without `DEVELOPER_DIR=/Applications/Xcode-27-beta-5.app/Contents/Developer`.
+- `xcodebuild` without sourcing `vm64/select-xcode.sh` (sets `DEVELOPER_DIR` to the newest `/Applications/Xcode*.app`; `xcode-select` is Command Line Tools). Override with `DEVELOPER_DIR=...`.
 - Pass `-s Snapshot` or any snapshot. Start with `-f objects/all2.self` from repo root.
+- Run UI1 on RelWithDebInfo or Debug. Use `cmake-build-xcode-macos/Release/Self.app` unless David says otherwise.
 - Kill a Self the user is running. If one is already up, use it or ask.
 
 ---
 
 ## Test
 
-From repo root. **No `-s`.**
+From repo root. **No `-s`.** UI1 VM is **Release**, not RelWithDebInfo, not Debug (unless David says otherwise).
 
 ```
 ./cmake-build-xcode-macos/Release/Self.app/Contents/MacOS/Self -f objects/all2.self
