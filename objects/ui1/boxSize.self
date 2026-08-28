@@ -780,7 +780,7 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
             isMethod ifTrue: boxCodeFont False: boxObjectNameFont).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> 'boxSizePlatformMixin' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> 'boxSizePlatformMixin' -> () From: ( | {
          'Category: initializing\x7fModuleInfo: Module: boxSize InitialContents: FollowSlot\x7fVisibility: private'
         
          loadFont: name Style: style Size: size For: win IfFail: fb = ( |

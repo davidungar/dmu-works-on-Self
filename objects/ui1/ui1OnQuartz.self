@@ -512,10 +512,10 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
          'Category: prototypes\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
-         direct = bootstrap define: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'direct' -> () ToBe: bootstrap addSlotsTo: (
+         quartz = bootstrap define: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartz' -> () ToBe: bootstrap addSlotsTo: (
              bootstrap remove: 'parent' From:
-             traits ui1 graphics abstract copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'direct' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 graphics direct.
+             traits ui1 graphics abstract copy ) From: bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartz' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 graphics quartz.
 
 CopyDowns:
 traits ui1 graphics abstract. copy 
@@ -525,7 +525,7 @@ SlotsToOmit: parent.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'direct' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (nil)'
         
          bufferCanvas.
@@ -534,26 +534,26 @@ SlotsToOmit: parent.
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
          'Category: traits\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
-         directTraits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 graphics directTraits.
+         quartzTraits = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 graphics quartzTraits.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'direct' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
         
-         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> ().
+         parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'direct' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          window = ( |
             | ww).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'direct' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          window: w = ( |
@@ -562,35 +562,35 @@ SlotsToOmit: parent.
             ww: w).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'direct' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (nil)'
         
          windowCanvas.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'direct' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartz' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (nil)'
         
          ww.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fComment: Direct ones is white; paint moving arrows with the arrow colour. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          arrowAnimColorFrom: uiColors = ( |
             | uiColors arrow).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
-         boxSizePlatformMixin = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> 'boxSizePlatformMixin' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 graphics directTraits boxSizePlatformMixin.
+         boxSizePlatformMixin = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> 'boxSizePlatformMixin' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 graphics quartzTraits boxSizePlatformMixin.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: colormaps\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          changeColorsFor: uiColors OffScreen: offScreen Cursor: cursor Animator: ranimator UpdateNow: updateNow = ( |
@@ -599,7 +599,7 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          checkDepthOf: bitmap = ( |
@@ -607,7 +607,7 @@ SlotsToOmit: parent.
             [bitmap depth = 32] assert. self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          copy = ( |
@@ -620,14 +620,14 @@ SlotsToOmit: parent.
             r).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: fading\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          dissolve = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fComment: 32-bit has no bitplanes or colormap acetate. X11 plane-mask / colormap-cycle animation is a no-op; the body still draws via displayThru / display.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          dissolve: bod InWorld: world = ( |
@@ -636,7 +636,7 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: window\x7fComment: X11 does open -a XQuartz so the window gets keystrokes after a click. Native Cocoa: order front and make key. Do not call C++ QuartzWindow::activate (that queues boundsChanged for first show).\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          ensureFrontmost = ( |
@@ -647,7 +647,7 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: erasing layers\x7fComment: no-op inside moveArrows after the full-window restore. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseAcetate: rect Colors: uiColors = ( |
@@ -656,49 +656,49 @@ SlotsToOmit: parent.
             restoreStatic: rect).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: erasing layers\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseArrow0: rect Transparent: transparent = ( |
             | restoreStatic: rect).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: erasing layers\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          eraseArrow1: rect Transparent: transparent = ( |
             | restoreStatic: rect).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
-         ersatzWorldMorphNameHolder = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> 'ersatzWorldMorphNameHolder' -> () From: ( |
-             {} = 'ModuleInfo: Creator: traits ui1 graphics directTraits ersatzWorldMorphNameHolder.
+         ersatzWorldMorphNameHolder = bootstrap setObjectAnnotationOf: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> 'ersatzWorldMorphNameHolder' -> () From: ( |
+             {} = 'ModuleInfo: Creator: traits ui1 graphics quartzTraits ersatzWorldMorphNameHolder.
 '.
             | ) .
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> 'ersatzWorldMorphNameHolder' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> 'ersatzWorldMorphNameHolder' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          name <- 'anon'.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> 'ersatzWorldMorphNameHolder' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> 'ersatzWorldMorphNameHolder' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          p* = bootstrap stub -> 'traits' -> 'clonable' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: fading acetate\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          fadeInAcetate = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fComment: 32-bit analog of X11 colormap acetate: interpolate item color between body (invisible on the slab) and text. In: true fades in after the slab is full size; false fades out before the slab shrinks. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          fadeLayerText: layer In: fadingIn Animator: anim = ( |
@@ -723,27 +723,27 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: fading acetate\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          fadeOutAcetate = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Comment: Time of last paced present. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (nil)\x7fVisibility: private'
         
-         lastFrameTime.
+         lastFrameTime <- bootstrap stub -> 'globals' -> 'nil' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: fading acetate\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          makeAcetateVisible = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          makeOffscreenFor: win Size: sz = ( |
@@ -754,7 +754,7 @@ SlotsToOmit: parent.
             b).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fComment: X11 draws the arrow on plane 0 then clears plane 1. 32-bit: draw then flush. Do not clear the window bitmap (that would wipe the scene).\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          moveArrowHeadUsing: moveBlock = ( |
@@ -764,7 +764,7 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fComment: X11 colormap-flips then times delay: 1. Direct restores the whole scene every frame; pace to targetFPS so Cocoa vsync can show the smear. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          moveArrows: doBlock Flip: flip = ( |
@@ -778,14 +778,14 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fComment: 32-bit has no bitplanes or colormap acetate. X11 plane-mask / colormap-cycle animation is a no-op; the body still draws via displayThru / display.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
         
          noPlaneMask = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: starting and stopping\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          openWindowError = ( |
@@ -794,7 +794,7 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          openWindowOrCanvas: depth IfFail: fb = ( |
@@ -812,7 +812,7 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          optimalNameForDisplay: disp = ( |
@@ -820,7 +820,7 @@ SlotsToOmit: parent.
             'ui1 on ', disp).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fComment: Sleep only the leftover of 1/targetFPS since the last present. Late frames skip the wait. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
         
          paceFrame = ( |
@@ -843,27 +843,27 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          parent* = bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'abstractTraits' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          patterns = ( |
             | macToolboxGlobals patterns).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: prototypes\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          platformColormap = ( |
             | quartz colormap).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          platformPixmap = ( |
@@ -872,119 +872,119 @@ SlotsToOmit: parent.
             quartz rgbaPixmap).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareForAnimationWithArrows = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToCopyAllLayers = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawArrows = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAcetate = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAcetate: w = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAll: w = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnAllButArrow0: w = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow0: w = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow0InstallingBoth: w = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnArrow1: w = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnBackground = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToDrawOnInvisibleAcetate = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToMoveArrow0 = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToMoveArrow1 = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToMoveBlock = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fCategory: preparing to draw\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          prepareToZoom = ( |
             | noPlaneMask).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Comment: Abstract present: graphic copyTo: offScreen, arrows on offScreen, offScreen copyTo: shadow, displayShadow presentToWindow. 0@0 BGRA snapshot copies carry sage+lobby pixels (sampled). Do not skip to graphic-only blit.\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          present: w = ( |
@@ -992,7 +992,7 @@ SlotsToOmit: parent.
             resend.present: w).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fComment: X11 erase of acetate/arrow planes: fill those bitplanes with transparent so the last-presented background shows through. 32-bit analog: copy that rect from acetateStatic (offScreen after present:, or graphic while a body is moving). sproutBodyFor: displays the new body onto graphic before the acetate grow, so restoring graphic flashed it. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
         
          restoreStatic: rect = ( |
@@ -1002,26 +1002,26 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: starting and stopping\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          returnFromSnapshot = ( |
             | self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Comment: true: stretch text with the zooming slab. false: zoom an empty slab then fade text body-color \xe2\x86\x92 text-color (32-bit analog of X11 colormap acetate). Menus and sprouted bodies. Shared on traits so a running ui sees the slot after file-in. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (true)\x7fVisibility: public'
         
          scaleText <- bootstrap stub -> 'globals' -> 'true' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fComment: moveArrows restores the whole static scene then draws; the X11 acetate erase in that block would punch the new arrows. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (false)\x7fVisibility: private'
         
          skipAcetateErase <- bootstrap stub -> 'globals' -> 'false' -> ().
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fComment: Stretch contents onto slab front. Nil contents is a no-op. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          stretchContents: c Onto: slab Window: wb = ( |
@@ -1035,13 +1035,13 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Comment: Cap motion-blur presents at this many frames per second. 0 = uncapped. ui targetFPS: 60 -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: InitializeToExpression: (60)\x7fVisibility: public'
         
          targetFPS <- 60.
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Comment: Same shape as x11Traits tryToOpenWindowForDisplay: open the window, then window finishOpening. Direct uses a windowCanvas, so install that platformWindow first. Same Verdana/Bold as indexed: Helvetica Neue Light+AA made slot names and contents fuzzy vs old ui1; Verdana Bold+AA was too heavy, so ui1 text draws with AA off. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          tryToOpenWindowForDisplay: disp IfFail: fb = ( |
@@ -1056,14 +1056,14 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          uiColorPalette = ( |
             | ui1 x11DirectColorPalette).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          windowPrototype = ( |
@@ -1075,7 +1075,7 @@ SlotsToOmit: parent.
             w).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'ModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot'
         
          worldPrototype = ( |
@@ -1084,7 +1084,7 @@ SlotsToOmit: parent.
             ui1 uiWorld).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fComment: Slab-only zoom (no text). Used when layer text fades in after open / out before close. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
         
          zoomEmptySlabFrom: s To: e Animator: anim Layer: layer = ( |
@@ -1106,7 +1106,7 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fComment: Direct: 3-D slab plus front-face text scaled every frame, or empty-slab zoom then fade text. Layer understands world, uiColors, zoomSlab, contentsBitmapFromScreen:, drawItemsColor:. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          zoomLayer: layer From: s To: e FromScreen: fromScreen Animator: anim = ( |
@@ -1127,7 +1127,7 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fComment: Zoom the 3-D slab with contents stretched onto the front face. -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: private'
         
          zoomLayerScaling: layer From: s To: e FromScreen: fromScreen Animator: anim = ( |
@@ -1157,7 +1157,7 @@ SlotsToOmit: parent.
             self).
         } | ) 
 
- bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'directTraits' -> () From: ( | {
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'quartzTraits' -> () From: ( | {
          'Category: layers\x7fComment: Direct: 3-D slab plus front-face text scaled every frame. X11 zooms an empty slab then fades text in via colormap. fromScreen true is close (copy the drawn layer); false is open (render items). -- grok 08/26/26\x7fModuleInfo: Module: ui1OnQuartz InitialContents: FollowSlot\x7fVisibility: public'
         
          zoomMenu: menu From: s To: e FromScreen: fromScreen Animator: anim = ( |
