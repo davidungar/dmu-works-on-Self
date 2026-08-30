@@ -776,14 +776,12 @@ whenever the background menu is rebuilt\x7fModuleInfo: Module: worldMorph Initia
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
-         'Category: window management\x7fComment: True if an X11 (XQuartz) display connection can be opened; lets
- windowCanvasPrototypeForDisplay: fall back to Quartz on macOS when
- no X server is reachable.  Non-interactive, unlike openDisplayNamed:.
- -- claude & dmu 5/2026\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: window management\x7fComment: True if an X11 display connection can be opened. Checks the dylib first on macOS so a weak NULL XOpenDisplay is never called. Non-interactive, unlike openDisplayNamed:. -- claude & grok & dmu 5/26, 8/26\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
         
          canOpenXDisplay: dispName = ( |
              d.
             | 
+            xlib display libraryPresent ifFalse: [^ false].
             d: xlib display open: dispName IfFail: [| :e | ^ false].
             d close.
             true).
@@ -2705,21 +2703,21 @@ IfAbsent: argument if none.\x7fModuleInfo: Module: worldMorph InitialContents: F
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'worldMorph' -> () From: ( | {
-         'Category: window management\x7fComment: Pick the backend from the (already host-adjusted) display name:
- \'quartz\', or an empty name on macOS, -> Quartz; anything else -> X11.
- On macOS, if the chosen X display can\'t be opened (e.g. no XQuartz
- running), fall back to Quartz. -- claude & dmu 5/2026\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: window management\x7fComment: Pick the backend from the (already host-adjusted) display name: \'quartz\', or an empty name on macOS, -> Quartz; anything else -> X11. Explicit X11 does not fall back to Quartz. -- claude & grok & dmu 5/26, 8/26\x7fModuleInfo: Module: worldMorph InitialContents: FollowSlot\x7fVisibility: private'
         
          windowCanvasPrototypeForDisplay: dispName = ( |
             | 
             dispName = 'quartz' ifTrue: [^ quartzGlobals windowCanvas].
             (dispName isEmpty && [host osName == 'macOSX'])
               ifTrue: [^ quartzGlobals windowCanvas].
+            xlib display libraryPresent ifFalse: [
+                error: ('Could not open X11 display \'', dispName,
+                        '\': X11 library not installed. Use desktop openOnQuartz, or install XQuartz.')
+            ].
             xPreferencesAdjuster adjust.
             ((host osName == 'macOSX') && [(canOpenXDisplay: dispName) not]) ifTrue: [
                (startXQuartzAndCanOpen: dispName) ifFalse: [
-                  noteXFallbackToReadmeOnce.
-                  ^ quartzGlobals windowCanvas
+                  error: ('Could not open X11 display \'', dispName, '\'.')
                ].
             ].
             x11Globals windowCanvas).

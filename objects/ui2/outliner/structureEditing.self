@@ -8,7 +8,7 @@ See the LICENSE file for license information.
  '-- Module body'
 
  bootstrap addSlotsTo: bootstrap stub -> 'globals' -> 'abstractSyntax' -> 'abstractSyntaxTest' -> () From: ( | {
-         'Category: Test suite\x7fModuleInfo: Module: structureEditing InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: Test suite\x7fComment: Suppress the ui1 invitation when opening a desktop for this test. -- grok 08/29/26\x7fModuleInfo: Module: structureEditing InitialContents: FollowSlot\x7fVisibility: public'
         
          doTestStructureEditor: msg = ( |
              aMsg.
@@ -22,7 +22,10 @@ See the LICENSE file for license information.
                     n selector = 'foo:Bar:' ifTrue: [ aMsg: n]
                  ]]
                Sons: [ ].
-            desktop isOpen ifFalse: [ desktop open. closeDesktop: true].
+            desktop isOpen ifFalse: [
+                desktop suppressUI1Invitation: true.
+                desktop open.
+                closeDesktop: true].
             theEditor: t createStructureEditor: nil.
             desktop w safelyDo: [
               theEditor currentColumn changed.

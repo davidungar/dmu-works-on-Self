@@ -253,12 +253,13 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui2test' -> () From: ( | {
-         'Category: copying\x7fModuleInfo: Module: ui2test InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: copying\x7fComment: Suppress the ui1 invitation morph when opening a desktop for tests. -- grok 08/29/26\x7fModuleInfo: Module: ui2test InitialContents: FollowSlot\x7fVisibility: public'
         
          copy = ( |
             | 
             desktop isOpen ifFalse: [
                 'Opening desktop for ui2 test' printLine.
+                desktop suppressUI1Invitation: true.
                 desktop open.
                 closeWhenDone: true.
             ] True: [

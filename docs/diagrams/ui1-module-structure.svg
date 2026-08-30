@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="920" viewBox="0 0 1200 920">
+  <defs>
+    <style>
+      .title { font: 700 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .subtitle { font: 400 13px system-ui, -apple-system, sans-serif; fill: #555; }
+      .col-title { font: 700 14px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .box-title { font: 600 12px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .mono { font: 500 11px ui-monospace, Menlo, monospace; fill: #222; }
+      .mono-sm { font: 400 10px ui-monospace, Menlo, monospace; fill: #333; }
+      .note { font: 400 11px system-ui, -apple-system, sans-serif; fill: #555; }
+      .arrow-lab { font: 500 10px system-ui, -apple-system, sans-serif; fill: #666; }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#666"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="920" fill="#f7f7f5"/>
+  <text x="40" y="36" class="title">ui1 after encapsulation — module structure</text>
+  <text x="40" y="58" class="subtitle">Filesystem modules stay flat under objects/ui1/ and globals modules; prototypes/traits nest under ui1 at runtime</text>
+
+  <!-- ========== Column 1: load graph ========== -->
+  <rect x="30" y="80" width="340" height="800" rx="10" fill="#fff" stroke="#d0d0cc"/>
+  <text x="48" y="108" class="col-title">1. Load graph (file-in)</text>
+
+  <rect x="55" y="125" width="290" height="36" rx="6" fill="#e8f0fe" stroke="#8ab4f8"/>
+  <text x="70" y="148" class="mono">objects/all2.self</text>
+
+  <line x1="200" y1="161" x2="200" y2="185" stroke="#666" marker-end="url(#arrow)"/>
+  <text x="210" y="178" class="arrow-lab">bootstrap read: allUI From: ui1</text>
+
+  <rect x="55" y="185" width="290" height="36" rx="6" fill="#e6f4ea" stroke="#81c995"/>
+  <text x="70" y="208" class="mono">objects/ui1/allUI.self</text>
+
+  <line x1="200" y1="221" x2="200" y2="245" stroke="#666" marker-end="url(#arrow)"/>
+  <text x="210" y="238" class="arrow-lab">subpartNames order</text>
+
+  <!-- load groups -->
+  <rect x="55" y="250" width="290" height="610" rx="6" fill="#fafafa" stroke="#ddd"/>
+  <text x="70" y="272" class="box-title">objects/ui1/*.self  (modules)</text>
+
+  <text x="70" y="298" class="mono-sm" xml:space="preserve">events / foundation
+  ui1Event  enumResult  slab
+  uiColormap  uiColorPalette
+  boxSize  boxBitmap  uiNester
+  uiWorld  boxBlueprint  uiBody
+
+regions / bodies / slots
+  objBodyRegions  objectBody
+  slotCpt  uiButton  contentsButton
+  slotNameCpt  slotContentsCpt
+
+menus / buttons
+  menu  menuItem  hierarchicalMenu
+  menuButton  hiddenSlotsButton
+  objectButton  slotButton  sendButton
+
+bodies by type / animation / core
+  objBodyTypes  animator  ui
+    └─ uiOnX11 (subpart of ui)
+
+arrows / editors / chrome
+  arrowheadCache  uiArrow
+  textEditor  uiNotifier  transcript
+  toggleBody  togglers
+
+apps
+  diffUI  uiDemo
+
+(not in allUI subparts)
+  colormapEmulation  ui1TestDriver</text>
+
+  <!-- ========== Column 2: modules registry ========== -->
+  <rect x="400" y="80" width="340" height="800" rx="10" fill="#fff" stroke="#d0d0cc"/>
+  <text x="418" y="108" class="col-title">2. Module registry (flat)</text>
+
+  <rect x="425" y="125" width="290" height="50" rx="6" fill="#fce8e6" stroke="#f28b82"/>
+  <text x="440" y="148" class="mono">globals modules</text>
+  <text x="440" y="166" class="note">transporter registry — names NOT nested</text>
+
+  <line x1="570" y1="175" x2="570" y2="200" stroke="#666" marker-end="url(#arrow)"/>
+
+  <rect x="425" y="200" width="290" height="520" rx="6" fill="#fafafa" stroke="#ddd"/>
+  <text x="440" y="222" class="box-title">globals modules &lt;name&gt;</text>
+  <text x="440" y="248" class="mono-sm" xml:space="preserve">allUI
+ui1Event  enumResult  slab
+uiColormap  uiColorPalette
+boxSize  boxBitmap  uiNester
+uiWorld  boxBlueprint  uiBody
+objBodyRegions  objectBody
+slotCpt  uiButton  contentsButton
+slotNameCpt  slotContentsCpt
+menu  menuItem  hierarchicalMenu
+menuButton  hiddenSlotsButton
+objectButton  slotButton  sendButton
+objBodyTypes  animator  ui  uiOnX11
+arrowheadCache  uiArrow
+textEditor  uiNotifier  transcript
+toggleBody  togglers
+diffUI  uiDemo
+colormapEmulation  ui1TestDriver
+
+each module:
+  directory &lt;- 'ui1'
+  subpartNames / postFileIn
+  owns filed slots</text>
+
+  <rect x="425" y="740" width="290" height="100" rx="6" fill="#fff8e1" stroke="#fdd663"/>
+  <text x="440" y="765" class="box-title">Unchanged by encapsulation</text>
+  <text x="440" y="788" class="note">Module *keys* stay flat so transporter</text>
+  <text x="440" y="806" class="note">paths and file names stay stable.</text>
+  <text x="440" y="824" class="note">Only *creator paths* of content nest.</text>
+
+  <!-- ========== Column 3: runtime namespace ========== -->
+  <rect x="770" y="80" width="400" height="800" rx="10" fill="#fff" stroke="#d0d0cc"/>
+  <text x="788" y="108" class="col-title">3. Runtime name space (nested)</text>
+
+  <rect x="795" y="125" width="350" height="340" rx="6" fill="#e6f4ea" stroke="#81c995"/>
+  <text x="810" y="150" class="mono">globals ui1</text>
+  <text x="810" y="172" class="note">Category: userInterface</text>
+  <text x="810" y="198" class="mono-sm" xml:space="preserve">ui                 ← entry: ui1 ui start
+uiWorld  uiWorld32
+uiBody  uiNester  uiArrow
+uiColormap  uiColorPalette
+uiPatternPalette  uiNotifier
+objectBody + *Body variants
+slotCpt  slotNameCpt  slotContentsCpt
+slotButton  objectButton  sendButton …
+menu  menuItem  hierarchicalMenu
+button  slider  slab  caret
+textEditor  textField  …
+boxSize  boxBitmap  boxBlueprint
+arrowheadCache  togglers  transcript
+testDriver          ← was ui1TestDriver
+…</text>
+
+  <rect x="795" y="485" width="350" height="280" rx="6" fill="#e8f0fe" stroke="#8ab4f8"/>
+  <text x="810" y="510" class="mono">traits ui1</text>
+  <text x="810" y="532" class="note">mirrors prototypes + platform seams</text>
+  <text x="810" y="558" class="mono-sm" xml:space="preserve">ui  (+ missingBoxBlock, testUI, …)
+uiWorld  objectBody  menu  button …
+eventSource         ← was ui1EventSource
+testDriver          ← was ui1TestDriver
+graphics            ← was ui1Graphics
+  abstract / abstractX11 / abstractQuartz
+  x11  x11OnCanvas  quartz  newQuartz
+  patterns, boxSizePlatformMixin, …</text>
+
+  <rect x="795" y="785" width="350" height="70" rx="6" fill="#f3e8fd" stroke="#c58af9"/>
+  <text x="810" y="810" class="box-title">Platform (not under ui1)</text>
+  <text x="810" y="832" class="mono-sm">xlib ui1EventSource → traits ui1 eventSource</text>
+  <text x="810" y="848" class="mono-sm">quartz ui1EventSource → traits ui1 eventSource</text>
+
+  <!-- cross arrows -->
+  <path d="M370 210 C390 210, 390 230, 425 230" fill="none" stroke="#888" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+  <text x="375" y="200" class="arrow-lab">registers</text>
+
+  <path d="M715 350 C745 350, 745 280, 795 280" fill="none" stroke="#888" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+  <text x="720" y="320" class="arrow-lab">defines</text>
+  <text x="720" y="334" class="arrow-lab">content</text>
+
+  <path d="M715 480 C745 480, 745 600, 795 600" fill="none" stroke="#888" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+</svg>

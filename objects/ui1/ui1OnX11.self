@@ -1076,10 +1076,20 @@ SlotsToOmit: parent.
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> 'x11Traits' -> () From: ( | {
-         'Category: starting and stopping\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
+         'Category: starting and stopping\x7fComment: Refuse to call XOpenDisplay if the X11 dylib is missing (weak-linked on macOS). Start XQuartz if ui2 is loaded. -- grok 08/29/26\x7fModuleInfo: Module: ui1OnX11 InitialContents: FollowSlot'
         
          tryToOpenWindowForDisplay: disp IfFail: fb = ( |
             | 
+            xlib display libraryPresent ifFalse: [
+                ^ fb value: 'X11 library not installed (install XQuartz to use ui openOnX11).'
+            ].
+            ((reflect: globals) includesKey: 'worldMorph') ifTrue: [
+                ((host osName == 'macOSX') && [(worldMorph canOpenXDisplay: disp) not]) ifTrue: [
+                    (worldMorph startXQuartzAndCanOpen: disp) ifFalse: [
+                        ^ fb value: ('Could not open X11 display \'', disp, '.')
+                    ].
+                ].
+            ].
             quartz lucidaSansFamily: 'Verdana'.
             quartz lucidaSansRomanSuffix: ''.
             quartz lucidaSansBoldSuffix: 'Bold'.

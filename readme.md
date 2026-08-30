@@ -59,49 +59,50 @@ Cross-compiling for visionOS uses a host-tool sub-project to build the
 code-generation tools that run on the Mac during the build; this is handled
 automatically by the wrapper.
 
-Running the UI under X11 (XQuartz) on macOS
--------------------------------------------
+Opening the UI
+--------------
 
-On macOS the Self UI normally uses the native Quartz backend, which is the
-simplest and fastest choice for solo, local work. Set up the X11 (XQuartz)
-backend if you might ever want either of:
+On macOS the default is native Quartz. X11 is not required to launch Self or
+to open a local world. The same verb opens both UIs:
 
-- a *collaborative* session -- Self lets several people share one world, even
-  work together in the same editor window, with each person's display served
-  over X11, optionally from another machine; or
-- to try ui1, the original Self environment and perhaps the first IDE to apply
-  the principles of cartoon animation to a user interface (Bay-Wei Chang and
-  David Ungar, "Animation: From Cartoons to the User Interface," UIST '93,
-  pp. 43-55 -- see `docs/papers/animation.pdf` -- later honored with the 2004
-  ACM UIST Lasting Impact Award). ui1 needs an 8-bit X display, so it runs only
-  under X11.
+- `desktop open` -- ui2 (Morphic). Quartz on macOS; X11 on Linux/BSD
+- `ui open` -- ui1, the original Self environment (cartoon animation; Chang
+  and Ungar, UIST '93 -- `docs/papers/animation.pdf`). Quartz 32-bit true
+  colour on macOS; X11 on Linux/BSD. `ui start` is an alias.
 
-(X11 is also handy for plain remote display.)
+Backend suffixes (same on `desktop` and `ui`):
+
+- `openOnQuartz` -- force Quartz (macOS only)
+- `openOnX11` -- X11 on `$DISPLAY`, or `:0` if unset
+- `openOnDisplay: 'host:0'` -- X11 on that display
+
+Additional ui2 worlds: `desktop openNewWorld` / `openNewWorldOnQuartz` /
+`openNewWorldOnX11` / `openNewWorldOnDisplay: 'host:0'`. A second ui1 window:
+`ui copy open`.
+
+Set up X11 (XQuartz) if you want a *collaborative* session (several people
+sharing one world over X11), remote display, or classic 8-bit ui1. A display
+name is `host:number.screen`; `:0` is "display 0 on this machine".
 
 ### Opening an X11 world
 
-- `desktop open` -- the main desktop, preferring X11 (falls back to Quartz if X
-  cannot be started)
-- `desktop openOnX11` / `desktop openOnQuartz` -- the main desktop, forcing X11
-  or Quartz
-- `desktop openNewWorldOnX11` / `desktop openNewWorldOnQuartz` -- an additional
-  world (use these for a collaborative session)
-- `desktop openNewWorldOnDisplay: 'host:0'` -- an additional world on a specific
-  X display
+- `desktop openOnX11` / `ui openOnX11` -- default X display (`$DISPLAY` or `:0`)
+- `desktop openOnDisplay: 'host:0'` / `ui openOnDisplay: 'host:0'` -- a
+  specific X display
+- `desktop openNewWorldOnX11` / `openNewWorldOnDisplay: 'host:0'` -- an
+  additional ui2 world (use these for a collaborative session)
 
-`desktop open` and the `...OnX11` commands target `$DISPLAY` -- the standard X
-environment variable that names your X server -- falling back to `:0` if it is
-unset. The `:0` fallback is ordinary X notation: a display name is
-`host:number.screen`, so `:0` means "display 0 on your local host", the first X
-server on this machine.
+These commands do not silently fall back to Quartz. If XQuartz is installed
+but not running, Self starts it. If X11 is not installed, they fail with a
+message; use `desktop open` / `ui open` (Quartz) instead.
 
 ### Installing XQuartz
 
 Install from https://www.xquartz.org or `brew install --cask xquartz`. You do
 not normally launch it yourself: XQuartz sets `$DISPLAY`, and Self starts
 XQuartz on demand the first time you open an X11 world (printing a brief
-"Starting X11" notice). If X still cannot be opened, Self falls back to Quartz
-and, once per session, points you back to this section.
+"Starting X11" notice). If X still cannot be opened, the `openOnX11` /
+`openOnDisplay:` commands fail rather than silently using Quartz.
 
 ### The one setting you must change
 
@@ -121,7 +122,7 @@ no per-shortcut control.
 
 | Tab | Setting | Use | When it matters |
 |-----|---------|-----|-----------------|
-| Output     | Colors -> 256 (8-bit)                  | on      | only if you run ui1, which requires an 8-bit display; ui2 and Quartz don't care |
+| Output     | Colors -> 256 (8-bit)                  | on      | only for classic 8-bit `ui openOnX11`; Quartz ui1 (`ui open`) and ui2 don't care |
 | Input      | Emulate three button mouse             | on      | unless your mouse already has three buttons -- the Self UI uses middle and right |
 | Input      | Option keys send Alt_L and Alt_R       | preference | ON makes Option act as Alt (Self uses Alt only for Alt+arrow and Alt+Enter); OFF lets Option compose accented characters |
 | Input      | Follow system keyboard layout          | preference | ON tracks your macOS keyboard layout (matters for non-US layouts); OFF uses XQuartz's built-in keymap -- no Self-specific effect |
@@ -133,7 +134,8 @@ no per-shortcut control.
 `enable_key_equivalents` (off) is always required. *Emulate three button mouse*
 is required for any Self X11 UI -- both ui1 and ui2 use the middle and right
 buttons -- unless your mouse already has three. *256-color/8-bit* is required
-only for ui1 (ui2 and Quartz don't care). Everything else is preference.
+only for classic X11 ui1 (Quartz ui1 and ui2 don't care). Everything else is
+preference.
 
 ### Copy and paste
 

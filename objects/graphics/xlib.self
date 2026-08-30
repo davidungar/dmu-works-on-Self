@@ -3588,6 +3588,16 @@ XQuartz -- claude & dmu 5/2026\x7fModuleInfo: Module: xlib InitialContents: Foll
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
+         'Category: connections\x7fComment: On macOS, X11 is weakly linked; calling open: with no dylib crashes. True on Linux/BSD (X is a hard dep). -- grok 08/29/26\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
+        
+         libraryPresent = ( |
+            | 
+            host osName == 'macOSX' ifFalse: [^ true].
+            (os_file exists: '/opt/X11/lib/libX11.6.dylib')
+              || [os_file exists: '/opt/X11/lib/libX11.dylib']).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'xlib' -> 'display' -> () From: ( | {
          'Category: connections\x7fModuleInfo: Module: xlib InitialContents: FollowSlot\x7fVisibility: public'
         
          open: dispName = ( |

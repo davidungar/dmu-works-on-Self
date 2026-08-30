@@ -602,11 +602,12 @@ SlotsToOmit: directory fileInTimeString myComment postFileIn revision subpartNam
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'graphics' -> () From: ( | {
-         'Category: behaviors\x7fComment: registry: map a backend name to its backend object. Unknown names fall back to the indexed quartz backend.\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: private'
+         'Category: behaviors\x7fComment: Map a backend name to its backend object. quartz/direct (and empty on macOS) -> 32-bit Quartz; anything else is X11. -- grok 08/29/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: private'
         
          prototypeNamed: nm = ( |
             | 
-            nm = 'quartz' ifTrue: [^ quartz].
+            ((nm = 'quartz') || [nm = 'direct']) ifTrue: [^ quartz].
+            (nm isEmpty && [host osName == 'macOSX']) ifTrue: [^ quartz].
             x11).
         } | ) 
 
@@ -1856,7 +1857,7 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
                 } 
             | 
             bods: world bodies.
-            setUpOn: preferences xDisplay Initial: [
+            setUpOn: ((host osName == 'macOSX') ifTrue: 'quartz' False: [os environmentAt: 'DISPLAY' IfFail: ':0']) Initial: [
               bods isEmpty ifTrue: [ createRoot: reflect: startObj ]
                             False: [ repopulate: bods              ]
             ].
@@ -2076,11 +2077,52 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: starting\x7fComment: Quartz on macOS, X11 on Linux/BSD. Same verb as desktop open. -- grok 08/29/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         open = ( |
+            | 
+            (host osName == 'macOSX') ifTrue: [openOnQuartz] False: [openOnX11]).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fComment: X11 ui1 on that display. -- grok 08/29/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         openOnDisplay: d = ( |
+            | 
+            ((d = 'quartz') || [d = 'direct']) ifTrue: [
+                error: 'openOnDisplay: takes an X display name; use openOnQuartz'
+            ].
+            startOn: d With: startObj).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fComment: 32-bit true-colour Quartz ui1. Error on non-macOS. -- grok 08/29/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         openOnQuartz = ( |
+            | 
+            host osName == 'macOSX' ifFalse: [
+                error: 'Quartz is only available on macOS'
+            ].
+            startOn: 'quartz' With: startObj).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fComment: Classic 8-bit X11 ui1 on desktop xDisplayName. -- grok 08/29/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         openOnX11 = ( |
+             n.
+            | 
+            n: os environmentAt: 'DISPLAY' IfFail: ':0'.
+            n isEmpty ifTrue: [n: ':0'].
+            openOnDisplay: n).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fComment: Same as open. -- grok 08/29/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          start = ( |
             | 
-            startOn: 'quartz').
+            open).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
@@ -2090,11 +2132,17 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
-         'Category: starting\x7fComment: Phase 1.5 dual-backend A/B switch: if the argument is a registry-known graphics-backend name (e.g. quartz / newQuartz) select that backend and start on the default display; otherwise treat it as a display, exactly as before.\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+         'Category: starting\x7fComment: Compatibility dispatcher. quartz/direct/empty-on-macOS -> openOnQuartz; x11 -> openOnX11; else openOnDisplay:. -- grok 08/29/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          startOn: dispOrBackend = ( |
             | 
-            startOn: dispOrBackend With: startObj).
+            ((dispOrBackend = 'quartz')
+              || [dispOrBackend = 'direct']
+              || [dispOrBackend isEmpty && [host osName == 'macOSX']]) ifTrue: [
+                ^ openOnQuartz
+            ].
+            dispOrBackend = 'x11' ifTrue: [^ openOnX11].
+            openOnDisplay: dispOrBackend).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
@@ -2108,11 +2156,39 @@ must have some way of figuring out which ui1 uiWorld to put the new ui1 togglers
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fComment: Alias of openOnDisplay:. -- grok 08/29/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         startOnDisplay: d = ( |
+            | 
+            openOnDisplay: d).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fComment: Alias of openOnQuartz. -- grok 08/29/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         startOnQuartz = ( |
+            | 
+            openOnQuartz).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
+         'Category: starting\x7fComment: Alias of openOnX11. -- grok 08/29/26\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
+        
+         startOnX11 = ( |
+            | 
+            openOnX11).
+        } | ) 
+
+ bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {
          'Category: starting\x7fModuleInfo: Module: ui1 InitialContents: FollowSlot\x7fVisibility: public'
         
          startWith: obj = ( |
             | 
-            startOn: preferences xDisplay With: obj).
+            (host osName == 'macOSX') ifTrue: [
+                startOn: 'quartz' With: obj
+            ] False: [
+                startOn: (os environmentAt: 'DISPLAY' IfFail: ':0') With: obj
+            ]).
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'traits' -> 'ui1' -> 'ui' -> () From: ( | {

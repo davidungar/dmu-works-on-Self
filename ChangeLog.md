@@ -1,6 +1,14 @@
 Changes in Master
 -----------------
 
+Objects:
+
+* Regularized UI start: `desktop open` and `ui open` (same verb). On macOS both default to Quartz (no X11 required). X11: `openOnX11` / `openOnDisplay:`. `ui start*` remains as aliases. First `desktop open` invites the user to try ui1.
+
+VM:
+
+* macOS: X11 is optional at configure time and weakly linked so `Self.app` launches without XQuartz.
+
 Deprecated:
 
 * travis-ci.org for CI

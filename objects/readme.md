@@ -11,3 +11,9 @@ and follow the prompts. When finished, if you have loaded Morphic (UI2) you can 
 
 desktop open
 
+On macOS that uses Quartz (no X11 required). For the original UI (ui1):
+
+ui open
+
+X11: `desktop openOnX11` / `ui openOnX11`, or `openOnDisplay: 'host:0'`.
+

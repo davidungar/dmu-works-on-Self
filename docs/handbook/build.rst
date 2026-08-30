@@ -133,7 +133,7 @@ Once you have started the ``worldBuilder.self`` script, you will be given option
         . . .
 
 
-2. Unless you have specified the options on the command line, then at various places, you will be asked if you wish to add optional additions to the base system, such as the morphic user interface (UI2) or the earlier UI1 (which requires X11 to run):
+2. Unless you have specified the options on the command line, then at various places, you will be asked if you wish to add optional additions to the base system, such as the morphic user interface (UI2) or the earlier UI1 (which runs on Quartz on macOS; X11 is optional):
 
     ::
 
@@ -148,7 +148,7 @@ Once you have started the ``worldBuilder.self`` script, you will be given option
 
     That last line is the Self prompt indicating that the system is ready to read and evaluate expressions.
 
-4. If you have loaded Morphic, you may wish to open up a window:
+4. If you have loaded Morphic, you may wish to open up a window. On macOS ``desktop open`` uses Quartz and does not require X11. The original UI is ``ui open``. For X11, ``desktop openOnX11`` / ``ui openOnX11``.
 
     ::
 

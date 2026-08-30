@@ -64,14 +64,18 @@ SlotsToOmit: comment directory fileInTimeString myComment postFileIn revision su
         } | ) 
 
  bootstrap addSlotsTo: bootstrap stub -> 'shell' -> () From: ( | {
-         'ModuleInfo: Module: shell InitialContents: FollowSlot\x7fVisibility: public'
+         'Comment: How to evaluate expressions and open ui1 / ui2. -- grok 08/29/26\x7fModuleInfo: Module: shell InitialContents: FollowSlot\x7fVisibility: public'
         
          help = '
         Enter a Self expression to be evaluated.
 
-        To start the graphical user interface, enter
+        To open the graphical user interface (ui2), enter
 
            desktop open
+
+        To open the original Self UI (ui1), enter
+
+           ui open
 
 '.
         } | ) 
